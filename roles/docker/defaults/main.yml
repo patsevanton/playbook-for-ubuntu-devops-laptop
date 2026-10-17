@@ -7,6 +7,21 @@ docker_packages:
   - containerd.io
   - docker-compose-plugin
 
+# Пакеты Docker из репозитория Ubuntu удаляются до установки официальных:
+# они занимают те же файлы, и dpkg отказывается перезаписывать их
+# (docker-compose-v2 и docker-compose-plugin делят
+# /usr/libexec/docker/cli-plugins/docker-compose). docker-compose в 26.04 —
+# виртуальный пакет, apt просто пропускает его.
+docker_conflicting_packages:
+  - docker.io
+  - docker-doc
+  - docker-compose
+  - docker-compose-v2
+  - docker-buildx
+  - podman-docker
+  - containerd
+  - runc
+
 docker_keyring_dir: /etc/apt/keyrings
 docker_key_path: "{{ docker_keyring_dir }}/docker.asc"
 docker_key_url: https://download.docker.com/linux/ubuntu/gpg

@@ -32,6 +32,15 @@
     state: present
     update_cache: true
 
+# Ubuntu-версии Docker-пакетов занимают те же файлы, что и официальные сборки,
+# поэтому dpkg падает с «trying to overwrite .../cli-plugins/docker-compose».
+# Удаляем их заранее; заодно apt донастраивает пакеты после сбоев dpkg.
+- name: Удалить конфликтующие Docker-пакеты из репозитория Ubuntu
+  become: true
+  ansible.builtin.apt:
+    name: "{{ docker_conflicting_packages }}"
+    state: absent
+
 - name: Установить Docker Engine и Compose V2 (плагин)
   become: true
   ansible.builtin.apt:
