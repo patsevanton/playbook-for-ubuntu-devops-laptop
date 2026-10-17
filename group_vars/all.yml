@@ -9,10 +9,17 @@
 # --- Пользователь и пути ----------------------------------------------------
 user_name: "{{ ansible_facts['user_id'] }}"
 home_dir: "{{ ansible_facts['env']['HOME'] }}"
-# Куда кладутся скачанные бинарники.
+# Каталог для скачанных бинарников.
 bin_dir: /usr/local/bin
 # Временный каталог для загрузок и распаковки.
 tmp_dir: /var/tmp/devops-install
+# pipx: изолированные окружения для Python-приложений (rkn-block-checker).
+# Шимы кладутся в pipx_bin_dir (~/.local/bin уже в PATH через devops-shell.sh).
+pipx_executable: /usr/bin/pipx
+pipx_home: "{{ home_dir }}/.local/pipx"
+pipx_bin_dir: "{{ home_dir }}/.local/bin"
+# Интерпретатор, которым pipx создаёт venv (в Ubuntu 26.04 — python3.13+).
+pipx_python: /usr/bin/python3
 # Файл окружения, который подключается из ~/.bashrc.
 shell_file: "{{ home_dir }}/.config/devops-shell.sh"
 # Конфиг starship (тема prompt); starship читает его по этому пути по умолчанию.

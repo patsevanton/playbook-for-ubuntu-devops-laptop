@@ -74,3 +74,47 @@
         mode: "0755"
         owner: root
         group: root
+
+# --- pitwall: GUI-терминал для coding-агентов -------------------------------
+- name: Проверить наличие pitwall
+  ansible.builtin.stat:
+    path: "{{ bin_dir }}/pitwall"
+  register: pitwall_stat
+
+- name: Установить pitwall
+  when: not pitwall_stat.stat.exists
+  block:
+    - name: Установить бинарник pitwall (актуальная версия)
+      ansible.builtin.include_role:
+        name: binaries
+      vars:
+        binaries_to_install: "{{ pitwall_binaries }}"
+
+    - name: Положить ярлык pitwall в меню приложений
+      become: true
+      ansible.builtin.copy:
+        src: "{{ pitwall_unpack_dir }}/pitwall.desktop"
+        dest: "{{ pitwall_desktop_dir }}/pitwall.desktop"
+        remote_src: true
+        mode: "0644"
+
+    - name: Убедиться, что каталог иконок существует
+      become: true
+      ansible.builtin.file:
+        path: "{{ pitwall_icon_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Положить иконку pitwall
+      become: true
+      ansible.builtin.copy:
+        src: "{{ pitwall_unpack_dir }}/pitwall.svg"
+        dest: "{{ pitwall_icon_dir }}/pitwall.svg"
+        remote_src: true
+        mode: "0644"
+
+    - name: Обновить кэш иконок
+      become: true
+      ansible.builtin.command: gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor
+      changed_when: false
+      failed_when: false

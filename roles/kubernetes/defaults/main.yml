@@ -46,6 +46,21 @@ kubernetes_binaries:
     url: "https://github.com/stern/stern/releases/download/{tag}/stern_{version}_linux_amd64.tar.gz"
     archive: tar
     member: stern
+  # flate/flux-tools — офлайн-рендер и дифф Flux GitOps-репозитория без
+  # кластера (Helm + kustomize внутри бинарника). flate — Go-переписывание
+  # flux-local, flux-tools — независимая реализация.
+  - name: flate
+    source: github
+    repo: home-operations/flate
+    url: "https://github.com/home-operations/flate/releases/download/{tag}/flate_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: flate
+  - name: flux-tools
+    source: github
+    repo: alexandervidyaev/flux-tools
+    url: "https://github.com/alexandervidyaev/flux-tools/releases/download/{tag}/flux-tools_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: flux-tools
 
 # kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
 kubectx_ref: master

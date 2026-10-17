@@ -71,15 +71,19 @@ ansible-lint                                   # проверка стиля (pr
 │   └── all.yml                 # общие переменные проекта
 ├── roles/
 │   ├── base/                   # проверки, каталоги, базовые пакеты, yq
-│   ├── git/                    # gh (GitHub CLI), glab (GitLab CLI), gitlabcloner
+│   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2
-│   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s, stern
+│   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
+│   │                           #   stern, flate, flux-tools
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tfenv, tgenv
 │   ├── runtimes/               # Python, pipx, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault, gitleaks
-│   ├── shell/                  # eza, zoxide, fzf, starship, bat, Nerd Font, конфиг shell
-│   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet
-│   ├── opencode/               # opencode (из npm-реестра)
+│   ├── shell/                  # eza, zoxide, fzf, starship, bat, JetBrainsMono Nerd Font,
+│   │                           #   конфиг shell
+│   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
+│   │                           #   rkn-block-checker (pipx)
+│   ├── opencode/               # opencode (из npm-реестра), pitwall (GUI-терминал)
+│   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
 │   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
 │   └── binaries/               # общий движок установки бинарников (вызывается ролями)
 ├── .ansible-lint
@@ -87,8 +91,8 @@ ansible-lint                                   # проверка стиля (pr
 ```
 
 Роль `binaries` не тянет инструменты сама: её вызывают роли `base`, `git`,
-`kubernetes`, `iac`, `secrets`, `shell`, передавая список того, что нужно поставить.
-Каждая роль хранит свой список в `roles/<роль>/defaults/main.yml`.
+`kubernetes`, `iac`, `secrets`, `shell`, `opencode`, передавая список того, что
+нужно поставить. Каждая роль хранит свой список в `roles/<роль>/defaults/main.yml`.
 
 Имя `playbook.yml` выбрано осознанно; в чужих проектах точку входа часто называют
 `site.yml` — переименование ничего не ломает.
@@ -99,19 +103,24 @@ ansible-lint                                   # проверка стиля (pr
 
 1. Проверяет, что ОС — Ubuntu, архитектура — x86_64, и создаёт служебные каталоги.
 2. Ставит пакеты из репозитория Ubuntu (актуальные версии, без пинов).
-3. Ставит клиенты GitHub и GitLab: `gh`, `glab`, `gitlabcloner`.
+3. Ставит клиенты GitHub и GitLab: `gh`, `glab`, `gitlabcloner`, а также `glci`
+   (локальный запуск GitLab CI), `pre-commit` и `reposcan`.
 4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2.
-5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s, stern.
+5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
+   stern, а также flate и flux-tools (офлайн-рендер и дифф Flux GitOps).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, плюс tfenv и tgenv.
 7. Ставит рантаймы: Python (venv/pip/pipx), uv, Go, Node.js, Java 21.
 8. Ставит direnv, Vault и gitleaks.
 9. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
-   ставит Nerd Font (иконки для prompt и `eza --icons`).
-10. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
-11. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
+   ставит JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`).
+10. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и pitwall (GUI-терминал
+    для coding-агентов, с ярлыком в меню приложений).
+11. Ставит сетевую диагностику `rkn-block-checker` (через pipx).
+12. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
+13. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
-12. Добавляет пользователя в группу `docker`.
-13. В конце проверяет установку и печатает версии всех утилит.
+14. Добавляет пользователя в группу `docker`.
+15. В конце проверяет установку и печатает версии всех утилит.
 
 ---
 
@@ -126,6 +135,7 @@ ansible-lint                                   # проверка стиля (pr
 | secrets | direnv | окружение по каталогам |
 | shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig | удобная работа в терминале |
 | network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
+| audio | pipewire, pipewire-bin, pipewire-pulse, wireplumber, hicolor-icon-theme | шумоподавление микрофона (HushMic) |
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
 
 ### Скачиваемые бинарники в `/usr/local/bin`
@@ -136,6 +146,9 @@ ansible-lint                                   # проверка стиля (pr
 | gh | github.com/cli/cli |
 | glab | gitlab.com/gitlab-org/cli |
 | gitlabcloner | github.com/Andrey039/gitlabcloner |
+| glci | gitlab.com/gitlab-org/ci-cd/runner-tools/glci (Generic Packages) |
+| pre-commit | github.com/pre-commit/pre-commit (самодостаточный `.pyz`) |
+| reposcan | github.com/mabd-dev/reposcan |
 | kubectl | dl.k8s.io |
 | helm | get.helm.sh |
 | k9s | github.com/derailed/k9s |
@@ -144,6 +157,8 @@ ansible-lint                                   # проверка стиля (pr
 | flux | github.com/fluxcd/flux2 |
 | flux9s | github.com/dgunzy/flux9s |
 | stern | github.com/stern/stern |
+| flate | github.com/home-operations/flate |
+| flux-tools | github.com/alexandervidyaev/flux-tools |
 | tflint | github.com/terraform-linters/tflint |
 | terraform-docs | github.com/terraform-docs/terraform-docs |
 | packer | releases.hashicorp.com |
@@ -153,10 +168,15 @@ ansible-lint                                   # проверка стиля (pr
 | starship | github.com/starship/starship |
 | bat | github.com/sharkdp/bat |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
+| pitwall | github.com/quanticstudios/pitwall (GUI-терминал, + ярлык и иконка) |
+
+Отдельно (не через роль `binaries`): `rkn-block-checker` ставится из PyPI через
+pipx в `~/.local/bin` (роль `network`), `HushMic` — из `.deb`-пакета (роль
+`audio`).
 
 Скачивание версий идёт без GitHub API (лимит 60 запросов в час): тег последнего
 релиза берётся из HTTP-редиректа `releases/latest` — для GitHub это
-`github.com/<repo>/releases/latest`, для GitLab (утилита `glab`) —
+`github.com/<repo>/releases/latest`, для GitLab (утилиты `glab`, `glci`) —
 `gitlab.com/<repo>/-/releases/permalink/latest`.
 
 ---
@@ -239,6 +259,110 @@ curl -s http://127.0.0.1:9080/    # метрики
 ```bash
 docker pull ghcr.io/cloud-ru-tech/guardrails-llm-filter:latest
 sudo systemctl restart guardrails-llm-filter
+```
+
+---
+
+## Git, GitLab CI и обзор репозиториев
+
+Роль `git` дополнительно ставит:
+
+- **glci** (`github gitlab-org/ci-cd/runner-tools/glci`) — запуск GitLab CI/CD
+  пайплайнов локально. Парсит `.gitlab-ci.yml`, поднимает mock GitLab API и
+  `gitlab-runner` в контейнерах и выполняет джобы в Docker. Требуется локальный
+  Docker (или Podman). Бинарник `glci` лежит в GitLab Generic Packages, поэтому
+  версия берётся из редиректа permalink, а файл скачивается по API-пути.
+- **pre-commit** (`pre-commit/pre-commit`) — фреймворк git-хуков. Ставится
+  самодостаточным `.pyz`-zipapp (со shebang `python3`) прямо в
+  `/usr/local/bin/pre-commit`, без pip и virtualenv.
+- **reposcan** (`mabd-dev/reposcan`) — быстрый поиск git-репозиториев с
+  незакоммиченными/незапушенными изменениями по файловой системе.
+
+```bash
+pre-commit install          # включить хуки в текущем репозитории
+reposcan ~/src              # показать «грязные» репозитории
+glci run                    # прогнать пайплайн локально
+```
+
+---
+
+## Flux GitOps без кластера (flate, flux-tools)
+
+Роль `kubernetes` ставит два инструмента для офлайн-рендера и диффа Flux
+GitOps-репозитория — без кластера, `kubectl` и внешних `helm`/`kustomize`
+(библиотеки встроены в бинарник):
+
+- **flate** (`home-operations/flate`) — Go-переписывание `flux-local`: рендерит
+  и диффит GitOps-репозиторий, умеет режим «только изменённое поддерево».
+- **flux-tools** (`alexandervidyaev/flux-tools`) — независимая реализация:
+  собирает каждую Kustomization, шаблонит каждый HelmRelease, строит unified diff.
+
+```bash
+flate build --path ./kubernetes
+flate diff  --path ./kubernetes --path-orig ../baseline/kubernetes
+flux-tools test  clusters/prod --enable-helm
+flux-tools build clusters/prod --enable-helm
+```
+
+---
+
+## pitwall — терминал для coding-агентов
+
+Роль `opencode` ставит **pitwall** (`quanticstudios/pitwall`) — GUI-терминал для
+нескольких coding-агентов сразу: в сайдбаре видно, кто из агентов работает,
+ждёт ввода или закончил, и одна клавиша переводит в нужную сессию. Есть
+постоянные сессии, worktree и одобрения с телефона.
+
+Бинарник кладётся в `/usr/local/bin/pitwall`, ярлык — в
+`/usr/share/applications/pitwall.desktop`, иконка — в
+`/usr/share/icons/hicolor/scalable/apps/pitwall.svg` (после установки pitwall
+появится в меню приложений).
+
+```bash
+pitwall --version
+pitwall -s my-session
+```
+
+---
+
+## Аудио: HushMic (шумоподавление микрофона)
+
+Роль `audio` ставит **HushMic** (`Fovty/HushMic`) — шумоподавление микрофона
+реального времени поверх PipeWire. Добавляет виртуальный микрофон, который
+убирает шум клавиатуры, вентиляторов и фоновые голоса (модель DPDFNet, обработка
+на CPU, ~80 мс задержки).
+
+Ставится официальным `.deb`-пакетом из GitHub-релиза (бинарник, LADSPA-плагин,
+модели, иконки и пользовательский systemd-юнит). Версия берётся из редиректа
+`releases/latest`, повторный запуск не переустанавливает (apt сверяет версию).
+
+В приложениях (Discord, OBS, браузер) выберите устройство ввода **HushMic**.
+Управление:
+
+```bash
+systemctl --user status hushmic      # пользовательский юнит
+systemctl --user restart hushmic
+hushmic --help                       # флаги CLI (--headless и др.)
+```
+
+Требуются PipeWire + WirePlumber (ставятся ролью) и, для иконки в трее, поддержка
+StatusNotifierItem (в GNOME — расширение AppIndicator). Без трея HushMic всё
+равно работает — им можно управлять из командной строки.
+
+---
+
+## Диагностика сетевых блокировок (rkn-block-checker)
+
+Роль `network` ставит **rkn-block-checker** (`MayersScott/rkn-block-checker`) —
+CLI, который определяет, каким способом провайдер режет доступ: DNS-подмена,
+TCP reset, TLS DPI по SNI или заглушка провайдера. Проверка идёт по слоям
+(DNS, TCP, TLS, HTTP). Пакета в apt и релизных бинарников нет — ставится из
+PyPI через pipx в изолированное окружение, шим `rkn-check` кладётся в
+`~/.local/bin`.
+
+```bash
+rkn-check                       # проверить список сайтов и вынести вердикт
+rkn-check startweb --port 8080  # локальный веб-дашборд (по умолчанию :7777)
 ```
 
 ---
@@ -348,24 +472,23 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 Starship рисует глифы ветки Git и Kubernetes, а `eza` умеет показывать иконки
 файлов (`--icons`) — все они лежат в private use area. В обычных шрифтах таких
 глифов нет, и без них в терминале видны «квадратики». Роль `shell` ставит
-**NerdFontsSymbolsOnly** — отдельный шрифт только с иконками:
+**полное семейство JetBrainsMono Nerd Font** (все начертания: обычный, Mono,
+NL, NLPropo):
 
-- скачивается `NerdFontsSymbolsOnly.tar.xz` (**~2.3 МБ**) из релизов
-  `ryanoasis/nerd-fonts`; для сравнения, сборка целого семейства
-  (`JetBrainsMono.zip`) весит ~128 МБ;
-- шрифты кладутся в `~/.local/share/fonts/nerd-fonts/`, официальный
-  fontconfig-конфиг — в `~/.config/fontconfig/conf.d/`, затем `fc-cache -f`;
+- скачивается `JetBrainsMono.tar.xz` (**~7 МБ**) из релизов
+  `ryanoasis/nerd-fonts`, распаковываются все `*.ttf` (96 файлов);
+- шрифты кладутся в `~/.local/share/fonts/JetBrainsMono/`, затем `fc-cache -f`;
 - sudo не нужен, всё в домашнем каталоге.
 
-Благодаря fontconfig-конфигу `Symbols Nerd Font` подставляется как fallback,
-поэтому **менять шрифт терминала не нужно**: иконки берутся из Symbols Nerd
-Font, а обычный текст — из текущего шрифта.
+Иконки уже внутри самого шрифта, поэтому после установки достаточно выбрать
+**JetBrainsMono Nerd Font** в настройках терминала — отдельный fallback-шрифт
+и fontconfig-конфиг не нужны.
 
-Настройки — в `roles/shell/defaults/main.yml` (`nerd_font_*`): версия,
-каталоги, отключение через `nerd_font_install: false`. Идемпотентность: если
-файл шрифта уже на месте, ничего не скачивается. Обновить версию — поменять
-`nerd_font_version` или удалить `~/.local/share/fonts/nerd-fonts` и запустить
+Настройки — в `roles/shell/defaults/main.yml` (`nerd_font_*`): версия, каталог,
+отключение через `nerd_font_install: false`. Идемпотентность: если файл-маркер
+уже на месте, ничего не скачивается. Обновить версию — поменять
+`nerd_font_version` или удалить `~/.local/share/fonts/JetBrainsMono` и запустить
 плейбук снова.
 
-> Проверить, что иконка разрешается: `fc-match ':charset=e0a0'` должен вернуть
-> `Symbols Nerd Font`, а не `DejaVu Sans`.
+> Проверить, что шрифт установился: `fc-list | grep -i "JetBrainsMono Nerd"`,
+> а что иконка разрешается в него: `fc-match 'JetBrainsMono Nerd Font:charset=e0a0'`.

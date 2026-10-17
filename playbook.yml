@@ -43,6 +43,8 @@
       tags: [network]
     - role: opencode
       tags: [opencode]
+    - role: audio
+      tags: [audio]
     - role: guardrails
       tags: [guardrails]
 
@@ -71,8 +73,14 @@
         - "{{ bin_dir }}/gitleaks version"
         - "{{ bin_dir }}/uv --version"
         - "{{ bin_dir }}/opencode --version"
+        - "{{ bin_dir }}/pitwall --version"
         - "{{ bin_dir }}/bat --version"
         - "{{ bin_dir }}/starship --version"
+        - "{{ bin_dir }}/glci version"
+        - "{{ bin_dir }}/pre-commit --version"
+        - "{{ bin_dir }}/reposcan version"
+        - "{{ bin_dir }}/flate --version"
+        - "{{ bin_dir }}/flux-tools --version"
         - "docker --version"
         - "docker compose version"
         - "{{ home_dir }}/.tfenv/bin/tfenv --version"
@@ -80,14 +88,16 @@
       loop_control:
         label: "{{ item }}"
 
-    - name: Проверить наличие kubectx и gitlabcloner
+    - name: Проверить наличие kubectx, gitlabcloner, rkn-check и hushmic
       ansible.builtin.stat:
-        path: "{{ bin_dir }}/{{ item }}"
+        path: "{{ item }}"
       register: extra_binaries_check
       failed_when: not extra_binaries_check.stat.exists
       loop:
-        - kubectx
-        - gitlabcloner
+        - "{{ bin_dir }}/kubectx"
+        - "{{ bin_dir }}/gitlabcloner"
+        - "{{ pipx_bin_dir }}/rkn-check"
+        - /usr/bin/hushmic
       loop_control:
         label: "{{ item }}"
 

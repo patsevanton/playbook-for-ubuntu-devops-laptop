@@ -8,6 +8,13 @@
 #         GitHub, поэтому source=gitlab (тег берётся из редиректа
 #         gitlab.com/<repo>/-/releases/permalink/latest).
 # gitlabcloner — рекурсивное клонирование всех репозиториев GitLab-группы.
+# glci  — локальный запуск GitLab CI/CD пайплайнов (GitLab runner tools):
+#         бинарник лежит не на GitHub, а в GitLab Generic Packages, поэтому
+#         source=gitlab (тег берётся из permalink/latest), а URL — API-путь.
+# pre-commit — фреймворк git-хуков; ставится как самодостаточный .pyz
+#         (zipapp с shebang) прямо в bin_dir, без pip/virtualenv.
+# reposcan — быстрый поиск git-репозиториев с незакоммиченными/незапушенными
+#         изменениями по файловой системе.
 # ============================================================================
 git_binaries:
   - name: gh
@@ -26,4 +33,19 @@ git_binaries:
     source: github
     repo: Andrey039/gitlabcloner
     url: "https://github.com/Andrey039/gitlabcloner/releases/download/{tag}/gitlabcloner-linux-amd64"
+    archive: none
+  - name: glci
+    source: gitlab
+    repo: gitlab-org/ci-cd/runner-tools/glci
+    url: "https://gitlab.com/api/v4/projects/gitlab-org%2Fci-cd%2Frunner-tools%2Fglci/packages/generic/glci/{tag}/glci-linux-amd64"
+    archive: none
+  - name: pre-commit
+    source: github
+    repo: pre-commit/pre-commit
+    url: "https://github.com/pre-commit/pre-commit/releases/download/{tag}/pre-commit-{version}.pyz"
+    archive: none
+  - name: reposcan
+    source: github
+    repo: mabd-dev/reposcan
+    url: "https://github.com/mabd-dev/reposcan/releases/download/{tag}/reposcan-{tag}-linux-amd64"
     archive: none

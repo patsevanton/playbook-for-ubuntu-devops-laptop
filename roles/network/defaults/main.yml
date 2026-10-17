@@ -7,3 +7,12 @@ network_packages:
   - httpie
   - bind9-dnsutils
   - telnet
+
+# rkn-block-checker — Python-CLI: разбирает, каким способом провайдер режет
+# доступ (DNS-подмена, TCP reset, TLS DPI по SNI, заглушка провайдера).
+# Диагностика по слоям: DNS, TCP, TLS, HTTP.
+# Пакета в apt нет и релизных бинарников тоже — ставится из PyPI через pipx
+# в изолированное окружение (как и положено Python-приложениям).
+network_pipx_apps:
+  - name: rkn-block-checker
+    creates: rkn-check

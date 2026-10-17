@@ -13,3 +13,19 @@ opencode_registry: https://registry.npmjs.org
 opencode_package: "{{ opencode_registry }}/@opencode/cli-{{ opencode_target }}"
 opencode_meta_url: "{{ opencode_package }}/latest"
 opencode_url: "{{ opencode_package }}/-/cli-{{ opencode_target }}-{{ opencode_version }}.tgz"
+
+# pitwall — GUI-терминал для нескольких coding-агентов сразу: в сайдбаре видно,
+# кто из агентов работает, ждёт ввода или закончил, и одна клавиша переводит в
+# нужную сессию. Ставится из GitHub-релиза: бинарник + .desktop и иконка для
+# меню приложений.
+pitwall_binaries:
+  - name: pitwall
+    source: github
+    repo: quanticstudios/pitwall
+    url: "https://github.com/quanticstudios/pitwall/releases/download/{tag}/pitwall_linux_amd64.tar.gz"
+    archive: tar
+    member: pitwall
+# Каталог релизного архива после распаковки ({{ tmp_dir }}/unpack-pitwall).
+pitwall_unpack_dir: "{{ tmp_dir }}/unpack-pitwall"
+pitwall_desktop_dir: /usr/share/applications
+pitwall_icon_dir: /usr/share/icons/hicolor/scalable/apps
