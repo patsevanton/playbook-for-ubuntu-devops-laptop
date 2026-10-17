@@ -34,6 +34,18 @@ kubernetes_binaries:
     url: "https://github.com/fluxcd/flux2/releases/download/{tag}/flux_{version}_linux_amd64.tar.gz"
     archive: tar
     member: flux
+  - name: flux9s
+    source: github
+    repo: dgunzy/flux9s
+    url: "https://github.com/dgunzy/flux9s/releases/download/{tag}/flux9s-linux-x86_64-gnu.tar.gz"
+    archive: tar
+    member: flux9s
+  - name: stern
+    source: github
+    repo: stern/stern
+    url: "https://github.com/stern/stern/releases/download/{tag}/stern_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: stern
 
 # kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
 kubectx_ref: master

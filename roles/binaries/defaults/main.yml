@@ -7,8 +7,9 @@
 # binaries_to_install. Поля элемента списка:
 #
 #   name          — имя файла в {{ bin_dir }}
-#   source        — github | text
-#   repo          — owner/repo на GitHub        (source=github)
+#   source        — github | gitlab | text
+#   repo          — owner/repo на GitHub (source=github) или путь проекта
+#                   в группе на GitLab, напр. gitlab-org/cli (source=gitlab)
 #   version_url   — URL, отдающий версию текстом (source=text)
 #   version_strip — regex, срезающий префикс тега (по умолчанию ^v)
 #   url           — шаблон ссылки на файл; подставляются {tag} и {version}
@@ -21,6 +22,8 @@
 # Версия определяется без GitHub API (у него лимит 60 запросов в час):
 #   source=github -> тег последнего релиза берётся из HTTP-редиректа
 #                    https://github.com/<repo>/releases/latest
+#   source=gitlab -> тег последнего релиза берётся из HTTP-редиректа
+#                    https://gitlab.com/<repo>/-/releases/permalink/latest
 #   source=text   -> версия читается из текстового endpoint'а
 #                    (dl.k8s.io/release/stable.txt, get.helm.sh/...)
 # ============================================================================

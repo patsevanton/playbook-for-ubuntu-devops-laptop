@@ -71,11 +71,12 @@ ansible-lint                                   # проверка стиля (pr
 │   └── all.yml                 # общие переменные проекта
 ├── roles/
 │   ├── base/                   # проверки, каталоги, базовые пакеты, yq
+│   ├── git/                    # gh (GitHub CLI), glab (GitLab CLI), gitlabcloner
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2
-│   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux
+│   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s, stern
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tfenv, tgenv
 │   ├── runtimes/               # Python, pipx, uv, Go, Node.js, Java
-│   ├── secrets/                # direnv, vault
+│   ├── secrets/                # direnv, vault, gitleaks
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet
 │   ├── opencode/               # opencode (из npm-реестра)
@@ -85,8 +86,8 @@ ansible-lint                                   # проверка стиля (pr
 └── README.md
 ```
 
-Роль `binaries` не тянет инструменты сама: её вызывают роли `base`, `kubernetes`,
-`iac`, `secrets`, `shell`, передавая список того, что нужно поставить.
+Роль `binaries` не тянет инструменты сама: её вызывают роли `base`, `git`,
+`kubernetes`, `iac`, `secrets`, `shell`, передавая список того, что нужно поставить.
 Каждая роль хранит свой список в `roles/<роль>/defaults/main.yml`.
 
 Имя `playbook.yml` выбрано осознанно; в чужих проектах точку входа часто называют
@@ -98,17 +99,18 @@ ansible-lint                                   # проверка стиля (pr
 
 1. Проверяет, что ОС — Ubuntu, архитектура — x86_64, и создаёт служебные каталоги.
 2. Ставит пакеты из репозитория Ubuntu (актуальные версии, без пинов).
-3. Подключает официальный репозиторий Docker и ставит Engine + Compose V2.
-4. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux.
-5. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, плюс tfenv и tgenv.
-6. Ставит рантаймы: Python (venv/pip/pipx), uv, Go, Node.js, Java 21.
-7. Ставит direnv и Vault.
-8. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`.
-9. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
-10. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
+3. Ставит клиенты GitHub и GitLab: `gh`, `glab`, `gitlabcloner`.
+4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2.
+5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s, stern.
+6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, плюс tfenv и tgenv.
+7. Ставит рантаймы: Python (venv/pip/pipx), uv, Go, Node.js, Java 21.
+8. Ставит direnv, Vault и gitleaks.
+9. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`.
+10. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
+11. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
-11. Добавляет пользователя в группу `docker`.
-12. В конце проверяет установку и печатает версии всех утилит.
+12. Добавляет пользователя в группу `docker`.
+13. В конце проверяет установку и печатает версии всех утилит.
 
 ---
 
@@ -130,20 +132,31 @@ ansible-lint                                   # проверка стиля (pr
 | Утилита | Источник |
 |---|---|
 | yq | github.com/mikefarah/yq |
+| gh | github.com/cli/cli |
+| glab | gitlab.com/gitlab-org/cli |
+| gitlabcloner | github.com/Andrey039/gitlabcloner |
 | kubectl | dl.k8s.io |
 | helm | get.helm.sh |
 | k9s | github.com/derailed/k9s |
 | kustomize | github.com/kubernetes-sigs/kustomize |
 | kubectx | github.com/ahmetb/kubectx (shell-скрипт, ветка master) |
 | flux | github.com/fluxcd/flux2 |
+| flux9s | github.com/dgunzy/flux9s |
+| stern | github.com/stern/stern |
 | tflint | github.com/terraform-linters/tflint |
 | terraform-docs | github.com/terraform-docs/terraform-docs |
 | packer | releases.hashicorp.com |
 | driftctl | github.com/snyk/driftctl |
 | vault | releases.hashicorp.com |
+| gitleaks | github.com/gitleaks/gitleaks |
 | starship | github.com/starship/starship |
 | bat | github.com/sharkdp/bat |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
+
+Скачивание версий идёт без GitHub API (лимит 60 запросов в час): тег последнего
+релиза берётся из HTTP-редиректа `releases/latest` — для GitHub это
+`github.com/<repo>/releases/latest`, для GitLab (утилита `glab`) —
+`gitlab.com/<repo>/-/releases/permalink/latest`.
 
 ---
 

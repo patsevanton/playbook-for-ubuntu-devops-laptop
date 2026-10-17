@@ -1,0 +1,29 @@
+---
+# ============================================================================
+# Роль git: клиенты для работы с GitHub и GitLab + клонирование групп.
+# Версии определяются на момент запуска (source=github / source=gitlab).
+#
+# gh    — официальный CLI GitHub (github.com/cli/cli).
+# glab  — официальный CLI GitLab (gitlab.com/gitlab-org/cli), лежит НЕ на
+#         GitHub, поэтому source=gitlab (тег берётся из редиректа
+#         gitlab.com/<repo>/-/releases/permalink/latest).
+# gitlabcloner — рекурсивное клонирование всех репозиториев GitLab-группы.
+# ============================================================================
+git_binaries:
+  - name: gh
+    source: github
+    repo: cli/cli
+    url: "https://github.com/cli/cli/releases/download/{tag}/gh_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: gh_{version}_linux_amd64/bin/gh
+  - name: glab
+    source: gitlab
+    repo: gitlab-org/cli
+    url: "https://gitlab.com/gitlab-org/cli/-/releases/{tag}/downloads/glab_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: bin/glab
+  - name: gitlabcloner
+    source: github
+    repo: Andrey039/gitlabcloner
+    url: "https://github.com/Andrey039/gitlabcloner/releases/download/{tag}/gitlabcloner-linux-amd64"
+    archive: none

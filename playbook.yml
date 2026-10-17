@@ -25,6 +25,8 @@
     # base ставится всегда (нужен для --tags): базовые пакеты и каталоги.
     - role: base
       tags: [base, always]
+    - role: git
+      tags: [git]
     - role: docker
       tags: [docker]
     - role: kubernetes
@@ -52,16 +54,21 @@
       failed_when: false
       loop:
         - "{{ bin_dir }}/yq --version"
+        - "{{ bin_dir }}/gh --version"
+        - "{{ bin_dir }}/glab --version"
         - "{{ bin_dir }}/kubectl version --client"
         - "{{ bin_dir }}/helm version --short"
         - "{{ bin_dir }}/kustomize version"
         - "{{ bin_dir }}/k9s version -s"
         - "{{ bin_dir }}/flux --version"
+        - "{{ bin_dir }}/flux9s --version"
+        - "{{ bin_dir }}/stern --version"
         - "{{ bin_dir }}/tflint --version"
         - "{{ bin_dir }}/terraform-docs --version"
         - "{{ bin_dir }}/packer version"
         - "{{ bin_dir }}/driftctl version"
         - "{{ bin_dir }}/vault version"
+        - "{{ bin_dir }}/gitleaks version"
         - "{{ bin_dir }}/uv --version"
         - "{{ bin_dir }}/opencode --version"
         - "{{ bin_dir }}/bat --version"
@@ -73,11 +80,16 @@
       loop_control:
         label: "{{ item }}"
 
-    - name: Проверить наличие kubectx
+    - name: Проверить наличие kubectx и gitlabcloner
       ansible.builtin.stat:
-        path: "{{ bin_dir }}/kubectx"
-      register: kubectx_check
-      failed_when: not kubectx_check.stat.exists
+        path: "{{ bin_dir }}/{{ item }}"
+      register: extra_binaries_check
+      failed_when: not extra_binaries_check.stat.exists
+      loop:
+        - kubectx
+        - gitlabcloner
+      loop_control:
+        label: "{{ item }}"
 
     - name: Итог — версии установленных утилит
       ansible.builtin.debug:

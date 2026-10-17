@@ -1,0 +1,10 @@
+---
+# ============================================================================
+# Роль git: gh (GitHub CLI), glab (GitLab CLI), gitlabcloner.
+# ============================================================================
+
+- name: Установить клиенты GitHub и GitLab (актуальные версии)
+  ansible.builtin.include_role:
+    name: binaries
+  vars:
+    binaries_to_install: "{{ git_binaries }}"

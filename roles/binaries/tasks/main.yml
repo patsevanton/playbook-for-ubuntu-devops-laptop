@@ -50,6 +50,19 @@
   register: binaries_github_result
   changed_when: false
 
+- name: Узнать теги последних релизов GitLab (через редирект releases/permalink/latest)
+  ansible.builtin.uri:
+    url: "https://gitlab.com/{{ item.repo }}/-/releases/permalink/latest"
+    follow_redirects: none
+    status_code: [301, 302, 303, 307, 308]
+    headers:
+      User-Agent: "{{ http_user_agent }}"
+  loop: "{{ binaries_missing | selectattr('source', 'equalto', 'gitlab') | list }}"
+  loop_control:
+    label: "{{ item.name }}"
+  register: binaries_gitlab_result
+  changed_when: false
+
 - name: Узнать версии из текстовых endpoint'ов
   ansible.builtin.uri:
     url: "{{ item.version_url }}"
@@ -62,14 +75,16 @@
   register: binaries_text_result
   changed_when: false
 
-- name: Собрать словарь тегов GitHub
+- name: Собрать словарь тегов релизов (GitHub и GitLab)
   ansible.builtin.set_fact:
     binaries_github_tags: "{{ _tags | from_yaml }}"
   vars:
     _tags: >-
-      { {% for r in binaries_github_result.results | default([]) %}
+      { {% for r in (binaries_github_result.results | default([]))
+                    + (binaries_gitlab_result.results | default([])) %}
       {{ r.item.name | to_json }}:
-      {{ (r.location | default('') | regex_replace('^.*/releases/tag/', '')) | to_json }},
+      {{ (r.location | default('') | regex_replace('^.*/releases/tag/', '')
+                               | regex_replace('^.*/releases/', '')) | to_json }},
       {% endfor %} }
 
 - name: Собрать словарь версий из текстовых endpoint'ов
