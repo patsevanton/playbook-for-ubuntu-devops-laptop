@@ -15,6 +15,8 @@ bin_dir: /usr/local/bin
 tmp_dir: /var/tmp/devops-install
 # Файл окружения, который подключается из ~/.bashrc.
 shell_file: "{{ home_dir }}/.config/devops-shell.sh"
+# Конфиг starship (тема prompt); starship читает его по этому пути по умолчанию.
+starship_config_file: "{{ home_dir }}/.config/starship.toml"
 
 # --- Поведение --------------------------------------------------------------
 # User-Agent для запросов к GitHub / npm / HashiCorp.

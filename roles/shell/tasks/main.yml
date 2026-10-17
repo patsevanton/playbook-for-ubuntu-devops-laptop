@@ -1,7 +1,7 @@
 ---
 # ============================================================================
 # Роль shell: утилиты CLI + файл ~/.config/devops-shell.sh,
-# подключаемый из ~/.bashrc одной строкой source.
+# подключаемый из ~/.bashrc одной строкой source, и конфиг starship.
 # ============================================================================
 
 - name: Установить CLI-утилиты из репозитория Ubuntu
@@ -26,6 +26,12 @@
   ansible.builtin.template:
     src: devops-shell.sh.j2
     dest: "{{ shell_file }}"
+    mode: "0644"
+
+- name: Положить конфиг starship
+  ansible.builtin.copy:
+    src: starship.toml
+    dest: "{{ starship_config_file }}"
     mode: "0644"
 
 - name: Подключить devops-shell.sh из ~/.bashrc

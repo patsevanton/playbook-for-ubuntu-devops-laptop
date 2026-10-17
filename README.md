@@ -270,3 +270,11 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 Файл пишется из шаблона `roles/shell/templates/devops-shell.sh.j2` — правки
 в самом файле перезапишутся при следующем запуске. Чтобы убрать окружение:
 удалите файл и блок между маркерами в `~/.bashrc`.
+
+### Конфиг starship
+
+Тема prompt кладётся из `roles/shell/files/starship.toml` в `~/.config/starship.toml`
+(starship читает этот путь по умолчанию). Файл копируется как есть — правки
+в `~/.config/starship.toml` перезапишутся при следующем запуске. Меняйте
+`roles/shell/files/starship.toml` в репозитории; путь назначения задаётся
+переменной `starship_config_file` в `group_vars/all.yml`.
