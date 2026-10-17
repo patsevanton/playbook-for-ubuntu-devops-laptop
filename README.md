@@ -79,6 +79,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet
 │   ├── opencode/               # opencode (из npm-реестра)
+│   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
 │   └── binaries/               # общий движок установки бинарников (вызывается ролями)
 ├── .ansible-lint
 └── README.md
@@ -104,8 +105,10 @@ ansible-lint                                   # проверка стиля (pr
 7. Ставит direnv и Vault.
 8. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`.
 9. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
-10. Добавляет пользователя в группу `docker`.
-11. В конце проверяет установку и печатает версии всех утилит.
+10. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
+    Docker-контейнер маскировки PII/секретов на пути к LLM.
+11. Добавляет пользователя в группу `docker`.
+12. В конце проверяет установку и печатает версии всех утилит.
 
 ---
 
@@ -176,6 +179,51 @@ services:
 ```
 
 Проверка: `docker compose version`.
+
+---
+
+## guardrails-llm-filter (LLM PII/secret masking proxy)
+
+Роль `guardrails` ставит systemd-юнит, который запускает Docker-контейнер
+`ghcr.io/cloud-ru-tech/guardrails-llm-filter:latest` — прокси, маскирующий PII и
+секреты в запросах к LLM.
+
+Юнит: `/etc/systemd/system/guardrails-llm-filter.service` (кладётся из шаблона
+`roles/guardrails/templates/guardrails-llm-filter.service.j2`).
+
+Что делает юнит:
+
+- зависит от `docker.service` (`After`/`Requires`) — поднимается после Docker;
+- перед запуском снимает старый контейнер (`docker rm -f guardrails`);
+- запускает контейнер с пробросом портов **только на loopback**:
+  `127.0.0.1:8080` (прокси) и `127.0.0.1:9080` (метрики);
+- включает аудит запросов (`GUARDRAILS_AUDIT_ENABLED=true`);
+- пересылает запросы на `GUARDRAILS_UPSTREAM_BASE_URL=https://polza.ai`;
+- `Restart=always` — контейнер поднимается автоматически после сбоя или перезагрузки.
+
+Настройки (порты, upstream, аудит, образ) задаются в
+`roles/guardrails/defaults/main.yml`.
+
+Проверка и управление:
+
+```bash
+systemctl status guardrails-llm-filter
+systemctl restart guardrails-llm-filter
+journalctl -u guardrails-llm-filter -f
+docker ps --filter name=guardrails
+curl -s http://127.0.0.1:9080/    # метрики
+```
+
+Юнит кладётся из шаблона, поэтому правки в
+`/etc/systemd/system/guardrails-llm-filter.service` перезапишутся при следующем
+запуске: меняйте шаблон или переменные роли. Изменение файла автоматически
+делает `daemon-reload` и перезапускает сервис (образ перетянется — тег `latest`
+мог обновиться). Обновить образ вручную:
+
+```bash
+docker pull ghcr.io/cloud-ru-tech/guardrails-llm-filter:latest
+sudo systemctl restart guardrails-llm-filter
+```
 
 ---
 

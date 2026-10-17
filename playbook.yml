@@ -41,6 +41,8 @@
       tags: [network]
     - role: opencode
       tags: [opencode]
+    - role: guardrails
+      tags: [guardrails]
 
   post_tasks:
     - name: Проверить работу установленных утилит

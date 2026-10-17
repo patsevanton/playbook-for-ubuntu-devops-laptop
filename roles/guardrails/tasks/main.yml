@@ -1,0 +1,33 @@
+---
+# ============================================================================
+# Роль guardrails: unit-файл systemd, который поднимает контейнер
+# guardrails-llm-filter (маскировка PII/секретов на пути к LLM).
+#
+# Идемпотентность: unit-файл кладётся из шаблона; при изменении выполняется
+# daemon-reload и сервис перезапускается (образ при этом тянется заново —
+# тег latest мог обновиться). Сервис включён в автозапуск.
+# ============================================================================
+
+- name: Убедиться, что Docker установлен
+  ansible.builtin.stat:
+    path: /usr/bin/docker
+  register: guardrails_docker_bin
+  failed_when: not guardrails_docker_bin.stat.exists
+
+- name: Положить unit-файл {{ guardrails_service_name }}.service
+  become: true
+  ansible.builtin.template:
+    src: guardrails-llm-filter.service.j2
+    dest: "{{ guardrails_unit_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Перезапустить guardrails
+
+- name: Включить {{ guardrails_service_name }} в автозапуск и запустить
+  become: true
+  ansible.builtin.systemd_service:
+    name: "{{ guardrails_service_name }}.service"
+    enabled: true
+    state: started
+    daemon_reload: true
