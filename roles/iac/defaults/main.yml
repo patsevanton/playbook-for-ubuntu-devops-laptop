@@ -25,6 +25,11 @@ iac_binaries:
     url: "https://releases.hashicorp.com/packer/{version}/packer_{version}_linux_amd64.zip"
     archive: zip
     member: packer
+  - name: driftctl
+    source: github
+    repo: snyk/driftctl
+    url: "https://github.com/snyk/driftctl/releases/download/{tag}/driftctl_linux_amd64"
+    archive: none
 
 tfenv_repo: https://github.com/tfutils/tfenv.git
 tfenv_dir: "{{ home_dir }}/.tfenv"

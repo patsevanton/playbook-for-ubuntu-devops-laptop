@@ -72,8 +72,8 @@ ansible-lint                                   # проверка стиля (pr
 ├── roles/
 │   ├── base/                   # проверки, каталоги, базовые пакеты, yq
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2
-│   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx
-│   ├── iac/                    # tflint, terraform-docs, packer, tfenv, tgenv
+│   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux
+│   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tfenv, tgenv
 │   ├── runtimes/               # Python, pipx, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, конфиг shell
@@ -99,8 +99,8 @@ ansible-lint                                   # проверка стиля (pr
 1. Проверяет, что ОС — Ubuntu, архитектура — x86_64, и создаёт служебные каталоги.
 2. Ставит пакеты из репозитория Ubuntu (актуальные версии, без пинов).
 3. Подключает официальный репозиторий Docker и ставит Engine + Compose V2.
-4. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx.
-5. Ставит инструменты IaC: tflint, terraform-docs, packer, плюс tfenv и tgenv.
+4. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux.
+5. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, плюс tfenv и tgenv.
 6. Ставит рантаймы: Python (venv/pip/pipx), uv, Go, Node.js, Java 21.
 7. Ставит direnv и Vault.
 8. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`.
@@ -135,9 +135,11 @@ ansible-lint                                   # проверка стиля (pr
 | k9s | github.com/derailed/k9s |
 | kustomize | github.com/kubernetes-sigs/kustomize |
 | kubectx | github.com/ahmetb/kubectx (shell-скрипт, ветка master) |
+| flux | github.com/fluxcd/flux2 |
 | tflint | github.com/terraform-linters/tflint |
 | terraform-docs | github.com/terraform-docs/terraform-docs |
 | packer | releases.hashicorp.com |
+| driftctl | github.com/snyk/driftctl |
 | vault | releases.hashicorp.com |
 | starship | github.com/starship/starship |
 | bat | github.com/sharkdp/bat |

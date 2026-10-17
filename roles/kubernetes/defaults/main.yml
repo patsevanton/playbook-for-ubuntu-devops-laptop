@@ -28,6 +28,12 @@ kubernetes_binaries:
     url: "https://github.com/kubernetes-sigs/kustomize/releases/download/{tag}/kustomize_v{version}_linux_amd64.tar.gz"
     archive: tar
     member: kustomize
+  - name: flux
+    source: github
+    repo: fluxcd/flux2
+    url: "https://github.com/fluxcd/flux2/releases/download/{tag}/flux_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: flux
 
 # kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
 kubectx_ref: master

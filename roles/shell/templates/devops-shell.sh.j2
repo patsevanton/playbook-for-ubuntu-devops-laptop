@@ -57,6 +57,9 @@ fi
 if command -v helm >/dev/null 2>&1; then
   source <(helm completion bash)
 fi
+if command -v flux >/dev/null 2>&1; then
+  source <(flux completion bash)
+fi
 if [ -f /etc/bash_completion.d/kubectx ]; then
   . /etc/bash_completion.d/kubectx
 fi
