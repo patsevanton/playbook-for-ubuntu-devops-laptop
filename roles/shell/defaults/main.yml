@@ -17,12 +17,6 @@ shell_binaries:
     url: "https://github.com/starship/starship/releases/download/{tag}/starship-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: starship
-  - name: atuin
-    source: github
-    repo: atuinsh/atuin
-    url: "https://github.com/atuinsh/atuin/releases/download/{tag}/atuin-x86_64-unknown-linux-gnu.tar.gz"
-    archive: tar
-    member: atuin-x86_64-unknown-linux-gnu/atuin
   - name: bat
     source: github
     repo: sharkdp/bat

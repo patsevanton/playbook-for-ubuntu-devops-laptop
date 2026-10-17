@@ -76,7 +76,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── iac/                    # tflint, terraform-docs, packer, tfenv, tgenv
 │   ├── runtimes/               # Python, pipx, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault
-│   ├── shell/                  # eza, zoxide, fzf, starship, atuin, bat, конфиг shell
+│   ├── shell/                  # eza, zoxide, fzf, starship, bat, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet
 │   ├── opencode/               # opencode (из npm-реестра)
 │   └── binaries/               # общий движок установки бинарников (вызывается ролями)
@@ -139,14 +139,13 @@ ansible-lint                                   # проверка стиля (pr
 | packer | releases.hashicorp.com |
 | vault | releases.hashicorp.com |
 | starship | github.com/starship/starship |
-| atuin | github.com/atuinsh/atuin |
 | bat | github.com/sharkdp/bat |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
 
 Для справки, версии, которые ставились при последней проверке плейбука
 (2026-10-17; **не фиксируются**, у вас будут актуальные):
 yq 4.54.1, kubectl 1.37.1, helm 4.3.1, k9s 0.51.0, kustomize 5.8.3, tflint 0.64.0,
-terraform-docs 0.24.0, packer 1.16.1, vault 2.2.0, starship 1.27.0, atuin 18.24.1,
+terraform-docs 0.24.0, packer 1.16.1, vault 2.2.0, starship 1.27.0,
 bat 0.26.1, opencode 2.0.32.
 
 ### Менеджеры версий и установщики
@@ -336,7 +335,7 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 
 - `PATH`: `~/.local/bin`, `~/.tfenv/bin`, `~/.tgenv/bin`;
 - `fzf --bash` (keybindings + completion);
-- `direnv hook bash`, `zoxide init bash`, `atuin init bash`, `starship init bash`;
+- `direnv hook bash`, `zoxide init bash`, `starship init bash`;
 - алиасы `ls`/`ll`/`la`/`lt` на `eza`;
 - алиас `catbat` и тема для `bat`;
 - алиас `fd` → `fdfind` (в Ubuntu бинарь `fd-find` называется `fdfind`);

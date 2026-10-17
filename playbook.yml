@@ -62,7 +62,6 @@
         - "{{ bin_dir }}/opencode --version"
         - "{{ bin_dir }}/bat --version"
         - "{{ bin_dir }}/starship --version"
-        - "{{ bin_dir }}/atuin --version"
         - "docker --version"
         - "docker compose version"
         - "{{ home_dir }}/.tfenv/bin/tfenv --version"
