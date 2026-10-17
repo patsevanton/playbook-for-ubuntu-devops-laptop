@@ -9,6 +9,8 @@ shell_packages:
   - fzf
   - ripgrep
   - fd-find
+  # fontconfig даёт fc-cache — им обновляется кэш шрифтов (Nerd Font ниже).
+  - fontconfig
 
 shell_binaries:
   - name: starship
@@ -26,3 +28,28 @@ shell_binaries:
 
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"
+
+# --- Nerd Font: иконки для prompt и списков файлов --------------------------
+# Starship рисует глифы ветки Git и Kubernetes из private use area; таких
+# глифов нет в обычных шрифтах — без них в терминале видны «квадратики».
+# Ставим NerdFontsSymbolsOnly: отдельный шрифт ТОЛЬКО с иконками
+# (~2.3 МБ вместо ~128 МБ у zip-сборки целого семейства).
+# Fontconfig подставляет его как fallback, поэтому менять шрифт терминала не
+# нужно: иконки берутся из Symbols Nerd Font, обычный текст — из текущего.
+# Ставим без sudo, в пользовательский каталог шрифтов.
+nerd_font_install: true
+nerd_font_version: v3.5.1
+nerd_font_family: NerdFontsSymbolsOnly
+nerd_font_dir: "{{ home_dir }}/.local/share/fonts/nerd-fonts"
+nerd_font_conf_dir: "{{ home_dir }}/.config/fontconfig/conf.d"
+# Официальный fontconfig-конфиг: прописывает Symbols Nerd Font как fallback
+# для популярных моношрифтов, чтобы иконки подхватывались автоматически.
+nerd_font_conf_file: 10-nerd-font-symbols.conf
+# Из архива нужны только шрифты (README, LICENSE и .conf не копируем).
+nerd_font_members:
+  - SymbolsNerdFont-Regular.ttf
+  - SymbolsNerdFontMono-Regular.ttf
+# Распаковка идёт без sudo, поэтому staging — в домашнем каталоге,
+# а не в общем tmp_dir (он принадлежит root).
+nerd_font_staging_dir: "{{ home_dir }}/.cache/devops-nerd-font"
+nerd_font_url: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ nerd_font_version }}/{{ nerd_font_family }}.tar.xz"

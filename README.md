@@ -77,7 +77,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tfenv, tgenv
 │   ├── runtimes/               # Python, pipx, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault, gitleaks
-│   ├── shell/                  # eza, zoxide, fzf, starship, bat, конфиг shell
+│   ├── shell/                  # eza, zoxide, fzf, starship, bat, Nerd Font, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet
 │   ├── opencode/               # opencode (из npm-реестра)
 │   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
@@ -105,7 +105,8 @@ ansible-lint                                   # проверка стиля (pr
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, плюс tfenv и tgenv.
 7. Ставит рантаймы: Python (venv/pip/pipx), uv, Go, Node.js, Java 21.
 8. Ставит direnv, Vault и gitleaks.
-9. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`.
+9. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
+   ставит Nerd Font (иконки для prompt и `eza --icons`).
 10. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 11. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
@@ -123,7 +124,7 @@ ansible-lint                                   # проверка стиля (pr
 | base | ca-certificates, curl, wget, git, jq, unzip, zip, tar, gzip, xz-utils, bash-completion, lsb-release | база для работы и для самого плейбука |
 | runtimes | python3-venv, python3-pip, python3-dev, pipx, golang-go, nodejs, npm, openjdk-21-jdk | языковые рантаймы |
 | secrets | direnv | окружение по каталогам |
-| shell | eza, zoxide, fzf, ripgrep, fd-find | удобная работа в терминале |
+| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig | удобная работа в терминале |
 | network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
 
@@ -341,3 +342,30 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 в `~/.config/starship.toml` перезапишутся при следующем запуске. Меняйте
 `roles/shell/files/starship.toml` в репозитории; путь назначения задаётся
 переменной `starship_config_file` в `group_vars/all.yml`.
+
+### Nerd Font (иконки в prompt и списках файлов)
+
+Starship рисует глифы ветки Git и Kubernetes, а `eza` умеет показывать иконки
+файлов (`--icons`) — все они лежат в private use area. В обычных шрифтах таких
+глифов нет, и без них в терминале видны «квадратики». Роль `shell` ставит
+**NerdFontsSymbolsOnly** — отдельный шрифт только с иконками:
+
+- скачивается `NerdFontsSymbolsOnly.tar.xz` (**~2.3 МБ**) из релизов
+  `ryanoasis/nerd-fonts`; для сравнения, сборка целого семейства
+  (`JetBrainsMono.zip`) весит ~128 МБ;
+- шрифты кладутся в `~/.local/share/fonts/nerd-fonts/`, официальный
+  fontconfig-конфиг — в `~/.config/fontconfig/conf.d/`, затем `fc-cache -f`;
+- sudo не нужен, всё в домашнем каталоге.
+
+Благодаря fontconfig-конфигу `Symbols Nerd Font` подставляется как fallback,
+поэтому **менять шрифт терминала не нужно**: иконки берутся из Symbols Nerd
+Font, а обычный текст — из текущего шрифта.
+
+Настройки — в `roles/shell/defaults/main.yml` (`nerd_font_*`): версия,
+каталоги, отключение через `nerd_font_install: false`. Идемпотентность: если
+файл шрифта уже на месте, ничего не скачивается. Обновить версию — поменять
+`nerd_font_version` или удалить `~/.local/share/fonts/nerd-fonts` и запустить
+плейбук снова.
+
+> Проверить, что иконка разрешается: `fc-match ':charset=e0a0'` должен вернуть
+> `Symbols Nerd Font`, а не `DejaVu Sans`.

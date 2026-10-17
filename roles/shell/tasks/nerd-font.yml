@@ -1,0 +1,78 @@
+---
+# ============================================================================
+# Nerd Font: глифы для prompt (starship: ветка Git, Kubernetes).
+#
+# Иконки лежат в private use area и в обычных шрифтах отсутствуют — без них
+# в терминале видны «квадратики». Ставим NerdFontsSymbolsOnly: отдельный шрифт
+# только с иконками (~2.3 МБ против ~128 МБ у zip-сборки целого семейства).
+# Fontconfig подставляет его как fallback, поэтому менять шрифт терминала не
+# нужно: иконки берутся из Symbols Nerd Font, текст — из текущего шрифта.
+#
+# Всё кладётся в домашний каталог — sudo не нужен.
+# Идемпотентность: если файл шрифта уже на месте, ничего не скачиваем.
+# Обновить версию = поменять nerd_font_version или удалить nerd_font_dir.
+# ============================================================================
+
+- name: Проверить, установлен ли Nerd Font
+  ansible.builtin.stat:
+    path: "{{ nerd_font_dir }}/{{ nerd_font_members[0] }}"
+  register: nerd_font_stat
+
+- name: Создать каталоги для Nerd Font
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ nerd_font_dir }}"
+    - "{{ nerd_font_conf_dir }}"
+
+- name: Создать временный каталог для загрузки Nerd Font
+  ansible.builtin.file:
+    path: "{{ nerd_font_staging_dir }}"
+    state: directory
+    mode: "0755"
+  when: not nerd_font_stat.stat.exists
+
+- name: Скачать архив Nerd Font
+  ansible.builtin.get_url:
+    url: "{{ nerd_font_url }}"
+    dest: "{{ nerd_font_staging_dir }}/{{ nerd_font_family }}.tar.xz"
+    mode: "0644"
+  when: not nerd_font_stat.stat.exists
+
+- name: Распаковать архив Nerd Font
+  ansible.builtin.unarchive:
+    src: "{{ nerd_font_staging_dir }}/{{ nerd_font_family }}.tar.xz"
+    dest: "{{ nerd_font_staging_dir }}"
+    remote_src: true
+    creates: "{{ nerd_font_staging_dir }}/{{ nerd_font_members[0] }}"
+  when: not nerd_font_stat.stat.exists
+
+- name: Положить файлы шрифта
+  ansible.builtin.copy:
+    src: "{{ nerd_font_staging_dir }}/{{ item }}"
+    dest: "{{ nerd_font_dir }}/{{ item }}"
+    remote_src: true
+    mode: "0644"
+  loop: "{{ nerd_font_members }}"
+  when: not nerd_font_stat.stat.exists
+
+- name: Положить fontconfig-конфиг Nerd Font
+  ansible.builtin.copy:
+    src: "{{ nerd_font_staging_dir }}/{{ nerd_font_conf_file }}"
+    dest: "{{ nerd_font_conf_dir }}/{{ nerd_font_conf_file }}"
+    remote_src: true
+    mode: "0644"
+  when: not nerd_font_stat.stat.exists
+
+- name: Обновить кэш шрифтов
+  ansible.builtin.command: fc-cache -f
+  changed_when: false
+  when: not nerd_font_stat.stat.exists
+
+- name: Удалить временные файлы Nerd Font
+  ansible.builtin.file:
+    path: "{{ nerd_font_staging_dir }}"
+    state: absent
+  when: not nerd_font_stat.stat.exists

@@ -34,6 +34,11 @@
     dest: "{{ starship_config_file }}"
     mode: "0644"
 
+- name: Установить Nerd Font (иконки для prompt и файлов)
+  ansible.builtin.include_tasks:
+    file: nerd-font.yml
+  when: nerd_font_install
+
 - name: Подключить devops-shell.sh из ~/.bashrc
   ansible.builtin.blockinfile:
     path: "{{ bashrc_path }}"
