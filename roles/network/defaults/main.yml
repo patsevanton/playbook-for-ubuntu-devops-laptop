@@ -16,3 +16,23 @@ network_packages:
 network_pipx_apps:
   - name: rkn-block-checker
     creates: rkn-check
+
+# Скачиваемые бинарники сетевой диагностики.
+network_binaries:
+  # gai — инспектор getaddrinfo: показывает реальный путь разрешения имени
+  # (files/mDNS/systemd-resolved/DNS), который проходит ОС, и сверяет его с
+  # независимым DNS-запросом, выявляя расхождения.
+  - name: gai
+    source: github
+    repo: casablanque-code/gai
+    url: "https://github.com/casablanque-code/gai/releases/download/{tag}/gai-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: gai
+  # dnsglobe — TUI-проверка распространения DNS-записи: параллельно опрашивает
+  # 34 публичных резолвера по миру и показывает расхождения и прогресс на карте.
+  - name: dnsglobe
+    source: github
+    repo: 514-labs/dnsglobe
+    url: "https://github.com/514-labs/dnsglobe/releases/download/{tag}/dnsglobe-x86_64-unknown-linux-gnu.tar.xz"
+    archive: tarxz
+    member: dnsglobe-x86_64-unknown-linux-gnu/dnsglobe

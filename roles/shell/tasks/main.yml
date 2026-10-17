@@ -39,6 +39,11 @@
     file: nerd-font.yml
   when: nerd_font_install
 
+- name: Установить M-Commander (двухпанельный файловый менеджер)
+  ansible.builtin.include_tasks:
+    file: mcommander.yml
+  when: mcommander_install
+
 - name: Подключить devops-shell.sh из ~/.bashrc
   ansible.builtin.blockinfile:
     path: "{{ bashrc_path }}"

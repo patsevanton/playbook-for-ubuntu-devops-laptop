@@ -30,6 +30,15 @@ iac_binaries:
     repo: snyk/driftctl
     url: "https://github.com/snyk/driftctl/releases/download/{tag}/driftctl_linux_amd64"
     archive: none
+  # tgsieve — прогоняет terragrunt plan по всему стеку и печатает только суть:
+  # разбирает структурированный JSON-план, отбрасывает шум и сворачивает
+  # повторяющиеся изменения (UPDATE/DESTROY/REPLACE по юнитам).
+  - name: tgsieve
+    source: github
+    repo: imcitius/tgsieve
+    url: "https://github.com/imcitius/tgsieve/releases/download/{tag}/tgsieve_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: tgsieve
 
 tfenv_repo: https://github.com/tfutils/tfenv.git
 tfenv_dir: "{{ home_dir }}/.tfenv"

@@ -46,14 +46,16 @@
     name: "{{ base_packages }}"
     state: present
 
-# ansible-core запускает этот же плейбук, python3-apt нужен модулю apt.
+# ansible-core запускает этот же плейбук, python3-apt нужен модулю apt,
+# ansible-lint — проверка стиля плейбуков (profile: production, см. .ansible-lint).
 # state: present не понижает и не обновляет уже установленные пакеты.
-- name: Установить ansible-core и python3-apt
+- name: Установить ansible-core, python3-apt и ansible-lint
   become: true
   ansible.builtin.apt:
     name:
       - ansible-core
       - python3-apt
+      - ansible-lint
     state: present
 
 - name: Установить yq (актуальная версия)

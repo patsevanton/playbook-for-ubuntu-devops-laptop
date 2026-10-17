@@ -46,3 +46,22 @@ nerd_font_marker: JetBrainsMonoNerdFont-Regular.ttf
 # а не в общем tmp_dir (он принадлежит root).
 nerd_font_staging_dir: "{{ home_dir }}/.cache/devops-jetbrains-mono"
 nerd_font_url: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ nerd_font_version }}/{{ nerd_font_family }}.tar.xz"
+
+# --- M-Commander: двухпанельный файловый менеджер ---------------------------
+# Форк GNU Midnight Commander с плагинами (git, docker, Kubernetes, S3,
+# FTP/SFTP, Samba, systemd) и встроенным редактором/вьюером/терминалом.
+# Ставится официальными .deb из GitHub-релиза, сборка под Ubuntu 26.04.
+# Версия — последний релиз (редирект releases/latest). Пакеты системные,
+# поэтому задачи внутри mcommander.yml идут с become.
+mcommander_install: true
+mcommander_repo: blue-panels/mcommander
+# Пакеты релиза: базовый + plugins + lua (у plugins/lua зависимость от
+# базового пакета той же версии, поэтому ставятся одной транзакцией).
+mcommander_deb_packages:
+  - mcommander
+  - mcommander-plugins
+  - mcommander-lua
+# Суффикс имени артефакта после версии: в имени файла дистрибутив идёт с
+# точками (mcommander_6.1.0-1.ubuntu26.04.1_amd64.deb).
+mcommander_deb_suffix: "-1.ubuntu26.04.1_amd64.deb"
+mcommander_deb_dir: "{{ tmp_dir }}/mcommander"

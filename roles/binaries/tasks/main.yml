@@ -115,6 +115,7 @@
            'version': _ver,
            'url': item.url | replace('{tag}', _tag) | replace('{version}', _ver),
            'archive': item.archive | default('none'),
+           'ext': binaries_archive_extensions[item.archive | default('none')],
            'member': item.member | default('') | replace('{tag}', _tag) | replace('{version}', _ver)
          }) }}
 
@@ -150,7 +151,7 @@
   become: true
   ansible.builtin.get_url:
     url: "{{ item.url }}"
-    dest: "{{ tmp_dir }}/{{ item.name }}-{{ item.version | replace('/', '_') }}.{{ 'tar.gz' if item.archive == 'tar' else 'zip' }}"
+    dest: "{{ tmp_dir }}/{{ item.name }}-{{ item.version | replace('/', '_') }}.{{ item.ext }}"
     mode: "0644"
     force: true
   loop: "{{ binaries_resolved | rejectattr('archive', 'equalto', 'none') | list }}"
@@ -179,7 +180,7 @@
 - name: Распаковать архивы
   become: true
   ansible.builtin.unarchive:
-    src: "{{ tmp_dir }}/{{ item.name }}-{{ item.version | replace('/', '_') }}.{{ 'tar.gz' if item.archive == 'tar' else 'zip' }}"
+    src: "{{ tmp_dir }}/{{ item.name }}-{{ item.version | replace('/', '_') }}.{{ item.ext }}"
     dest: "{{ tmp_dir }}/unpack-{{ item.name }}"
     remote_src: true
   loop: "{{ binaries_resolved | rejectattr('archive', 'equalto', 'none') | list }}"

@@ -70,18 +70,20 @@ ansible-lint                                   # проверка стиля (pr
 ├── group_vars/
 │   └── all.yml                 # общие переменные проекта
 ├── roles/
-│   ├── base/                   # проверки, каталоги, базовые пакеты, yq
+│   ├── base/                   # проверки, каталоги, базовые пакеты, yq, ansible-lint
 │   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2
 │   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
-│   │                           #   stern, flate, flux-tools
-│   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tfenv, tgenv
+│   │                           #   stern, flate, flux-tools, cty, diffyml,
+│   │                           #   kubectl-k8i, kubespy
+│   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
+│   │                           #   tfenv, tgenv
 │   ├── runtimes/               # Python, pipx, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault, gitleaks
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, JetBrainsMono Nerd Font,
-│   │                           #   конфиг shell
+│   │                           #   mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
-│   │                           #   rkn-block-checker (pipx)
+│   │                           #   gai, dnsglobe, rkn-block-checker (pipx)
 │   ├── opencode/               # opencode (из npm-реестра), pitwall (GUI-терминал)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
 │   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
@@ -91,8 +93,9 @@ ansible-lint                                   # проверка стиля (pr
 ```
 
 Роль `binaries` не тянет инструменты сама: её вызывают роли `base`, `git`,
-`kubernetes`, `iac`, `secrets`, `shell`, `opencode`, передавая список того, что
-нужно поставить. Каждая роль хранит свой список в `roles/<роль>/defaults/main.yml`.
+`kubernetes`, `iac`, `secrets`, `shell`, `network`, `opencode`, передавая список
+того, что нужно поставить. Каждая роль хранит свой список в
+`roles/<роль>/defaults/main.yml`.
 
 Имя `playbook.yml` выбрано осознанно; в чужих проектах точку входа часто называют
 `site.yml` — переименование ничего не ломает.
@@ -102,20 +105,26 @@ ansible-lint                                   # проверка стиля (pr
 ## Что делает плейбук
 
 1. Проверяет, что ОС — Ubuntu, архитектура — x86_64, и создаёт служебные каталоги.
-2. Ставит пакеты из репозитория Ubuntu (актуальные версии, без пинов).
+2. Ставит пакеты из репозитория Ubuntu (актуальные версии, без пинов),
+   включая `ansible-lint` (проверка стиля плейбуков).
 3. Ставит клиенты GitHub и GitLab: `gh`, `glab`, `gitlabcloner`, а также `glci`
    (локальный запуск GitLab CI), `pre-commit` и `reposcan`.
 4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2.
 5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
-   stern, а также flate и flux-tools (офлайн-рендер и дифф Flux GitOps).
-6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, плюс tfenv и tgenv.
+   stern, flate, flux-tools (офлайн-рендер и дифф Flux GitOps), cty (sample-YAML
+   из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод)
+   и kubespy (наблюдение за ресурсами в реальном времени).
+6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
+   (сжатый вывод `terragrunt plan`), плюс tfenv и tgenv.
 7. Ставит рантаймы: Python (venv/pip/pipx), uv, Go, Node.js, Java 21.
 8. Ставит direnv, Vault и gitleaks.
 9. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
-   ставит JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`).
+   ставит JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`)
+   и M-Commander (двухпанельный файловый менеджер).
 10. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и pitwall (GUI-терминал
     для coding-агентов, с ярлыком в меню приложений).
-11. Ставит сетевую диагностику `rkn-block-checker` (через pipx).
+11. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
+    (проверка распространения DNS) и `rkn-block-checker` (через pipx).
 12. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
 13. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
@@ -130,13 +139,16 @@ ansible-lint                                   # проверка стиля (pr
 
 | Роль | Пакеты | Зачем |
 |---|---|---|
-| base | ca-certificates, curl, wget, git, jq, unzip, zip, tar, gzip, xz-utils, bash-completion, lsb-release | база для работы и для самого плейбука |
+| base | ca-certificates, curl, wget, git, jq, unzip, zip, tar, gzip, xz-utils, bash-completion, lsb-release, ansible-lint | база для работы, самого плейбука и проверки стиля |
 | runtimes | python3-venv, python3-pip, python3-dev, pipx, golang-go, nodejs, npm, openjdk-21-jdk | языковые рантаймы |
 | secrets | direnv | окружение по каталогам |
 | shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig | удобная работа в терминале |
 | network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
 | audio | pipewire, pipewire-bin, pipewire-pulse, wireplumber, hicolor-icon-theme | шумоподавление микрофона (HushMic) |
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
+
+Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`) и
+`HushMic` (роль `audio`).
 
 ### Скачиваемые бинарники в `/usr/local/bin`
 
@@ -159,12 +171,19 @@ ansible-lint                                   # проверка стиля (pr
 | stern | github.com/stern/stern |
 | flate | github.com/home-operations/flate |
 | flux-tools | github.com/alexandervidyaev/flux-tools |
+| cty | github.com/Skarlso/crd-to-sample-yaml |
+| diffyml | github.com/szhekpisov/diffyml |
+| kubectl-k8i | github.com/ViktorUJ/kubectl-k8i |
+| kubespy | github.com/pulumi/kubespy |
 | tflint | github.com/terraform-linters/tflint |
 | terraform-docs | github.com/terraform-docs/terraform-docs |
 | packer | releases.hashicorp.com |
 | driftctl | github.com/snyk/driftctl |
+| tgsieve | github.com/imcitius/tgsieve |
 | vault | releases.hashicorp.com |
 | gitleaks | github.com/gitleaks/gitleaks |
+| gai | github.com/casablanque-code/gai |
+| dnsglobe | github.com/514-labs/dnsglobe |
 | starship | github.com/starship/starship |
 | bat | github.com/sharkdp/bat |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
@@ -172,12 +191,32 @@ ansible-lint                                   # проверка стиля (pr
 
 Отдельно (не через роль `binaries`): `rkn-block-checker` ставится из PyPI через
 pipx в `~/.local/bin` (роль `network`), `HushMic` — из `.deb`-пакета (роль
-`audio`).
+`audio`), `mcommander` — из `.deb`-пакетов (роль `shell`).
 
 Скачивание версий идёт без GitHub API (лимит 60 запросов в час): тег последнего
 релиза берётся из HTTP-редиректа `releases/latest` — для GitHub это
 `github.com/<repo>/releases/latest`, для GitLab (утилиты `glab`, `glci`) —
 `gitlab.com/<repo>/-/releases/permalink/latest`.
+
+Роль `binaries` понимает три формата архивов: `tar` (`.tar.gz`), `tarxz`
+(`.tar.xz`, напр. `dnsglobe`) и `zip`; для одиночных бинарников — `archive: none`.
+
+---
+
+## Проверка стиля (ansible-lint)
+
+Роль `base` ставит **ansible-lint** пакетом из репозитория Ubuntu — тот самый,
+которым можно проверять этот плейбук:
+
+```bash
+ansible-lint                    # профиль production, конфиг .ansible-lint
+```
+
+Профиль `production` и список исключений заданы в `.ansible-lint` в корне
+репозитория. Единственное исключение — `var-naming[no-role-prefix]`: роль
+`binaries` вызывается другими ролями через `include_role` и принимает входную
+переменную `binaries_to_install`, которая по правилу должна была бы нести
+префикс вызывающей роли.
 
 ---
 
@@ -306,6 +345,53 @@ flux-tools build clusters/prod --enable-helm
 
 ---
 
+## Инструменты для манифестов Kubernetes (cty, diffyml, kubectl-k8i, kubespy)
+
+Роль `kubernetes` дополнительно ставит:
+
+- **cty** (`Skarlso/crd-to-sample-yaml`) — генерирует sample-YAML из
+  определения CRD, валидирует sample против схемы CRD и проверяет схему на
+  breaking changes между версиями. Удобен для unit-тестов CRD-схем в CI.
+- **diffyml** (`szhekpisov/diffyml`) — быстрый структурный дифф YAML с учётом
+  специфики Kubernetes (понимает порядок полей, списки, аннотации), умеет
+  выдавать аннотации для GitHub/GitLab/Gitea CI.
+- **kubectl-k8i** (`ViktorUJ/kubectl-k8i`) — плагин kubectl: таблица ресурсов
+  нод (поды, CPU, память, проценты загрузки с цветовой индикацией), метаданные
+  (EC2, зона, nodepool), определение автоскейлера (Karpenter/CAS/Spot.io),
+  анализ workload'ов. Ставится как `kubectl-k8i`, поэтому доступен и как
+  `kubectl k8i`.
+- **kubespy** (`pulumi/kubespy`) — наблюдение за изменениями ресурсов
+  Kubernetes в реальном времени: `trace` собирает высокоуровневую сводку
+  разворачивания, `status` показывает диффы `.status`.
+
+```bash
+cty generate -c my-crd.yaml -o sample.yaml     # sample-YAML из CRD
+cty validate sample -c my-crd.yaml -s sample.yaml
+diffyml old.yaml new.yaml                      # структурный дифф
+kubectl k8i nodes                              # ресурсы нод
+kubespy trace deployment nginx                 # наблюдение за rollout
+```
+
+---
+
+## tgsieve — сжатый вывод `terragrunt plan`
+
+Роль `iac` ставит **tgsieve** (`imcitius/tgsieve`). На большом стеке
+`terragrunt plan --all` печатает тысячи строк, в которых нужные изменения
+теряются. tgsieve сам запускает план, читает **структурированный** вывод
+(`tfplan.json` по юнитам, флаг `--json-out-dir`) вместо текста, отбрасывает
+объявленный шум, сворачивает повторяющиеся изменения по юнитам и печатает
+только суть — с вложенностью «где → что → какие поля». Есть и `apply`, который
+применяет ровно то, что показал план.
+
+```bash
+tgsieve plan                    # план для текущего юнита и сжатый отчёт
+tgsieve plan --all              # план по всему стеку
+tgsieve plan --all --timings    # ещё и самые медленные юниты
+```
+
+---
+
 ## pitwall — терминал для coding-агентов
 
 Роль `opencode` ставит **pitwall** (`quanticstudios/pitwall`) — GUI-терминал для
@@ -363,6 +449,31 @@ PyPI через pipx в изолированное окружение, шим `r
 ```bash
 rkn-check                       # проверить список сайтов и вынести вердикт
 rkn-check startweb --port 8080  # локальный веб-дашборд (по умолчанию :7777)
+```
+
+---
+
+## Диагностика DNS и разрешения имён (gai, dnsglobe)
+
+Роль `network` дополнительно ставит два инструмента для разбора проблем с DNS:
+
+- **gai** (`casablanque-code/gai`) — инспектор `getaddrinfo`: показывает, каким
+  путём ОС на самом деле превращает имя в IP (`/etc/hosts`, mDNS,
+  systemd-resolved, DNS), и сверяет его с независимым DNS-запросом. Ловит
+  случай, когда `dig` отвечает, а процесс резолвит иначе (например, имя
+  перехвачено в `/etc/hosts`). Без LD_PRELOAD/eBPF/ptrace — читает те же
+  конфиги, что и ОС.
+- **dnsglobe** (`514-labs/dnsglobe`) — TUI-проверка распространения DNS-записи:
+  параллельно опрашивает 34 публичных резолвера по миру, сравнивает ответы,
+  показывает расхождения и прогресс на карте, умеет watch-режим до полной
+  пропагации. В узком терминале рисует вращающийся глобус, в широком — плоскую
+  карту.
+
+```bash
+gai doctor testhost.local       # разобрать путь разрешения имени и вынести вердикт
+gai explain example.com         # только путь разрешения, без вердикта
+dnsglobe example.com            # проверка распространения A-записи
+dnsglobe example.com A --once   # один прогон текстом (без TTY)
 ```
 
 ---
@@ -492,3 +603,28 @@ NL, NLPropo):
 
 > Проверить, что шрифт установился: `fc-list | grep -i "JetBrainsMono Nerd"`,
 > а что иконка разрешается в него: `fc-match 'JetBrainsMono Nerd Font:charset=e0a0'`.
+
+### M-Commander (двухпанельный файловый менеджер)
+
+Роль `shell` ставит **M-Commander** (`blue-panels/mcommander`) — форк GNU
+Midnight Commander: две панели, встроенный редактор и вьюер (со структурным
+деревом для JSON/YAML/XML/HTML), встроенный терминал и подключаемые панели для
+git, docker, Kubernetes, S3, FTP/SFTP, Samba, systemd и др. Главная команда —
+`mcommander`, короткий алиас — `mc6`; ставится рядом с пакетом `mc` из Ubuntu,
+не заменяя его.
+
+Ставится официальными `.deb`-пакетами из GitHub-релиза (базовый пакет +
+`plugins` + `lua`), сборка под Ubuntu 26.04 (`ubuntu26.04.1`). Версия не
+фиксируется — тег последнего релиза берётся из редиректа `releases/latest`.
+Все три пакета ставятся одной транзакцией apt (у `plugins`/`lua` зависимость
+`mcommander (= версия)`), повторный запуск ничего не переустанавливает.
+
+```bash
+mcommander          # запустить файловый менеджер
+mc6                 # то же самое (короткий алиас)
+mcedit6 file.txt    # сразу редактор
+```
+
+Настройки — в `roles/shell/defaults/main.yml` (`mcommander_*`): репозиторий,
+список `.deb`-пакетов, суффикс сборки; отключение через
+`mcommander_install: false`.

@@ -13,7 +13,7 @@
 #   version_url   — URL, отдающий версию текстом (source=text)
 #   version_strip — regex, срезающий префикс тега (по умолчанию ^v)
 #   url           — шаблон ссылки на файл; подставляются {tag} и {version}
-#   archive       — none | tar | zip
+#   archive       — none | tar | tarxz | zip
 #   member        — путь к бинарнику внутри архива (можно {tag} и {version})
 #
 # Идемпотентность: бинарник ставится, только если его нет в bin_dir.
@@ -30,3 +30,11 @@
 
 # Список задаёт вызывающая роль; значение по умолчанию — пустой список.
 binaries_to_install: []
+
+# Расширения архивов по значению поля archive (используются в именах
+# скачанных файлов во временном каталоге).
+binaries_archive_extensions:
+  none: ""
+  tar: tar.gz
+  tarxz: tar.xz
+  zip: zip

@@ -61,6 +61,35 @@ kubernetes_binaries:
     url: "https://github.com/alexandervidyaev/flux-tools/releases/download/{tag}/flux-tools_{version}_linux_amd64.tar.gz"
     archive: tar
     member: flux-tools
+  # cty (crd-to-sample-yaml) — генерация sample-YAML из CRD и валидация схем.
+  - name: cty
+    source: github
+    repo: Skarlso/crd-to-sample-yaml
+    url: "https://github.com/Skarlso/crd-to-sample-yaml/releases/download/{tag}/cty_linux_amd64.tar.gz"
+    archive: tar
+    member: cty
+  # diffyml — структурный дифф YAML с учётом специфики Kubernetes.
+  - name: diffyml
+    source: github
+    repo: szhekpisov/diffyml
+    url: "https://github.com/szhekpisov/diffyml/releases/download/{tag}/diffyml_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: diffyml
+  # kubectl-k8i — плагин kubectl: ресурсы нод с цветовой индикацией загрузки.
+  # Имя файла с префиксом kubectl- делает его доступным как `kubectl k8i`.
+  - name: kubectl-k8i
+    source: github
+    repo: ViktorUJ/kubectl-k8i
+    url: "https://github.com/ViktorUJ/kubectl-k8i/releases/download/{tag}/kubectl-k8i_linux_amd64.tar.gz"
+    archive: tar
+    member: kubectl-k8i
+  # kubespy — наблюдение за изменениями ресурсов Kubernetes в реальном времени.
+  - name: kubespy
+    source: github
+    repo: pulumi/kubespy
+    url: "https://github.com/pulumi/kubespy/releases/download/{tag}/kubespy-v{version}-linux-amd64.tar.gz"
+    archive: tar
+    member: kubespy
 
 # kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
 kubectx_ref: master

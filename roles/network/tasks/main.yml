@@ -9,6 +9,12 @@
     name: "{{ network_packages }}"
     state: present
 
+- name: Установить бинарники сетевой диагностики (актуальные версии)
+  ansible.builtin.include_role:
+    name: binaries
+  vars:
+    binaries_to_install: "{{ network_binaries }}"
+
 # pipx кладёт приложение в изолированное окружение, а шим — в PIPX_BIN_DIR
 # (~/.local/bin, он уже в PATH через devops-shell.sh). sudo не нужен.
 # Идемпотентность простая: есть шим — не трогаем (апдейт = pipx upgrade).
