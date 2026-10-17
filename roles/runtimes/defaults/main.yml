@@ -1,0 +1,15 @@
+---
+# Языковые рантаймы из репозитория Ubuntu (без фиксации версий).
+runtimes_packages:
+  - python3-venv
+  - python3-pip
+  - python3-dev
+  - pipx
+  - golang-go
+  - nodejs
+  - npm
+  - openjdk-21-jdk
+
+# uv ставится официальным installer'ом Astral (в apt его нет).
+# URL без версии -> всегда актуальная версия.
+uv_install_url: https://astral.sh/uv/install.sh

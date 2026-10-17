@@ -1,0 +1,24 @@
+---
+# Базовые пакеты из репозитория Ubuntu.
+# Версии не фиксируются: apt ставит актуальные для текущего релиза.
+base_packages:
+  - ca-certificates
+  - curl
+  - wget
+  - git
+  - jq
+  - unzip
+  - zip
+  - tar
+  - gzip
+  - xz-utils
+  - bash-completion
+  - lsb-release
+
+# yq (процессор YAML/JSON) — скачиваемый бинарник в /usr/local/bin.
+base_binaries:
+  - name: yq
+    source: github
+    repo: mikefarah/yq
+    url: "https://github.com/mikefarah/yq/releases/download/{tag}/yq_linux_amd64"
+    archive: none

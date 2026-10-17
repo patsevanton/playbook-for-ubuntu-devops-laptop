@@ -1,0 +1,38 @@
+---
+# ============================================================================
+# Роль shell: утилиты CLI + файл ~/.config/devops-shell.sh,
+# подключаемый из ~/.bashrc одной строкой source.
+# ============================================================================
+
+- name: Установить CLI-утилиты из репозитория Ubuntu
+  become: true
+  ansible.builtin.apt:
+    name: "{{ shell_packages }}"
+    state: present
+
+- name: Установить CLI-утилиты (актуальные версии)
+  ansible.builtin.include_role:
+    name: binaries
+  vars:
+    binaries_to_install: "{{ shell_binaries }}"
+
+- name: Создать каталог ~/.config
+  ansible.builtin.file:
+    path: "{{ home_dir }}/.config"
+    state: directory
+    mode: "0755"
+
+- name: Положить файл окружения devops-shell.sh
+  ansible.builtin.template:
+    src: devops-shell.sh.j2
+    dest: "{{ shell_file }}"
+    mode: "0644"
+
+- name: Подключить devops-shell.sh из ~/.bashrc
+  ansible.builtin.blockinfile:
+    path: "{{ bashrc_path }}"
+    create: true
+    mode: "0644"
+    marker: "{{ bashrc_marker }}"
+    block: |
+      [ -f "$HOME/.config/devops-shell.sh" ] && . "$HOME/.config/devops-shell.sh"

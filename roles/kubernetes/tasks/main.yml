@@ -1,0 +1,24 @@
+---
+# ============================================================================
+# Роль kubernetes: kubectl, helm, k9s, kustomize, kubectx.
+# ============================================================================
+
+- name: Установить бинарники Kubernetes (актуальные версии)
+  ansible.builtin.include_role:
+    name: binaries
+  vars:
+    binaries_to_install: "{{ kubernetes_binaries }}"
+
+- name: Установить kubectx (shell-скрипт)
+  become: true
+  ansible.builtin.get_url:
+    url: "{{ kubectx_url }}"
+    dest: "{{ bin_dir }}/kubectx"
+    mode: "0755"
+
+- name: Установить bash-completion для kubectx
+  become: true
+  ansible.builtin.get_url:
+    url: "{{ kubectx_completion_url }}"
+    dest: "{{ kubectx_completion_path }}"
+    mode: "0644"

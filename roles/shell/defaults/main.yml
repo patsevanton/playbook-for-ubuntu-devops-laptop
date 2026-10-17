@@ -1,0 +1,34 @@
+---
+# ============================================================================
+# Роль shell: удобные утилиты командной строки и файл окружения.
+# Пакеты — из репозитория Ubuntu, бинарники — актуальные версии.
+# ============================================================================
+shell_packages:
+  - eza
+  - zoxide
+  - fzf
+  - ripgrep
+  - fd-find
+
+shell_binaries:
+  - name: starship
+    source: github
+    repo: starship/starship
+    url: "https://github.com/starship/starship/releases/download/{tag}/starship-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: starship
+  - name: atuin
+    source: github
+    repo: atuinsh/atuin
+    url: "https://github.com/atuinsh/atuin/releases/download/{tag}/atuin-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: atuin-x86_64-unknown-linux-gnu/atuin
+  - name: bat
+    source: github
+    repo: sharkdp/bat
+    url: "https://github.com/sharkdp/bat/releases/download/{tag}/bat-v{version}-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: bat-v{version}-x86_64-unknown-linux-gnu/bat
+
+bashrc_path: "{{ home_dir }}/.bashrc"
+bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"

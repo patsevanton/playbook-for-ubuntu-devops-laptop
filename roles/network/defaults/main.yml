@@ -1,0 +1,9 @@
+---
+# Сетевые утилиты из репозитория Ubuntu.
+network_packages:
+  - nmap
+  - netcat-openbsd
+  - tcpdump
+  - httpie
+  - bind9-dnsutils
+  - telnet

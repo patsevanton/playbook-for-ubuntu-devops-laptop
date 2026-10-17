@@ -1,0 +1,13 @@
+---
+# Docker Engine и Compose V2 ставятся из официального репозитория Docker,
+# версии не фиксируются (актуальные в ветке stable).
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose-plugin
+
+docker_keyring_dir: /etc/apt/keyrings
+docker_key_path: "{{ docker_keyring_dir }}/docker.asc"
+docker_key_url: https://download.docker.com/linux/ubuntu/gpg
+docker_repo_base: https://download.docker.com/linux/ubuntu

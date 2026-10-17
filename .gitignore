@@ -1,0 +1,6 @@
+# Ansible / lint кэш
+.ansible/
+*.retry
+
+# Временные файлы
+*.log

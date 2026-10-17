@@ -1,0 +1,88 @@
+---
+# ============================================================================
+# playbook-for-ubuntu-devops-laptop
+#
+# Установка DevOps-окружения на локальный ноутбук с Ubuntu 26.04 (resolute).
+#
+# Запуск (пароль sudo вводит сам пользователь):
+#   ansible-playbook -K playbook.yml
+#
+# Структура — стандартная для Ansible-проекта:
+#   ansible.cfg        — настройки (инвентарь, путь к ролям)
+#   inventory/         — инвентарь (localhost, локальное подключение)
+#   group_vars/all.yml — общие переменные
+#   roles/             — роли по доменам
+#
+# Версии инструментов не фиксируются: ставится актуальное на момент запуска.
+# ============================================================================
+- name: DevOps-окружение на Ubuntu-ноутбуке
+  hosts: localhost
+  gather_facts: true
+  become: false          # системные шаги включают become: true внутри ролей
+  any_errors_fatal: true
+
+  roles:
+    # base ставится всегда (нужен для --tags): базовые пакеты и каталоги.
+    - role: base
+      tags: [base, always]
+    - role: docker
+      tags: [docker]
+    - role: kubernetes
+      tags: [kubernetes]
+    - role: iac
+      tags: [iac]
+    - role: runtimes
+      tags: [runtimes]
+    - role: secrets
+      tags: [secrets]
+    - role: shell
+      tags: [shell]
+    - role: network
+      tags: [network]
+    - role: opencode
+      tags: [opencode]
+
+  post_tasks:
+    - name: Проверить работу установленных утилит
+      ansible.builtin.command: "{{ item }}"
+      register: verify_result
+      changed_when: false
+      failed_when: false
+      loop:
+        - "{{ bin_dir }}/yq --version"
+        - "{{ bin_dir }}/kubectl version --client"
+        - "{{ bin_dir }}/helm version --short"
+        - "{{ bin_dir }}/kustomize version"
+        - "{{ bin_dir }}/k9s version -s"
+        - "{{ bin_dir }}/tflint --version"
+        - "{{ bin_dir }}/terraform-docs --version"
+        - "{{ bin_dir }}/packer version"
+        - "{{ bin_dir }}/vault version"
+        - "{{ bin_dir }}/uv --version"
+        - "{{ bin_dir }}/opencode --version"
+        - "{{ bin_dir }}/bat --version"
+        - "{{ bin_dir }}/starship --version"
+        - "{{ bin_dir }}/atuin --version"
+        - "docker --version"
+        - "docker compose version"
+        - "{{ home_dir }}/.tfenv/bin/tfenv --version"
+        - "{{ home_dir }}/.tgenv/bin/tgenv --version"
+      loop_control:
+        label: "{{ item }}"
+
+    - name: Проверить наличие kubectx
+      ansible.builtin.stat:
+        path: "{{ bin_dir }}/kubectx"
+      register: kubectx_check
+      failed_when: not kubectx_check.stat.exists
+
+    - name: Итог — версии установленных утилит
+      ansible.builtin.debug:
+        msg: >-
+          {{ item.item }} ->
+          {{ (item.stdout_lines | default([]) | join(' '))
+             or (item.stderr_lines | default([]) | join(' '))
+             or 'НЕ РАБОТАЕТ' }}
+      loop: "{{ verify_result.results }}"
+      loop_control:
+        label: "{{ item.item }}"

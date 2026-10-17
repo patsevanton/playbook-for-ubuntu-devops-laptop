@@ -1,0 +1,76 @@
+---
+# ============================================================================
+# Роль opencode: установка актуальной версии из npm-реестра.
+#
+# Идемпотентность: если {{ bin_dir }}/opencode уже есть — ничего не
+# делаем (даже не обращаемся к реестру). Удалить файл = переустановить.
+# ============================================================================
+
+- name: Проверить наличие opencode
+  ansible.builtin.stat:
+    path: "{{ bin_dir }}/opencode"
+  register: opencode_stat
+
+- name: Установить opencode
+  when: not opencode_stat.stat.exists
+  block:
+    - name: Проверить поддержку AVX2 (выбор сборки opencode)
+      ansible.builtin.command: grep -qw avx2 /proc/cpuinfo
+      register: opencode_avx2
+      failed_when: false
+      changed_when: false
+
+    - name: Выбрать сборку opencode
+      ansible.builtin.set_fact:
+        opencode_target: "{{ 'linux-x64' if opencode_avx2.rc == 0 else 'linux-x64-baseline' }}"
+
+    - name: Узнать актуальную версию opencode в npm-реестре
+      ansible.builtin.uri:
+        url: "{{ opencode_meta_url }}"
+        return_content: true
+        headers:
+          User-Agent: "{{ http_user_agent }}"
+      register: opencode_meta
+      changed_when: false
+
+    - name: Зафиксировать актуальную версию opencode
+      ansible.builtin.set_fact:
+        opencode_version: "{{ opencode_meta.json.version }}"
+
+    - name: Создать чистый каталог для распаковки opencode
+      become: true
+      ansible.builtin.file:
+        path: "{{ tmp_dir }}/opencode"
+        state: absent
+
+    - name: Создать каталог для распаковки opencode
+      become: true
+      ansible.builtin.file:
+        path: "{{ tmp_dir }}/opencode"
+        state: directory
+        mode: "0755"
+
+    - name: Скачать opencode из npm-реестра
+      become: true
+      ansible.builtin.get_url:
+        url: "{{ opencode_url }}"
+        dest: "{{ tmp_dir }}/opencode/opencode.tgz"
+        mode: "0644"
+        force: true
+
+    - name: Распаковать opencode
+      become: true
+      ansible.builtin.unarchive:
+        src: "{{ tmp_dir }}/opencode/opencode.tgz"
+        dest: "{{ tmp_dir }}/opencode/"
+        remote_src: true
+
+    - name: Установить opencode в {{ bin_dir }}
+      become: true
+      ansible.builtin.copy:
+        src: "{{ tmp_dir }}/opencode/package/bin/opencode"
+        dest: "{{ bin_dir }}/opencode"
+        remote_src: true
+        mode: "0755"
+        owner: root
+        group: root

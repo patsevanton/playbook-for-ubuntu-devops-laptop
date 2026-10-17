@@ -1,0 +1,36 @@
+---
+# ============================================================================
+# Роль kubernetes: клиентские утилиты Kubernetes.
+# Версии определяются на момент запуска (source=text / source=github).
+# ============================================================================
+kubernetes_binaries:
+  - name: kubectl
+    source: text
+    version_url: https://dl.k8s.io/release/stable.txt
+    url: "https://dl.k8s.io/release/v{version}/bin/linux/amd64/kubectl"
+    archive: none
+  - name: helm
+    source: text
+    version_url: https://get.helm.sh/helm-latest-version
+    url: "https://get.helm.sh/helm-v{version}-linux-amd64.tar.gz"
+    archive: tar
+    member: linux-amd64/helm
+  - name: k9s
+    source: github
+    repo: derailed/k9s
+    url: "https://github.com/derailed/k9s/releases/download/{tag}/k9s_Linux_amd64.tar.gz"
+    archive: tar
+    member: k9s
+  - name: kustomize
+    source: github
+    repo: kubernetes-sigs/kustomize
+    version_strip: "^kustomize/v"
+    url: "https://github.com/kubernetes-sigs/kustomize/releases/download/{tag}/kustomize_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kustomize
+
+# kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
+kubectx_ref: master
+kubectx_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/kubectx"
+kubectx_completion_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/completion/kubectx.bash"
+kubectx_completion_path: /etc/bash_completion.d/kubectx

@@ -1,0 +1,63 @@
+---
+# ============================================================================
+# Роль base: проверки, служебные каталоги, базовые пакеты apt.
+# ============================================================================
+
+- name: Проверить ОС и архитектуру
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['distribution'] == 'Ubuntu'
+      - ansible_facts['architecture'] == 'x86_64'
+    fail_msg: >-
+      Плейбук рассчитан на Ubuntu/x86_64, обнаружено:
+      {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}
+      ({{ ansible_facts['architecture'] }}).
+    success_msg: >-
+      ОС и архитектура подходят: {{ ansible_facts['distribution'] }}
+      {{ ansible_facts['distribution_version'] }} ({{ ansible_facts['architecture'] }}).
+
+- name: Предупреждение при отличии от Ubuntu 26.04 (resolute)
+  ansible.builtin.debug:
+    msg: >-
+      ВНИМАНИЕ: плейбук рассчитан на Ubuntu 26.04 (resolute), обнаружен
+      {{ ansible_facts['distribution_release'] }}. Проверьте имена пакетов и
+      ветку репозитория Docker.
+  when: ansible_facts['distribution_release'] != 'resolute'
+
+- name: Создать служебные каталоги
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ bin_dir }}"
+    - "{{ tmp_dir }}"
+
+- name: Обновить кэш apt
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Установить базовые пакеты
+  become: true
+  ansible.builtin.apt:
+    name: "{{ base_packages }}"
+    state: present
+
+# ansible-core запускает этот же плейбук, python3-apt нужен модулю apt.
+# state: present не понижает и не обновляет уже установленные пакеты.
+- name: Установить ansible-core и python3-apt
+  become: true
+  ansible.builtin.apt:
+    name:
+      - ansible-core
+      - python3-apt
+    state: present
+
+- name: Установить yq (актуальная версия)
+  ansible.builtin.include_role:
+    name: binaries
+  vars:
+    binaries_to_install: "{{ base_binaries }}"

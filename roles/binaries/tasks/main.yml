@@ -1,0 +1,185 @@
+---
+# ============================================================================
+# Роль binaries: актуальные версии + установка в bin_dir.
+# Вызывается через include_role с переменной binaries_to_install.
+#
+# Идемпотентность простая: если файла в bin_dir нет — ставим,
+# если есть — не трогаем (ничего не скачиваем и не проверяем версии).
+# Обновить инструмент = удалить файл и запустить плейбук снова.
+# ============================================================================
+
+- name: Проверить, что список бинарников не пуст
+  ansible.builtin.assert:
+    that:
+      - binaries_to_install is defined
+      - binaries_to_install | length > 0
+    fail_msg: "Роль binaries вызвана без переменной binaries_to_install"
+
+- name: Сбросить результаты предыдущих вызовов роли
+  ansible.builtin.set_fact:
+    binaries_resolved: []
+    binaries_missing: []
+    binaries_github_tags: {}
+    binaries_text_versions: {}
+
+# --- 1. Что уже установлено (идемпотентность: есть файл — не трогаем) --------
+- name: Проверить наличие бинарников в bin_dir
+  ansible.builtin.stat:
+    path: "{{ bin_dir }}/{{ item.name }}"
+  loop: "{{ binaries_to_install }}"
+  loop_control:
+    label: "{{ item.name }}"
+  register: binaries_stat
+
+- name: Определить отсутствующие бинарники
+  ansible.builtin.set_fact:
+    binaries_missing: >-
+      {{ binaries_stat.results | rejectattr('stat.exists') | map(attribute='item') | list }}
+
+# --- 2. Актуальные версии — только для отсутствующих -----------------------
+- name: Узнать теги последних релизов GitHub (через редирект releases/latest)
+  ansible.builtin.uri:
+    url: "https://github.com/{{ item.repo }}/releases/latest"
+    follow_redirects: none
+    status_code: [301, 302, 303, 307, 308]
+    headers:
+      User-Agent: "{{ http_user_agent }}"
+  loop: "{{ binaries_missing | selectattr('source', 'equalto', 'github') | list }}"
+  loop_control:
+    label: "{{ item.name }}"
+  register: binaries_github_result
+  changed_when: false
+
+- name: Узнать версии из текстовых endpoint'ов
+  ansible.builtin.uri:
+    url: "{{ item.version_url }}"
+    return_content: true
+    headers:
+      User-Agent: "{{ http_user_agent }}"
+  loop: "{{ binaries_missing | selectattr('source', 'equalto', 'text') | list }}"
+  loop_control:
+    label: "{{ item.name }}"
+  register: binaries_text_result
+  changed_when: false
+
+- name: Собрать словарь тегов GitHub
+  ansible.builtin.set_fact:
+    binaries_github_tags: "{{ _tags | from_yaml }}"
+  vars:
+    _tags: >-
+      { {% for r in binaries_github_result.results | default([]) %}
+      {{ r.item.name | to_json }}:
+      {{ (r.location | default('') | regex_replace('^.*/releases/tag/', '')) | to_json }},
+      {% endfor %} }
+
+- name: Собрать словарь версий из текстовых endpoint'ов
+  ansible.builtin.set_fact:
+    binaries_text_versions: "{{ _versions | from_yaml }}"
+  vars:
+    _versions: >-
+      { {% for r in binaries_text_result.results | default([]) %}
+      {{ r.item.name | to_json }}:
+      {{ (r.content | default('') | trim | regex_replace('^v', '')) | to_json }},
+      {% endfor %} }
+
+- name: Определить версии и ссылки на файлы
+  ansible.builtin.set_fact:
+    binaries_resolved: "{{ binaries_resolved + [_item] }}"
+  loop: "{{ binaries_missing }}"
+  loop_control:
+    label: "{{ item.name }}"
+  vars:
+    _tag: "{{ binaries_github_tags[item.name] | default('') }}"
+    _version: >-
+      {{ binaries_text_versions[item.name]
+         | default(_tag | regex_replace(item.version_strip | default('^v'), '')) }}
+    _ver: "{{ _version | trim }}"
+    _item: >-
+      {{ item | combine({
+           'tag': _tag,
+           'version': _ver,
+           'url': item.url | replace('{tag}', _tag) | replace('{version}', _ver),
+           'archive': item.archive | default('none'),
+           'member': item.member | default('') | replace('{tag}', _tag) | replace('{version}', _ver)
+         }) }}
+
+- name: Проверить, что все версии определились
+  ansible.builtin.assert:
+    that:
+      - item.version | length > 0
+    fail_msg: "Не удалось определить актуальную версию для {{ item.name }} (проверьте доступ в сеть)"
+  loop: "{{ binaries_resolved }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Что будет установлено
+  ansible.builtin.debug:
+    msg: >-
+      {{ 'Ставим: ' + (binaries_resolved | map(attribute='name') | join(', '))
+         if binaries_resolved | length > 0
+         else 'Все бинарники уже установлены' }}
+
+# --- 3. Установка -----------------------------------------------------------
+- name: Скачать одиночные бинарники прямо в bin_dir
+  become: true
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ bin_dir }}/{{ item.name }}"
+    mode: "0755"
+    force: true
+  loop: "{{ binaries_resolved | selectattr('archive', 'equalto', 'none') | list }}"
+  loop_control:
+    label: "{{ item.name }} {{ item.version }}"
+
+- name: Скачать архивы во временный каталог
+  become: true
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ tmp_dir }}/{{ item.name }}-{{ item.version | replace('/', '_') }}.{{ 'tar.gz' if item.archive == 'tar' else 'zip' }}"
+    mode: "0644"
+    force: true
+  loop: "{{ binaries_resolved | rejectattr('archive', 'equalto', 'none') | list }}"
+  loop_control:
+    label: "{{ item.name }} {{ item.version }}"
+
+- name: Удалить старые каталоги распаковки
+  become: true
+  ansible.builtin.file:
+    path: "{{ tmp_dir }}/unpack-{{ item.name }}"
+    state: absent
+  loop: "{{ binaries_resolved | rejectattr('archive', 'equalto', 'none') | list }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Создать каталоги распаковки
+  become: true
+  ansible.builtin.file:
+    path: "{{ tmp_dir }}/unpack-{{ item.name }}"
+    state: directory
+    mode: "0755"
+  loop: "{{ binaries_resolved | rejectattr('archive', 'equalto', 'none') | list }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Распаковать архивы
+  become: true
+  ansible.builtin.unarchive:
+    src: "{{ tmp_dir }}/{{ item.name }}-{{ item.version | replace('/', '_') }}.{{ 'tar.gz' if item.archive == 'tar' else 'zip' }}"
+    dest: "{{ tmp_dir }}/unpack-{{ item.name }}"
+    remote_src: true
+  loop: "{{ binaries_resolved | rejectattr('archive', 'equalto', 'none') | list }}"
+  loop_control:
+    label: "{{ item.name }} {{ item.version }}"
+
+- name: Установить бинарники из архивов
+  become: true
+  ansible.builtin.copy:
+    src: "{{ tmp_dir }}/unpack-{{ item.name }}/{{ item.member }}"
+    dest: "{{ bin_dir }}/{{ item.name }}"
+    remote_src: true
+    mode: "0755"
+    owner: root
+    group: root
+  loop: "{{ binaries_resolved | rejectattr('archive', 'equalto', 'none') | list }}"
+  loop_control:
+    label: "{{ item.name }} {{ item.version }}"
