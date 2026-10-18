@@ -26,3 +26,20 @@ docker_keyring_dir: /etc/apt/keyrings
 docker_key_path: "{{ docker_keyring_dir }}/docker.asc"
 docker_key_url: https://download.docker.com/linux/ubuntu/gpg
 docker_repo_base: https://download.docker.com/linux/ubuntu
+
+# Утилиты для повседневной работы с контейнерами (ставятся через роль binaries).
+docker_binaries:
+  # dive — анализ слоёв docker-образа: размер, мусор, оценка эффективности.
+  - name: dive
+    source: github
+    repo: wagoodman/dive
+    url: "https://github.com/wagoodman/dive/releases/download/{tag}/dive_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: dive
+  # lazydocker — TUI-менеджер Docker/Podman (от автора lazygit).
+  - name: lazydocker
+    source: github
+    repo: jesseduffield/lazydocker
+    url: "https://github.com/jesseduffield/lazydocker/releases/download/{tag}/lazydocker_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: lazydocker

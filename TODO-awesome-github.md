@@ -202,14 +202,16 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Docker и контейнеры
 
-- [ ] ⭐ **dive** — анализ слоёв docker-образа, размер и мусор. *(`deb`)* —
+- [x] ⭐ **dive** — анализ слоёв docker-образа, размер и мусор. *(`deb`)* —
       [wagoodman/dive](https://github.com/wagoodman/dive)
+      — ✅ добавлен в плейбук (роль `docker`, бинарником из тарболла).
 - [ ] **dry** — терминальный менеджер Docker-контейнеров, образов, сетей.
       *(`go` / `release`)* — [moncho/dry](https://github.com/moncho/dry)
 - [ ] **ctop** — `top` для метрик контейнеров. *(`go` / `release`)* —
       [bcicen/ctop](https://github.com/bcicen/ctop)
-- [ ] **lazydocker** — TUI-менеджер Docker/Podman (от автора lazygit). *(`go`)* —
+- [x] **lazydocker** — TUI-менеджер Docker/Podman (от автора lazygit). *(`go`)* —
       [jesseduffield/lazydocker](https://github.com/jesseduffield/lazydocker)
+      — ✅ добавлен в плейбук (роль `docker`, бинарником из тарболла).
 - [ ] **docker-image-layer-explorer** — просмотр и распаковка слоёв образа.
       *(`pipx`)* — [Kartik1397/docker-image-layer-explorer](https://github.com/Kartik1397/docker-image-layer-explorer)
 - [ ] **decompose** — reverse-engineering docker-окружений (сети, тома, образы).
@@ -287,15 +289,17 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Сеть и сетевая диагностика
 
-- [ ] ⭐ **bandwhich** — TUI: текущая полоса трафика по процессам и
+- [x] ⭐ **bandwhich** — TUI: текущая полоса трафика по процессам и
       соединениям. *(`deb` из релиза / `tar.gz` + setcap; ⭐ 12k)* —
       [imsnif/bandwhich](https://github.com/imsnif/bandwhich)
+      — ✅ добавлен в плейбук (роль `network`, бинарник + setcap CAP_NET_RAW).
 - [ ] **sniffnet** — кроссплатформенный GUI-мониторинг сетевого трафика.
       *(`deb`)* — [GyulyVGC/sniffnet](https://github.com/GyulyVGC/sniffnet)
 - [ ] **trippy** — TUI traceroute с историей и статистикой по хопам.
       *(`deb` / `snap`)* — [fujiapple852/trippy](https://github.com/fujiapple852/trippy)
-- [ ] ⭐ **q** — крошечный DNS-клиент: UDP/TCP/DoH/DoT/DoQ/ODoH. *(`deb`)* —
+- [x] ⭐ **q** — крошечный DNS-клиент: UDP/TCP/DoH/DoT/DoQ/ODoH. *(`deb`)* —
       [natesales/q](https://github.com/natesales/q)
+      — ✅ добавлен в плейбук (роль `network`, бинарником из тарболла).
 - [ ] **dog** — DNS-клиент с человекочитаемым цветным выводом. *(`cargo`)* —
       [ogham/dog](https://github.com/ogham/dog)
 - [ ] **tcping** — `ping` поверх TCP-портов. *(`deb`)* —
@@ -306,8 +310,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [vi/websocat](https://github.com/vi/websocat)
 - [ ] **hurl** — запуск и тестирование HTTP-запросов из plain-text файлов.
       *(`deb`; ⭐ 19.3k)* — [Orange-OpenSource/hurl](https://github.com/Orange-OpenSource/hurl)
-- [ ] **xh** — быстрый и дружелюбный HTTP-клиент (замена httpie). *(`deb`; ⭐ 8.1k)* —
+- [x] **xh** — быстрый и дружелюбный HTTP-клиент (замена httpie). *(`deb`; ⭐ 8.1k)* —
       [ducaale/xh](https://github.com/ducaale/xh)
+      — ✅ добавлен в плейбук (роль `network`, бинарником из тарболла).
 - [x] **mkcert** — локально доверенные dev-сертификаты без настройки. *(`go`)* —
       [FiloSottile/mkcert](https://github.com/FiloSottile/mkcert) — ставится ролью
       `nora` (см. `README.md`, раздел «NORA artifact registry»)
@@ -345,10 +350,12 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Секреты и безопасность
 
-- [ ] **sops** — шифрование секретов прямо в Git (KMS/age/PGP). Дополняет
+- [x] **sops** — шифрование секретов прямо в Git (KMS/age/PGP). Дополняет
       `vault`. *(`deb`)* — [getsops/sops](https://github.com/getsops/sops)
-- [ ] **grype** — сканер уязвимостей контейнерных образов и ФС. *(`deb`)* —
+      — ✅ добавлен в плейбук (роль `secrets`, бинарником из релиза).
+- [x] **grype** — сканер уязвимостей контейнерных образов и ФС. *(`deb`)* —
       [anchore/grype](https://github.com/anchore/grype)
+      — ✅ добавлен в плейбук (роль `secrets`, бинарником из тарболла).
 - [ ] **flawz** — TUI-браузер CVE/уязвимостей. *(`cargo`)* —
       [orhun/flawz](https://github.com/orhun/flawz)
 - [ ] **mfa** — терминальный менеджер 2FA/TOTP. *(`deb`)* —
@@ -386,8 +393,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Git, GitHub/GitLab и CI/CD
 
-- [ ] **lazygit** — TUI для git: статус, коммиты, rebase, конфликты.
+- [x] **lazygit** — TUI для git: статус, коммиты, rebase, конфликты.
       *(`release` / `go`)* — [jesseduffield/lazygit](https://github.com/jesseduffield/lazygit)
+      — ✅ добавлен в плейбук (роль `git`).
 - [ ] **lumen** — просмотр git diff + генерация коммитов через LLM. *(`cargo`)* —
       [jnsahaj/lumen](https://github.com/jnsahaj/lumen)
 - [ ] ⭐ **opencommit** — генерация осмысленных git-сообщений через GPT.
@@ -437,12 +445,14 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`cargo`)* — [samwho/spacer](https://github.com/samwho/spacer)
 - [ ] **3mux** — мультиплексор терминала в стиле i3. *(`go`)* —
       [aaronjanse/3mux](https://github.com/aaronjanse/3mux)
-- [ ] **difftastic** — структурный diff (понимает синтаксис языка).
+- [x] **difftastic** — структурный diff (понимает синтаксис языка).
       *(`tar.gz` / `cargo`; ⭐ 26k)* —
       [Wilfred/difftastic](https://github.com/Wilfred/difftastic)
-- [ ] **delta** — улучшенный просмотр git-diff (side-by-side, подсветка; не
+      — ✅ добавлен в плейбук (роль `shell`).
+- [x] **delta** — улучшенный просмотр git-diff (side-by-side, подсветка; не
       путать с apt-пакетом `delta` — это другая утилита). *(`deb` git-delta /
       `cargo`; ⭐ 32.5k)* — [dandavison/delta](https://github.com/dandavison/delta)
+      — ✅ добавлен в плейбук (роль `shell`).
 - [ ] **dust** — наглядный `du` с деревом и графиком. *(`deb` / `cargo`; ⭐ 12.5k)* —
       [bootandy/dust](https://github.com/bootandy/dust)
 
@@ -450,8 +460,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 - [ ] **dusage** — наглядный подсчёт занятого места на диске. *(`deb`)* —
       [mihaigalos/dusage](https://github.com/mihaigalos/dusage)
-- [ ] ⭐ **gdu** — быстрый анализатор диска с интерактивным TUI. *(`deb`)* —
+- [x] ⭐ **gdu** — быстрый анализатор диска с интерактивным TUI. *(`deb`)* —
       [dundee/gdu](https://github.com/dundee/gdu)
+      — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
 - [ ] **lf** — терминальный файловый менеджер с vim-подобными клавишами.
       *(`go`)* — [gokcehan/lf](https://github.com/gokcehan/lf)
 - [ ] **fastfetch** — быстрый neofetch-подобный вывод информации о системе.
@@ -475,8 +486,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Установщики бинарников (мета-инструменты)
 
-- [ ] ⭐ **eget** — установка готовых бинарников прямо из GitHub-релизов. *(`go`)* —
+- [x] ⭐ **eget** — установка готовых бинарников прямо из GitHub-релизов. *(`go`)* —
       [zyedidia/eget](https://github.com/zyedidia/eget)
+      — ✅ добавлен в плейбук (роль `base`).
 - [ ] **binup** — автоматическая установка приложений из GitHub-релизов.
       *(`cargo`)* — [KonishchevDmitry/binup](https://github.com/KonishchevDmitry/binup)
 - [ ] **stew** — независимый пакетный менеджер для скомпилированных бинарников.

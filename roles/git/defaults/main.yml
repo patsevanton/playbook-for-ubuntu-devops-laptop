@@ -15,6 +15,8 @@
 #         (zipapp с shebang) прямо в bin_dir, без pip/virtualenv.
 # reposcan — быстрый поиск git-репозиториев с незакоммиченными/незапушенными
 #         изменениями по файловой системе.
+# lazygit — TUI для git: статус, коммиты, rebase, конфликты (от автора
+#         lazydocker). Релиз — тарболл с одиночным бинарником lazygit.
 # ============================================================================
 git_binaries:
   - name: gh
@@ -49,3 +51,9 @@ git_binaries:
     repo: mabd-dev/reposcan
     url: "https://github.com/mabd-dev/reposcan/releases/download/{tag}/reposcan-{tag}-linux-amd64"
     archive: none
+  - name: lazygit
+    source: github
+    repo: jesseduffield/lazygit
+    url: "https://github.com/jesseduffield/lazygit/releases/download/{tag}/lazygit_{version}_linux_x86_64.tar.gz"
+    archive: tar
+    member: lazygit

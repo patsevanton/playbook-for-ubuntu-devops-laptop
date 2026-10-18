@@ -25,6 +25,30 @@ shell_binaries:
     url: "https://github.com/sharkdp/bat/releases/download/{tag}/bat-v{version}-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: bat-v{version}-x86_64-unknown-linux-gnu/bat
+  # difftastic — структурный diff: понимает синтаксис языка (а не строки).
+  # Релиз — тарболл с одиночным бинарником difft.
+  - name: difftastic
+    source: github
+    repo: Wilfred/difftastic
+    url: "https://github.com/Wilfred/difftastic/releases/download/{tag}/difft-{version}-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: difft
+  # delta — улучшенный просмотр git-diff (side-by-side, подсветка). В архиве
+  # бинарник лежит в каталоге delta-{version}-x86_64-unknown-linux-gnu.
+  - name: delta
+    source: github
+    repo: dandavison/delta
+    url: "https://github.com/dandavison/delta/releases/download/{tag}/delta-{version}-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: delta-{version}-x86_64-unknown-linux-gnu/delta
+  # gdu — быстрый анализатор занятого места на диске с интерактивным TUI.
+  # Релиз — gdu_linux_amd64.tgz (gzip-тарболл), бинарник внутри gdu_linux_amd64.
+  - name: gdu
+    source: github
+    repo: dundee/gdu
+    url: "https://github.com/dundee/gdu/releases/download/{tag}/gdu_linux_amd64.tgz"
+    archive: tar
+    member: gdu_linux_amd64
 
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"

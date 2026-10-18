@@ -36,3 +36,30 @@ network_binaries:
     url: "https://github.com/514-labs/dnsglobe/releases/download/{tag}/dnsglobe-x86_64-unknown-linux-gnu.tar.xz"
     archive: tarxz
     member: dnsglobe-x86_64-unknown-linux-gnu/dnsglobe
+  # bandwhich — TUI текущей полосы трафика по процессам и соединениям. Для
+  # чтения трафика требует CAP_NET_RAW — ниже на бинарник вешается setcap.
+  - name: bandwhich
+    source: github
+    repo: imsnif/bandwhich
+    url: "https://github.com/imsnif/bandwhich/releases/download/{tag}/bandwhich-v{tag}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: bandwhich
+  # q — крошечный DNS-клиент: UDP/TCP/DoH/DoT/DoQ/ODoH. В тарболле одиночный q.
+  - name: q
+    source: github
+    repo: natesales/q
+    url: "https://github.com/natesales/q/releases/download/{tag}/q_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: q
+  # xh — быстрый HTTP-клиент (замена httpie). В архиве бинарник лежит в
+  # каталоге xh-v{tag}-x86_64-unknown-linux-musl.
+  - name: xh
+    source: github
+    repo: ducaale/xh
+    url: "https://github.com/ducaale/xh/releases/download/{tag}/xh-v{tag}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: xh-v{tag}-x86_64-unknown-linux-musl/xh
+
+# bandwhich для чтения сетевого трафика требует CAP_NET_RAW — вешаем setcap
+# на бинарник, чтобы он работал без sudo. False = не навешивать (запуск через sudo).
+network_bandwhich_setcap: true

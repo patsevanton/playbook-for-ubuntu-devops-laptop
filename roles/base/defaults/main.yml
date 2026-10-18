@@ -19,13 +19,23 @@ base_packages:
   # идёт первой в плейбуке (и всегда, см. tags: [base, always]).
   - pipx
 
-# yq (процессор YAML/JSON) — скачиваемый бинарник в /usr/local/bin.
+# yq (процессор YAML/JSON) и eget (установщик бинарников из GitHub-релизов) —
+# скачиваемые бинарники в /usr/local/bin. eget — мета-инструмент: ставит
+# готовые бинарники из релизов, поэтому лежит в base вместе с прочей «базой».
 base_binaries:
   - name: yq
     source: github
     repo: mikefarah/yq
     url: "https://github.com/mikefarah/yq/releases/download/{tag}/yq_linux_amd64"
     archive: none
+  # eget — установка готовых бинарников прямо из GitHub-релизов (одна команда:
+  # eget owner/repo). В архиве бинарник лежит в каталоге eget-{version}-linux_amd64.
+  - name: eget
+    source: github
+    repo: zyedidia/eget
+    url: "https://github.com/zyedidia/eget/releases/download/{tag}/eget-{version}-linux_amd64.tar.gz"
+    archive: tar
+    member: eget-{version}-linux_amd64/eget
 
 # molecule — фреймворк тестирования Ansible-ролей и плейбуков (прогон ролей
 # в контейнерах/VM). Пакета в apt и релизных бинарников нет — ставится из PyPI

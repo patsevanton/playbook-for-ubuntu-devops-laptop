@@ -72,8 +72,10 @@ ansible-lint                                   # проверка стиля (pr
 ├── roles/
 │   ├── base/                   # проверки, каталоги, базовые пакеты (в т.ч. pipx),
 │   │                           #   yq, ansible-lint, molecule
-│   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan
-│   ├── docker/                 # репозиторий Docker, Engine, Compose V2
+│   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan,
+│   │                           #   lazygit
+│   ├── docker/                 # репозиторий Docker, Engine, Compose V2,
+│   │                           #   dive, lazydocker
 │   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
 │   │                           #   stern, flate, flux-tools, cty, diffyml,
 │   │                           #   kubectl-k8i, kubespy, kubecolor, kube-capacity,
@@ -83,11 +85,13 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
-│   ├── secrets/                # direnv, vault, gitleaks
-│   ├── shell/                  # eza, zoxide, fzf, starship, bat,
-│   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
+│   ├── secrets/                # direnv, vault, gitleaks, sops, grype
+│   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
+│   │                           #   delta, gdu, JetBrainsMono Nerd Font,
+│   │                           #   mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
-│   │                           #   gai, dnsglobe, rkn-block-checker (pipx)
+│   │                           #   gai, dnsglobe, bandwhich, q, xh,
+│   │                           #   rkn-block-checker (pipx)
 │   ├── opencode/               # opencode (из npm-реестра)
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
@@ -113,11 +117,14 @@ ansible-lint                                   # проверка стиля (pr
 
 1. Проверяет, что ОС — Ubuntu, архитектура — x86_64, и создаёт служебные каталоги.
 2. Ставит пакеты из репозитория Ubuntu (актуальные версии, без пинов),
-   включая `pipx`, `ansible-lint` (проверка стиля плейбуков) и `molecule`
-   (тестирование Ansible-ролей в контейнерах, ставится через pipx).
+   включая `pipx`, `ansible-lint` (проверка стиля плейбуков), `molecule`
+   (тестирование Ansible-ролей в контейнерах, ставится через pipx) и `eget`
+   (установщик бинарников из GitHub-релизов).
 3. Ставит клиенты GitHub и GitLab: `gh`, `glab`, `gitlabcloner`, а также `glci`
-   (локальный запуск GitLab CI), `pre-commit` и `reposcan`.
-4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2.
+   (локальный запуск GitLab CI), `pre-commit`, `reposcan` и `lazygit`
+   (TUI для git).
+4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2,
+   а также `dive` (анализ слоёв образа) и `lazydocker` (TUI-менеджер контейнеров).
 5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
    stern, flate, flux-tools (офлайн-рендер и дифф Flux GitOps), cty (sample-YAML
    из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод),
@@ -132,15 +139,20 @@ ansible-lint                                   # проверка стиля (pr
    (сжатый вывод `terragrunt plan`), плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
-9. Ставит direnv, Vault и gitleaks.
+9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git) и grype
+   (сканер уязвимостей образов и ФС).
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
-    JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`)
-    и M-Commander (двухпанельный файловый менеджер).
+    JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
+    M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
+    difftastic (структурный diff), delta (улучшенный git-diff) и gdu
+    (анализатор диска).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
 13. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
-    (проверка распространения DNS) и `rkn-block-checker` (через pipx).
+    (проверка распространения DNS), `bandwhich` (трафик по процессам),
+    `q` (DNS-клиент с DoH/DoT/DoQ), `xh` (HTTP-клиент) и `rkn-block-checker`
+    (через pipx).
 14. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
 15. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
@@ -216,6 +228,18 @@ ansible-lint                                   # проверка стиля (pr
 | gitleaks | github.com/gitleaks/gitleaks |
 | gai | github.com/casablanque-code/gai |
 | dnsglobe | github.com/514-labs/dnsglobe |
+| bandwhich | github.com/imsnif/bandwhich |
+| q | github.com/natesales/q |
+| xh | github.com/ducaale/xh |
+| eget | github.com/zyedidia/eget |
+| difftastic | github.com/Wilfred/difftastic |
+| delta | github.com/dandavison/delta |
+| gdu | github.com/dundee/gdu |
+| lazygit | github.com/jesseduffield/lazygit |
+| lazydocker | github.com/jesseduffield/lazydocker |
+| dive | github.com/wagoodman/dive |
+| sops | github.com/getsops/sops |
+| grype | github.com/anchore/grype |
 | starship | github.com/starship/starship |
 | bat | github.com/sharkdp/bat |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
