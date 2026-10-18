@@ -81,7 +81,6 @@
         - "{{ bin_dir }}/gitleaks version"
         - "{{ bin_dir }}/uv --version"
         - "{{ bin_dir }}/opencode --version"
-        - "{{ bin_dir }}/pitwall --version"
         - "{{ bin_dir }}/herdr --version"
         - "{{ bin_dir }}/rtk --version"
         - "{{ bin_dir }}/bat --version"
@@ -125,6 +124,53 @@
         - /usr/bin/hushmic
       loop_control:
         label: "{{ item }}"
+
+    # --- Удаление pitwall ----------------------------------------------------
+    # pitwall не используется (issue о вводе русских букв:
+    # https://github.com/quanticstudios/pitwall/issues/127). Удаляем бинарник,
+    # ярлык, иконку, конфиг и состояние, чтобы не плодить мёртвый инструмент.
+    - name: Остановить демон pitwall, если запущен
+      ansible.builtin.command: "{{ bin_dir }}/pitwall daemon stop"
+      register: pitwall_daemon_stop
+      changed_when: false
+      failed_when: false
+
+    - name: Удалить файлы pitwall
+      become: true
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "{{ bin_dir }}/pitwall"
+        - /usr/share/applications/pitwall.desktop
+        - /usr/share/icons/hicolor/scalable/apps/pitwall.svg
+        - /usr/share/icons/hicolor/scalable/apps/pitwall.png
+        - /usr/share/icons/hicolor/48x48/apps/pitwall.png
+        - /usr/share/icons/hicolor/256x256/apps/pitwall.png
+      loop_control:
+        label: "{{ item }}"
+
+    - name: Удалить каталоги конфига и состояния pitwall
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "{{ home_dir }}/.config/pitwall"
+        - "{{ home_dir }}/.local/state/pitwall"
+      loop_control:
+        label: "{{ item }}"
+
+    - name: Удалить сокет pitwall из XDG_RUNTIME_DIR
+      ansible.builtin.file:
+        path: "{{ ansible_facts['env'].get('XDG_RUNTIME_DIR', '') }}/pitwall"
+        state: absent
+      when: ansible_facts['env'].get('XDG_RUNTIME_DIR', '') | length > 0
+
+    - name: Обновить кэш иконок после удаления pitwall
+      become: true
+      ansible.builtin.command: gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor
+      changed_when: false
+      failed_when: false
 
     - name: Итог — версии установленных утилит
       ansible.builtin.debug:

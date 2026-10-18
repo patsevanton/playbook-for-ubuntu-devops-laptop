@@ -87,7 +87,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   gai, dnsglobe, rkn-block-checker (pipx)
-│   ├── opencode/               # opencode (из npm-реестра), pitwall (GUI-терминал)
+│   ├── opencode/               # opencode (из npm-реестра)
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
 │   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
@@ -131,8 +131,7 @@ ansible-lint                                   # проверка стиля (pr
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`)
     и M-Commander (двухпанельный файловый менеджер).
-11. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и pitwall (GUI-терминал
-    для coding-агентов, с ярлыком в меню приложений).
+11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
 13. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
@@ -208,7 +207,6 @@ ansible-lint                                   # проверка стиля (pr
 | starship | github.com/starship/starship |
 | bat | github.com/sharkdp/bat |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
-| pitwall | github.com/quanticstudios/pitwall (GUI-терминал, + ярлык и иконка) |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`) и
@@ -612,20 +610,8 @@ pgcenter report -f pgcenter.stat.tar                # отчёт по запис
 
 ## pitwall — терминал для coding-агентов
 
-Роль `opencode` ставит **pitwall** (`quanticstudios/pitwall`) — GUI-терминал для
-нескольких coding-агентов сразу: в сайдбаре видно, кто из агентов работает,
-ждёт ввода или закончил, и одна клавиша переводит в нужную сессию. Есть
-постоянные сессии, worktree и одобрения с телефона.
-
-Бинарник кладётся в `/usr/local/bin/pitwall`, ярлык — в
-`/usr/share/applications/pitwall.desktop`, иконка — в
-`/usr/share/icons/hicolor/scalable/apps/pitwall.svg` (после установки pitwall
-появится в меню приложений).
-
-```bash
-pitwall --version
-pitwall -s my-session
-```
+pitwall в плейбук не ставится. См. issue о невозможности вводить русские буквы:
+<https://github.com/quanticstudios/pitwall/issues/127>.
 
 ---
 

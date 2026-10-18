@@ -6,8 +6,8 @@
 Уникальные тренды 2026 — в [`TODO-trend-github.md`](TODO-trend-github.md),
 отдельный трекер под NORA (artifact registry) + локальный TLS-сертификат
 (mkcert) — в [`TODO-nora.md`](TODO-nora.md), глобальные skills и `AGENTS.md`
-для opencode — в [`TODO-skills.md`](TODO-skills.md), аналоги pitwall для Ubuntu
-с поддержкой opencode (на случай, если pitwall не устроит) —
+для opencode — в [`TODO-skills.md`](TODO-skills.md), pitwall (не ставится, см. issue
+о русских буквах: <https://github.com/quanticstudios/pitwall/issues/127>) —
 в [`TODO-pitwall.md`](TODO-pitwall.md), кандидаты из подборки
 collabnix/kubetools, которых нет в других файлах, —
 в [`TODO-kubetools.md`](TODO-kubetools.md).
@@ -34,14 +34,15 @@ collabnix/kubetools, которых нет в других файлах, —
 `flux9s`, `stern`, `flate`, `flux-tools`, `cty`, `diffyml`, `kubectl-k8i`,
 `kubespy`, `kubecolor`, `kube-capacity`, `ktop`, `kubefetch`, `vault`,
 `gitleaks`, `starship`, `bat`, `eza`, `zoxide`, `fzf`, `ripgrep`, `fd-find`,
-`direnv`, `uv`, `yq`, `nmap`, `tcpdump`, `httpie`, `opencode`, `pitwall`,
+`direnv`, `uv`, `yq`, `nmap`, `tcpdump`, `httpie`, `opencode`,
 `herdr`, `rtk`, `mcommander`, `HushMic`, `rkn-block-checker`, `gai`, `dnsglobe`,
 `docker`, `guardrails-llm-filter`.
 
 `ansible-core` ставится один раз вручную при bootstrap (см. `README.md`).
 
-Аналоги `pitwall` с поддержкой `opencode` (claude-squad, Omnara и отсеянные
-варианты) описаны отдельно — в [`TODO-pitwall.md`](TODO-pitwall.md).
+`pitwall` не ставится плейбуком из-за issue с вводом русских букв — см.
+<https://github.com/quanticstudios/pitwall/issues/127> и
+[`TODO-pitwall.md`](TODO-pitwall.md).
 
 Кандидаты, которые дублируют этот список и потому не берутся (в
 `TODO-awesome-github.md` помечены ⛔): `ktail` (≈ `stern`), `kube-switch`
