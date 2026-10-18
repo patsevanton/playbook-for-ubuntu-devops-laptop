@@ -25,5 +25,19 @@ guardrails_upstream_base_url: https://polza.ai
 # Аудит запросов/ответов (без записи самих секретов).
 guardrails_audit_enabled: true
 
+# Политика правил детекции: какие правила выключены (не маскируются).
+# Хранилище guardrails (in_memory) не переживает рестарт контейнера, поэтому
+# политика держится здесь: скрипт guardrails-apply-policy применяет её при
+# каждом старте сервиса и при каждом прогоне плейбука.
+# По умолчанию выключена маскировка IPv4 (IPv6-правила остаются включёнными).
+guardrails_disabled_rules:
+  - ip-addrs.ipv4
+  - ip-addrs.ipv4-cidr
+  - ip-addrs.ipv4-public
+  - ip-addrs.ipv4-private
+
+# Скрипт применения политики правил (запускается из ExecStartPost).
+guardrails_policy_script: /usr/local/sbin/guardrails-apply-policy
+
 # Путь к юниту systemd.
 guardrails_unit_path: "/etc/systemd/system/{{ guardrails_service_name }}.service"

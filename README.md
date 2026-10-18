@@ -271,13 +271,26 @@ services:
 - зависит от `docker.service` (`After`/`Requires`) — поднимается после Docker;
 - перед запуском снимает старый контейнер (`docker rm -f guardrails`);
 - запускает контейнер с пробросом портов **только на loopback**:
-  `127.0.0.1:8080` (прокси) и `127.0.0.1:9080` (метрики);
+  `127.0.0.1:8080` (прокси) и `127.0.0.1:9080` (config API и веб-консоль);
 - включает аудит запросов (`GUARDRAILS_AUDIT_ENABLED=true`);
 - пересылает запросы на `GUARDRAILS_UPSTREAM_BASE_URL=https://polza.ai`;
+- при старте применяет политику правил детекции (`ExecStartPost` →
+  `/usr/local/sbin/guardrails-apply-policy`) — выключает правила из
+  `guardrails_disabled_rules`;
 - `Restart=always` — контейнер поднимается автоматически после сбоя или перезагрузки.
 
 Настройки (порты, upstream, аудит, образ) задаются в
 `roles/guardrails/defaults/main.yml`.
+
+Политика правил тоже живёт в `roles/guardrails/defaults/main.yml`
+(`guardrails_disabled_rules`): по умолчанию выключена маскировка IPv4
+(правила `ip-addrs.ipv4*`, IPv6-правила остаются включёнными). Хранилище
+guardrails — `in_memory`, поэтому правки через веб-консоль не переживают
+рестарт контейнера: политика применяется скриптом при каждом старте сервиса и
+синхронизируется при каждом прогоне плейбука. Правила вне списка плейбук не
+трогает — их по-прежнему можно выключать в веб-консоли, но они вернутся к
+дефолту после рестарта. Чтобы вернуть маскировку IPv4 — убрать правила из
+`guardrails_disabled_rules` и перезапустить сервис.
 
 Проверка и управление:
 
@@ -286,7 +299,7 @@ systemctl status guardrails-llm-filter
 systemctl restart guardrails-llm-filter
 journalctl -u guardrails-llm-filter -f
 docker ps --filter name=guardrails
-curl -s http://127.0.0.1:9080/    # метрики
+curl -s http://127.0.0.1:9080/    # веб-консоль и config API
 ```
 
 Юнит кладётся из шаблона, поэтому правки в

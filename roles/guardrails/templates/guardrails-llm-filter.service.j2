@@ -14,6 +14,7 @@ ExecStart=/usr/bin/docker run --rm --name {{ guardrails_container_name }} \
   -e GUARDRAILS_UPSTREAM_BASE_URL={{ guardrails_upstream_base_url }} \
   -e GUARDRAILS_AUDIT_ENABLED={{ guardrails_audit_enabled | lower }} \
   {{ guardrails_image }}
+ExecStartPost=-{{ guardrails_policy_script }}
 ExecStop=/usr/bin/docker stop {{ guardrails_container_name }}
 Restart=always
 RestartSec=2
