@@ -29,8 +29,8 @@ shell_binaries:
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"
 
-# --- atuin: НЕ используем ---------------------------------------------------
-# История команд (atuin) сознательно исключена. atuin подключает bash-preexec,
+# --- atuin: НЕ используем (причина — баг VTE) --------------------------------
+# История команд (atuin) сознательно исключена: atuin подключает bash-preexec,
 # который на bash >= 5.3 вешает preexec-хук в PS0 строкой '${ ... }'.
 # Интеграция VTE (/etc/profile.d/vte-2.91.sh, gnome-terminal) заканчивает свой
 # PS0 последовательностью \e\\ (OSC-терминатор ST), чей завершающий '\'
@@ -40,15 +40,6 @@ bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"
 #   GNOME/vte#2951    https://gitlab.gnome.org/GNOME/vte/-/work_items/2951
 #   bash-preexec#186  https://github.com/rcaloras/bash-preexec/issues/186
 # Вернуть atuin можно после выхода vte 0.84 (или накатив патч из VTE#2951).
-
-# На машинах, где atuin уже установлен старой версией плейбука, остаются
-# бинарь bin_dir/atuin и каталог данных ~/.atuin (история SQLite + конфиг).
-# Хук из devops-shell.sh убирается перезаписью шаблона. Бинарь и данные
-# удаляем отдельной задачей (флаг atuin_remove), чтобы старые ноутбуки
-# подчистились. atuin_remove можно выключить, если atuin нужен.
-atuin_remove: true
-atuin_binary: "{{ bin_dir }}/atuin"
-atuin_data_dir: "{{ home_dir }}/.atuin"
 
 # --- Nerd Font: JetBrainsMono Nerd Font -------------------------------------
 # Starship рисует глифы ветки Git и Kubernetes из private use area, eza --icons

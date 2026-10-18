@@ -1,0 +1,27 @@
+---
+# ============================================================================
+# Роль ai-tools: CLI-инструменты, усиливающие AI-агентов (opencode и др.).
+#
+# herdr — TUI-оболочка поверх терминала: управляет сессиями/панелями/вкладками
+#         coding-агентов. Одиночный статический бинарник (без архива).
+# rtk   — прокси-обёртка над утилитами: сжимает и фильтрует вывод (логи, diff,
+#         таблицы), прежде чем он попадёт в контекст LLM.
+#
+# Обе ставятся в {{ bin_dir }} через роль binaries (версия — актуальная на
+# момент запуска, без GitHub API — через редирект releases/latest).
+#
+# Интеграции с opencode (herdr integration install opencode /
+# rtk init -g --opencode) пока НЕ ставятся — см. TODO-herdr-rtk.md.
+# ============================================================================
+ai_tools_binaries:
+  - name: herdr
+    source: github
+    repo: herdrdev/herdr
+    url: "https://github.com/herdrdev/herdr/releases/download/{tag}/herdr-linux-x86_64"
+    archive: none
+  - name: rtk
+    source: github
+    repo: rtk-ai/rtk
+    url: "https://github.com/rtk-ai/rtk/releases/download/{tag}/rtk-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: rtk

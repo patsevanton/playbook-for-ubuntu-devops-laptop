@@ -45,6 +45,8 @@
       tags: [network]
     - role: opencode
       tags: [opencode]
+    - role: ai_tools
+      tags: [ai-tools]
     - role: skills
       tags: [skills]
     - role: audio
@@ -80,6 +82,8 @@
         - "{{ bin_dir }}/uv --version"
         - "{{ bin_dir }}/opencode --version"
         - "{{ bin_dir }}/pitwall --version"
+        - "{{ bin_dir }}/herdr --version"
+        - "{{ bin_dir }}/rtk --version"
         - "{{ bin_dir }}/bat --version"
         - "{{ bin_dir }}/starship --version"
         - "{{ bin_dir }}/glci version"

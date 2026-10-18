@@ -629,6 +629,30 @@ pitwall -s my-session
 
 ---
 
+## herdr и rtk — инструменты для AI-агентов
+
+Роль `ai-tools` ставит два CLI, усиливающих coding-агентов (opencode и др.).
+Бинарники кладутся в `/usr/local/bin/` через роль `binaries` (версия —
+актуальная на момент запуска).
+
+- **herdr** (`herdrdev/herdr`) — TUI-оболочка поверх терминала: управляет
+  сессиями/панелями/вкладками coding-агентов, показывает их состояние
+  (работает / ждёт ввода / заблокирован), умеет удалённые машины по SSH и
+  самообновление (`herdr update`). Одиночный статический бинарник.
+- **rtk** (`rtk-ai/rtk`) — прокси-обёртка над утилитами (`rtk git`, `rtk ls`,
+  `rtk kubectl`, …): сжимает и фильтрует вывод (логи, diff, таблицы), прежде
+  чем он попадёт в контекст LLM.
+
+```bash
+herdr --version
+rtk --version
+```
+
+Интеграции с opencode (`herdr integration install opencode`,
+`rtk init -g --opencode`) пока **не** устанавливаются — см. `TODO-herdr-rtk.md`.
+
+---
+
 ## Глобальные skills для opencode
 
 Роль `skills` ставит **глобальные skills для opencode** — инструкции-плагины
@@ -869,11 +893,6 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 
 - [GNOME/vte#2951](https://gitlab.gnome.org/GNOME/vte/-/work_items/2951)
 - [rcaloras/bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186)
-
-Вернуть atuin можно после выхода vte 0.84 (или накатив патч из VTE#2951):
-достаточно добавить блок `atuin init bash --disable-ai` в
-`roles/shell/templates/devops-shell.sh.j2`, запись в `shell_binaries`
-(`roles/shell/defaults/main.yml`) и конфиг `atuin-config.toml`.
 
 ### Nerd Font (иконки в prompt и списках файлов)
 
