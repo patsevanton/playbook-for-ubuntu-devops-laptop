@@ -6,7 +6,9 @@
 Уникальные тренды 2026 — в [`TODO-trend-github.md`](TODO-trend-github.md),
 отдельный трекер под NORA (artifact registry) + локальный TLS-сертификат
 (mkcert) — в [`TODO-nora.md`](TODO-nora.md), глобальные skills и `AGENTS.md`
-для opencode — в [`TODO-skills.md`](TODO-skills.md).
+для opencode — в [`TODO-skills.md`](TODO-skills.md), аналоги pitwall для Ubuntu
+с поддержкой opencode (на случай, если pitwall не устроит) —
+в [`TODO-pitwall.md`](TODO-pitwall.md).
 
 Источник подборки: все репозитории со ⭐ аккаунта (2057 шт.), из них отобраны
 ~570 похожих на локально устанавливаемые утилиты и вручную вычищены до списков
@@ -35,6 +37,9 @@
 `guardrails-llm-filter`.
 
 `ansible-core` ставится один раз вручную при bootstrap (см. `README.md`).
+
+Аналоги `pitwall` с поддержкой `opencode` (claude-squad, Omnara и отсеянные
+варианты) описаны отдельно — в [`TODO-pitwall.md`](TODO-pitwall.md).
 
 Кандидаты, которые дублируют этот список и потому не берутся (в
 `TODO-awesome-github.md` помечены ⛔): `ktail` (≈ `stern`), `kube-switch`
