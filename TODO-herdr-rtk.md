@@ -1,9 +1,11 @@
-# TODO-herdr-rtk: установка herdr и rtk в плейбук (отложено)
+# TODO-herdr-rtk: herdr и rtk в плейбуке (осталось: интеграции и конфиги)
 
-Отдельный трекер под **herdr** (github.com/herdrdev/herdr) и **rtk**
-(github.com/rtk-ai/rtk) — оба уже стоят на рабочей машине в
-`/usr/local/bin/`, но в плейбук пока не добавлены (решение от 2026-10-18).
-При добавлении описания из этого файла перенести в `README.md` и удалить трекер.
+Трекер под **herdr** (github.com/herdrdev/herdr) и **rtk** (github.com/rtk-ai/rtk).
+
+> **Статус:** установка бинарников уже сделана — роль `ai_tools` в
+> `playbook.yml` (после `opencode`, тег `ai-tools`) ставит `herdr` и `rtk` в
+> `/usr/local/bin/`, проверки `--version` есть в `post_tasks`, описание — в
+> `README.md`. Осталось: интеграции с opencode и конфиги `config.toml`.
 
 > **Контекст:** оба инструмента усиливают opencode (роль `opencode` уже
 > ставит бинарники opencode и pitwall). Интеграции пишут файлы в
@@ -17,7 +19,7 @@
 
 Как читать:
 
-- `- [ ]` — задача ещё не сделана.
+- `- [ ]` — задача ещё не сделана; `- [x]` — уже реализовано в плейбуке.
 - Команды — как есть для Ubuntu 26.04 / x86_64 (взяты из `~/.bash_history`
   рабочей машины).
 - Версии не фиксируются: при установке брать актуальный релиз.
@@ -84,8 +86,9 @@ delivery = "herdr"
       AI-инструментов) через `binaries` + `herdr integration install opencode`.
 - [ ] Положить `config.toml` в `files/` роли и копировать в
       `~/.config/herdr/config.toml`.
-- [ ] Проверки: `herdr --version`, наличие `~/.config/opencode/plugins/herdr-agent-state.js`.
-- [ ] Описать в `README.md`.
+- [x] Бинарник herdr — в роли `ai_tools` (`ai_tools_binaries`), после `opencode`.
+- [x] Проверка `herdr --version` — в `post_tasks` плейбука.
+- [x] Описать в `README.md` (секция «herdr и rtk — инструменты для AI-агентов»).
 
 ## 2. rtk — CLI-прокси, экономящий токены
 
@@ -180,16 +183,16 @@ level = "default"
       `rtk init -g --opencode`.
 - [ ] Положить `config.toml` в `files/` роли и копировать в
       `~/.config/rtk/config.toml` (телеметрия остаётся выключенной).
-- [ ] Проверки: `rtk --version`, `rtk gain` (без ошибок),
-      наличие `~/.config/opencode/plugins/rtk.ts`.
-- [ ] Описать в `README.md`.
+- [x] Бинарник rtk — в роли `ai_tools` (`ai_tools_binaries`), после `opencode`.
+- [x] Проверка `rtk --version` — в `post_tasks` плейбука.
+- [x] Описать в `README.md` (секция «herdr и rtk — инструменты для AI-агентов»).
 
 ## 3. Общее при добавлении в плейбук
 
-- [ ] Обе установки вынести **после** роли `opencode` в `playbook.yml`
-      (интеграции пишут в `~/.config/opencode/`), тег — например `ai-tools`.
-- [ ] Идемпотентность: не переустанавливать бинарник, если он уже есть
+- [x] Обе установки вынесли **после** роли `opencode` в `playbook.yml`
+      (роль `ai_tools`, тег `ai-tools`): интеграции пишут в `~/.config/opencode/`.
+- [x] Идемпотентность: не переустанавливать бинарник, если он уже есть
       (стиль роли `binaries`); интеграции (`herdr integration install opencode`,
       `rtk init -g --opencode`) перезаписывают свои файлы — это безопасно,
       но проверить, что они не спрашивают подтверждение без TTY.
-- [ ] Проверки в `post_tasks` плейбука: `herdr --version`, `rtk --version`.
+- [x] Проверки в `post_tasks` плейбука: `herdr --version`, `rtk --version`.
