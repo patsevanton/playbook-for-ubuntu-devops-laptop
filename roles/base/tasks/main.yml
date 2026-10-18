@@ -1,6 +1,7 @@
 ---
 # ============================================================================
-# Роль base: проверки, служебные каталоги, базовые пакеты apt.
+# Роль base: проверки, служебные каталоги, базовые пакеты apt, yq,
+# инструменты разработки плейбуков (ansible-lint, molecule).
 # ============================================================================
 
 - name: Проверить ОС и архитектуру
@@ -63,3 +64,50 @@
     name: binaries
   vars:
     binaries_to_install: "{{ base_binaries }}"
+
+# molecule ставится из PyPI через pipx (пакета в apt нет): см. переменные
+# molecule_* в defaults. Идемпотентность простая: есть шим — не трогаем
+# (обновление = pipx upgrade molecule && pipx inject ... повторно).
+- name: Проверить, установлен ли molecule
+  ansible.builtin.stat:
+    path: "{{ pipx_bin_dir }}/{{ molecule_pipx_name }}"
+  register: molecule_stat
+
+- name: Установить molecule (тестирование Ansible-ролей)
+  ansible.builtin.command:
+    cmd: "{{ pipx_executable }} install {{ molecule_pipx_name }}"
+  environment:
+    PIPX_HOME: "{{ pipx_home }}"
+    PIPX_BIN_DIR: "{{ pipx_bin_dir }}"
+    PIPX_DEFAULT_PYTHON: "{{ pipx_python }}"
+  when: not molecule_stat.stat.exists
+  changed_when: true
+
+- name: Добавить в molecule драйвер docker (molecule-plugins)
+  ansible.builtin.command:
+    cmd: "{{ pipx_executable }} inject {{ molecule_pipx_name }} {{ molecule_pipx_inject }}"
+  environment:
+    PIPX_HOME: "{{ pipx_home }}"
+    PIPX_BIN_DIR: "{{ pipx_bin_dir }}"
+    PIPX_DEFAULT_PYTHON: "{{ pipx_python }}"
+  when: not molecule_stat.stat.exists
+  changed_when: true
+
+# Коллекции нужны самому драйверу docker (его сценарии запускаются модулями
+# community.docker / ansible.posix). Ставятся в пользовательский каталог
+# ansible (~/.ansible/collections), поэтому без become.
+- name: Проверить коллекции Ansible для драйвера docker molecule
+  ansible.builtin.stat:
+    path: "{{ home_dir }}/.ansible/collections/ansible_collections/{{ item | replace('.', '/') }}"
+  loop: "{{ molecule_collections }}"
+  loop_control:
+    label: "{{ item }}"
+  register: molecule_collections_stat
+
+- name: Установить коллекции Ansible для драйвера docker molecule
+  ansible.builtin.command:
+    cmd: "ansible-galaxy collection install {{ item.item }}"
+  loop: "{{ molecule_collections_stat.results | rejectattr('stat.exists') | list }}"
+  loop_control:
+    label: "{{ item.item }}"
+  changed_when: true

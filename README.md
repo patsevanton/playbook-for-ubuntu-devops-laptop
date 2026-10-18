@@ -70,15 +70,18 @@ ansible-lint                                   # проверка стиля (pr
 ├── group_vars/
 │   └── all.yml                 # общие переменные проекта
 ├── roles/
-│   ├── base/                   # проверки, каталоги, базовые пакеты, yq, ansible-lint
+│   ├── base/                   # проверки, каталоги, базовые пакеты (в т.ч. pipx),
+│   │                           #   yq, ansible-lint, molecule
 │   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2
 │   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
 │   │                           #   stern, flate, flux-tools, cty, diffyml,
-│   │                           #   kubectl-k8i, kubespy
+│   │                           #   kubectl-k8i, kubespy, kubecolor, kube-capacity,
+│   │                           #   ktop, kubefetch
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   tfenv, tgenv
-│   ├── runtimes/               # Python, pipx, uv, Go, Node.js, Java
+│   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
+│   ├── runtimes/               # Python, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault, gitleaks
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, JetBrainsMono Nerd Font,
 │   │                           #   mcommander, конфиг shell
@@ -93,8 +96,8 @@ ansible-lint                                   # проверка стиля (pr
 ```
 
 Роль `binaries` не тянет инструменты сама: её вызывают роли `base`, `git`,
-`kubernetes`, `iac`, `secrets`, `shell`, `network`, `opencode`, передавая список
-того, что нужно поставить. Каждая роль хранит свой список в
+`kubernetes`, `iac`, `postgres`, `secrets`, `shell`, `network`, `opencode`,
+передавая список того, что нужно поставить. Каждая роль хранит свой список в
 `roles/<роль>/defaults/main.yml`.
 
 Имя `playbook.yml` выбрано осознанно; в чужих проектах точку входа часто называют
@@ -106,30 +109,34 @@ ansible-lint                                   # проверка стиля (pr
 
 1. Проверяет, что ОС — Ubuntu, архитектура — x86_64, и создаёт служебные каталоги.
 2. Ставит пакеты из репозитория Ubuntu (актуальные версии, без пинов),
-   включая `ansible-lint` (проверка стиля плейбуков).
+   включая `pipx`, `ansible-lint` (проверка стиля плейбуков) и `molecule`
+   (тестирование Ansible-ролей в контейнерах, ставится через pipx).
 3. Ставит клиенты GitHub и GitLab: `gh`, `glab`, `gitlabcloner`, а также `glci`
    (локальный запуск GitLab CI), `pre-commit` и `reposcan`.
 4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2.
 5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
    stern, flate, flux-tools (офлайн-рендер и дифф Flux GitOps), cty (sample-YAML
-   из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод)
-   и kubespy (наблюдение за ресурсами в реальном времени).
+   из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод),
+   kubespy (наблюдение за ресурсами в реальном времени), kubecolor (цветной
+   вывод kubectl), kube-capacity и ktop (ресурсы и метрики кластера),
+   kubefetch (сводка о кластере).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), плюс tfenv и tgenv.
-7. Ставит рантаймы: Python (venv/pip/pipx), uv, Go, Node.js, Java 21.
-8. Ставит direnv, Vault и gitleaks.
-9. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
-   ставит JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`)
-   и M-Commander (двухпанельный файловый менеджер).
-10. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и pitwall (GUI-терминал
+7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
+8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
+9. Ставит direnv, Vault и gitleaks.
+10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
+    ставит JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`)
+    и M-Commander (двухпанельный файловый менеджер).
+11. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и pitwall (GUI-терминал
     для coding-агентов, с ярлыком в меню приложений).
-11. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
+12. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
     (проверка распространения DNS) и `rkn-block-checker` (через pipx).
-12. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
-13. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
+13. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
+14. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
-14. Добавляет пользователя в группу `docker`.
-15. В конце проверяет установку и печатает версии всех утилит.
+15. Добавляет пользователя в группу `docker`.
+16. В конце проверяет установку и печатает версии всех утилит.
 
 ---
 
@@ -139,8 +146,8 @@ ansible-lint                                   # проверка стиля (pr
 
 | Роль | Пакеты | Зачем |
 |---|---|---|
-| base | ca-certificates, curl, wget, git, jq, unzip, zip, tar, gzip, xz-utils, bash-completion, lsb-release, ansible-lint | база для работы, самого плейбука и проверки стиля |
-| runtimes | python3-venv, python3-pip, python3-dev, pipx, golang-go, nodejs, npm, openjdk-21-jdk | языковые рантаймы |
+| base | ca-certificates, curl, wget, git, jq, unzip, zip, tar, gzip, xz-utils, bash-completion, lsb-release, ansible-lint, pipx | база для работы, самого плейбука, проверки стиля и установки molecule |
+| runtimes | python3-venv, python3-pip, python3-dev, golang-go, nodejs, npm, openjdk-21-jdk | языковые рантаймы |
 | secrets | direnv | окружение по каталогам |
 | shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig | удобная работа в терминале |
 | network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
@@ -175,11 +182,16 @@ ansible-lint                                   # проверка стиля (pr
 | diffyml | github.com/szhekpisov/diffyml |
 | kubectl-k8i | github.com/ViktorUJ/kubectl-k8i |
 | kubespy | github.com/pulumi/kubespy |
+| kubecolor | github.com/kubecolor/kubecolor |
+| kube-capacity | github.com/robscott/kube-capacity |
+| ktop | github.com/vladimirvivien/ktop |
+| kubefetch | github.com/jkulzer/kubefetch |
 | tflint | github.com/terraform-linters/tflint |
 | terraform-docs | github.com/terraform-docs/terraform-docs |
 | packer | releases.hashicorp.com |
 | driftctl | github.com/snyk/driftctl |
 | tgsieve | github.com/imcitius/tgsieve |
+| pgcenter | github.com/lesovsky/pgcenter |
 | vault | releases.hashicorp.com |
 | gitleaks | github.com/gitleaks/gitleaks |
 | gai | github.com/casablanque-code/gai |
@@ -189,9 +201,11 @@ ansible-lint                                   # проверка стиля (pr
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
 | pitwall | github.com/quanticstudios/pitwall (GUI-терминал, + ярлык и иконка) |
 
-Отдельно (не через роль `binaries`): `rkn-block-checker` ставится из PyPI через
-pipx в `~/.local/bin` (роль `network`), `HushMic` — из `.deb`-пакета (роль
-`audio`), `mcommander` — из `.deb`-пакетов (роль `shell`).
+Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
+`~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`) и
+коллекциями `community.docker`/`ansible.posix`, `rkn-block-checker` — из PyPI
+через pipx в `~/.local/bin` (роль `network`), `HushMic` — из `.deb`-пакета
+(роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`).
 
 Скачивание версий идёт без GitHub API (лимит 60 запросов в час): тег последнего
 релиза берётся из HTTP-редиректа `releases/latest` — для GitHub это
@@ -217,6 +231,38 @@ ansible-lint                    # профиль production, конфиг .ansib
 `binaries` вызывается другими ролями через `include_role` и принимает входную
 переменную `binaries_to_install`, которая по правилу должна была бы нести
 префикс вызывающей роли.
+
+---
+
+## molecule — тестирование Ansible-ролей
+
+Роль `base` ставит **molecule** (`ansible/molecule`) — фреймворк тестирования
+ролей и плейбуков: прогоняет роль в поднятых инстансах (контейнеры, VM),
+проверяет идемпотентность и гоняет verify-сценарии. Пакета в apt и релизных
+бинарников нет — ставится из PyPI через **pipx** в изолированное окружение
+(шим `molecule` — в `~/.local/bin`).
+
+Вместе с ним ставятся:
+
+- **molecule-plugins** с extra `docker` — драйверы сценариев; драйвер `docker`
+  гоняет тесты в контейнерах Docker (Engine ставится ролью `docker`),
+- коллекции **community.docker** и **ansible.posix** в `~/.ansible/collections`
+  — их модулями сам драйвер docker поднимает и разбирает контейнеры.
+
+```bash
+molecule drivers                # доступные драйверы: docker, podman, vagrant, ...
+molecule init scenario          # каркас сценария ./molecule/default
+molecule test                   # прогнать сценарий целиком
+molecule converge               # только применить роль
+molecule idempotence            # второй прогон — ничего не должен менять
+```
+
+Сценарий создаётся в `molecule/<имя>/` внутри каталога роли: `molecule.yml`
+(настройки), `converge.yml` (применение роли), `verify.yml` (проверки).
+Драйвер задаётся в `molecule.yml` (`driver: name: docker` + `platforms:` с
+образами); без явного драйвера используется `default` — инстансы вы поднимаете
+сами, а molecule оркестрирует последовательность теста
+(`dependency → create → converge → idempotence → verify → destroy`).
 
 ---
 
@@ -412,6 +458,36 @@ kubespy trace deployment nginx                 # наблюдение за rollo
 
 ---
 
+## Обзор кластера: kubecolor, kube-capacity, ktop, kubefetch
+
+Роль `kubernetes` дополнительно ставит утилиты, с которыми кластер понятнее
+«на глаз»:
+
+- **kubecolor** (`kubecolor/kubecolor`) — цветной, читаемый вывод kubectl:
+  подсвечивает ресурсы, диффы, логи и ошибки. Это обёртка над kubectl, но
+  вызывается отдельной командой: алиасы на `kubectl` не навешиваем, сам
+  `kubectl` остаётся как есть.
+- **kube-capacity** (`robscott/kube-capacity`) — таблица ресурсов кластера:
+  requests/limits CPU и памяти по нодам (и подам/контейнерам с флагами `-p`/`-c`)
+  против фактического потребления (`--util`), с сортировкой и выводом в
+  `csv`/`json`/`yaml`. Для фактических метрик нужен metrics-server.
+- **ktop** (`vladimirvivien/ktop`) — `top`-подобный TUI: ноды, поды и их метрики
+  CPU/памяти в реальном времени. Из релиза берётся одиночный `ktop` — плагин
+  `kubectl-ktop` не ставим.
+- **kubefetch** (`jkulzer/kubefetch`) — neofetch для Kubernetes-кластера:
+  сводка о кластере, нодах и подах одним экраном.
+
+```bash
+kubecolor get pods -A                    # цветной вывод kubectl
+kubecolor diff -f old.yaml -f new.yaml   # читаемый дифф манифестов
+kube-capacity --util --pods              # requests/limits vs фактическая загрузка
+kube-capacity -o json --sort mem.util    # то же в JSON
+ktop -A                                  # TUI: метрики нод и подов по всем ns
+kubefetch                                # сводка о кластере
+```
+
+---
+
 ## tgsieve — сжатый вывод `terragrunt plan`
 
 Роль `iac` ставит **tgsieve** (`imcitius/tgsieve`). На большом стеке
@@ -427,6 +503,27 @@ tgsieve plan                    # план для текущего юнита и
 tgsieve plan --all              # план по всему стеку
 tgsieve plan --all --timings    # ещё и самые медленные юниты
 ```
+
+---
+
+## pgCenter — админка и мониторинг PostgreSQL
+
+Роль `postgres` ставит **pgcenter** (`lesovsky/pgcenter`) — консольную админку
+и мониторинг PostgreSQL в духе top/htop. Живая статистика активности, запросов,
+блокировок и ожидающих событий, размеры таблиц и индексов, профилировщик wait
+events, запись статистики в файл и отчёты по ней. Подключается как обычный
+клиент PostgreSQL: параметрами libpq (`-h`, `-p`, `-U` и имя базы) или
+переменными окружения `PG*` (включая `~/.pgpass`).
+
+```bash
+pgcenter top -h db.example.com -U postgres app      # top-статистика в реальном времени
+pgcenter profile -h db.example.com -U postgres app  # профилировщик wait events
+pgcenter record -h db.example.com -U postgres app   # запись статистики в файл
+pgcenter report -f pgcenter.stat.tar                # отчёт по записанной статистике
+```
+
+Для расширенной статистики в самой базе есть `pgcenter config` — ставит и
+снимает свою схему сбора статистики.
 
 ---
 

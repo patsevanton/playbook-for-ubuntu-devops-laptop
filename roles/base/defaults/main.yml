@@ -14,6 +14,10 @@ base_packages:
   - xz-utils
   - bash-completion
   - lsb-release
+  # pipx — изолированные окружения для Python-приложений; ставится здесь,
+  # а не в роли runtimes: molecule (ниже) ставится через pipx, а роль base
+  # идёт первой в плейбуке (и всегда, см. tags: [base, always]).
+  - pipx
 
 # yq (процессор YAML/JSON) — скачиваемый бинарник в /usr/local/bin.
 base_binaries:
@@ -22,3 +26,18 @@ base_binaries:
     repo: mikefarah/yq
     url: "https://github.com/mikefarah/yq/releases/download/{tag}/yq_linux_amd64"
     archive: none
+
+# molecule — фреймворк тестирования Ansible-ролей и плейбуков (прогон ролей
+# в контейнерах/VM). Пакета в apt и релизных бинарников нет — ставится из PyPI
+# через pipx в изолированное окружение (как rkn-block-checker в роли network),
+# шим попадает в pipx_bin_dir (~/.local/bin уже в PATH через devops-shell.sh).
+# molecule-plugins — драйверы сценариев; включаем extra docker, чтобы гонять
+# тесты в контейнерах Docker (Engine ставится ролью docker).
+molecule_pipx_name: molecule
+molecule_pipx_inject: "molecule-plugins[docker]"
+# Коллекции Ansible нужны самому драйверу docker: его сценарии molecule
+# запускает модулями community.docker и ansible.posix. Ставятся в
+# ~/.ansible/collections (общий каталог для apt- и pipx-версий ansible-core).
+molecule_collections:
+  - community.docker
+  - ansible.posix

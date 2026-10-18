@@ -13,8 +13,9 @@ home_dir: "{{ ansible_facts['env']['HOME'] }}"
 bin_dir: /usr/local/bin
 # Временный каталог для загрузок и распаковки.
 tmp_dir: /var/tmp/devops-install
-# pipx: изолированные окружения для Python-приложений (rkn-block-checker).
-# Шимы кладутся в pipx_bin_dir (~/.local/bin уже в PATH через devops-shell.sh).
+# pipx: изолированные окружения для Python-приложений (molecule, rkn-block-checker).
+# Сам pipx ставится в роли base (см. base_packages), шимы кладутся в
+# pipx_bin_dir (~/.local/bin уже в PATH через devops-shell.sh).
 pipx_executable: /usr/bin/pipx
 pipx_home: "{{ home_dir }}/.local/pipx"
 pipx_bin_dir: "{{ home_dir }}/.local/bin"

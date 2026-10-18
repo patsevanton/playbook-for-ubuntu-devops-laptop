@@ -1,0 +1,10 @@
+---
+# ============================================================================
+# Роль postgres: pgCenter — админка и мониторинг PostgreSQL.
+# ============================================================================
+
+- name: Установить pgCenter (актуальная версия)
+  ansible.builtin.include_role:
+    name: binaries
+  vars:
+    binaries_to_install: "{{ postgres_binaries }}"

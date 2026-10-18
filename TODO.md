@@ -25,9 +25,10 @@
 ## Уже устанавливается плейбуком — НЕ дублировать
 
 `gh`, `glab`, `gitlabcloner`, `glci`, `pre-commit`, `reposcan`, `ansible-lint`,
-`tflint`, `terraform-docs`, `packer`, `driftctl`, `tgsieve`, `tfenv`, `tgenv`,
-`kubectl`, `helm`, `k9s`, `kustomize`, `kubectx`, `flux`, `flux9s`, `stern`,
-`flate`, `flux-tools`, `cty`, `diffyml`, `kubectl-k8i`, `kubespy`, `vault`,
+`molecule`, `tflint`, `terraform-docs`, `packer`, `driftctl`, `tgsieve`, `tfenv`,
+`tgenv`, `pgcenter`, `kubectl`, `helm`, `k9s`, `kustomize`, `kubectx`, `flux`,
+`flux9s`, `stern`, `flate`, `flux-tools`, `cty`, `diffyml`, `kubectl-k8i`,
+`kubespy`, `kubecolor`, `kube-capacity`, `ktop`, `kubefetch`, `vault`,
 `gitleaks`, `starship`, `bat`, `eza`, `zoxide`, `fzf`, `ripgrep`, `fd-find`,
 `direnv`, `uv`, `yq`, `nmap`, `tcpdump`, `httpie`, `opencode`, `pitwall`,
 `mcommander`, `HushMic`, `rkn-block-checker`, `gai`, `dnsglobe`, `docker`,

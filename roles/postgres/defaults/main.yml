@@ -1,0 +1,14 @@
+---
+# ============================================================================
+# Роль postgres: клиентские инструменты PostgreSQL.
+# ============================================================================
+postgres_binaries:
+  # pgcenter — консольная админка и мониторинг PostgreSQL: активность, запросы,
+  # блокировки, места и статистика таблиц/индексов, журнал ошибок — прямо с
+  # ноутбука по подключению к СУБД (аналог top/htop для Postgres).
+  - name: pgcenter
+    source: github
+    repo: lesovsky/pgcenter
+    url: "https://github.com/lesovsky/pgcenter/releases/download/{tag}/pgcenter_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: pgcenter

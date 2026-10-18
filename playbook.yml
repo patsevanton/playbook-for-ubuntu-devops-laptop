@@ -33,6 +33,8 @@
       tags: [kubernetes]
     - role: iac
       tags: [iac]
+    - role: postgres
+      tags: [postgres]
     - role: runtimes
       tags: [runtimes]
     - role: secrets
@@ -85,10 +87,16 @@
         - "{{ bin_dir }}/diffyml --version"
         - "{{ bin_dir }}/kubectl-k8i --version"
         - "{{ bin_dir }}/kubespy version"
+        - "{{ bin_dir }}/kubecolor version --client"
+        - "{{ bin_dir }}/kube-capacity version"
+        - "{{ bin_dir }}/ktop --help"
+        - "{{ bin_dir }}/kubefetch --version"
         - "{{ bin_dir }}/tgsieve --version"
+        - "{{ bin_dir }}/pgcenter --version"
         - "{{ bin_dir }}/gai --version"
         - "{{ bin_dir }}/dnsglobe --version"
         - "ansible-lint --version"
+        - "{{ pipx_bin_dir }}/molecule --version"
         - "mcommander --version"
         - "docker --version"
         - "docker compose version"

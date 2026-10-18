@@ -2,6 +2,8 @@
 # ============================================================================
 # Роль kubernetes: клиентские утилиты Kubernetes.
 # Версии определяются на момент запуска (source=text / source=github).
+# Новые kubectl-плагины не добавляем: ktop и kubecolor ставятся как
+# самостоятельные бинарники (kubectl-ktop из релиза не берём).
 # ============================================================================
 kubernetes_binaries:
   - name: kubectl
@@ -90,6 +92,38 @@ kubernetes_binaries:
     url: "https://github.com/pulumi/kubespy/releases/download/{tag}/kubespy-v{version}-linux-amd64.tar.gz"
     archive: tar
     member: kubespy
+  # kubecolor — цветной, читаемый вывод kubectl: обёртка над kubectl, красит
+  # ресурсы, диффы, логи и ошибки. Вызывается явно (kubecolor get pods),
+  # kubectl остаётся самим собой — алиасы в shell не навешиваем.
+  - name: kubecolor
+    source: github
+    repo: kubecolor/kubecolor
+    url: "https://github.com/kubecolor/kubecolor/releases/download/{tag}/kubecolor_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kubecolor
+  # kube-capacity — обзор ресурсов кластера: requests/limits по нодам и подам
+  # против фактического потребления (нужен metrics-server).
+  - name: kube-capacity
+    source: github
+    repo: robscott/kube-capacity
+    url: "https://github.com/robscott/kube-capacity/releases/download/{tag}/kube-capacity_{tag}_linux_x86_64.tar.gz"
+    archive: tar
+    member: kube-capacity
+  # ktop — top-подобный TUI-монитор метрик нод и подов (нужен metrics-server).
+  # Из релиза берём одиночный ktop, а не kubectl-ktop: плагины kubectl не ставим.
+  - name: ktop
+    source: github
+    repo: vladimirvivien/ktop
+    url: "https://github.com/vladimirvivien/ktop/releases/download/{tag}/ktop_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: ktop
+  # kubefetch — neofetch для Kubernetes-кластера: сводка кластера/нод/подов
+  # в терминале. Релиз — одиночный бинарник без архива.
+  - name: kubefetch
+    source: github
+    repo: jkulzer/kubefetch
+    url: "https://github.com/jkulzer/kubefetch/releases/download/{tag}/kubefetch"
+    archive: none
 
 # kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
 kubectx_ref: master

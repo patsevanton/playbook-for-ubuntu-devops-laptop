@@ -1,10 +1,10 @@
 ---
 # Языковые рантаймы из репозитория Ubuntu (без фиксации версий).
+# pipx здесь не перечислен: он ставится в роли base (нужен для molecule).
 runtimes_packages:
   - python3-venv
   - python3-pip
   - python3-dev
-  - pipx
   - golang-go
   - nodejs
   - npm

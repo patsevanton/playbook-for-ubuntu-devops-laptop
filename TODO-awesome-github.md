@@ -17,6 +17,8 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 Как читать:
 
 - `- [ ]` — кандидат, ещё не рассмотрен.
+- `- [x]` — рассмотрен и добавлен в плейбук (или стал не нужен) — см. заметку
+  у пункта; что уже ставит плейбук — в [`TODO.md`](TODO.md).
 - В скобках — способ установки для Ubuntu 26.04 / x86_64:
   `deb` — готовый `.deb` в GitHub-релизе, `AppImage`, `apt`, `snap`,
   `release` — готовый бинарник/архив из релиза,
@@ -56,8 +58,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Ansible и управление конфигурацией
 
-- [ ] **molecule** — фреймворк тестирования Ansible-ролей (прогон ролей в
+- [x] **molecule** — фреймворк тестирования Ansible-ролей (прогон ролей в
       контейнерах/VM). *(`pipx`; ⭐ 4.2k)* — [ansible/molecule](https://github.com/ansible/molecule)
+      — ✅ добавлен в плейбук (роль `base`: pipx + драйвер docker).
 - [ ] **cloud.terraform** — Ansible-коллекция: запуск Terraform/OpenTofu из
       плейбуков (plan/apply/state как задачи). *(`ansible-galaxy collection`)* —
       [ansible-collections/cloud.terraform](https://github.com/ansible-collections/cloud.terraform)
@@ -74,8 +77,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       Sonatype Nexus. *(`ansible-galaxy role`)* —
       [idealista/java_role](https://github.com/idealista/java_role),
       [idealista/nexus-role](https://github.com/idealista/nexus-role)
-- [ ] **ansible-role-pgcenter** — роль установки `pgCenter` (мониторинг Postgres).
+- [x] **ansible-role-pgcenter** — роль установки `pgCenter` (мониторинг Postgres).
       *(`ansible-galaxy role`)* — [vitabaks/ansible-role-pgcenter](https://github.com/vitabaks/ansible-role-pgcenter)
+      — ✅ не нужна: сам `pgcenter` уже ставится плейбуком (роль `postgres`).
 - [ ] **knee** — интерактивный CLI поверх Ansible: полуавтоматический setup
       инфраструктуры. *(`pipx`)* — [shurutech/knee](https://github.com/shurutech/knee)
 - [ ] **k3s-ansible** — готовый плейбук HA-кластера k3s (kube-vip, MetalLB).
@@ -109,14 +113,19 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Kubernetes — повседневные CLI-утилиты
 
-- [ ] **kubecolor** — цветной, читаемый вывод `kubectl`. *(`deb`)* —
+- [x] **kubecolor** — цветной, читаемый вывод `kubectl`. *(`deb`)* —
       [kubecolor/kubecolor](https://github.com/kubecolor/kubecolor)
-- [ ] ⭐ **kube-capacity** — requests/limits и реальная загрузка кластера.
+      — ✅ добавлен в плейбук (роль `kubernetes`; вызывается отдельной командой,
+      алиасы на `kubectl` не навешиваем).
+- [x] ⭐ **kube-capacity** — requests/limits и реальная загрузка кластера.
       *(`go` / `release`)* — [robscott/kube-capacity](https://github.com/robscott/kube-capacity)
-- [ ] **ktop** — `top`-подобный монитор метрик нод и подов. *(`go`)* —
+      — ✅ добавлен в плейбук (роль `kubernetes`).
+- [x] **ktop** — `top`-подобный монитор метрик нод и подов. *(`go`)* —
       [vladimirvivien/ktop](https://github.com/vladimirvivien/ktop)
-- [ ] **kubefetch** — neofetch для Kubernetes-кластера. *(`go`)* —
+      — ✅ добавлен в плейбук (роль `kubernetes`; плагин `kubectl-ktop` не ставим).
+- [x] **kubefetch** — neofetch для Kubernetes-кластера. *(`go`)* —
       [jkulzer/kubefetch](https://github.com/jkulzer/kubefetch)
+      — ✅ добавлен в плейбук (роль `kubernetes`).
 - [ ] **ktail** — tail логов подов с фильтрами (родственник stern). *(`go`)* —
       [atombender/ktail](https://github.com/atombender/ktail) — ⛔ дубль уже
       установленного плейбуком **stern**, не брать.

@@ -1,6 +1,7 @@
 ---
 # ============================================================================
-# Роль kubernetes: kubectl, helm, k9s, kustomize, kubectx.
+# Роль kubernetes: kubectl, helm, k9s, kustomize, kubectx, kubecolor,
+# kube-capacity, ktop, kubefetch.
 # ============================================================================
 
 - name: Установить бинарники Kubernetes (актуальные версии)
