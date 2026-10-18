@@ -631,7 +631,7 @@ pitwall -s my-session
 
 ## herdr и rtk — инструменты для AI-агентов
 
-Роль `ai-tools` ставит два CLI, усиливающих coding-агентов (opencode и др.).
+Роль `ai_tools` ставит два CLI, усиливающих coding-агентов (opencode и др.).
 Бинарники кладутся в `/usr/local/bin/` через роль `binaries` (версия —
 актуальная на момент запуска).
 
@@ -647,6 +647,18 @@ pitwall -s my-session
 herdr --version
 rtk --version
 ```
+
+### Конфиги
+
+- **herdr** — копируется статичный `roles/ai_tools/files/herdr/config.toml`
+  в `~/.config/herdr/config.toml`: отключён first-run onboarding
+  (`onboarding = false`) и тосты идут через сам herdr
+  (`[ui.toast] delivery = "herdr"`). Телеметрии у herdr в конфиге нет.
+- **rtk** — генерируется динамически, без хранения готового TOML в `files/`
+  (схема конфига может меняться между версиями): если `~/.config/rtk/config.toml`
+  нет, запускается `rtk config --create` (актуальный дефолт), затем всегда
+  `rtk telemetry disable` — телеметрия выключена и зафиксирован явный отказ от
+  согласия (`consent: no`; дефолтный `--create` оставляет `consent: never asked`).
 
 Интеграции с opencode (`herdr integration install opencode`,
 `rtk init -g --opencode`) пока **не** устанавливаются — см. `TODO-herdr-rtk.md`.

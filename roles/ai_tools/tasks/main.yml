@@ -1,6 +1,6 @@
 ---
 # ============================================================================
-# Роль ai-tools: herdr и rtk (усиление AI-агентов).
+# Роль ai_tools: herdr и rtk (усиление AI-агентов).
 # Интеграции с opencode пока не ставятся — см. TODO-herdr-rtk.md.
 # ============================================================================
 
@@ -9,3 +9,43 @@
     name: binaries
   vars:
     binaries_to_install: "{{ ai_tools_binaries }}"
+
+- name: Создать каталог конфига rtk
+  ansible.builtin.file:
+    path: "{{ rtk_config_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Проверить наличие конфига rtk
+  ansible.builtin.stat:
+    path: "{{ rtk_config_file }}"
+  register: rtk_config_stat
+
+# rtk config --create перезаписывает существующий конфиг дефолтным, поэтому
+# вызываем его только когда файла нет. Схема дефолта зависит от версии rtk,
+# поэтому генерируем, а не храним готовый TOML в files/.
+- name: Создать дефолтный конфиг rtk (если его нет)
+  ansible.builtin.command:
+    cmd: "{{ bin_dir }}/rtk config --create"
+  when: not rtk_config_stat.stat.exists
+  changed_when: true
+
+# Идемпотентно: ставит enabled=false и пишет consent_given/consent_date,
+# остальные секции не трогает. Выполняется всегда, но при повторном запуске
+# уже выключенной телеметрии ничего не меняет.
+- name: Отключить телеметрию rtk
+  ansible.builtin.command:
+    cmd: "{{ bin_dir }}/rtk telemetry disable"
+  changed_when: false
+
+- name: Создать каталог конфига herdr
+  ansible.builtin.file:
+    path: "{{ herdr_config_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Положить конфиг herdr
+  ansible.builtin.copy:
+    src: herdr/config.toml
+    dest: "{{ herdr_config_file }}"
+    mode: "0644"

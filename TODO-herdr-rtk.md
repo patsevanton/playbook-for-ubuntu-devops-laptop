@@ -1,11 +1,12 @@
-# TODO-herdr-rtk: herdr и rtk в плейбуке (осталось: интеграции и конфиги)
+# TODO-herdr-rtk: herdr и rtk в плейбуке (осталось: интеграции)
 
 Трекер под **herdr** (github.com/herdrdev/herdr) и **rtk** (github.com/rtk-ai/rtk).
 
-> **Статус:** установка бинарников уже сделана — роль `ai_tools` в
+> **Статус:** установка бинарников и конфигов уже сделана — роль `ai_tools` в
 > `playbook.yml` (после `opencode`, тег `ai-tools`) ставит `herdr` и `rtk` в
-> `/usr/local/bin/`, проверки `--version` есть в `post_tasks`, описание — в
-> `README.md`. Осталось: интеграции с opencode и конфиги `config.toml`.
+> `/usr/local/bin/`, кладёт конфиг herdr из `files/` и настраивает rtk
+> (`config --create` + `telemetry disable`), проверки `--version` есть в
+> `post_tasks`, описание — в `README.md`. Осталось: интеграции с opencode.
 
 > **Контекст:** оба инструмента усиливают opencode (роль `opencode` уже
 > ставит бинарники opencode и pitwall). Интеграции пишут файлы в
@@ -84,7 +85,7 @@ delivery = "herdr"
 
 - [ ] Добавить herdr в роль (кандидаты: `opencode` или новая роль для
       AI-инструментов) через `binaries` + `herdr integration install opencode`.
-- [ ] Положить `config.toml` в `files/` роли и копировать в
+- [x] Положить `config.toml` в `files/` роли и копировать в
       `~/.config/herdr/config.toml`.
 - [x] Бинарник herdr — в роли `ai_tools` (`ai_tools_binaries`), после `opencode`.
 - [x] Проверка `herdr --version` — в `post_tasks` плейбука.
@@ -181,8 +182,9 @@ level = "default"
 
 - [ ] Добавить rtk в роль (рядом с herdr) через `binaries` +
       `rtk init -g --opencode`.
-- [ ] Положить `config.toml` в `files/` роли и копировать в
-      `~/.config/rtk/config.toml` (телеметрия остаётся выключенной).
+- [x] Конфиг rtk: генерируется динамически (`rtk config --create` при отсутствии
+      файла + `rtk telemetry disable`; телеметрия выключена, consent: no),
+      готовый TOML не хранится — схема может меняться между версиями.
 - [x] Бинарник rtk — в роли `ai_tools` (`ai_tools_binaries`), после `opencode`.
 - [x] Проверка `rtk --version` — в `post_tasks` плейбука.
 - [x] Описать в `README.md` (секция «herdr и rtk — инструменты для AI-агентов»).

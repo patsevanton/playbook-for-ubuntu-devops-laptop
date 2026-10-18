@@ -12,7 +12,21 @@
 #
 # Интеграции с opencode (herdr integration install opencode /
 # rtk init -g --opencode) пока НЕ ставятся — см. TODO-herdr-rtk.md.
+#
+# Конфиги:
+#   herdr — статичный files/herdr/config.toml (onboarding выключен, тосты
+#           через сам herdr; телеметрии у herdr в конфиге нет).
+#   rtk   — генерируется динамически: rtk config --create даёт актуальный
+#           дефолт (схема может меняться между версиями), затем
+#           rtk telemetry disable выключает телеметрию и фиксирует отказ от
+#           согласия (consent: no). Файл не храним в files/, чтобы не
+#           захардкодить устаревшую схему.
 # ============================================================================
+herdr_config_dir: "{{ home_dir }}/.config/herdr"
+herdr_config_file: "{{ herdr_config_dir }}/config.toml"
+rtk_config_dir: "{{ home_dir }}/.config/rtk"
+rtk_config_file: "{{ rtk_config_dir }}/config.toml"
+
 ai_tools_binaries:
   - name: herdr
     source: github
