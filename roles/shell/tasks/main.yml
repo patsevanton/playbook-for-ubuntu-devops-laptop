@@ -16,6 +16,23 @@
   vars:
     binaries_to_install: "{{ shell_binaries }}"
 
+# --- Удаление atuin (осталось от старой версии плейбука) --------------------
+# atuin исключён из плейбука (см. defaults). На машинах, где он уже установлен,
+# подчищаем бинарь и каталог данных ~/.atuin (история SQLite + конфиг). Хук из
+# devops-shell.sh убирается сам — шаблон ниже его больше не содержит.
+- name: Удалить бинарь atuin
+  become: true
+  ansible.builtin.file:
+    path: "{{ atuin_binary }}"
+    state: absent
+  when: atuin_remove
+
+- name: Удалить данные и конфиг atuin (~/.atuin)
+  ansible.builtin.file:
+    path: "{{ atuin_data_dir }}"
+    state: absent
+  when: atuin_remove
+
 - name: Создать каталог ~/.config
   ansible.builtin.file:
     path: "{{ home_dir }}/.config"
@@ -32,18 +49,6 @@
   ansible.builtin.copy:
     src: starship.toml
     dest: "{{ starship_config_file }}"
-    mode: "0644"
-
-- name: Создать каталог данных atuin ~/.atuin
-  ansible.builtin.file:
-    path: "{{ atuin_config_dir }}"
-    state: directory
-    mode: "0755"
-
-- name: Положить конфиг atuin
-  ansible.builtin.copy:
-    src: atuin-config.toml
-    dest: "{{ atuin_config_file }}"
     mode: "0644"
 
 - name: Установить JetBrainsMono Nerd Font (иконки для prompt и файлов)

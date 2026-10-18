@@ -83,7 +83,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault, gitleaks
-│   ├── shell/                  # eza, zoxide, fzf, starship, bat, atuin,
+│   ├── shell/                  # eza, zoxide, fzf, starship, bat,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   gai, dnsglobe, rkn-block-checker (pipx)
@@ -91,6 +91,8 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
 │   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
+│   ├── nora/                   # NORA artifact registry + mkcert TLS + CA клиентам,
+│   │                           #   Caddy как TLS-терминатор
 │   └── binaries/               # общий движок установки бинарников (вызывается ролями)
 ├── .ansible-lint
 └── README.md
@@ -127,7 +129,6 @@ ansible-lint                                   # проверка стиля (pr
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
 9. Ставит direnv, Vault и gitleaks.
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
-    ставит atuin (история команд с поиском по `Ctrl-R` и стрелке вверх),
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`)
     и M-Commander (двухпанельный файловый менеджер).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и pitwall (GUI-терминал
@@ -140,7 +141,10 @@ ansible-lint                                   # проверка стиля (pr
 15. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
 16. Добавляет пользователя в группу `docker`.
-17. В конце проверяет установку и печатает версии всех утилит.
+17. Ставит NORA artifact registry: `.deb`-пакет, локальный TLS-сертификат через
+    mkcert, автодоверие CA у клиентов (системный store, Docker, npm, pip, Java)
+    и Caddy как TLS-терминатор.
+18. В конце проверяет установку и печатает версии всех утилит.
 
 ---
 
@@ -157,6 +161,7 @@ ansible-lint                                   # проверка стиля (pr
 | network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
 | audio | pipewire, pipewire-bin, pipewire-pulse, wireplumber, hicolor-icon-theme | шумоподавление микрофона (HushMic) |
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
+| nora | mkcert, libnss3-tools, caddy, apache2-utils | mkcert (локальный CA), Caddy (TLS-терминатор), htpasswd (авторизация) |
 
 Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`) и
 `HushMic` (роль `audio`).
@@ -202,7 +207,6 @@ ansible-lint                                   # проверка стиля (pr
 | dnsglobe | github.com/514-labs/dnsglobe |
 | starship | github.com/starship/starship |
 | bat | github.com/sharkdp/bat |
-| atuin | github.com/atuinsh/atuin |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
 | pitwall | github.com/quanticstudios/pitwall (GUI-терминал, + ярлык и иконка) |
 
@@ -390,6 +394,78 @@ curl -s "http://127.0.0.1:9080/v1/audit/records?limit=1"  # аудит: плей
 docker pull ghcr.io/cloud-ru-tech/guardrails-llm-filter:latest
 sudo systemctl restart guardrails-llm-filter
 ```
+
+---
+
+## NORA artifact registry + локальный TLS (mkcert)
+
+Роль `nora` ставит **NORA** (`getnora-io/nora`) — self-hosted мультиформатный
+artifact registry (Docker, npm, PyPI, Cargo, Go, Maven и др.), выписывает для
+него **локальный доверенный сертификат** через **mkcert** и автоматически
+добавляет этот CA в trust-сторы клиентов. TLS терминирует **Caddy**.
+
+Что делает роль:
+
+1. Ставит `nora-amd64.deb` из последнего GitHub-релиза (с systemd-юнитом).
+   Конфиг — `/etc/nora/nora.env` (из шаблона), данные — `/var/lib/nora`.
+2. Ставит `mkcert` + `libnss3-tools`, запускает `mkcert -install` — локальный
+   CA ложится в системный store и NSS-сторы браузеров. CA-материал — в
+   `~/.local/share/mkcert` (`mkcert -CAROOT`), ключ не раздаётся и не коммитится.
+3. Выписывает листовой серт под домен реестра
+   (`registry.nora.lan`, `localhost`, `127.0.0.1`) в
+   `/etc/nora/tls/nora.crt` + `nora.key` (ключ — `600 root:root`).
+4. Раздаёт `rootCA.pem` клиентам: системный store
+   (`/usr/local/share/ca-certificates/nora-ca.crt` + `update-ca-certificates` —
+   для curl/git/apt/go/rustls), Docker (`/etc/docker/certs.d/registry.nora.lan/ca.crt`),
+   npm (`cafile` в `~/.npmrc`), pip (пакет `truststore`), Java
+   (`keytool -importcert` в системный `cacerts` — Maven/Gradle).
+5. Ставит Caddy как TLS-терминатор: `registry.nora.lan:443` → `127.0.0.1:4000`
+   (HTTP).
+6. Прописывает `registry.nora.lan` в `/etc/hosts` на `127.0.0.1`.
+
+Серты и ключи в репозиторий плейбука не кладутся (генерируются на месте).
+Домен не использует `.local` (конфликт с mDNS).
+
+Проверка после установки:
+
+```bash
+curl -fsS https://registry.nora.lan/health        # без -k, серт доверенный
+docker pull registry.nora.lan/myapp:1             # CA подхвачен из certs.d
+openssl s_client -connect registry.nora.lan:443 -showcerts  # цепочка → rootCA mkcert
+```
+
+UI — `https://registry.nora.lan/ui/`. Порты: NORA слушает `0.0.0.0:4000`,
+Caddy — `:443`.
+
+### Авторизация NORA
+
+По умолчанию включена (`NORA_AUTH_ENABLED=true`). Пользователи — htpasswd-файл
+(`apache2-utils`, bcrypt), программный доступ — API-токены. Создать
+пользователя и токен:
+
+```bash
+sudo htpasswd -Bc /etc/nora/users.htpasswd admin   # первый пользователь
+# токен (показывается один раз):
+curl -k -X POST https://registry.nora.lan/api/tokens \
+  -H 'Content-Type: application/json' \
+  -d '{"username":"admin","password":"...","role":"write","ttl_days":90}'
+# docker login с токеном (токен — как пароль):
+docker login registry.nora.lan -u token -p nra_...
+```
+
+Пока htpasswd-файл не создан, логиниться нельзя (реестр просто без
+пользователей). Всё настраивается в `roles/nora/defaults/main.yml`
+(`nora_auth_enabled`, `nora_auth_anonymous_read`, `nora_hostname`,
+`nora_public_url`, `nora_tls_*`), там же флаги `nora_docker_configure` /
+`nora_npm_configure` / `nora_pip_configure` / `nora_java_configure`, если
+какой-то trust-store клиента не нужен.
+
+### Обновление и авторотация серта
+
+mkcert сам серты не продлевает. Серт выписывается ролью только при отсутствии
+`/etc/nora/tls/nora.crt`; чтобы перевыпустить — удалите его и запустите плейбук
+снова. Для автоматической ротации в продакшене используйте `step-ca` с ACME
+или Let's Encrypt + Caddy (см. TODO-nora, раздел 7) — тогда локальный CA не нужен.
 
 ---
 
@@ -761,7 +837,6 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 - `PATH`: `~/.local/bin`, `~/.tfenv/bin`, `~/.tgenv/bin`;
 - `fzf --bash` (keybindings + completion);
 - `direnv hook bash`, `zoxide init bash`, `starship init bash`;
-- `atuin init bash --disable-ai` (история команд — подключается последним);
 - алиасы `ls`/`ll`/`la`/`lt` на `eza`;
 - алиас `catbat` и тема для `bat`;
 - алиас `fd` → `fdfind` (в Ubuntu бинарь `fd-find` называется `fdfind`);
@@ -780,45 +855,25 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 `roles/shell/files/starship.toml` в репозитории; путь назначения задаётся
 переменной `starship_config_file` в `group_vars/all.yml`.
 
-### atuin — история команд
+### atuin — история команд (не используется)
 
-Роль `shell` ставит **atuin** (`atuinsh/atuin`) — историю команд поверх SQLite
-с fuzzy-поиском и статистикой. `Ctrl-R` и **стрелка вверх** открывают поиск
-по всей истории, а не только по текущей сессии; `Enter` сразу выполняет
-выбранную команду, `Tab` кладёт её в строку для правки. Фильтры поиска
-(global / host / session / directory / workspace) переключаются прямо в
-интерфейсе — клавиши показаны в нижней строке окна.
+**atuin** сознательно исключён из плейбука. `atuin init bash` подключает
+`bash-preexec`, который на bash ≥ 5.3 вешает preexec-хук в `PS0` строкой
+`${ ... }`. Интеграция VTE (`/etc/profile.d/vte-2.91.sh`, gnome-terminal)
+заканчивает свой `PS0` последовательностью `\e\\` (OSC-терминатор ST), чей
+завершающий `\` экранирует `$` хука — и строка
+`${ __bp_invoke_preexec_from_ps0 "..." >&2; }` печатается буквально перед
+каждой командой.
 
-Хук `eval "$(atuin init bash --disable-ai)"` добавляется в
-`~/.config/devops-shell.sh` **последним**: atuin подгружает `bash-preexec`,
-который перехватывает `PROMPT_COMMAND` и DEBUG-трап, и должен увидеть уже
-собранное окружение. `--disable-ai` отключает перехват `?` в начале строки
-(режим AI-подсказок atuin здесь не нужен).
+Баг на стороне VTE, исправлен только в vte 0.84:
 
-История живёт **только локально** — в `~/.atuin` (SQLite), синхронизация
-между машинами выключена (`auto_sync = false`). Включить её:
+- [GNOME/vte#2951](https://gitlab.gnome.org/GNOME/vte/-/work_items/2951)
+- [rcaloras/bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186)
 
-```bash
-atuin register      # новая учётная запись на api.atuin.sh (или atuin login)
-atuin sync          # разовая синхронизация
-# автоматика — auto_sync = true в ~/.atuin/config.toml
-```
-
-Полезные команды:
-
-```bash
-atuin stats day              # статистика по командам за день
-atuin history                # история обычным выводом
-atuin search "kubectl"       # поиск без интерактивного интерфейса
-```
-
-Конфиг — `roles/shell/files/atuin-config.toml`, кладётся в
-`~/.atuin/config.toml` (каталог данных atuin, там же SQLite с историей).
-Файл копируется как есть — правки перезапишутся при следующем запуске.
-Меняйте `roles/shell/files/atuin-config.toml` в репозитории; путь назначения
-задаётся переменной `atuin_config_file` в `group_vars/all.yml`. В конфиге
-по умолчанию включён `secrets_filter` — команды с AWS/GitHub/Slack/Stripe
-токенами в аргументах в историю не попадают.
+Вернуть atuin можно после выхода vte 0.84 (или накатив патч из VTE#2951):
+достаточно добавить блок `atuin init bash --disable-ai` в
+`roles/shell/templates/devops-shell.sh.j2`, запись в `shell_binaries`
+(`roles/shell/defaults/main.yml`) и конфиг `atuin-config.toml`.
 
 ### Nerd Font (иконки в prompt и списках файлов)
 

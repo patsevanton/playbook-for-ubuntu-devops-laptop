@@ -1,0 +1,10 @@
+# {{ nora_terraformrc_file }}
+# Файл управляется Ansible (роль nora) — ручные правки будут перезаписаны.
+# Terraform качает бинарники провайдеров через NORA (network mirror по HTTPS).
+# NORA — proxy-only реестр Terraform (кэширует, публикация не поддерживается).
+
+provider_installation {
+  network_mirror {
+    url = "https://{{ nora_hostname }}/terraform/"
+  }
+}

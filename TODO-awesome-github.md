@@ -407,8 +407,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       плагинами. *(`release` / `cargo`)* — [zellij-org/zellij](https://github.com/zellij-org/zellij)
 - [x] ⭐ **atuin** — синхронизируемая история shell: SQLite, fuzzy-поиск, статистика.
       *(`deb` / `script`)* — [atuinsh/atuin](https://github.com/atuinsh/atuin)
-      — ✅ добавлен в плейбук (роль `shell`; бинарь из GitHub-релиза + хук
-      `atuin init bash`, история только локальная, синхронизация выключена).
+      — ❌ убран из плейбука: хук `atuin init bash` (bash-preexec) конфликтует
+      с интеграцией VTE в `PS0` — строка `${ __bp_invoke_preexec_from_ps0 ... }`
+      печатается текстом перед каждой командой. См. [VTE#2951](https://gitlab.gnome.org/GNOME/vte/-/work_items/2951),
+      [bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186). Вернуть после vte 0.84.
 - [ ] **mcfly** — fuzzy-поиск по истории команд с учётом контекста. *(`cargo`)* —
       [cantino/mcfly](https://github.com/cantino/mcfly)
 - [ ] ⭐ **navi** — интерактивные шпаргалки для команд (поверх fzf). *(`cargo`)* —
@@ -502,6 +504,8 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       продвинутые dotfiles. — [HariSekhon/DevOps-Bash-tools](https://github.com/HariSekhon/DevOps-Bash-tools)
 - [ ] **kubetools** — курируемый список инструментов Kubernetes. —
       [collabnix/kubetools](https://github.com/collabnix/kubetools)
+      (инструменты оттуда, которых нет в этом файле, разобраны в
+      [`TODO-kubetools.md`](TODO-kubetools.md))
 - [ ] **modern-unix** — современные замены классических unix-команд. —
       [ibraheemdev/modern-unix](https://github.com/ibraheemdev/modern-unix)
 - [ ] **awesome-tunneling** — альтернативы ngrok/Cloudflare Tunnel/Tailscale. —

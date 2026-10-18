@@ -9,7 +9,9 @@
 для opencode — в [`TODO-skills.md`](TODO-skills.md), аналоги pitwall для Ubuntu
 с поддержкой opencode (на случай, если pitwall не устроит) —
 в [`TODO-pitwall.md`](TODO-pitwall.md), отложенная установка herdr и rtk —
-в [`TODO-herdr-rtk.md`](TODO-herdr-rtk.md).
+в [`TODO-herdr-rtk.md`](TODO-herdr-rtk.md), кандидаты из подборки
+collabnix/kubetools, которых нет в других файлах, —
+в [`TODO-kubetools.md`](TODO-kubetools.md).
 
 Источник подборки: все репозитории со ⭐ аккаунта (2057 шт.), из них отобраны
 ~570 похожих на локально устанавливаемые утилиты и вручную вычищены до списков
@@ -76,4 +78,6 @@ single-binary режим для локального запуска.
 Остальные подборки (`devops-exercises`, `DevOps-Bash-tools`, `kubetools`,
 `modern-unix`, `awesome-tunneling`, `awesome-prometheus-alerts`) — со своими
 описаниями и ссылками, как кандидаты, в `TODO-awesome-github.md` (раздел
-«Обучающие материалы и подборки»).
+«Обучающие материалы и подборки»). Инструменты из подборки `kubetools`, которых
+ещё нет в других файлах, разобраны отдельно — в
+[`TODO-kubetools.md`](TODO-kubetools.md).

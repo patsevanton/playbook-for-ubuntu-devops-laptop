@@ -25,10 +25,6 @@ pipx_python: /usr/bin/python3
 shell_file: "{{ home_dir }}/.config/devops-shell.sh"
 # Конфиг starship (тема prompt); starship читает его по этому пути по умолчанию.
 starship_config_file: "{{ home_dir }}/.config/starship.toml"
-# Конфиг atuin (история команд); каталог ~/.atuin — он же каталог данных atuin
-# (SQLite с историей лежит рядом), конфиг там же: ~/.atuin/config.toml.
-atuin_config_dir: "{{ home_dir }}/.atuin"
-atuin_config_file: "{{ atuin_config_dir }}/config.toml"
 
 # --- Поведение --------------------------------------------------------------
 # User-Agent для запросов к GitHub / npm / HashiCorp.

@@ -25,25 +25,30 @@ shell_binaries:
     url: "https://github.com/sharkdp/bat/releases/download/{tag}/bat-v{version}-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: bat-v{version}-x86_64-unknown-linux-gnu/bat
-  - name: atuin
-    source: github
-    repo: atuinsh/atuin
-    url: "https://github.com/atuinsh/atuin/releases/download/{tag}/atuin-x86_64-unknown-linux-gnu.tar.gz"
-    archive: tar
-    member: atuin-x86_64-unknown-linux-gnu/atuin
 
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"
 
-# --- atuin: история команд --------------------------------------------------
-# История команд поверх SQLite: fuzzy-поиск по Ctrl-R и стрелке вверх,
-# статистика. Бинарь ставится через роль binaries (см. shell_binaries),
-# конфиг — из roles/shell/files/atuin-config.toml в {{ atuin_config_file }}
-# (путь задан в group_vars/all.yml). История только локальная, без
-# синхронизации (auto_sync = false в конфиге).
-# Хук в devops-shell.sh подключается последним: atuin подгружает bash-preexec
-# (перехват PROMPT_COMMAND и DEBUG-трап) и должен увидеть собранное окружение.
-# --disable-ai — не перехватывать «?» в начале строки (AI-режим atuin).
+# --- atuin: НЕ используем ---------------------------------------------------
+# История команд (atuin) сознательно исключена. atuin подключает bash-preexec,
+# который на bash >= 5.3 вешает preexec-хук в PS0 строкой '${ ... }'.
+# Интеграция VTE (/etc/profile.d/vte-2.91.sh, gnome-terminal) заканчивает свой
+# PS0 последовательностью \e\\ (OSC-терминатор ST), чей завершающий '\'
+# экранирует '$' хука — и строка '${ __bp_invoke_preexec_from_ps0 "..." >&2; }'
+# печатается буквально перед каждой командой. Баг на стороне VTE, исправлен
+# только в vte 0.84:
+#   GNOME/vte#2951    https://gitlab.gnome.org/GNOME/vte/-/work_items/2951
+#   bash-preexec#186  https://github.com/rcaloras/bash-preexec/issues/186
+# Вернуть atuin можно после выхода vte 0.84 (или накатив патч из VTE#2951).
+
+# На машинах, где atuin уже установлен старой версией плейбука, остаются
+# бинарь bin_dir/atuin и каталог данных ~/.atuin (история SQLite + конфиг).
+# Хук из devops-shell.sh убирается перезаписью шаблона. Бинарь и данные
+# удаляем отдельной задачей (флаг atuin_remove), чтобы старые ноутбуки
+# подчистились. atuin_remove можно выключить, если atuin нужен.
+atuin_remove: true
+atuin_binary: "{{ bin_dir }}/atuin"
+atuin_data_dir: "{{ home_dir }}/.atuin"
 
 # --- Nerd Font: JetBrainsMono Nerd Font -------------------------------------
 # Starship рисует глифы ветки Git и Kubernetes из private use area, eza --icons
