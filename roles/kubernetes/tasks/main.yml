@@ -10,12 +10,25 @@
   vars:
     binaries_to_install: "{{ kubernetes_binaries }}"
 
+- name: Проверить наличие kubectx
+  ansible.builtin.stat:
+    path: "{{ bin_dir }}/kubectx"
+  register: kubectx_stat
+
+# kubectx берётся из raw.githubusercontent.com (без релизных артефактов).
+# Если файл уже есть — в сеть не ходим (идемпотентность, как в роли binaries).
 - name: Установить kubectx (shell-скрипт)
   become: true
   ansible.builtin.get_url:
     url: "{{ kubectx_url }}"
     dest: "{{ bin_dir }}/kubectx"
     mode: "0755"
+  when: not kubectx_stat.stat.exists
+
+- name: Проверить наличие bash-completion для kubectx
+  ansible.builtin.stat:
+    path: "{{ kubectx_completion_path }}"
+  register: kubectx_completion_stat
 
 - name: Установить bash-completion для kubectx
   become: true
@@ -23,3 +36,4 @@
     url: "{{ kubectx_completion_url }}"
     dest: "{{ kubectx_completion_path }}"
     mode: "0644"
+  when: not kubectx_completion_stat.stat.exists
