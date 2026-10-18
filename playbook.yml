@@ -45,6 +45,8 @@
       tags: [network]
     - role: opencode
       tags: [opencode]
+    - role: skills
+      tags: [skills]
     - role: audio
       tags: [audio]
     - role: guardrails

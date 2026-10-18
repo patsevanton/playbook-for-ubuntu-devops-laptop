@@ -88,6 +88,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   gai, dnsglobe, rkn-block-checker (pipx)
 │   ├── opencode/               # opencode (из npm-реестра), pitwall (GUI-терминал)
+│   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
 │   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
 │   └── binaries/               # общий движок установки бинарников (вызывается ролями)
@@ -131,13 +132,15 @@ ansible-lint                                   # проверка стиля (pr
     и M-Commander (двухпанельный файловый менеджер).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и pitwall (GUI-терминал
     для coding-агентов, с ярлыком в меню приложений).
-12. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
+12. Ставит глобальные skills для opencode (CLI `skills`, каталог
+    `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
+13. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
     (проверка распространения DNS) и `rkn-block-checker` (через pipx).
-13. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
-14. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
+14. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
+15. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
-15. Добавляет пользователя в группу `docker`.
-16. В конце проверяет установку и печатает версии всех утилит.
+16. Добавляет пользователя в группу `docker`.
+17. В конце проверяет установку и печатает версии всех утилит.
 
 ---
 
@@ -207,7 +210,9 @@ ansible-lint                                   # проверка стиля (pr
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`) и
 коллекциями `community.docker`/`ansible.posix`, `rkn-block-checker` — из PyPI
 через pipx в `~/.local/bin` (роль `network`), `HushMic` — из `.deb`-пакета
-(роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`).
+(роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`), глобальные
+skills для opencode — через `npx skills add` (роль `skills`, см. раздел
+«Глобальные skills для opencode»).
 
 Скачивание версий идёт без GitHub API (лимит 60 запросов в час): тег последнего
 релиза берётся из HTTP-редиректа `releases/latest` — для GitHub это
@@ -545,6 +550,65 @@ pgcenter report -f pgcenter.stat.tar                # отчёт по запис
 pitwall --version
 pitwall -s my-session
 ```
+
+---
+
+## Глобальные skills для opencode
+
+Роль `skills` ставит **глобальные skills для opencode** — инструкции-плагины
+(каталоги с `SKILL.md`), которые подсказывают агенту, как работать с разными
+инструментами и задачами. Skills ставятся CLI [`skills`](https://www.npmjs.com/package/skills)
+(через `npx`, без глобальной установки CLI):
+
+```bash
+npx skills add <git-репозиторий> -g -y -a opencode -s <skill-1,skill-2,...>
+```
+
+Флаги: `-g` — глобально для пользователя, `-y` — без вопросов, `-a opencode` —
+с привязкой к агенту opencode, `-s` — конкретные skills из репозитория. CLI
+сам клонирует репозиторий источника, поэтому нужны `git` (роль `git`) и `npm`
+(роль `runtimes`), а также **SSH-ключ к GitHub** — источники заданы SSH-URL
+(как в рабочем окружении, откуда список воспроизведён).
+
+Skills складываются в `~/.agents/skills`, учёт установленного — в
+lock-файле `~/.agents/.skill-lock.json`. Идемпотентность: перед установкой
+роль читает lock-файл и пропускает источники, чьи skills уже установлены.
+Удалить запись из lock-файла = переустановить соответствующий источник.
+При установке задаётся `INSTALL_INTERNAL_SKILLS=1`: CLI по умолчанию
+пропускает skills с `metadata.internal: true` в frontmatter, и для них
+установка не нашла бы имена в списке.
+
+Список в `roles/skills/defaults/main.yml` (`skills_sources`) — реплика
+рабочего окружения: **68 skills из 16 репозиториев**:
+
+| Источник | Skills |
+|---|---|
+| [elastic/agent-skills](https://github.com/elastic/agent-skills) | 24 |
+| [obra/superpowers](https://github.com/obra/superpowers) | 15 |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | 7 |
+| [dietrichgebert/ponytail](https://github.com/dietrichgebert/ponytail) | 6 |
+| [victoriametrics/skills](https://github.com/victoriametrics/skills) | 5 |
+| [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) | 1 |
+| [artwist-polyakov/polyakov-claude-skills](https://github.com/artwist-polyakov/polyakov-claude-skills) | 1 |
+| [blader/humanizer](https://github.com/blader/humanizer) | 1 |
+| [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | 1 |
+| [elsvv/yandex-cloud-cli-skill](https://github.com/elsvv/yandex-cloud-cli-skill) | 1 |
+| [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills) | 1 |
+| [petergyang/no-ai-slop](https://github.com/petergyang/no-ai-slop) | 1 |
+| [testland/qa](https://github.com/testland/qa) | 1 |
+| [theclaymethod/unslop](https://github.com/theclaymethod/unslop) | 1 |
+| [vercel-labs/skills](https://github.com/vercel-labs/skills) | 1 |
+| [Vladimir-Human/humanizer-ru](https://github.com/Vladimir-Human/humanizer-ru) | 1 |
+
+Проверка после установки:
+
+```bash
+ls ~/.agents/skills                    # все ожидаемые skills на месте
+npx skills ls -g                       # список установленных глобальных skills
+```
+
+Применить только skills: `ansible-playbook -K playbook.yml --tags skills`
+(сначала должен быть выполнен тег `runtimes` — нужен `npm`).
 
 ---
 
