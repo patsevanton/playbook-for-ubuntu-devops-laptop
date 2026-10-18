@@ -6,10 +6,13 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 `/home/magnit/Public/starred-tools/data/` (`enriched.json`, `install_hints.tsv`,
 `install_report.md`).
 
-Список умышленно пересекается с `TODO.md`: там сырые кандидаты из звёзд,
-здесь — сгруппированная awesome-подборка по темам (devops, kubernetes, ansible,
-terraform/terragrunt, linux). Утилиты, которые уже ставит плейбук, вынесены в
-конец — их дублировать не нужно (см. `README.md`).
+Это канонический список кандидатов (дедупликация 2026-10-18): дубли из
+`TODO.md` и `TODO-trend-github.md` перенесены сюда и удалены оттуда, вместе с
+ними перенесены рекомендации «что выбрать из дублей» (см. таблицу ниже).
+Уникальные тренды 2026 остались в [`TODO-trend-github.md`](TODO-trend-github.md),
+трекер NORA/TLS — в [`TODO-nora.md`](TODO-nora.md). Утилиты, которые уже ставит
+плейбук, перечислены в [`TODO.md`](TODO.md) — их дублировать не нужно
+(см. `README.md`).
 
 Как читать:
 
@@ -23,10 +26,38 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
 
 ---
 
+## Дубли по функционалу — что выбрать
+
+У группы с дублями берём одну утилиту (⭐ в таблице и в списке ниже), остальные
+держим как запасные. Отдельно: **дубли уже установленного плейбуком** — не брать
+(полный список уже устанавливаемого — в [`TODO.md`](TODO.md)): `ktail`≈`stern`,
+`kube-switch`≈`kubectx`, `dyff`≈`diffyml` — в списке помечены ⛔.
+
+| Группа | Рекомендую ⭐ | Альтернативы | Почему |
+| --- | --- | --- | --- |
+| История shell | **atuin** | mcfly, hstr | синхронизация между машинами и статистика; mcfly/hstr проще, но локальные |
+| Шпаргалки команд | **navi** | cheat, tldr | объединяет свои и community-шпаргалки и работает поверх уже установленного `fzf` |
+| Терминальные мультиплексоры | **zellij** | 3mux | развитее и активнее; 3mux интересен только ради i3-навигации |
+| Анализ занятого места | **gdu** | dusage | быстрее и удобнее в TUI |
+| LLM-сообщения коммитов | **opencommit** | lumen, gptcommit, CodeGPT | проще всего ставится (npm) и активно развивается; остальные — варианты под предпочтения |
+| DNS-клиенты | **q** | dog | поддерживает DoH/DoT/DoQ, ставится одним `.deb` |
+| eBPF-снифферы трафика | **kyanos** | oryx, pktstat-bpf | даёт и латентность, и payload, а не просто байты |
+| Просмотр X.509-сертификатов | **showcert** | certificate-ripper, gossl | человекочитаемый разбор, ставится через `pipx`, без Java |
+| Терминал в браузере | **sshx** | gotty | шаринг одной командой, без разворачивания сервиса |
+| Мониторинг полосы трафика | **bandwhich** | sniffnet | разбивка по процессам и соединениям прямо в терминале |
+| K8s-дашборды | **headlamp** | kubebox, kubewall | самый функциональный, есть desktop-режим |
+| Обзор ресурсов кластера | **kube-capacity** | ktop | показывает requests/limits против фактического потребления |
+| Слои docker-образов | **dive** | docker-image-layer-explorer | интерактивный, с оценкой эффективности образа |
+| Интерактивный просмотр JSON | **fx** | jnv | работа из коробки, не требует отдельного `jq` |
+| Просмотр JSON-логов | **hl** | json-log-viewer, logdy-core | быстрый TUI, умеет не только JSON |
+| Установщики бинарников | **eget** | binup, stew, dra | проще всех, один бинарник и понятный синтаксис |
+
+---
+
 ## Ansible и управление конфигурацией
 
 - [ ] **molecule** — фреймворк тестирования Ansible-ролей (прогон ролей в
-      контейнерах/VM). *(`pipx`)* — [ansible/molecule](https://github.com/ansible/molecule)
+      контейнерах/VM). *(`pipx`; ⭐ 4.2k)* — [ansible/molecule](https://github.com/ansible/molecule)
 - [ ] **cloud.terraform** — Ansible-коллекция: запуск Terraform/OpenTofu из
       плейбуков (plan/apply/state как задачи). *(`ansible-galaxy collection`)* —
       [ansible-collections/cloud.terraform](https://github.com/ansible-collections/cloud.terraform)
@@ -80,16 +111,18 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
 
 - [ ] **kubecolor** — цветной, читаемый вывод `kubectl`. *(`deb`)* —
       [kubecolor/kubecolor](https://github.com/kubecolor/kubecolor)
-- [ ] **kube-capacity** — requests/limits и реальная загрузка кластера.
+- [ ] ⭐ **kube-capacity** — requests/limits и реальная загрузка кластера.
       *(`go` / `release`)* — [robscott/kube-capacity](https://github.com/robscott/kube-capacity)
 - [ ] **ktop** — `top`-подобный монитор метрик нод и подов. *(`go`)* —
       [vladimirvivien/ktop](https://github.com/vladimirvivien/ktop)
 - [ ] **kubefetch** — neofetch для Kubernetes-кластера. *(`go`)* —
       [jkulzer/kubefetch](https://github.com/jkulzer/kubefetch)
 - [ ] **ktail** — tail логов подов с фильтрами (родственник stern). *(`go`)* —
-      [atombender/ktail](https://github.com/atombender/ktail)
+      [atombender/ktail](https://github.com/atombender/ktail) — ⛔ дубль уже
+      установленного плейбуком **stern**, не брать.
 - [ ] **kube-switch** — маленький bash-переключатель кластеров. *(`git clone`)* —
-      [josefkorbel/kube-switch](https://github.com/josefkorbel/kube-switch)
+      [josefkorbel/kube-switch](https://github.com/josefkorbel/kube-switch) — ⛔ дубль
+      уже установленного плейбуком **kubectx**, не брать.
 - [ ] **kubectl-view-secret** — плагин: декодирование секретов. *(`go` / `krew`)* —
       [elsesiy/kubectl-view-secret](https://github.com/elsesiy/kubectl-view-secret)
 - [ ] **kubectl-df-pv** — плагин: `df` по PersistentVolume. *(`go` / `krew`)* —
@@ -101,11 +134,12 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
 - [ ] **pluto** — находит устаревшие/удалённые `apiVersion` в манифестах.
       *(`go` / `release`)* — [FairwindsOps/pluto](https://github.com/FairwindsOps/pluto)
 - [ ] **dyff** — структурный diff YAML (иногда JSON). *(`go`)* —
-      [homeport/dyff](https://github.com/homeport/dyff)
+      [homeport/dyff](https://github.com/homeport/dyff) — ⛔ дубль уже
+      установленного плейбуком **diffyml**, не брать.
 - [ ] **kubevpn** — cloud-native dev-окружение и VPN в кластер. *(`go`)* —
       [kubenetworks/kubevpn](https://github.com/kubenetworks/kubevpn)
 - [ ] **kftray** — менеджер `kubectl port-forward` и reverse-туннелей (GUI+TUI).
-      *(`release`)* — [hcavarsan/kftray](https://github.com/hcavarsan/kftray)
+      *(`AppImage` / `tar.gz`; ⭐ 1.6k)* — [hcavarsan/kftray](https://github.com/hcavarsan/kftray)
 - [ ] **txeh** — управление `/etc/hosts` из CLI. *(`deb`)* —
       [txn2/txeh](https://github.com/txn2/txeh)
 - [ ] **netobserv-cli** — сетевая наблюдаемость Kubernetes (eBPF, без агента).
@@ -122,7 +156,7 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
 
 ## Kubernetes — UI, Helm и GitOps
 
-- [ ] **headlamp** — полноценный web/desktop UI для Kubernetes. *(`deb` / `AppImage`)* —
+- [ ] ⭐ **headlamp** — полноценный web/desktop UI для Kubernetes. *(`deb` / `AppImage`)* —
       [kubernetes-sigs/headlamp](https://github.com/kubernetes-sigs/headlamp)
 - [ ] **kubewall** — dashboard одним бинарником на несколько кластеров.
       *(`deb`)* — [kubewall/kubewall](https://github.com/kubewall/kubewall)
@@ -138,7 +172,7 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
       *(`go`)* — [carvel-dev/kbld](https://github.com/carvel-dev/kbld)
 - [ ] **timoni** — пакетный менеджер Kubernetes на CUE. *(`go`)* —
       [stefanprodan/timoni](https://github.com/stefanprodan/timoni)
-- [ ] **chart-testing** — линтинг и тестирование Helm-чартов (`ct`). *(`go`)* —
+- [ ] **chart-testing** — линтинг и тестирование Helm-чартов (`ct`). *(`tar.gz` linux_amd64 / `go`; ⭐ 1.6k)* —
       [helm/chart-testing](https://github.com/helm/chart-testing)
 - [ ] **helm-chartsnap** — snapshot-тестирование Helm-чартов. *(`go`)* —
       [jlandowner/helm-chartsnap](https://github.com/jlandowner/helm-chartsnap)
@@ -151,7 +185,7 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
 
 ## Docker и контейнеры
 
-- [ ] **dive** — анализ слоёв docker-образа, размер и мусор. *(`deb`)* —
+- [ ] ⭐ **dive** — анализ слоёв docker-образа, размер и мусор. *(`deb`)* —
       [wagoodman/dive](https://github.com/wagoodman/dive)
 - [ ] **dry** — терминальный менеджер Docker-контейнеров, образов, сетей.
       *(`go` / `release`)* — [moncho/dry](https://github.com/moncho/dry)
@@ -184,7 +218,7 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
       *(`go` / `release`)* — [TomWright/dasel](https://github.com/TomWright/dasel)
 - [ ] **jc** — конвертирует вывод обычных CLI-утилит в JSON. *(`deb` / `pipx`)* —
       [kellyjonbrazil/jc](https://github.com/kellyjonbrazil/jc)
-- [ ] **fx** — интерактивный просмотрщик и обработчик JSON. *(`npm`)* —
+- [ ] ⭐ **fx** — интерактивный просмотрщик и обработчик JSON. *(`npm`)* —
       [antonmedv/fx](https://github.com/antonmedv/fx)
 - [ ] **jnv** — интерактивный фильтр JSON (jq + fzf). *(`cargo`, нужен `jq`)* —
       [ynqa/jnv](https://github.com/ynqa/jnv)
@@ -194,7 +228,7 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
       *(`go`)* — [hairyhenderson/gomplate](https://github.com/hairyhenderson/gomplate)
 - [ ] **gonzo** — TUI-анализатор логов с графиками по столбцам. *(`go`)* —
       [control-theory/gonzo](https://github.com/control-theory/gonzo)
-- [ ] **hl** — быстрый просмотрщик и процессор логов (JSON/logfmt). *(`cargo`)* —
+- [ ] ⭐ **hl** — быстрый просмотрщик и процессор логов (JSON/logfmt). *(`cargo`)* —
       [pamburus/hl](https://github.com/pamburus/hl)
 - [ ] **lazyjournal** — TUI для логов journald, auditd, Docker, файлов.
       *(`deb`)* — [Lifailon/lazyjournal](https://github.com/Lifailon/lazyjournal)
@@ -225,7 +259,7 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
       [linnix-os/linnix](https://github.com/linnix-os/linnix)
 - [ ] **oryx** — TUI-сниффер трафика на eBPF. *(`cargo`, нужен BPF)* —
       [pythops/oryx](https://github.com/pythops/oryx)
-- [ ] **kyanos** — анализ сетевых запросов через eBPF (латентность, payload).
+- [ ] ⭐ **kyanos** — анализ сетевых запросов через eBPF (латентность, payload).
       *(`go`)* — [hengyoush/kyanos](https://github.com/hengyoush/kyanos)
 - [ ] **pktstat-bpf** — монитор Ethernet-трафика на eBPF (TC/XDP/kprobes).
       *(`deb`)* — [dkorunic/pktstat-bpf](https://github.com/dkorunic/pktstat-bpf)
@@ -236,11 +270,14 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
 
 ## Сеть и сетевая диагностика
 
+- [ ] ⭐ **bandwhich** — TUI: текущая полоса трафика по процессам и
+      соединениям. *(`deb` из релиза / `tar.gz` + setcap; ⭐ 12k)* —
+      [imsnif/bandwhich](https://github.com/imsnif/bandwhich)
 - [ ] **sniffnet** — кроссплатформенный GUI-мониторинг сетевого трафика.
       *(`deb`)* — [GyulyVGC/sniffnet](https://github.com/GyulyVGC/sniffnet)
 - [ ] **trippy** — TUI traceroute с историей и статистикой по хопам.
       *(`deb` / `snap`)* — [fujiapple852/trippy](https://github.com/fujiapple852/trippy)
-- [ ] **q** — крошечный DNS-клиент: UDP/TCP/DoH/DoT/DoQ/ODoH. *(`deb`)* —
+- [ ] ⭐ **q** — крошечный DNS-клиент: UDP/TCP/DoH/DoT/DoQ/ODoH. *(`deb`)* —
       [natesales/q](https://github.com/natesales/q)
 - [ ] **dog** — DNS-клиент с человекочитаемым цветным выводом. *(`cargo`)* —
       [ogham/dog](https://github.com/ogham/dog)
@@ -251,8 +288,8 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
 - [ ] **websocat** — netcat/curl для WebSockets. *(`deb`)* —
       [vi/websocat](https://github.com/vi/websocat)
 - [ ] **hurl** — запуск и тестирование HTTP-запросов из plain-text файлов.
-      *(`deb`)* — [Orange-OpenSource/hurl](https://github.com/Orange-OpenSource/hurl)
-- [ ] **xh** — быстрый и дружелюбный HTTP-клиент (замена httpie). *(`deb`)* —
+      *(`deb`; ⭐ 19.3k)* — [Orange-OpenSource/hurl](https://github.com/Orange-OpenSource/hurl)
+- [ ] **xh** — быстрый и дружелюбный HTTP-клиент (замена httpie). *(`deb`; ⭐ 8.1k)* —
       [ducaale/xh](https://github.com/ducaale/xh)
 - [ ] **mkcert** — локально доверенные dev-сертификаты без настройки. *(`go`)* —
       [FiloSottile/mkcert](https://github.com/FiloSottile/mkcert)
@@ -261,11 +298,13 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
       *(`pipx`)* — [ozeranskii/httptap](https://github.com/ozeranskii/httptap)
 - [ ] **asn** — справка по IP/домену: ASN, RPKI, BGP, WHOIS, трейс. *(`git clone`)* —
       [nitefood/asn](https://github.com/nitefood/asn)
-- [ ] **showcert** — «OpenSSL для людей»: разбор X.509-сертификатов. *(`pipx`)* —
+- [ ] ⭐ **showcert** — «OpenSSL для людей»: разбор X.509-сертификатов. *(`pipx`)* —
       [yaroslaff/showcert](https://github.com/yaroslaff/showcert)
 - [ ] **certificate-ripper** — извлекает цепочки сертификатов с удалённых
       серверов. *(`jar` + `apt install openjdk`)* —
       [Hakky54/certificate-ripper](https://github.com/Hakky54/certificate-ripper)
+- [ ] **gossl** — CLI-проверка SSL-сертификатов. *(`go`)* —
+      [vvrnv/gossl](https://github.com/vvrnv/gossl)
 - [ ] **ssh-audit** — аудит конфигурации SSH-серверов и клиентов. *(`pipx`)* —
       [jtesta/ssh-audit](https://github.com/jtesta/ssh-audit)
 - [ ] **lexicon** — единый способ управления DNS-записями у разных провайдеров.
@@ -277,7 +316,7 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
 
 ## Удалённый доступ и шаринг терминала
 
-- [ ] **sshx** — совместный терминал в браузере (мгновенный шаринг сессии).
+- [ ] ⭐ **sshx** — совместный терминал в браузере (мгновенный шаринг сессии).
       *(`script` / `cargo`)* — [ekzhang/sshx](https://github.com/ekzhang/sshx)
 - [ ] **EternalTerminal** — переподключаемый удалённый shell (сессия переживает
       обрыв). *(`apt` из репо ET; в latest .deb только arm64)* —
@@ -334,7 +373,7 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
       *(`release` / `go`)* — [jesseduffield/lazygit](https://github.com/jesseduffield/lazygit)
 - [ ] **lumen** — просмотр git diff + генерация коммитов через LLM. *(`cargo`)* —
       [jnsahaj/lumen](https://github.com/jnsahaj/lumen)
-- [ ] **opencommit** — генерация осмысленных git-сообщений через GPT.
+- [ ] ⭐ **opencommit** — генерация осмысленных git-сообщений через GPT.
       *(`npm`)* — [di-sukharev/opencommit](https://github.com/di-sukharev/opencommit)
 - [ ] **gptcommit** — git-хук `prepare-commit-msg`: сообщения через LLM.
       *(`cargo` + hook)* — [zurawiki/gptcommit](https://github.com/zurawiki/gptcommit)
@@ -355,13 +394,13 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
 
 ## Терминал, shell, продуктивность
 
-- [ ] **zellij** — терминальный мультиплексор (сессии/вкладки/панели) с
+- [ ] ⭐ **zellij** — терминальный мультиплексор (сессии/вкладки/панели) с
       плагинами. *(`release` / `cargo`)* — [zellij-org/zellij](https://github.com/zellij-org/zellij)
-- [ ] **atuin** — синхронизируемая история shell: SQLite, fuzzy-поиск, статистика.
+- [ ] ⭐ **atuin** — синхронизируемая история shell: SQLite, fuzzy-поиск, статистика.
       *(`deb` / `script`)* — [atuinsh/atuin](https://github.com/atuinsh/atuin)
 - [ ] **mcfly** — fuzzy-поиск по истории команд с учётом контекста. *(`cargo`)* —
       [cantino/mcfly](https://github.com/cantino/mcfly)
-- [ ] **navi** — интерактивные шпаргалки для команд (поверх fzf). *(`cargo`)* —
+- [ ] ⭐ **navi** — интерактивные шпаргалки для команд (поверх fzf). *(`cargo`)* —
       [denisidoro/navi](https://github.com/denisidoro/navi)
 - [ ] **cheat** — создание и просмотр собственных шпаргалок команд. *(`go`)* —
       [cheat/cheat](https://github.com/cheat/cheat)
@@ -377,18 +416,20 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
       *(`cargo`)* — [samwho/spacer](https://github.com/samwho/spacer)
 - [ ] **3mux** — мультиплексор терминала в стиле i3. *(`go`)* —
       [aaronjanse/3mux](https://github.com/aaronjanse/3mux)
-- [ ] **difftastic** — структурный diff (понимает синтаксис языка). *(`cargo`)* —
+- [ ] **difftastic** — структурный diff (понимает синтаксис языка).
+      *(`tar.gz` / `cargo`; ⭐ 26k)* —
       [Wilfred/difftastic](https://github.com/Wilfred/difftastic)
-- [ ] **delta** — улучшенный просмотр git-diff (side-by-side, подсветка).
-      *(`cargo` / `deb`)* — [dandavison/delta](https://github.com/dandavison/delta)
-- [ ] **dust** — наглядный `du` с деревом и графиком. *(`cargo`)* —
+- [ ] **delta** — улучшенный просмотр git-diff (side-by-side, подсветка; не
+      путать с apt-пакетом `delta` — это другая утилита). *(`deb` git-delta /
+      `cargo`; ⭐ 32.5k)* — [dandavison/delta](https://github.com/dandavison/delta)
+- [ ] **dust** — наглядный `du` с деревом и графиком. *(`deb` / `cargo`; ⭐ 12.5k)* —
       [bootandy/dust](https://github.com/bootandy/dust)
 
 ## Файлы, диск, система
 
 - [ ] **dusage** — наглядный подсчёт занятого места на диске. *(`deb`)* —
       [mihaigalos/dusage](https://github.com/mihaigalos/dusage)
-- [ ] **gdu** — быстрый анализатор диска с интерактивным TUI. *(`deb`)* —
+- [ ] ⭐ **gdu** — быстрый анализатор диска с интерактивным TUI. *(`deb`)* —
       [dundee/gdu](https://github.com/dundee/gdu)
 - [ ] **lf** — терминальный файловый менеджер с vim-подобными клавишами.
       *(`go`)* — [gokcehan/lf](https://github.com/gokcehan/lf)
@@ -413,7 +454,7 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
 
 ## Установщики бинарников (мета-инструменты)
 
-- [ ] **eget** — установка готовых бинарников прямо из GitHub-релизов. *(`go`)* —
+- [ ] ⭐ **eget** — установка готовых бинарников прямо из GitHub-релизов. *(`go`)* —
       [zyedidia/eget](https://github.com/zyedidia/eget)
 - [ ] **binup** — автоматическая установка приложений из GitHub-релизов.
       *(`cargo`)* — [KonishchevDmitry/binup](https://github.com/KonishchevDmitry/binup)

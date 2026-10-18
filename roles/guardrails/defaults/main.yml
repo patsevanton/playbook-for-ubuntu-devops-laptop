@@ -25,6 +25,18 @@ guardrails_upstream_base_url: https://polza.ai
 # Аудит запросов/ответов (без записи самих секретов).
 guardrails_audit_enabled: true
 
+# Что хранить в аудите для веб-консоли (страница «Журнал аудита»):
+# маскированные тексты запроса/ответа — видно «фейковые» значения
+# (плейсхолдеры), а original_texts — оригинал за плейсхолдером, в UI
+# показывается по наведению (видно «настоящие» значения).
+# ВНИМАНИЕ: original_texts=plain хранит сырые чувствительные данные в памяти
+# контейнера (in_memory, до 24h, до 10000 записей); config API и консоль без
+# аутентификации — слушают только loopback. Для шифрования на диске/в сторе —
+# encrypted + GUARDRAILS_STORE_ENCRYPTION_ENABLED + ключ хранилища.
+guardrails_audit_store_masked_texts: true
+guardrails_audit_store_masked_response_texts: true
+guardrails_audit_store_original_texts: plain  # off | plain | encrypted
+
 # Политика правил детекции: какие правила выключены (не маскируются).
 # Хранилище guardrails (in_memory) не переживает рестарт контейнера, поэтому
 # политика держится здесь: скрипт guardrails-apply-policy применяет её при

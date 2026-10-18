@@ -292,6 +292,30 @@ guardrails — `in_memory`, поэтому правки через веб-кон
 дефолту после рестарта. Чтобы вернуть маскировку IPv4 — убрать правила из
 `guardrails_disabled_rules` и перезапустить сервис.
 
+Чтобы видеть **настоящие** креды рядом с **фейковыми** (плейсхолдерами),
+включено хранение текстов в аудите (страница «Журнал аудита» в консоли на
+`http://127.0.0.1:9080`):
+
+- `GUARDRAILS_AUDIT_STORE_ORIGINAL_TEXTS=plain` — оригинал за плейсхолдером,
+  в UI показывается по наведению;
+- `GUARDRAILS_AUDIT_STORE_MASKED_TEXTS=true` — маскированный текст запроса;
+- `GUARDRAILS_AUDIT_STORE_MASKED_RESPONSE_TEXTS=true` — маскированный текст
+  ответа модели.
+
+Значения задаются в `roles/guardrails/defaults/main.yml`
+(`guardrails_audit_store_*`) и применяются при следующем старте сервиса.
+Без них записи аудита показывают только правило и плейсхолдер, а поле
+`original` остаётся пустым.
+
+⚠️ `original_texts=plain` хранит сырые чувствительные данные в памяти
+контейнера (`in_memory`, до 24h, до 10000 записей), а config API и консоль не
+имеют аутентификации (слушают только loopback). Для шифрования — значение
+`encrypted` плюс `GUARDRAILS_STORE_ENCRYPTION_ENABLED=true` и
+`GUARDRAILS_STORE_ENCRYPTION_KEY` (см. SECURITY.md upstream-проекта).
+
+Для живой проверки — страница «Песочница» в консоли: вставляете текст и
+видите, что ушло модели (замаскировано) и что вернётся клиенту (оригиналы).
+
 Проверка и управление:
 
 ```bash
@@ -300,6 +324,7 @@ systemctl restart guardrails-llm-filter
 journalctl -u guardrails-llm-filter -f
 docker ps --filter name=guardrails
 curl -s http://127.0.0.1:9080/    # веб-консоль и config API
+curl -s "http://127.0.0.1:9080/v1/audit/records?limit=1"  # аудит: плейсхолдеры и оригиналы
 ```
 
 Юнит кладётся из шаблона, поэтому правки в
