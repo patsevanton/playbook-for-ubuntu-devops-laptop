@@ -133,8 +133,8 @@ ansible-lint                                   # проверка стиля (pr
    kubefetch (сводка о кластере), krew (менеджер kubectl-плагинов) и три
    утилиты бинарниками — view-secret (декодирование секретов), df-pv
    (`df` по PV), browse-pvc (просмотр PVC) — а также pluto (устаревшие
-   apiVersion), pv-migrate (миграция PV) и marvin (сканер кластера
-   CEL-выражениями).
+   apiVersion), pv-migrate (миграция PV), marvin (сканер кластера
+   CEL-выражениями) и headlamp (web/desktop UI Kubernetes).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
@@ -144,15 +144,18 @@ ansible-lint                                   # проверка стиля (pr
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
     M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
-    difftastic (структурный diff), delta (улучшенный git-diff) и gdu
-    (анализатор диска).
+    difftastic (структурный diff), delta (улучшенный git-diff), gdu
+    (анализатор диска), zellij (терминальный мультиплексор), navi
+    (шпаргалки команд поверх fzf), fx (интерактивный просмотр JSON) и hl
+    (просмотр JSON-логов).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
 13. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
     (проверка распространения DNS), `bandwhich` (трафик по процессам),
     `q` (DNS-клиент с DoH/DoT/DoQ), `xh` (HTTP-клиент) и `rkn-block-checker`
-    (через pipx).
+    (через pipx), `kyanos` (eBPF-анализ сетевых запросов) и `showcert`
+    (разбор X.509-сертификатов, через pipx).
 14. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
 15. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
@@ -240,17 +243,23 @@ ansible-lint                                   # проверка стиля (pr
 | dive | github.com/wagoodman/dive |
 | sops | github.com/getsops/sops |
 | grype | github.com/anchore/grype |
+| zellij | github.com/zellij-org/zellij |
+| navi | github.com/denisidoro/navi |
+| fx | github.com/antonmedv/fx |
+| hl | github.com/pamburus/hl |
+| kyanos | github.com/hengyoush/kyanos |
 | starship | github.com/starship/starship |
 | bat | github.com/sharkdp/bat |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`) и
-коллекциями `community.docker`/`ansible.posix`, `rkn-block-checker` — из PyPI
-через pipx в `~/.local/bin` (роль `network`), `HushMic` — из `.deb`-пакета
-(роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`), глобальные
-skills для opencode — через `npx skills add` (роль `skills`, см. раздел
-«Глобальные skills для opencode»).
+коллекциями `community.docker`/`ansible.posix`, `rkn-block-checker` и `showcert`
+— из PyPI через pipx в `~/.local/bin` (роль `network`), `headlamp` — из
+`.deb`-пакета GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
+`.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
+глобальные skills для opencode — через `npx skills add` (роль `skills`, см.
+раздел «Глобальные skills для opencode»).
 
 Скачивание версий идёт без GitHub API (лимит 60 запросов в час): тег последнего
 релиза берётся из HTTP-редиректа `releases/latest` — для GitHub это

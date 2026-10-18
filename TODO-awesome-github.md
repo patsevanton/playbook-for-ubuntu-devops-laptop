@@ -173,8 +173,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Kubernetes — UI, Helm и GitOps
 
-- [ ] ⭐ **headlamp** — полноценный web/desktop UI для Kubernetes. *(`deb` / `AppImage`)* —
+- [x] ⭐ **headlamp** — полноценный web/desktop UI для Kubernetes. *(`deb` / `AppImage`)* —
       [kubernetes-sigs/headlamp](https://github.com/kubernetes-sigs/headlamp)
+      — ✅ добавлен в плейбук (роль `kubernetes`, `.deb` из релиза, desktop UI).
 - [ ] **kubewall** — dashboard одним бинарником на несколько кластеров.
       *(`deb`)* — [kubewall/kubewall](https://github.com/kubewall/kubewall)
 - [ ] **radar** — Kubernetes UI со встроенным MCP-сервером для AI-агентов.
@@ -237,8 +238,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`go` / `release`)* — [TomWright/dasel](https://github.com/TomWright/dasel)
 - [ ] **jc** — конвертирует вывод обычных CLI-утилит в JSON. *(`deb` / `pipx`)* —
       [kellyjonbrazil/jc](https://github.com/kellyjonbrazil/jc)
-- [ ] ⭐ **fx** — интерактивный просмотрщик и обработчик JSON. *(`npm`)* —
+- [x] ⭐ **fx** — интерактивный просмотрщик и обработчик JSON. *(`npm`)* —
       [antonmedv/fx](https://github.com/antonmedv/fx)
+      — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник fx_linux_amd64).
 - [ ] **jnv** — интерактивный фильтр JSON (jq + fzf). *(`cargo`, нужен `jq`)* —
       [ynqa/jnv](https://github.com/ynqa/jnv)
 - [ ] **octosql** — SQL-запросы к JSON/CSV/Parquet-файлам. *(`go`)* —
@@ -247,8 +249,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`go`)* — [hairyhenderson/gomplate](https://github.com/hairyhenderson/gomplate)
 - [ ] **gonzo** — TUI-анализатор логов с графиками по столбцам. *(`go`)* —
       [control-theory/gonzo](https://github.com/control-theory/gonzo)
-- [ ] ⭐ **hl** — быстрый просмотрщик и процессор логов (JSON/logfmt). *(`cargo`)* —
+- [x] ⭐ **hl** — быстрый просмотрщик и процессор логов (JSON/logfmt). *(`cargo`)* —
       [pamburus/hl](https://github.com/pamburus/hl)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник hl-linux-x86_64-gnu).
 - [ ] **lazyjournal** — TUI для логов journald, auditd, Docker, файлов.
       *(`deb`)* — [Lifailon/lazyjournal](https://github.com/Lifailon/lazyjournal)
 - [ ] **json-log-viewer** — интерактивный просмотр JSON-логов. *(`deb`)* —
@@ -278,8 +281,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [linnix-os/linnix](https://github.com/linnix-os/linnix)
 - [ ] **oryx** — TUI-сниффер трафика на eBPF. *(`cargo`, нужен BPF)* —
       [pythops/oryx](https://github.com/pythops/oryx)
-- [ ] ⭐ **kyanos** — анализ сетевых запросов через eBPF (латентность, payload).
+- [x] ⭐ **kyanos** — анализ сетевых запросов через eBPF (латентность, payload).
       *(`go`)* — [hengyoush/kyanos](https://github.com/hengyoush/kyanos)
+      — ✅ добавлен в плейбук (роль `network`, бинарник kyanos_*_linux_amd64).
 - [ ] **pktstat-bpf** — монитор Ethernet-трафика на eBPF (TC/XDP/kprobes).
       *(`deb`)* — [dkorunic/pktstat-bpf](https://github.com/dkorunic/pktstat-bpf)
 - [ ] **pwru** — eBPF-отладчик сетевого стека Linux («где потерялся пакет»).
@@ -320,8 +324,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`pipx`)* — [ozeranskii/httptap](https://github.com/ozeranskii/httptap)
 - [ ] **asn** — справка по IP/домену: ASN, RPKI, BGP, WHOIS, трейс. *(`git clone`)* —
       [nitefood/asn](https://github.com/nitefood/asn)
-- [ ] ⭐ **showcert** — «OpenSSL для людей»: разбор X.509-сертификатов. *(`pipx`)* —
+- [x] ⭐ **showcert** — «OpenSSL для людей»: разбор X.509-сертификатов. *(`pipx`)* —
       [yaroslaff/showcert](https://github.com/yaroslaff/showcert)
+      — ✅ добавлен в плейбук (роль `network`, через pipx из PyPI).
 - [ ] **certificate-ripper** — извлекает цепочки сертификатов с удалённых
       серверов. *(`jar` + `apt install openjdk`)* —
       [Hakky54/certificate-ripper](https://github.com/Hakky54/certificate-ripper)
@@ -400,6 +405,8 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [jnsahaj/lumen](https://github.com/jnsahaj/lumen)
 - [ ] ⭐ **opencommit** — генерация осмысленных git-сообщений через GPT.
       *(`npm`)* — [di-sukharev/opencommit](https://github.com/di-sukharev/opencommit)
+      — ❌ не устанавливаем: то же самое умеет opencode (генерирует сообщение
+      коммита по диффу). Отдельный CLI не нужен.
 - [ ] **gptcommit** — git-хук `prepare-commit-msg`: сообщения через LLM.
       *(`cargo` + hook)* — [zurawiki/gptcommit](https://github.com/zurawiki/gptcommit)
 - [ ] **CodeGPT** — CLI-генерация сообщений коммитов и ревью через LLM.
@@ -419,8 +426,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Терминал, shell, продуктивность
 
-- [ ] ⭐ **zellij** — терминальный мультиплексор (сессии/вкладки/панели) с
+- [x] ⭐ **zellij** — терминальный мультиплексор (сессии/вкладки/панели) с
       плагинами. *(`release` / `cargo`)* — [zellij-org/zellij](https://github.com/zellij-org/zellij)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла).
 - [x] ⭐ **atuin** — синхронизируемая история shell: SQLite, fuzzy-поиск, статистика.
       *(`deb` / `script`)* — [atuinsh/atuin](https://github.com/atuinsh/atuin)
       — ❌ убран из плейбука: хук `atuin init bash` (bash-preexec) конфликтует
@@ -429,8 +437,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186). Вернуть после vte 0.84.
 - [ ] **mcfly** — fuzzy-поиск по истории команд с учётом контекста. *(`cargo`)* —
       [cantino/mcfly](https://github.com/cantino/mcfly)
-- [ ] ⭐ **navi** — интерактивные шпаргалки для команд (поверх fzf). *(`cargo`)* —
+- [x] ⭐ **navi** — интерактивные шпаргалки для команд (поверх fzf). *(`cargo`)* —
       [denisidoro/navi](https://github.com/denisidoro/navi)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла).
 - [ ] **cheat** — создание и просмотр собственных шпаргалок команд. *(`go`)* —
       [cheat/cheat](https://github.com/cheat/cheat)
 - [ ] **tldr** — краткие примеры использования команд. *(`npm`)* —

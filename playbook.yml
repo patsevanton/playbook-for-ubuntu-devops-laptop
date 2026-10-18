@@ -112,10 +112,15 @@
         - "{{ bin_dir }}/bandwhich --version"
         - "{{ bin_dir }}/q --version"
         - "{{ bin_dir }}/xh --version"
+        - "{{ bin_dir }}/kyanos --version"
         - "{{ bin_dir }}/eget --version"
         - "{{ bin_dir }}/difftastic --version"
         - "{{ bin_dir }}/delta --version"
         - "{{ bin_dir }}/gdu --version"
+        - "{{ bin_dir }}/zellij --version"
+        - "{{ bin_dir }}/navi --version"
+        - "{{ bin_dir }}/fx --version"
+        - "{{ bin_dir }}/hl --version"
         - "{{ bin_dir }}/lazygit --version"
         - "{{ bin_dir }}/lazydocker --version"
         - "{{ bin_dir }}/dive --version"
@@ -131,7 +136,7 @@
       loop_control:
         label: "{{ item }}"
 
-    - name: Проверить наличие kubectx, gitlabcloner, rkn-check и hushmic
+    - name: Проверить наличие kubectx, gitlabcloner, rkn-check, showcert, headlamp и hushmic
       ansible.builtin.stat:
         path: "{{ item }}"
       register: extra_binaries_check
@@ -140,6 +145,8 @@
         - "{{ bin_dir }}/kubectx"
         - "{{ bin_dir }}/gitlabcloner"
         - "{{ pipx_bin_dir }}/rkn-check"
+        - "{{ pipx_bin_dir }}/showcert"
+        - /opt/Headlamp/headlamp
         - /usr/bin/hushmic
       loop_control:
         label: "{{ item }}"

@@ -11,11 +11,14 @@ network_packages:
 # rkn-block-checker — Python-CLI: разбирает, каким способом провайдер режет
 # доступ (DNS-подмена, TCP reset, TLS DPI по SNI, заглушка провайдера).
 # Диагностика по слоям: DNS, TCP, TLS, HTTP.
-# Пакета в apt нет и релизных бинарников тоже — ставится из PyPI через pipx
-# в изолированное окружение (как и положено Python-приложениям).
+# showcert — «OpenSSL для людей»: человекочитаемый разбор X.509-сертификатов
+# (тоже Python, ставится из PyPI). Оба ставятся через pipx в изолированное
+# окружение (как и положено Python-приложениям).
 network_pipx_apps:
   - name: rkn-block-checker
     creates: rkn-check
+  - name: showcert
+    creates: showcert
 
 # Скачиваемые бинарники сетевой диагностики.
 network_binaries:
@@ -41,7 +44,7 @@ network_binaries:
   - name: bandwhich
     source: github
     repo: imsnif/bandwhich
-    url: "https://github.com/imsnif/bandwhich/releases/download/{tag}/bandwhich-v{tag}-x86_64-unknown-linux-musl.tar.gz"
+    url: "https://github.com/imsnif/bandwhich/releases/download/{tag}/bandwhich-v{version}-x86_64-unknown-linux-musl.tar.gz"
     archive: tar
     member: bandwhich
   # q — крошечный DNS-клиент: UDP/TCP/DoH/DoT/DoQ/ODoH. В тарболле одиночный q.
@@ -52,13 +55,21 @@ network_binaries:
     archive: tar
     member: q
   # xh — быстрый HTTP-клиент (замена httpie). В архиве бинарник лежит в
-  # каталоге xh-v{tag}-x86_64-unknown-linux-musl.
+  # каталоге xh-v{version}-x86_64-unknown-linux-musl.
   - name: xh
     source: github
     repo: ducaale/xh
-    url: "https://github.com/ducaale/xh/releases/download/{tag}/xh-v{tag}-x86_64-unknown-linux-musl.tar.gz"
+    url: "https://github.com/ducaale/xh/releases/download/{tag}/xh-v{version}-x86_64-unknown-linux-musl.tar.gz"
     archive: tar
-    member: xh-v{tag}-x86_64-unknown-linux-musl/xh
+    member: xh-v{version}-x86_64-unknown-linux-musl/xh
+  # kyanos — анализ сетевых запросов через eBPF: латентность и payload (а не
+  # просто байты). Релиз — kyanos_{version}_linux_amd64.tar.gz, бинарник kyanos.
+  - name: kyanos
+    source: github
+    repo: hengyoush/kyanos
+    url: "https://github.com/hengyoush/kyanos/releases/download/{tag}/kyanos_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kyanos
 
 # bandwhich для чтения сетевого трафика требует CAP_NET_RAW — вешаем setcap
 # на бинарник, чтобы он работал без sudo. False = не навешивать (запуск через sudo).

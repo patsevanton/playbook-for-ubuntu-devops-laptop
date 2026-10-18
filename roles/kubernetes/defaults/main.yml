@@ -181,6 +181,14 @@ kubernetes_binaries:
     archive: tar
     member: marvin
 
+# --- Headlamp: web/desktop UI Kubernetes (.deb из GitHub-релиза) --------------
+# GUI-приложение ~123 МБ (Electron): ставится официальным .deb, появляется в
+# меню приложений. Имя артефакта headlamp_<ver>-1_amd64.deb (версия без v).
+# Версия берётся из редиректа releases/latest (см. tasks/headlamp.yml).
+headlamp_install: true
+headlamp_repo: kubernetes-sigs/headlamp
+headlamp_deb_dir: "{{ tmp_dir }}/headlamp"
+
 # kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
 kubectx_ref: master
 kubectx_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/kubectx"

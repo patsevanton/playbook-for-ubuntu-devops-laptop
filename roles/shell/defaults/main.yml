@@ -49,6 +49,37 @@ shell_binaries:
     url: "https://github.com/dundee/gdu/releases/download/{tag}/gdu_linux_amd64.tgz"
     archive: tar
     member: gdu_linux_amd64
+  # zellij — терминальный мультиплексор (сессии/вкладки/панели) с плагинами.
+  # Релиз — zellij-x86_64-unknown-linux-musl.tar.gz, бинарник внутри zellij.
+  - name: zellij
+    source: github
+    repo: zellij-org/zellij
+    url: "https://github.com/zellij-org/zellij/releases/download/{tag}/zellij-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: zellij
+  # navi — интерактивные шпаргалки команд поверх fzf. Релиз —
+  # navi-v{version}-x86_64-unknown-linux-musl.tar.gz, бинарник внутри ./navi.
+  - name: navi
+    source: github
+    repo: denisidoro/navi
+    url: "https://github.com/denisidoro/navi/releases/download/{tag}/navi-v{version}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: navi
+  # fx — интерактивный просмотрщик и обработчик JSON (одиночный бинарник).
+  # Тег релиза без префикса v (40.0.0), бинарник fx_linux_amd64.
+  - name: fx
+    source: github
+    repo: antonmedv/fx
+    url: "https://github.com/antonmedv/fx/releases/download/{tag}/fx_linux_amd64"
+    archive: none
+  # hl — быстрый просмотрщик и процессор логов (JSON/logfmt).
+  # Релиз — hl-linux-x86_64-gnu.tar.gz (glibc-сборка под Ubuntu), бинарник hl.
+  - name: hl
+    source: github
+    repo: pamburus/hl
+    url: "https://github.com/pamburus/hl/releases/download/{tag}/hl-linux-x86_64-gnu.tar.gz"
+    archive: tar
+    member: hl
 
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"

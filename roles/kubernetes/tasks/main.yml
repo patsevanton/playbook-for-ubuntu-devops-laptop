@@ -1,7 +1,7 @@
 ---
 # ============================================================================
 # Роль kubernetes: kubectl, helm, k9s, kustomize, kubectx, kubecolor,
-# kube-capacity, ktop, kubefetch.
+# kube-capacity, ktop, kubefetch, headlamp.
 # ============================================================================
 
 - name: Установить бинарники Kubernetes (актуальные версии)
@@ -9,6 +9,11 @@
     name: binaries
   vars:
     binaries_to_install: "{{ kubernetes_binaries }}"
+
+- name: Установить Headlamp (web/desktop UI Kubernetes)
+  ansible.builtin.include_tasks:
+    file: headlamp.yml
+  when: headlamp_install
 
 - name: Проверить наличие kubectx
   ansible.builtin.stat:

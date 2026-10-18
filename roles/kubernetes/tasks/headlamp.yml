@@ -1,0 +1,67 @@
+---
+# ============================================================================
+# Headlamp — полнофункциональный web/desktop UI для Kubernetes.
+# Ставится как desktop-приложение официальным .deb из GitHub-релиза
+# (headlamp_<ver>-1_amd64.deb): появляется в меню приложений Ubuntu.
+# Версия не фиксируется: тег последнего релиза берётся из HTTP-редиректа
+# releases/latest (без GitHub API — по образцу роли shell/mcommander.yml).
+#
+# Идемпотентность: если пакет headlamp уже установлен — ничего не делаем.
+# ============================================================================
+
+- name: Проверить, установлен ли headlamp
+  ansible.builtin.stat:
+    path: /opt/Headlamp/headlamp
+  register: headlamp_installed
+
+- name: Установить headlamp
+  when: not headlamp_installed.stat.exists
+  block:
+    - name: Узнать тег последнего релиза headlamp (через редирект releases/latest)
+      ansible.builtin.uri:
+        url: "https://github.com/{{ headlamp_repo }}/releases/latest"
+        follow_redirects: none
+        status_code: [301, 302, 303, 307, 308]
+        headers:
+          User-Agent: "{{ http_user_agent }}"
+      register: headlamp_release
+      changed_when: false
+
+    - name: Определить версию headlamp
+      ansible.builtin.set_fact:
+        headlamp_tag: "{{ headlamp_release.location | regex_replace('^.*/releases/tag/', '') }}"
+        headlamp_version: >-
+          {{ headlamp_release.location | regex_replace('^.*/releases/tag/', '')
+             | regex_replace('^v', '') }}
+
+    - name: Создать каталог для .deb headlamp
+      become: true
+      ansible.builtin.file:
+        path: "{{ headlamp_deb_dir }}"
+        state: directory
+        mode: "0755"
+
+    # Имя артефакта: headlamp_0.46.0-1_amd64.deb (версия без префикса v).
+    - name: Скачать .deb-пакет headlamp
+      become: true
+      ansible.builtin.get_url:
+        url: >-
+          https://github.com/{{ headlamp_repo }}/releases/download/{{ headlamp_tag }}/headlamp_{{ headlamp_version }}-1_amd64.deb
+        dest: "{{ headlamp_deb_dir }}/headlamp_{{ headlamp_version }}-1_amd64.deb"
+        mode: "0644"
+        force: true
+
+    - name: Установить headlamp из .deb
+      become: true
+      ansible.builtin.apt:
+        deb: "{{ headlamp_deb_dir }}/headlamp_{{ headlamp_version }}-1_amd64.deb"
+      register: headlamp_install
+      retries: 3
+      delay: 5
+      until: headlamp_install is succeeded
+
+    - name: Удалить временный .deb headlamp
+      become: true
+      ansible.builtin.file:
+        path: "{{ headlamp_deb_dir }}"
+        state: absent
