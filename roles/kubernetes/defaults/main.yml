@@ -111,10 +111,12 @@ kubernetes_binaries:
     member: kube-capacity
   # ktop — top-подобный TUI-монитор метрик нод и подов (нужен metrics-server).
   # Из релиза берём одиночный ktop, а не kubectl-ktop: плагины kubectl не ставим.
+  # В именах артефактов версия с префиксом v (ktop_v0.5.3_...), поэтому в URL
+  # подставляем {tag}, а не {version}.
   - name: ktop
     source: github
     repo: vladimirvivien/ktop
-    url: "https://github.com/vladimirvivien/ktop/releases/download/{tag}/ktop_{version}_linux_amd64.tar.gz"
+    url: "https://github.com/vladimirvivien/ktop/releases/download/{tag}/ktop_{tag}_linux_amd64.tar.gz"
     archive: tar
     member: ktop
   # kubefetch — neofetch для Kubernetes-кластера: сводка кластера/нод/подов
