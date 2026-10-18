@@ -1,7 +1,7 @@
 ---
 # ============================================================================
 # Роль ai_tools: herdr и rtk (усиление AI-агентов).
-# Интеграции с opencode пока не ставятся — см. TODO-herdr-rtk.md.
+# Ставит бинарники, конфиги и интеграции с opencode.
 # ============================================================================
 
 - name: Установить herdr и rtk (актуальные версии)
@@ -49,3 +49,46 @@
     src: herdr/config.toml
     dest: "{{ herdr_config_file }}"
     mode: "0644"
+
+# --- Интеграции с opencode ------------------------------------------------
+# Обе пишут файлы в ~/.config/opencode/ (plugins/ + корень), поэтому идут
+# после роли opencode. Команды идемпотентны и не запрашивают подтверждения
+# без TTY (проверено). Создаём каталог на всякий случай — роль opencode его
+# сама не создаёт.
+- name: Создать каталог плагинов opencode
+  ansible.builtin.file:
+    path: "{{ opencode_plugins_dir }}"
+    state: directory
+    mode: "0755"
+
+# herdr integration install opencode создаёт plugins/herdr-agent-state.js,
+# herdr-tui-session.js, tui.jsonc и herdr-opencode/tui.js (v13).
+- name: Установить интеграцию herdr в opencode
+  ansible.builtin.command:
+    cmd: "{{ bin_dir }}/herdr integration install opencode"
+  changed_when: false
+  register: herdr_integration
+  failed_when:
+    - herdr_integration.rc != 0
+
+# rtk init -g --opencode создаёт plugins/rtk.ts, но помимо него — побочные
+# файлы для Claude Code (~/.claude/CLAUDE.md, ~/.claude/RTK.md) и пустой
+# шаблон ~/.config/rtk/filters.toml. OpenCode-плагину они не нужны (он
+# переписывает команды через `rtk hook opencode` из PATH), поэтому удаляем их.
+# --no-patch: не трогать ~/.claude/settings.json и не задавать интерактивных
+# вопросов (в неинтерактивном режиме дефолт — N).
+- name: Установить плагин rtk в opencode
+  ansible.builtin.command:
+    cmd: "{{ bin_dir }}/rtk init -g --opencode --no-patch"
+  changed_when: false
+  register: rtk_integration
+  failed_when:
+    - rtk_integration.rc != 0
+
+- name: Удалить побочные файлы Claude Code от rtk init
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop: "{{ rtk_claude_side_effects }}"
+  loop_control:
+    label: "{{ item }}"

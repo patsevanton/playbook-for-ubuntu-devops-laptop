@@ -660,8 +660,25 @@ rtk --version
   `rtk telemetry disable` — телеметрия выключена и зафиксирован явный отказ от
   согласия (`consent: no`; дефолтный `--create` оставляет `consent: never asked`).
 
-Интеграции с opencode (`herdr integration install opencode`,
-`rtk init -g --opencode`) пока **не** устанавливаются — см. `TODO-herdr-rtk.md`.
+### Интеграции с opencode
+
+Роль `ai_tools` устанавливает обе интеграции (каталог `~/.config/opencode/`
+на этот момент уже создан ролью `opencode`):
+
+- **herdr** — `herdr integration install opencode` кладёт в
+  `~/.config/opencode/`: `plugins/herdr-agent-state.js` (состояние агента по
+  unix-сокету), `herdr-tui-session.js`, `tui.jsonc` и `herdr-opencode/tui.js`.
+- **rtk** — `rtk init -g --opencode --no-patch` кладёт `plugins/rtk.ts`:
+  перехватывает `tool.execute.before` для команд bash/shell и переписывает их
+  через `rtk hook opencode` (движок переписывания — в самом rtk).
+
+Обе команды идемпотентны (перезаписывают свои файлы тем же содержимым) и не
+запрашивают подтверждения без TTY.
+
+`rtk init -g --opencode` помимо плагина создаёт побочные файлы для Claude Code
+(`~/.claude/CLAUDE.md`, `~/.claude/RTK.md`) и пустой шаблон
+`~/.config/rtk/filters.toml` — opencode-плагину они не нужны, поэтому роль
+удаляет их отдельными задачами.
 
 ---
 

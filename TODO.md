@@ -8,8 +8,7 @@
 (mkcert) — в [`TODO-nora.md`](TODO-nora.md), глобальные skills и `AGENTS.md`
 для opencode — в [`TODO-skills.md`](TODO-skills.md), аналоги pitwall для Ubuntu
 с поддержкой opencode (на случай, если pitwall не устроит) —
-в [`TODO-pitwall.md`](TODO-pitwall.md), отложенная установка herdr и rtk —
-в [`TODO-herdr-rtk.md`](TODO-herdr-rtk.md), кандидаты из подборки
+в [`TODO-pitwall.md`](TODO-pitwall.md), кандидаты из подборки
 collabnix/kubetools, которых нет в других файлах, —
 в [`TODO-kubetools.md`](TODO-kubetools.md).
 
@@ -36,8 +35,8 @@ collabnix/kubetools, которых нет в других файлах, —
 `kubespy`, `kubecolor`, `kube-capacity`, `ktop`, `kubefetch`, `vault`,
 `gitleaks`, `starship`, `bat`, `eza`, `zoxide`, `fzf`, `ripgrep`, `fd-find`,
 `direnv`, `uv`, `yq`, `nmap`, `tcpdump`, `httpie`, `opencode`, `pitwall`,
-`mcommander`, `HushMic`, `rkn-block-checker`, `gai`, `dnsglobe`, `docker`,
-`guardrails-llm-filter`.
+`herdr`, `rtk`, `mcommander`, `HushMic`, `rkn-block-checker`, `gai`, `dnsglobe`,
+`docker`, `guardrails-llm-filter`.
 
 `ansible-core` ставится один раз вручную при bootstrap (см. `README.md`).
 

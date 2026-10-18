@@ -10,8 +10,10 @@
 # Обе ставятся в {{ bin_dir }} через роль binaries (версия — актуальная на
 # момент запуска, без GitHub API — через редирект releases/latest).
 #
-# Интеграции с opencode (herdr integration install opencode /
-# rtk init -g --opencode) пока НЕ ставятся — см. TODO-herdr-rtk.md.
+# Интеграции с opencode:
+#   herdr integration install opencode — herdr-agent-state.js, herdr-tui-session.js,
+#                                         tui.jsonc, herdr-opencode/tui.js.
+#   rtk init -g --opencode                — plugins/rtk.ts (перехват tool.execute.before).
 #
 # Конфиги:
 #   herdr — статичный files/herdr/config.toml (onboarding выключен, тосты
@@ -26,6 +28,17 @@ herdr_config_dir: "{{ home_dir }}/.config/herdr"
 herdr_config_file: "{{ herdr_config_dir }}/config.toml"
 rtk_config_dir: "{{ home_dir }}/.config/rtk"
 rtk_config_file: "{{ rtk_config_dir }}/config.toml"
+# Каталог плагинов opencode — сюда интеграции кладут свои файлы
+# (herdr-agent-state.js, rtk.ts).
+opencode_plugins_dir: "{{ home_dir }}/.config/opencode/plugins"
+# Побочные файлы от `rtk init -g --opencode` (Claude Code-специфика и шаблон
+# фильтров) — opencode-плагину не нужны, удаляются после init.
+rtk_claude_dir: "{{ home_dir }}/.claude"
+rtk_filters_file: "{{ rtk_config_dir }}/filters.toml"
+rtk_claude_side_effects:
+  - "{{ rtk_claude_dir }}/CLAUDE.md"
+  - "{{ rtk_claude_dir }}/RTK.md"
+  - "{{ rtk_filters_file }}"
 
 ai_tools_binaries:
   - name: herdr
