@@ -172,6 +172,7 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
 - [ ] **nora** — лёгкий мультиформатный artifact registry (Docker, npm, PyPI,
       Terraform, Ansible Galaxy и др.). *(`deb`)* —
       [getnora-io/nora](https://github.com/getnora-io/nora)
+      (отдельный трекер развёртывания — в [`TODO-nora.md`](TODO-nora.md))
 - [ ] **registry-cli** — манипуляции с docker-registry из командной строки.
       *(`pipx`)* — [andrey-pohilko/registry-cli](https://github.com/andrey-pohilko/registry-cli)
 - [ ] **gitlab-registry-images-cleaner** — чистка старых образов в GitLab
@@ -255,6 +256,7 @@ terraform/terragrunt, linux). Утилиты, которые уже ставит
       [ducaale/xh](https://github.com/ducaale/xh)
 - [ ] **mkcert** — локально доверенные dev-сертификаты без настройки. *(`go`)* —
       [FiloSottile/mkcert](https://github.com/FiloSottile/mkcert)
+      (разобран подробно под NORA в [`TODO-nora.md`](TODO-nora.md))
 - [ ] **httptap** — разбор HTTP-запроса по слоям: DNS, connect, TLS, TTFB.
       *(`pipx`)* — [ozeranskii/httptap](https://github.com/ozeranskii/httptap)
 - [ ] **asn** — справка по IP/домену: ASN, RPKI, BGP, WHOIS, трейс. *(`git clone`)* —

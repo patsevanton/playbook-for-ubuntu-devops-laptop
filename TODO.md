@@ -19,6 +19,9 @@
 Kubernetes, Docker, логи, eBPF, сеть, секреты, shell) — в
 [`TODO-awesome-github.md`](TODO-awesome-github.md).
 
+Отдельный трекер под NORA (artifact registry) + локальный TLS-сертификат
+(mkcert) — в [`TODO-nora.md`](TODO-nora.md).
+
 ---
 
 ## Дубли по функционалу — что выбрать (кратко)
