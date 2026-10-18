@@ -15,6 +15,10 @@
 Полные данные обхода (все 2057 звёзд + 571 кандидат + ссылки на релизы):
 `/home/magnit/Public/starred-tools/data/` (`install_hints.tsv`, `install_report.md`).
 
+Сгруппированная awesome-подборка по темам (Ansible, Terraform/Terragrunt,
+Kubernetes, Docker, логи, eBPF, сеть, секреты, shell) — в
+[`TODO-awesome-github.md`](TODO-awesome-github.md).
+
 ---
 
 ## Дубли по функционалу — что выбрать (кратко)
