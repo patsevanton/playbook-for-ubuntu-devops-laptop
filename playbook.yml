@@ -98,6 +98,10 @@
         - "{{ bin_dir }}/kube-capacity version"
         - "{{ bin_dir }}/ktop --help"
         - "{{ bin_dir }}/kubefetch --version"
+        - "{{ bin_dir }}/krew version"
+        - "{{ bin_dir }}/pluto version"
+        - "{{ bin_dir }}/pv-migrate --version"
+        - "{{ bin_dir }}/marvin --version"
         - "{{ bin_dir }}/tgsieve --version"
         - "{{ bin_dir }}/pgcenter --version"
         - "{{ bin_dir }}/gai --version"
@@ -124,6 +128,19 @@
         - /usr/bin/hushmic
       loop_control:
         label: "{{ item }}"
+
+    # Плагины krew кладутся в ~/.krew/bin с префиксом kubectl- (KREW_ROOT).
+    - name: Проверить наличие kubectl-плагинов krew
+      ansible.builtin.stat:
+        path: "{{ home_dir }}/.krew/bin/kubectl-{{ item }}"
+      register: krew_plugins_check
+      failed_when: not krew_plugins_check.stat.exists
+      loop:
+        - view-secret
+        - df-pv
+        - browse-pvc
+      loop_control:
+        label: "kubectl-{{ item }}"
 
     # --- Удаление pitwall ----------------------------------------------------
     # pitwall не используется (issue о вводе русских букв:

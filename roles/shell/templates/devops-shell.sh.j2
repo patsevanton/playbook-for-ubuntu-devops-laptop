@@ -10,6 +10,11 @@ case ":$PATH:" in
 esac
 export PATH="$HOME/.tfenv/bin:$HOME/.tgenv/bin:$PATH"
 
+# --- krew: kubectl-плагины (~/.krew/bin) ------------------------------------
+if [ -d "$HOME/.krew/bin" ]; then
+  export PATH="$HOME/.krew/bin:$PATH"
+fi
+
 # --- fzf: поиск + keybindings/completion -----------------------------------
 if command -v fzf >/dev/null 2>&1; then
   eval "$(fzf --bash)"

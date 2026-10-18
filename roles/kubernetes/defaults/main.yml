@@ -126,9 +126,48 @@ kubernetes_binaries:
     repo: jkulzer/kubefetch
     url: "https://github.com/jkulzer/kubefetch/releases/download/{tag}/kubefetch"
     archive: none
+  # krew — менеджер плагинов kubectl (через него ставим kubectl-плагины
+  # view-secret / df-pv / browse-pvc в каталог плагинов из KREW_ROOT).
+  # В архиве бинарник лежит как ./krew-linux_amd64.
+  - name: krew
+    source: github
+    repo: kubernetes-sigs/krew
+    url: "https://github.com/kubernetes-sigs/krew/releases/download/{tag}/krew-linux_amd64.tar.gz"
+    archive: tar
+    member: krew-linux_amd64
+  # pluto — находит устаревшие/удалённые apiVersion в манифестах.
+  - name: pluto
+    source: github
+    repo: FairwindsOps/pluto
+    url: "https://github.com/FairwindsOps/pluto/releases/download/{tag}/pluto_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: pluto
+  # pv-migrate — миграция и backup/restore PersistentVolume.
+  - name: pv-migrate
+    source: github
+    repo: utkuozdemir/pv-migrate
+    url: "https://github.com/utkuozdemir/pv-migrate/releases/download/{tag}/pv-migrate_{tag}_linux_x86_64.tar.gz"
+    archive: tar
+    member: pv-migrate
+  # marvin — сканер кластера CEL-выражениями: проблемы, мисконфиги, уязвимости.
+  - name: marvin
+    source: github
+    repo: undistro/marvin
+    url: "https://github.com/undistro/marvin/releases/download/{tag}/marvin_Linux_x86_64.tar.gz"
+    archive: tar
+    member: marvin
 
 # kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
 kubectx_ref: master
 kubectx_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/kubectx"
 kubectx_completion_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/completion/kubectx.bash"
 kubectx_completion_path: /etc/bash_completion.d/kubectx
+
+# kubectl-плагины, которые ставит krew. Устанавливаются под именем из списка
+# (krew кладёт их в каталог плагинов с префиксом kubectl-), версия — актуальная
+# из krew-index, фиксации нет. Идемпотентность: отсутствующий плагин — ставим,
+# установленный — не трогаем (аналог «есть файл — не трогаем»).
+krew_plugins:
+  - view-secret      # декодирование секретов (kubectl view-secret)
+  - df-pv            # df по PersistentVolume (kubectl df-pv)
+  - browse-pvc       # просмотр PVC из CLI (kubectl browse-pvc)

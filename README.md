@@ -77,7 +77,9 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
 │   │                           #   stern, flate, flux-tools, cty, diffyml,
 │   │                           #   kubectl-k8i, kubespy, kubecolor, kube-capacity,
-│   │                           #   ktop, kubefetch
+│   │                           #   ktop, kubefetch, krew (+ kubectl-плагины
+│   │                           #   view-secret, df-pv, browse-pvc), pluto,
+│   │                           #   pv-migrate, marvin
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
@@ -122,7 +124,9 @@ ansible-lint                                   # проверка стиля (pr
    из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод),
    kubespy (наблюдение за ресурсами в реальном времени), kubecolor (цветной
    вывод kubectl), kube-capacity и ktop (ресурсы и метрики кластера),
-   kubefetch (сводка о кластере).
+   kubefetch (сводка о кластере), krew (менеджер kubectl-плагинов) с плагинами
+   view-secret / df-pv / browse-pvc, а также pluto (устаревшие apiVersion),
+   pv-migrate (миграция PV) и marvin (сканер кластера CEL-выражениями).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
@@ -194,6 +198,10 @@ ansible-lint                                   # проверка стиля (pr
 | kube-capacity | github.com/robscott/kube-capacity |
 | ktop | github.com/vladimirvivien/ktop |
 | kubefetch | github.com/jkulzer/kubefetch |
+| krew | github.com/kubernetes-sigs/krew |
+| pluto | github.com/FairwindsOps/pluto |
+| pv-migrate | github.com/utkuozdemir/pv-migrate |
+| marvin | github.com/undistro/marvin |
 | tflint | github.com/terraform-linters/tflint |
 | terraform-docs | github.com/terraform-docs/terraform-docs |
 | packer | releases.hashicorp.com |
@@ -565,6 +573,57 @@ kube-capacity --util --pods              # requests/limits vs фактическ
 kube-capacity -o json --sort mem.util    # то же в JSON
 ktop -A                                  # TUI: метрики нод и подов по всем ns
 kubefetch                                # сводка о кластере
+```
+
+---
+
+## krew и kubectl-плагины (view-secret, df-pv, browse-pvc)
+
+Роль `kubernetes` ставит **krew** (`kubernetes-sigs/krew`) — менеджер
+kubectl-плагинов, и сразу три плагина через него:
+
+- **view-secret** (`kubectl view-secret`) — декодирование секретов: ключи и
+  значения base64, фильтр по ключу или всё сразу.
+- **df-pv** (`kubectl df-pv`) — `df` по PersistentVolume-класса: показывает
+  занятое место по PVC/PV в стиле unix-утилиты `df`.
+- **browse-pvc** (`kubectl browse-pvc`) — просмотр содержимого PVC из CLI:
+  создаёт джобу, привязывающуюся к PVC, и заходит в неё.
+
+Плагины krew кладутся в `~/.krew/bin` (каталог плагинов из `KREW_ROOT`) с
+префиксом `kubectl-`, поэтому вызываются как обычные kubectl-плагины. Сам
+`krew` — отдельный бинарник в `/usr/local/bin`. Версии плагинов — актуальные
+из krew-index, фиксации нет.
+
+```bash
+krew update                                # обновить индекс плагинов
+krew install ctx                           # поставить плагин вручную
+krew list                                  # что уже установлено
+kubectl view-secret my-secret -a           # декодировать секрет
+kubectl df-pv                              # занятость PV
+kubectl browse-pvc my-pvc                  # зайти в PVC
+```
+
+`~/.krew/bin` добавляется в `PATH` через `devops-shell.sh` (см. ниже).
+
+---
+
+## pluto, pv-migrate и marvin
+
+Роль `kubernetes` дополнительно ставит три самостоятельных бинарника:
+
+- **pluto** (`FairwindsOps/pluto`) — находит устаревшие и удалённые
+  `apiVersion` в манифестах Kubernetes: сканирует локальные файлы или кластер
+  и показывает, что надо мигрировать.
+- **pv-migrate** (`utkuozdemir/pv-migrate`) — миграция и backup/restore
+  PersistentVolume между PVC/кластерами (через `rsync` или `skopeo`).
+- **marvin** (`undistro/marvin`) — сканер кластера CEL-выражениями: выявляет
+  проблемы, мисконфиги и уязвимости по правилам.
+
+```bash
+pluto detect-files -d manifests/          # устаревшие apiVersion в файлах
+pluto detect-helm -d charts/              # то же в Helm-чартах
+pv-migrate migrate src dst                # миграция PV между PVC/кластерами
+marvin scan                               # сканировать текущий кластер
 ```
 
 ---

@@ -132,16 +132,21 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [ ] **kube-switch** — маленький bash-переключатель кластеров. *(`git clone`)* —
       [josefkorbel/kube-switch](https://github.com/josefkorbel/kube-switch) — ⛔ дубль
       уже установленного плейбуком **kubectx**, не брать.
-- [ ] **kubectl-view-secret** — плагин: декодирование секретов. *(`go` / `krew`)* —
+- [x] **kubectl-view-secret** — плагин: декодирование секретов. *(`go` / `krew`)* —
       [elsesiy/kubectl-view-secret](https://github.com/elsesiy/kubectl-view-secret)
-- [ ] **kubectl-df-pv** — плагин: `df` по PersistentVolume. *(`go` / `krew`)* —
+      — ✅ добавлен в плейбук (роль `kubernetes`, через krew).
+- [x] **kubectl-df-pv** — плагин: `df` по PersistentVolume. *(`go` / `krew`)* —
       [yashbhutwala/kubectl-df-pv](https://github.com/yashbhutwala/kubectl-df-pv)
-- [ ] **kubectl-browse-pvc** — плагин: просмотр PVC из CLI. *(`go` / `krew`)* —
+      — ✅ добавлен в плейбук (роль `kubernetes`, через krew).
+- [x] **kubectl-browse-pvc** — плагин: просмотр PVC из CLI. *(`go` / `krew`)* —
       [clbx/kubectl-browse-pvc](https://github.com/clbx/kubectl-browse-pvc)
-- [ ] **pv-migrate** — миграция и backup/restore PersistentVolume. *(`go`)* —
+      — ✅ добавлен в плейбук (роль `kubernetes`, через krew).
+- [x] **pv-migrate** — миграция и backup/restore PersistentVolume. *(`go`)* —
       [utkuozdemir/pv-migrate](https://github.com/utkuozdemir/pv-migrate)
-- [ ] **pluto** — находит устаревшие/удалённые `apiVersion` в манифестах.
+      — ✅ добавлен в плейбук (роль `kubernetes`).
+- [x] **pluto** — находит устаревшие/удалённые `apiVersion` в манифестах.
       *(`go` / `release`)* — [FairwindsOps/pluto](https://github.com/FairwindsOps/pluto)
+      — ✅ добавлен в плейбук (роль `kubernetes`).
 - [ ] **dyff** — структурный diff YAML (иногда JSON). *(`go`)* —
       [homeport/dyff](https://github.com/homeport/dyff) — ⛔ дубль уже
       установленного плейбуком **diffyml**, не брать.
@@ -153,15 +158,17 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [txn2/txeh](https://github.com/txn2/txeh)
 - [ ] **netobserv-cli** — сетевая наблюдаемость Kubernetes (eBPF, без агента).
       *(`go`)* — [netobserv/netobserv-cli](https://github.com/netobserv/netobserv-cli)
-- [ ] **marvin** — сканер кластера CEL-выражениями: проблемы, мисконфиги,
+- [x] **marvin** — сканер кластера CEL-выражениями: проблемы, мисконфиги,
       уязвимости. *(`go` / `release`)* — [undistro/marvin](https://github.com/undistro/marvin)
+      — ✅ добавлен в плейбук (роль `kubernetes`).
 - [ ] **kondense** — автоматический подбор requests/limits для контейнеров.
       *(`go`)* — [unagex/kondense](https://github.com/unagex/kondense)
 - [ ] **netfetch** — скан кластера на незащищённые NetworkPolicy ворклоады.
       *(`go`)* — [deggja/netfetch](https://github.com/deggja/netfetch)
 
 > Плагины kubectl (`kubectl-view-secret`, `kubectl-df-pv`, `kubectl-browse-pvc`)
-> удобно ставить через **krew** — менеджер плагинов kubectl.
+> удобно ставить через **krew** — менеджер плагинов kubectl. Сам krew теперь
+> ставится плейбуком (роль `kubernetes`) вместе с этими тремя плагинами.
 
 ## Kubernetes — UI, Helm и GitOps
 

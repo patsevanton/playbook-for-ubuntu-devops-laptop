@@ -37,3 +37,21 @@
     dest: "{{ kubectx_completion_path }}"
     mode: "0644"
   when: not kubectx_completion_stat.stat.exists
+
+# krew уже установлен ролью binaries (бинарник в bin_dir). Плагины ставим
+# через `krew install` — он сам кладёт их в каталог плагинов из KREW_ROOT
+# (по умолчанию ~/.krew/bin) с префиксом kubectl-. Идемпотентность: если
+# плагин уже есть (krew list показывает его), пропускаем.
+- name: Проверить установленные krew-плагины
+  ansible.builtin.command: "{{ bin_dir }}/krew list"
+  register: krew_list_result
+  changed_when: false
+  failed_when: false
+
+- name: Установить kubectl-плагины через krew
+  ansible.builtin.command: "{{ bin_dir }}/krew install {{ item }}"
+  loop: "{{ krew_plugins }}"
+  loop_control:
+    label: "kubectl-{{ item }}"
+  changed_when: true
+  when: item not in (krew_list_result.stdout | default('') | split('\n'))
