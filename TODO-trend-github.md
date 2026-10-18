@@ -1,9 +1,12 @@
 # TODO: трендовые утилиты из GitHub — кандидаты для плейбука
 
-Второй список кандидатов (первый — в `TODO.md`). Здесь собрано то, что
-**активно развивается в 2026 году** и ставится локально на Ubuntu 26.04 / x86_64
-как CLI/TUI-утилита. Уклон — DevOps: Kubernetes, Ansible, Terraform/Terragrunt,
-IaC, секреты, плюс полезное для обычного Linux-пользователя.
+Список кандидатов, которые **активно развиваются в 2026 году** и ставятся
+локально на Ubuntu 26.04 / x86_64 как CLI/TUI-утилиты. Уклон — DevOps: Kubernetes,
+Ansible, Terraform/Terragrunt, IaC, секреты, плюс полезное для обычного
+Linux-пользователя. Канонический общий список кандидатов — в
+[`TODO-awesome-github.md`](TODO-awesome-github.md): дубли с ним (и с прежним
+`TODO.md`) удалены отсюда и живут там (дедупликация 2026-10-18, см. раздел
+«Пересечение» ниже).
 
 Как читать:
 - `- [ ]` — кандидат, ещё не рассмотрен.
@@ -45,7 +48,6 @@ IaC, секреты, плюс полезное для обычного Linux-п�
 - [ ] **glasskube** — пакетный менеджер для Kubernetes с GUI и CLI (dependency-aware). *(3.5k ⭐, `deb`)*
 - [ ] **devspace** — деплой и hot-reload приложения прямо в кластер. *(5.2k ⭐, `bin` linux-amd64)*
 - [ ] **kubeshark** — Wireshark-подобный анализ трафика внутри кластера (eBPF). *(12.1k ⭐, `bin` linux-amd64)*
-- [ ] **kftray** — TUI-менеджер `kubectl port-forward` и reverse-туннелей. *(1.6k ⭐, `AppImage` / `tar.gz`)*
 - [ ] **k3d** — k3s в Docker: быстрые локальные кластеры для тестов. *(6.6k ⭐, `bin` linux-amd64)*
 - [ ] **kind** — Kubernetes IN Docker: референсные локальные кластеры. *(15.5k ⭐, `bin` linux-amd64)*
 - [ ] **telepresence** — проксирование локального сервиса в удалённый кластер. *(7.3k ⭐, `deb`)*
@@ -57,11 +59,9 @@ IaC, секреты, плюс полезное для обычного Linux-п�
 - [ ] **helmfile** — декларативное описание набора Helm-релизов (`helmfile.yaml`). *(5.2k ⭐, `tar.gz`)*
 - [ ] **helm-diff** (databus23) — плагин `helm diff upgrade`: что изменится до применения. *(3.5k ⭐, `tgz`)*
 - [ ] **helm-secrets** (jkroepke) — плагин helmfile/helm для шифрования values через sops. *(2k ⭐, `tar.gz`)*
-- [ ] **chart-testing** (`ct`) — линтинг и тестирование Helm-чартов в CI. *(1.6k ⭐, `tar.gz` linux_amd64)*
 
 ## Ansible
 
-- [ ] **molecule** — тестирование ролей/плейбуков в контейнерах и VM. *(4.2k ⭐, `pipx`)*
 - [ ] **ansible-navigator** — TUI для запуска и разбора плейбуков через execution environments. *(0.6k ⭐, `pipx`)*
 - [ ] **ansible-builder** — сборка образов Execution Environment (ansible-builder). *(0.4k ⭐, `pipx`)*
 - [ ] **ansible-creator** — генератор каркаса коллекций/ролей/плагинов. *(0.2k ⭐, `pipx`)*
@@ -98,10 +98,7 @@ IaC, секреты, плюс полезное для обычного Linux-п�
 
 - [ ] **yazi** — очень быстрый TUI-файловый менеджер на Rust (async I/O, превью). *(42.9k ⭐, `deb`)*
 - [ ] **television** (`tv`) — универсальный fuzzy-finder (замена/дополнение к fzf) с каналами поиска. *(6.4k ⭐, `deb`)*
-- [ ] **delta** (git-delta) — подсветка и структурированный вывод `git diff`/`blame`. *(32.5k ⭐, `deb` git-delta; apt-пакет `delta` — это другая утилита)*
-- [ ] **difftastic** (`difft`) — синтаксический дифф: сравнивает структуру кода, а не строки. *(26k ⭐, `tar.gz`)*
 - [ ] **bottom** (`btm`) — кросс-платформенный монитор процессов/CPU/сети с графиками. *(14.1k ⭐, `deb`)*
-- [ ] **dust** — `du` с деревом и человекочитаемым рейтингом тяжёлых каталогов. *(12.5k ⭐, `deb`)*
 - [ ] **duf** — `df` «для людей»: таблица дисков и точек монтирования. *(15.3k ⭐, `deb` / apt 0.9.1)*
 - [ ] **gping** — `ping` с графиком задержек в терминале. *(12.7k ⭐, `tar.gz` / apt 1.20.1)*
 - [ ] **witr** — трассировка: почему запущен процесс / кто занял порт / чей файл. *(22.7k ⭐, `deb`)*
@@ -130,8 +127,6 @@ IaC, секреты, плюс полезное для обычного Linux-п�
 
 - [ ] **steampipe** — SQL-запросы к облакам и API без ETL (`select * from aws_s3_bucket`). *(8k ⭐, `deb`)*
 - [ ] **duckdb** — встраиваемая аналитическая СУБД: SQL по Parquet/CSV/JSON. *(42.2k ⭐, `zip`)*
-- [ ] **hurl** — тесты HTTP-запросов на простом текстовом формате (REST/GraphQL). *(19.3k ⭐, `deb`)*
-- [ ] **xh** — дружелюбный и быстрый HTTPie-совместимый клиент. *(8.1k ⭐, `deb`)*
 - [ ] **doggo** — современный DNS-клиент (DoH/DoT/DoQ, цветной вывод). *(4.5k ⭐, `tar.gz`)*
 - [ ] **pgcli** — psql с автодополнением и подсветкой. *(13.4k ⭐, `pipx`)*
 - [ ] **harlequin** — SQL-IDE в терминале (DuckDB, Postgres, MySQL и др.). *(6.5k ⭐, `pipx`)*
@@ -141,16 +136,15 @@ IaC, секреты, плюс полезное для обычного Linux-п�
 
 ## Уже устанавливается плейбуком — НЕ дублировать
 
-`gh`, `glab`, `gitlabcloner`, `glci`, `pre-commit`, `reposcan`, `ansible-lint`,
-`tflint`, `terraform-docs`, `packer`, `driftctl`, `tgsieve`, `tfenv`, `tgenv`,
-`kubectl`, `helm`, `k9s`, `kustomize`, `flux`, `flux9s`, `stern`, `flate`,
-`flux-tools`, `cty`, `diffyml`, `kubectl-k8i`, `kubespy`, `kubectx`, `vault`,
-`gitleaks`, `starship`, `bat`, `eza`, `zoxide`, `fzf`, `ripgrep`, `fd-find`,
-`direnv`, `uv`, `yq`, `nmap`, `tcpdump`, `httpie`, `opencode`, `pitwall`,
-`mcommander`, `HushMic`, `rkn-block-checker`, `gai`, `dnsglobe`, `docker`,
-`guardrails-llm-filter`.
+Полный список уже устанавливаемого плейбуком (и кандидатов-дублей, которые
+поэтому не берутся) — в [`TODO.md`](TODO.md).
 
-## Пересечение с `TODO.md` (там уже есть, здесь не повторяются)
+## Пересечение с `TODO-awesome-github.md` (там уже есть, здесь не повторяются)
+
+При дедупликации 2026-10-18 из этого файла в канонический
+[`TODO-awesome-github.md`](TODO-awesome-github.md) удалены дубли: `kftray`,
+`chart-testing`, `molecule`, `delta`, `difftastic`, `dust`, `hurl`, `xh`.
+Ранее не повторялись здесь по той же причине:
 
 `kubecolor`, `kube-capacity`, `ktop`, `kubefetch`, `ktail`, `kubebox`,
 `kubectl-view-secret`, `kubectl-df-pv`, `kubectl-browse-pvc`, `pluto`, `dyff`,
@@ -172,14 +166,9 @@ IaC, секреты, плюс полезное для обычного Linux-п�
 
 ## Не для локальной установки (сервер/платформа)
 
-Попали в тренды, но ставятся как сервис, а не как утилита на ноутбук:
-`netdata`, `gitea`, `Dokploy`, `dokku`, `kestra`, `Floci`, `Jenkins`,
-`Argo CD`, `APISIX`, `Kong`, `kubesphere`, `Unleash`, `bytebase`, `coder`,
-`atlantis`, `semaphore`, `Terraform Enterprise-замена` (Terrakube и аналоги),
-`Crossplane`, `kagent`, `Odigos`, `cloudnative-pg`, `artifact-keeper`.
+Попавшие в тренды сервисные платформы (ставятся как сервис, а не как утилита
+на ноутбук) перечислены в [`TODO.md`](TODO.md).
 
 ## Списки и обучающие материалы (не утилиты)
 
-`awesome-sysadmin`, `90DaysOfDevOps`, `DevOps-Roadmap`, `DevOps-Bash-tools`,
-`awesome-gh-extensions`, `Kubetools`, `awesome-tf` — полезны как подборки,
-устанавливать нечего.
+Список полезных подборок — в [`TODO.md`](TODO.md).

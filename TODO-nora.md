@@ -215,5 +215,5 @@ trust store — как раз «сертификат + автоматическ�
 ---
 
 Связанное: [`TODO-awesome-github.md`](TODO-awesome-github.md) — там же
-кандидат **mkcert** (раздел «Сеть, DNS, TLS»), **showcert** для разбора
-выданных сертов и **ansible-collection-smallstep** для `step-ca`.
+кандидат **mkcert** (раздел «Сеть и сетевая диагностика»), **showcert** для
+разбора выданных сертов и **ansible-collection-smallstep** для `step-ca`.

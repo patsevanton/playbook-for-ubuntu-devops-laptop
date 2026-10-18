@@ -512,27 +512,13 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Уже устанавливается плейбуком — НЕ дублировать
 
-`gh`, `glab`, `gitlabcloner`, `glci`, `pre-commit`, `reposcan`, `tflint`,
-`terraform-docs`, `packer`, `driftctl`, `tgsieve`, `tfenv`, `tgenv`,
-`kubectl`, `helm`, `k9s`, `kustomize`, `kubectx`, `flux`, `flux9s`, `stern`,
-`flate`, `flux-tools`, `cty`, `diffyml`, `kubectl-k8i`, `kubespy`, `vault`,
-`gitleaks`, `starship`, `bat`, `eza`, `zoxide`, `fzf`, `ripgrep`, `fd-find`,
-`direnv`, `uv`, `yq`, `nmap`, `tcpdump`, `httpie`, `opencode`, `pitwall`,
-`mcommander`, `HushMic`, `rkn-block-checker`, `gai`, `dnsglobe`, `docker`,
-`guardrails-llm-filter`, `ansible-lint`.
-
-`ansible-core` ставится один раз вручную при bootstrap (см. `README.md`).
+Полный список уже устанавливаемого плейбуком (и кандидатов-дублей, которые
+поэтому не берутся) — в [`TODO.md`](TODO.md). `ansible-core` ставится один раз
+вручную при bootstrap (см. `README.md`).
 
 ---
 
 ## Не для локальной установки (сервер/платформа) — только если понадобится
 
 Из звёзд также попали self-hosted-платформы и серверные сервисы — они не
-ставятся «на ноутбук» одной командой, поэтому вынесены отдельно:
-`grafana`, `prometheus`, `alertmanager`, `immich`, `n8n`, `open-webui`,
-`supabase`, `sentry`, `jumpserver`, `plausible`, `wg-easy`, `beszel`,
-`changedetection.io`, `cachet`, `uptime-kuma`, `headscale`, `pangolin`,
-`SafeLine`, `meshery`, `openobserve`, `ClickHouse`, `odigos`, `cilium`,
-`rustdesk`, `joplin`, `AFFiNE`, `siyuan`, `logseq`, `excalidraw`, `bruno`,
-`warpgate`, `netmaker`, `talos`, `cozystack`, `artifact-keeper`, `aptly`,
-`threatmapper`, `pixie`, `kubewatch`, `kuberhealthy`, `prometheus-operator`.
+ставятся «на ноутбук» одной командой; их список — в [`TODO.md`](TODO.md).
