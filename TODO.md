@@ -8,7 +8,8 @@
 (mkcert) — в [`TODO-nora.md`](TODO-nora.md), глобальные skills и `AGENTS.md`
 для opencode — в [`TODO-skills.md`](TODO-skills.md), аналоги pitwall для Ubuntu
 с поддержкой opencode (на случай, если pitwall не устроит) —
-в [`TODO-pitwall.md`](TODO-pitwall.md).
+в [`TODO-pitwall.md`](TODO-pitwall.md), отложенная установка herdr и rtk —
+в [`TODO-herdr-rtk.md`](TODO-herdr-rtk.md).
 
 Источник подборки: все репозитории со ⭐ аккаунта (2057 шт.), из них отобраны
 ~570 похожих на локально устанавливаемые утилиты и вручную вычищены до списков
