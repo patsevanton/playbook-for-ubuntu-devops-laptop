@@ -83,8 +83,8 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault, gitleaks
-│   ├── shell/                  # eza, zoxide, fzf, starship, bat, JetBrainsMono Nerd Font,
-│   │                           #   mcommander, конфиг shell
+│   ├── shell/                  # eza, zoxide, fzf, starship, bat, atuin,
+│   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   gai, dnsglobe, rkn-block-checker (pipx)
 │   ├── opencode/               # opencode (из npm-реестра), pitwall (GUI-терминал)
@@ -126,7 +126,8 @@ ansible-lint                                   # проверка стиля (pr
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
 9. Ставит direnv, Vault и gitleaks.
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
-    ставит JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`)
+    ставит atuin (история команд с поиском по `Ctrl-R` и стрелке вверх),
+    JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`)
     и M-Commander (двухпанельный файловый менеджер).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и pitwall (GUI-терминал
     для coding-агентов, с ярлыком в меню приложений).
@@ -198,6 +199,7 @@ ansible-lint                                   # проверка стиля (pr
 | dnsglobe | github.com/514-labs/dnsglobe |
 | starship | github.com/starship/starship |
 | bat | github.com/sharkdp/bat |
+| atuin | github.com/atuinsh/atuin |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
 | pitwall | github.com/quanticstudios/pitwall (GUI-терминал, + ярлык и иконка) |
 
@@ -695,6 +697,7 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 - `PATH`: `~/.local/bin`, `~/.tfenv/bin`, `~/.tgenv/bin`;
 - `fzf --bash` (keybindings + completion);
 - `direnv hook bash`, `zoxide init bash`, `starship init bash`;
+- `atuin init bash --disable-ai` (история команд — подключается последним);
 - алиасы `ls`/`ll`/`la`/`lt` на `eza`;
 - алиас `catbat` и тема для `bat`;
 - алиас `fd` → `fdfind` (в Ubuntu бинарь `fd-find` называется `fdfind`);
@@ -712,6 +715,46 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 в `~/.config/starship.toml` перезапишутся при следующем запуске. Меняйте
 `roles/shell/files/starship.toml` в репозитории; путь назначения задаётся
 переменной `starship_config_file` в `group_vars/all.yml`.
+
+### atuin — история команд
+
+Роль `shell` ставит **atuin** (`atuinsh/atuin`) — историю команд поверх SQLite
+с fuzzy-поиском и статистикой. `Ctrl-R` и **стрелка вверх** открывают поиск
+по всей истории, а не только по текущей сессии; `Enter` сразу выполняет
+выбранную команду, `Tab` кладёт её в строку для правки. Фильтры поиска
+(global / host / session / directory / workspace) переключаются прямо в
+интерфейсе — клавиши показаны в нижней строке окна.
+
+Хук `eval "$(atuin init bash --disable-ai)"` добавляется в
+`~/.config/devops-shell.sh` **последним**: atuin подгружает `bash-preexec`,
+который перехватывает `PROMPT_COMMAND` и DEBUG-трап, и должен увидеть уже
+собранное окружение. `--disable-ai` отключает перехват `?` в начале строки
+(режим AI-подсказок atuin здесь не нужен).
+
+История живёт **только локально** — в `~/.atuin` (SQLite), синхронизация
+между машинами выключена (`auto_sync = false`). Включить её:
+
+```bash
+atuin register      # новая учётная запись на api.atuin.sh (или atuin login)
+atuin sync          # разовая синхронизация
+# автоматика — auto_sync = true в ~/.atuin/config.toml
+```
+
+Полезные команды:
+
+```bash
+atuin stats day              # статистика по командам за день
+atuin history                # история обычным выводом
+atuin search "kubectl"       # поиск без интерактивного интерфейса
+```
+
+Конфиг — `roles/shell/files/atuin-config.toml`, кладётся в
+`~/.atuin/config.toml` (каталог данных atuin, там же SQLite с историей).
+Файл копируется как есть — правки перезапишутся при следующем запуске.
+Меняйте `roles/shell/files/atuin-config.toml` в репозитории; путь назначения
+задаётся переменной `atuin_config_file` в `group_vars/all.yml`. В конфиге
+по умолчанию включён `secrets_filter` — команды с AWS/GitHub/Slack/Stripe
+токенами в аргументах в историю не попадают.
 
 ### Nerd Font (иконки в prompt и списках файлов)
 

@@ -67,3 +67,11 @@ fi
 # --- Python-утилиты --------------------------------------------------------
 export PIPX_HOME="${PIPX_HOME:-$HOME/.local/pipx}"
 export PIPX_BIN_DIR="${PIPX_BIN_DIR:-$HOME/.local/bin}"
+
+# --- atuin: история команд (Ctrl-R, стрелка вверх) --------------------------
+# Подключается последним: atuin подгружает bash-preexec (перехват
+# PROMPT_COMMAND и DEBUG-трап) и должен увидеть собранное окружение.
+# --disable-ai — не перехватывать «?» в начале строки (AI-режим atuin).
+if command -v atuin >/dev/null 2>&1; then
+  eval "$(atuin init bash --disable-ai)"
+fi

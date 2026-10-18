@@ -405,8 +405,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 - [ ] ⭐ **zellij** — терминальный мультиплексор (сессии/вкладки/панели) с
       плагинами. *(`release` / `cargo`)* — [zellij-org/zellij](https://github.com/zellij-org/zellij)
-- [ ] ⭐ **atuin** — синхронизируемая история shell: SQLite, fuzzy-поиск, статистика.
+- [x] ⭐ **atuin** — синхронизируемая история shell: SQLite, fuzzy-поиск, статистика.
       *(`deb` / `script`)* — [atuinsh/atuin](https://github.com/atuinsh/atuin)
+      — ✅ добавлен в плейбук (роль `shell`; бинарь из GitHub-релиза + хук
+      `atuin init bash`, история только локальная, синхронизация выключена).
 - [ ] **mcfly** — fuzzy-поиск по истории команд с учётом контекста. *(`cargo`)* —
       [cantino/mcfly](https://github.com/cantino/mcfly)
 - [ ] ⭐ **navi** — интерактивные шпаргалки для команд (поверх fzf). *(`cargo`)* —

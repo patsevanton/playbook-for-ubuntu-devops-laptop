@@ -78,6 +78,7 @@
         - "{{ bin_dir }}/pitwall --version"
         - "{{ bin_dir }}/bat --version"
         - "{{ bin_dir }}/starship --version"
+        - "{{ bin_dir }}/atuin --version"
         - "{{ bin_dir }}/glci version"
         - "{{ bin_dir }}/pre-commit --version"
         - "{{ bin_dir }}/reposcan version"
