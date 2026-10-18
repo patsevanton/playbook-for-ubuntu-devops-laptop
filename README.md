@@ -77,9 +77,8 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
 │   │                           #   stern, flate, flux-tools, cty, diffyml,
 │   │                           #   kubectl-k8i, kubespy, kubecolor, kube-capacity,
-│   │                           #   ktop, kubefetch, krew (+ kubectl-плагины
-│   │                           #   view-secret, df-pv, browse-pvc), pluto,
-│   │                           #   pv-migrate, marvin
+│   │                           #   ktop, kubefetch, krew, view-secret, df-pv,
+│   │                           #   browse-pvc, pluto, pv-migrate, marvin
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
@@ -124,9 +123,11 @@ ansible-lint                                   # проверка стиля (pr
    из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод),
    kubespy (наблюдение за ресурсами в реальном времени), kubecolor (цветной
    вывод kubectl), kube-capacity и ktop (ресурсы и метрики кластера),
-   kubefetch (сводка о кластере), krew (менеджер kubectl-плагинов) с плагинами
-   view-secret / df-pv / browse-pvc, а также pluto (устаревшие apiVersion),
-   pv-migrate (миграция PV) и marvin (сканер кластера CEL-выражениями).
+   kubefetch (сводка о кластере), krew (менеджер kubectl-плагинов) и три
+   утилиты бинарниками — view-secret (декодирование секретов), df-pv
+   (`df` по PV), browse-pvc (просмотр PVC) — а также pluto (устаревшие
+   apiVersion), pv-migrate (миграция PV) и marvin (сканер кластера
+   CEL-выражениями).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
@@ -199,6 +200,9 @@ ansible-lint                                   # проверка стиля (pr
 | ktop | github.com/vladimirvivien/ktop |
 | kubefetch | github.com/jkulzer/kubefetch |
 | krew | github.com/kubernetes-sigs/krew |
+| view-secret | github.com/elsesiy/kubectl-view-secret |
+| df-pv | github.com/yashbhutwala/kubectl-df-pv |
+| browse-pvc | github.com/clbx/kubectl-browse-pvc |
 | pluto | github.com/FairwindsOps/pluto |
 | pv-migrate | github.com/utkuozdemir/pv-migrate |
 | marvin | github.com/undistro/marvin |
@@ -577,33 +581,35 @@ kubefetch                                # сводка о кластере
 
 ---
 
-## krew и kubectl-плагины (view-secret, df-pv, browse-pvc)
+## krew и kubectl-утилиты (view-secret, df-pv, browse-pvc)
 
 Роль `kubernetes` ставит **krew** (`kubernetes-sigs/krew`) — менеджер
-kubectl-плагинов, и сразу три плагина через него:
+kubectl-плагинов (для установки плагинов вручную потом), а также три утилиты,
+которые раньше ставились бы как kubectl-плагины, напрямую бинарниками:
 
-- **view-secret** (`kubectl view-secret`) — декодирование секретов: ключи и
-  значения base64, фильтр по ключу или всё сразу.
-- **df-pv** (`kubectl df-pv`) — `df` по PersistentVolume-класса: показывает
-  занятое место по PVC/PV в стиле unix-утилиты `df`.
-- **browse-pvc** (`kubectl browse-pvc`) — просмотр содержимого PVC из CLI:
-  создаёт джобу, привязывающуюся к PVC, и заходит в неё.
+- **view-secret** — декодирование секретов: ключи и значения base64, фильтр по
+  ключу или всё сразу.
+- **df-pv** — `df` по PersistentVolume: занятое место по PVC/PV в стиле
+  unix-утилиты `df`.
+- **browse-pvc** — просмотр содержимого PVC из CLI: создаёт джобу,
+  привязывающуюся к PVC, и заходит в неё.
 
-Плагины krew кладутся в `~/.krew/bin` (каталог плагинов из `KREW_ROOT`) с
-префиксом `kubectl-`, поэтому вызываются как обычные kubectl-плагины. Сам
-`krew` — отдельный бинарник в `/usr/local/bin`. Версии плагинов — актуальные
-из krew-index, фиксации нет.
+Все три ставятся бинарниками в `/usr/local/bin` **без префикса `kubectl-`** и
+вызываются напрямую (не через `kubectl view-secret`). Версии — актуальные из
+GitHub-релизов, фиксации нет.
 
 ```bash
 krew update                                # обновить индекс плагинов
-krew install ctx                           # поставить плагин вручную
+krew install ctx                           # поставить произвольный плагин вручную
 krew list                                  # что уже установлено
-kubectl view-secret my-secret -a           # декодировать секрет
-kubectl df-pv                              # занятость PV
-kubectl browse-pvc my-pvc                  # зайти в PVC
+view-secret my-secret -a                   # декодировать секрет
+view-secret my-secret my-key               # декодировать конкретный ключ
+df-pv                                      # занятость PV
+browse-pvc my-pvc                          # зайти в PVC
 ```
 
-`~/.krew/bin` добавляется в `PATH` через `devops-shell.sh` (см. ниже).
+Сам `krew` — бинарник в `/usr/local/bin`; `~/.krew/bin` (куда krew кладёт
+плагины при `krew install`) добавляется в `PATH` через `devops-shell.sh`.
 
 ---
 

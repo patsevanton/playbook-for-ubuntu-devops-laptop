@@ -126,8 +126,8 @@ kubernetes_binaries:
     repo: jkulzer/kubefetch
     url: "https://github.com/jkulzer/kubefetch/releases/download/{tag}/kubefetch"
     archive: none
-  # krew — менеджер плагинов kubectl (через него ставим kubectl-плагины
-  # view-secret / df-pv / browse-pvc в каталог плагинов из KREW_ROOT).
+  # krew — менеджер kubectl-плагинов (для будущих плагинов); сами
+  # view-secret / df-pv / browse-pvc ставим напрямую бинарниками ниже.
   # В архиве бинарник лежит как ./krew-linux_amd64.
   - name: krew
     source: github
@@ -135,6 +135,30 @@ kubernetes_binaries:
     url: "https://github.com/kubernetes-sigs/krew/releases/download/{tag}/krew-linux_amd64.tar.gz"
     archive: tar
     member: krew-linux_amd64
+  # view-secret — декодирование секретов (в архиве бинарник kubectl-view-secret,
+  # на диск кладём под именем view-secret — вызывается напрямую, не как плагин).
+  - name: view-secret
+    source: github
+    repo: elsesiy/kubectl-view-secret
+    url: "https://github.com/elsesiy/kubectl-view-secret/releases/download/{tag}/kubectl-view-secret_{tag}_linux_amd64.tar.gz"
+    archive: tar
+    member: kubectl-view-secret
+  # df-pv — df по PersistentVolume. В архиве бинарник df-pv, имя совпадает.
+  - name: df-pv
+    source: github
+    repo: yashbhutwala/kubectl-df-pv
+    url: "https://github.com/yashbhutwala/kubectl-df-pv/releases/download/{tag}/kubectl-df-pv_{tag}_linux_amd64.tar.gz"
+    archive: tar
+    member: df-pv
+  # browse-pvc — просмотр PVC из CLI. Релиз — zip без версии в имени файла
+  # (kubectl-browse-pvc-linux-x86_64.zip), бинарник внутри kubectl-browse-pvc,
+  # на диск кладём под именем browse-pvc.
+  - name: browse-pvc
+    source: github
+    repo: clbx/kubectl-browse-pvc
+    url: "https://github.com/clbx/kubectl-browse-pvc/releases/download/{tag}/kubectl-browse-pvc-linux-x86_64.zip"
+    archive: zip
+    member: kubectl-browse-pvc
   # pluto — находит устаревшие/удалённые apiVersion в манифестах.
   - name: pluto
     source: github
@@ -162,12 +186,3 @@ kubectx_ref: master
 kubectx_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/kubectx"
 kubectx_completion_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/completion/kubectx.bash"
 kubectx_completion_path: /etc/bash_completion.d/kubectx
-
-# kubectl-плагины, которые ставит krew. Устанавливаются под именем из списка
-# (krew кладёт их в каталог плагинов с префиксом kubectl-), версия — актуальная
-# из krew-index, фиксации нет. Идемпотентность: отсутствующий плагин — ставим,
-# установленный — не трогаем (аналог «есть файл — не трогаем»).
-krew_plugins:
-  - view-secret      # декодирование секретов (kubectl view-secret)
-  - df-pv            # df по PersistentVolume (kubectl df-pv)
-  - browse-pvc       # просмотр PVC из CLI (kubectl browse-pvc)
