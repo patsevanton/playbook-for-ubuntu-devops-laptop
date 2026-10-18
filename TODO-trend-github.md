@@ -1,0 +1,185 @@
+# TODO: трендовые утилиты из GitHub — кандидаты для плейбука
+
+Второй список кандидатов (первый — в `TODO.md`). Здесь собрано то, что
+**активно развивается в 2026 году** и ставится локально на Ubuntu 26.04 / x86_64
+как CLI/TUI-утилита. Уклон — DevOps: Kubernetes, Ansible, Terraform/Terragrunt,
+IaC, секреты, плюс полезное для обычного Linux-пользователя.
+
+Как читать:
+- `- [ ]` — кандидат, ещё не рассмотрен.
+- Звёзды — снимок GitHub на **2026-10-18**; у всех кандидатов есть коммиты
+  за последние месяцы (проверено по `pushed_at`).
+- В скобках — способ установки: `deb` (готовый пакет в GitHub-релизе),
+  `apt` (уже есть в репозитории Ubuntu), `AppImage`, `tar.gz`/`zip` (готовый
+  бинарник из релиза, ложится в `bin_dir` через роль `binaries`),
+  `pipx` / `npm` / `go` / `cargo` (сборка или установка из исходников),
+  `script` (официальный install.sh).
+
+Проверялось: наличие `.deb`/архивов в последнем релизе через `releases/latest`
+и `expanded_assets` (без GitHub API), актуальность — по `pushed_at`.
+
+> Приоритет для добавления в плейбук: у кого есть `.deb` или готовый
+> `linux-amd64` архив в релизе — те ставятся ролью `binaries` одной строкой.
+
+---
+
+## Kubernetes: диагностика и валидация манифестов
+
+- [ ] **kubectl-ai** — AI-ассистент: генерирует и правит kubectl-команды и манифесты. *(7.6k ⭐, `tar.gz`)*
+- [ ] **k8sgpt** — сканирует кластер и объясняет проблемы человеческим языком (LLM). *(8.3k ⭐, `deb`)*
+- [ ] **kubeconform** — быстрая валидация манифестов против схем (замена `kubeval`). *(3.2k ⭐, `tar.gz`)*
+- [ ] **kube-linter** — статический анализ YAML на антипаттерны и best practices. *(3.5k ⭐, `tar.gz`)*
+- [ ] **kube-score** — оценка манифестов по чек-листу: probes, requests/limits, securityContext. *(3.1k ⭐, `tar.gz`)*
+- [ ] **popeye** — «spinach» для кластера: находит мёртвые ресурсы, ошибки конфигов. *(6.5k ⭐, `deb`)*
+- [ ] **kubescape** — сканер безопасности кластера по NSA/CIS-профилям. *(11.8k ⭐, `deb`)*
+- [ ] **polaris** (FairwindsOps) — аудит и автофикс конфигов на соответствие best practices. *(3.4k ⭐, `tar.gz`)*
+- [ ] **nova** (FairwindsOps) — находит Helm-релизы с устаревшими версиями чартов. *(0.9k ⭐, `tar.gz`)*
+- [ ] **kubent** (kube-no-trouble) — показывает, что сломается при апгрейде кластера (removed APIs). *(3.7k ⭐, `tar.gz`)*
+- [ ] **kubectl-neat** — убирает из `kubectl get -o yaml` служебный мусор (`managedFields`, `status`). *(2.1k ⭐, `tar.gz`)*
+- [ ] **kubectl-validate** (kubernetes-sigs) — офлайн-валидация манифестов родными схемами. *(0.3k ⭐, `tar.gz`)*
+
+## Kubernetes: работа с кластером и dev-окружение
+
+- [ ] **vcluster** — виртуальные кластеры внутри неймспейса: изоляция без цены реального кластера. *(11.4k ⭐, `script` install-standalone.sh)*
+- [ ] **mirrord** — запускает локальный процесс «как будто он под в кластере» (без сборки образа). *(5.4k ⭐, `zip`)*
+- [ ] **glasskube** — пакетный менеджер для Kubernetes с GUI и CLI (dependency-aware). *(3.5k ⭐, `deb`)*
+- [ ] **devspace** — деплой и hot-reload приложения прямо в кластер. *(5.2k ⭐, `bin` linux-amd64)*
+- [ ] **kubeshark** — Wireshark-подобный анализ трафика внутри кластера (eBPF). *(12.1k ⭐, `bin` linux-amd64)*
+- [ ] **kftray** — TUI-менеджер `kubectl port-forward` и reverse-туннелей. *(1.6k ⭐, `AppImage` / `tar.gz`)*
+- [ ] **k3d** — k3s в Docker: быстрые локальные кластеры для тестов. *(6.6k ⭐, `bin` linux-amd64)*
+- [ ] **kind** — Kubernetes IN Docker: референсные локальные кластеры. *(15.5k ⭐, `bin` linux-amd64)*
+- [ ] **telepresence** — проксирование локального сервиса в удалённый кластер. *(7.3k ⭐, `deb`)*
+- [ ] **skaffold** — цикл сборка→деплой→проверка для Kubernetes. *(15.9k ⭐, `bin` linux-amd64)*
+- [ ] **tilt** — live-update мультисервисных приложений в k8s с веб-UI. *(10.1k ⭐, `tar.gz`)*
+
+## Helm / GitOps
+
+- [ ] **helmfile** — декларативное описание набора Helm-релизов (`helmfile.yaml`). *(5.2k ⭐, `tar.gz`)*
+- [ ] **helm-diff** (databus23) — плагин `helm diff upgrade`: что изменится до применения. *(3.5k ⭐, `tgz`)*
+- [ ] **helm-secrets** (jkroepke) — плагин helmfile/helm для шифрования values через sops. *(2k ⭐, `tar.gz`)*
+- [ ] **chart-testing** (`ct`) — линтинг и тестирование Helm-чартов в CI. *(1.6k ⭐, `tar.gz` linux_amd64)*
+
+## Ansible
+
+- [ ] **molecule** — тестирование ролей/плейбуков в контейнерах и VM. *(4.2k ⭐, `pipx`)*
+- [ ] **ansible-navigator** — TUI для запуска и разбора плейбуков через execution environments. *(0.6k ⭐, `pipx`)*
+- [ ] **ansible-builder** — сборка образов Execution Environment (ansible-builder). *(0.4k ⭐, `pipx`)*
+- [ ] **ansible-creator** — генератор каркаса коллекций/ролей/плагинов. *(0.2k ⭐, `pipx`)*
+- [ ] **ansible-dev-tools** — мета-пакет: ставит molecule, navigator, builder, creator, lint разом. *(`pipx`)*
+- [ ] **ansible-doctor** — генерирует документацию ролей по комментариям и метаданным. *(`pipx`)*
+- [ ] **ara** — запись и веб-просмотр прогонов Ansible (что где изменилось). *(2k ⭐, `pipx` + сервер)*
+- [ ] **dev-sec hardening collection** — готовая коллекция харденинга Linux/SSH/nginx для плейбуков. *(5.5k ⭐, `ansible-galaxy`)*
+
+## Terraform / OpenTofu / Terragrunt
+
+- [ ] **terramate** — оркестрация стэков IaC: change detection, генерация кода, GitOps. *(3.6k ⭐, `deb`)*
+- [ ] **atmos** (Cloud Posse) — Terraform-оркестратор: DRY-конфиги окружений поверх Terragrunt. *(1.4k ⭐, `deb`)*
+- [ ] **tenv** — один менеджер версий для tofu/terraform/terragrunt/terramate/atmos. *(1.5k ⭐, `deb`)*
+- [ ] **tfupdate** — обновляет пины версий провайдеров/модулей в конфигах. *(`tar.gz`)*
+- [ ] **tfsort** (AlexNabokikh) — сортирует блоки `variable`/`output`/`locals`/`terraform` в `.tf`. *(`tar.gz`)*
+- [ ] **terraformer** — генерирует Terraform-код из уже существующей инфраструктуры (reverse). *(14.5k ⭐, `bin` terraformer-<cloud>-linux-amd64)*
+- [ ] **infracost** — считает стоимость изменений из `terraform plan` прямо в PR. *(12.6k ⭐, `tar.gz`)*
+- [ ] **checkov** — статический анализ IaC (Terraform/K8s/Docker/CloudFormation) на мисконфиги. *(9.1k ⭐, `pipx` / `zip`)*
+- [ ] **terrascan** — сканер IaC на нарушения политик безопасности. *(5.2k ⭐, `tar.gz`)*
+- [ ] **inframap** — рисует граф ресурсов из tfstate/HCL. *(`go build` — релизных бинарников нет)*
+- [ ] **terraform-ls** — LSP-сервер для HCL (автодополнение в редакторе). *(`go build` — релизных бинарников нет)*
+
+## Секреты, supply chain, безопасность
+
+- [ ] **trivy** — универсальный сканер: образы, файловые системы, IaC, SBOM, секреты. *(38.5k ⭐, `deb`)*
+- [ ] **cosign** (sigstore) — подпись и проверка контейнерных образов и артефактов. *(6.4k ⭐, `deb`)*
+- [ ] **syft** — генерация SBOM из образов и директорий. *(9.7k ⭐, `deb`)*
+- [ ] **trufflehog** — поиск и **проверка** живых секретов в git-истории. *(28.6k ⭐, `tar.gz`)*
+- [ ] **age** — простое современное шифрование файлов (основа sops). *(24k ⭐, `apt` 1.2.1)*
+- [ ] **hadolint** — линтер Dockerfile (в т.ч. проверка inline-shell через shellcheck). *(12.5k ⭐, `bin` hadolint-linux-x86_64)*
+- [ ] **lynis** — аудит безопасности и харденинга Linux-системы. *(16.5k ⭐, `apt`)*
+
+## Терминал, shell, Linux-продуктивность
+
+- [ ] **yazi** — очень быстрый TUI-файловый менеджер на Rust (async I/O, превью). *(42.9k ⭐, `deb`)*
+- [ ] **television** (`tv`) — универсальный fuzzy-finder (замена/дополнение к fzf) с каналами поиска. *(6.4k ⭐, `deb`)*
+- [ ] **delta** (git-delta) — подсветка и структурированный вывод `git diff`/`blame`. *(32.5k ⭐, `deb` git-delta; apt-пакет `delta` — это другая утилита)*
+- [ ] **difftastic** (`difft`) — синтаксический дифф: сравнивает структуру кода, а не строки. *(26k ⭐, `tar.gz`)*
+- [ ] **bottom** (`btm`) — кросс-платформенный монитор процессов/CPU/сети с графиками. *(14.1k ⭐, `deb`)*
+- [ ] **dust** — `du` с деревом и человекочитаемым рейтингом тяжёлых каталогов. *(12.5k ⭐, `deb`)*
+- [ ] **duf** — `df` «для людей»: таблица дисков и точек монтирования. *(15.3k ⭐, `deb` / apt 0.9.1)*
+- [ ] **gping** — `ping` с графиком задержек в терминале. *(12.7k ⭐, `tar.gz` / apt 1.20.1)*
+- [ ] **witr** — трассировка: почему запущен процесс / кто занял порт / чей файл. *(22.7k ⭐, `deb`)*
+- [ ] **rustnet** — сетевой мониторинг по процессам в TUI (глубокий разбор пакетов). *(5.1k ⭐, `deb`)*
+- [ ] **glow** — рендер Markdown прямо в терминале (для README и заметок). *(27.7k ⭐, `deb` / apt 2.1.1)*
+- [ ] **vhs** — записывает терминальные GIF/видео из сценария (демо и документация). *(21.1k ⭐, `deb`)*
+- [ ] **hyperfine** — бенчмарк команд с прогревом и статистикой. *(apt 1.19 / `deb` 2.0)*
+- [ ] **btop** — красивый монитор ресурсов (замена top/htop). *(apt 1.4.6)*
+- [ ] **ncdu** — интерактивный анализ занятого места на диске. *(apt 1.22)*
+
+## Рантаймы, сборка, версии
+
+- [ ] **mise** — один менеджер версий для node/python/go/terraform/… + задачи и env. *(35.1k ⭐, `tar.gz` linux-x64)*
+- [ ] **just** — командный раннер (Makefile без боли): рецепты в `justfile`. *(36.3k ⭐, `apt` / `tar.gz`)*
+- [ ] **typos** — быстрый поиск опечаток в коде с автофиксом. *(4.2k ⭐, `tar.gz`)*
+- [ ] **act** — локальный запуск GitHub Actions в Docker. *(72.4k ⭐, `tar.gz` Linux_x86_64)*
+- [ ] **k6** — нагрузочное тестирование сценариями на JS. *(32k ⭐, `deb`)*
+- [ ] **jj** (jujutsu) — новая VCS от авторов Mercurial, совместима с git-репозиториями. *(32.1k ⭐, `tar.gz`)*
+- [ ] **gitui** — быстрый TUI для git на Rust. *(22.6k ⭐, `tar.gz` linux-x86_64)*
+- [ ] **dagger** — движок CI-пайплайнов как код, запускается локально и в CI. *(16.3k ⭐, `tar.gz`)*
+- [ ] **devbox** — изолированные dev-окружения из Nix-пакетов без изучения Nix. *(12.4k ⭐, `tar.gz`)*
+- [ ] **flox** — детерминированные окружения на базе Nix. *(4.2k ⭐, `script` — install.flox.dev)*
+- [ ] **lima** — Linux-VM поверх Linux (гоняет контейнеры без Docker Desktop). *(22.1k ⭐, `tar.gz`)*
+
+## Данные, логи, API и БД
+
+- [ ] **steampipe** — SQL-запросы к облакам и API без ETL (`select * from aws_s3_bucket`). *(8k ⭐, `deb`)*
+- [ ] **duckdb** — встраиваемая аналитическая СУБД: SQL по Parquet/CSV/JSON. *(42.2k ⭐, `zip`)*
+- [ ] **hurl** — тесты HTTP-запросов на простом текстовом формате (REST/GraphQL). *(19.3k ⭐, `deb`)*
+- [ ] **xh** — дружелюбный и быстрый HTTPie-совместимый клиент. *(8.1k ⭐, `deb`)*
+- [ ] **doggo** — современный DNS-клиент (DoH/DoT/DoQ, цветной вывод). *(4.5k ⭐, `tar.gz`)*
+- [ ] **pgcli** — psql с автодополнением и подсветкой. *(13.4k ⭐, `pipx`)*
+- [ ] **harlequin** — SQL-IDE в терминале (DuckDB, Postgres, MySQL и др.). *(6.5k ⭐, `pipx`)*
+- [ ] **lazysql** — TUI-клиент к нескольким СУБД сразу. *(4.4k ⭐, `tar.gz`)*
+
+---
+
+## Уже устанавливается плейбуком — НЕ дублировать
+
+`gh`, `glab`, `gitlabcloner`, `glci`, `pre-commit`, `reposcan`, `ansible-lint`,
+`tflint`, `terraform-docs`, `packer`, `driftctl`, `tgsieve`, `tfenv`, `tgenv`,
+`kubectl`, `helm`, `k9s`, `kustomize`, `flux`, `flux9s`, `stern`, `flate`,
+`flux-tools`, `cty`, `diffyml`, `kubectl-k8i`, `kubespy`, `kubectx`, `vault`,
+`gitleaks`, `starship`, `bat`, `eza`, `zoxide`, `fzf`, `ripgrep`, `fd-find`,
+`direnv`, `uv`, `yq`, `nmap`, `tcpdump`, `httpie`, `opencode`, `pitwall`,
+`mcommander`, `HushMic`, `rkn-block-checker`, `gai`, `dnsglobe`, `docker`,
+`guardrails-llm-filter`.
+
+## Пересечение с `TODO.md` (там уже есть, здесь не повторяются)
+
+`kubecolor`, `kube-capacity`, `ktop`, `kubefetch`, `ktail`, `kubebox`,
+`kubectl-view-secret`, `kubectl-df-pv`, `kubectl-browse-pvc`, `pluto`, `dyff`,
+`headlamp`, `kubewall`, `ytt`, `kbld`, `timoni`, `kubevpn`, `txeh`, `netobserv-cli`,
+`dive`, `dry`, `ctop`, `decompose`, `copacetic`, `oras`, `s5cmd`, `dasel`, `jc`,
+`fx`, `jnv`, `octosql`, `gomplate`, `gonzo`, `hl`, `lazyjournal`,
+`json-log-viewer`, `logdy-core`, `otel-tui`, `bpftop`, `ecapture`, `linnix`,
+`tfvar`, `prettyplan`, `terraform-tui`, `tpm`, `sops`, `grype`, `flawz`, `mfa`,
+`eget`, `binup`, `stew`, `dra`, `zellij`, `atuin`, `mcfly`, `navi`, `cheat`,
+`tldr`, `gum`, `shellcheck`, `hstr`, `worktrunk`, `spacer`, `shellclear`,
+`3mux`, `dusage`, `gdu`, `lf`, `fastfetch`, `procs`, `auto-cpufreq`, `LACT`,
+`mcelog`, `wondershaper`, `sysinfo`, `lazygit`, `lumen`, `opencommit`,
+`gptcommit`, `CodeGPT`, `ghgrab`, `glaball`, `bandwhich`, `sniffnet`, `trippy`,
+`q`, `dog`, `tcping`, `termshark`, `kyanos`, `oryx`, `pktstat-bpf`, `asn`,
+`certificate-ripper`, `showcert`, `gossl`, `ssh-audit`, `httptap`, `sshx`,
+`EternalTerminal`, `gotty`, `websocat`, `assh`.
+
+---
+
+## Не для локальной установки (сервер/платформа)
+
+Попали в тренды, но ставятся как сервис, а не как утилита на ноутбук:
+`netdata`, `gitea`, `Dokploy`, `dokku`, `kestra`, `Floci`, `Jenkins`,
+`Argo CD`, `APISIX`, `Kong`, `kubesphere`, `Unleash`, `bytebase`, `coder`,
+`atlantis`, `semaphore`, `Terraform Enterprise-замена` (Terrakube и аналоги),
+`Crossplane`, `kagent`, `Odigos`, `cloudnative-pg`, `artifact-keeper`.
+
+## Списки и обучающие материалы (не утилиты)
+
+`awesome-sysadmin`, `90DaysOfDevOps`, `DevOps-Roadmap`, `DevOps-Bash-tools`,
+`awesome-gh-extensions`, `Kubetools`, `awesome-tf` — полезны как подборки,
+устанавливать нечего.
