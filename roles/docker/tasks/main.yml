@@ -12,12 +12,21 @@
     state: directory
     mode: "0755"
 
+- name: Проверить наличие ключа репозитория Docker
+  ansible.builtin.stat:
+    path: "{{ docker_key_path }}"
+  register: docker_key_stat
+
+# get_url ходит в сеть даже когда файл уже есть (так он решает, changed ли),
+# а ключ мог быть положен предыдущим запуском или вручную. Поэтому качаем
+# только если ключа ещё нет.
 - name: Скачать ключ репозитория Docker
   become: true
   ansible.builtin.get_url:
     url: "{{ docker_key_url }}"
     dest: "{{ docker_key_path }}"
     mode: "0644"
+  when: not docker_key_stat.stat.exists
 
 # ВНИМАНИЕ: apt_repository объявлен deprecated в ansible-core (удаление в 2.25).
 # Современная альтернатива — ansible.builtin.deb822_repository (требует python3-debian).
