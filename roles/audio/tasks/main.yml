@@ -72,6 +72,50 @@
 # сессии (например, ssh без systemd-linger) — нет, тогда задача не сработает.
 # Включить вручную:
 #   systemctl --user enable --now hushmic
+#
+# Важно: юнит из .deb прописан в [Install] WantedBy=default.target — он
+# стартует в первую секунду входа и будит xdg-desktop-portal до того, как
+# gnome-session экспортировал DISPLAY/WAYLAND_DISPLAY в systemd user.
+# xdg-desktop-portal-gtk в этом случае падает с "cannot open display", и
+# portal ломается на всю сессию: тормозит ptyxis (таймауты Settings/Inhibit),
+# Snap Store не может зарегистрироваться. Поэтому ниже добавляем drop-in,
+# который переносит автозапуск в graphical-session.target.
+
+- name: Создать каталог drop-in'ов юнита HushMic
+  ansible.builtin.file:
+    path: "{{ home_dir }}/.config/systemd/user/hushmic.service.d"
+    state: directory
+    mode: "0755"
+
+- name: Отложить автозапуск HushMic до graphical-session.target
+  ansible.builtin.copy:
+    dest: "{{ home_dir }}/.config/systemd/user/hushmic.service.d/override.conf"
+    mode: "0644"
+    content: |
+      [Unit]
+      After=graphical-session.target
+      PartOf=graphical-session.target
+
+      [Install]
+      WantedBy=graphical-session.target
+
+# Симлинк от предыдущих запусков (до drop-in'а) мог остаться в
+# default.target.wants — убираем, иначе юнит запустится и там.
+- name: Убрать устаревший автозапуск HushMic из default.target
+  ansible.builtin.file:
+    path: "{{ home_dir }}/.config/systemd/user/default.target.wants/hushmic.service"
+    state: absent
+
+- name: Перечитать юниты user-менеджера
+  ansible.builtin.systemd_service:
+    scope: user
+    daemon_reload: true
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ ansible_facts['user_uid'] }}"
+  failed_when: false
+
+# После drop-in'а [Install] указывает на graphical-session.target, поэтому
+# enable создаёт симлинк в graphical-session.target.wants.
 - name: Включить пользовательский юнит HushMic
   ansible.builtin.systemd_service:
     name: hushmic.service
