@@ -4,9 +4,8 @@
 [`TODO-awesome-github.md`](TODO-awesome-github.md): сгруппирован по темам,
 со ссылками на репозитории и рекомендациями «что выбрать из дублей».
 Уникальные тренды 2026 — в [`TODO-trend-github.md`](TODO-trend-github.md),
-отдельный трекер под NORA (artifact registry) + локальный TLS-сертификат
-(mkcert) — в [`TODO-nora.md`](TODO-nora.md), глобальные skills и `AGENTS.md`
-для opencode — в [`TODO-skills.md`](TODO-skills.md), pitwall (не ставится, см. issue
+глобальные skills и `AGENTS.md` для opencode — в
+[`TODO-skills.md`](TODO-skills.md), pitwall (не ставится, см. issue
 о русских буквах: <https://github.com/quanticstudios/pitwall/issues/127>) —
 в [`TODO-pitwall.md`](TODO-pitwall.md), кандидаты из подборки
 collabnix/kubetools, которых нет в других файлах, —

@@ -9,9 +9,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 Это канонический список кандидатов (дедупликация 2026-10-18): дубли из
 `TODO.md` и `TODO-trend-github.md` перенесены сюда и удалены оттуда, вместе с
 ними перенесены рекомендации «что выбрать из дублей» (см. таблицу ниже).
-Уникальные тренды 2026 остались в [`TODO-trend-github.md`](TODO-trend-github.md),
-трекер NORA/TLS — в [`TODO-nora.md`](TODO-nora.md). Утилиты, которые уже ставит
-плейбук, перечислены в [`TODO.md`](TODO.md) — их дублировать не нужно
+Уникальные тренды 2026 остались в [`TODO-trend-github.md`](TODO-trend-github.md).
+Утилиты, которые уже ставит плейбук, перечислены в [`TODO.md`](TODO.md) — их
+дублировать не нужно
 (см. `README.md`).
 
 Как читать:
@@ -212,10 +212,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [oras-project/oras](https://github.com/oras-project/oras)
 - [ ] **s5cmd** — очень быстрый параллельный клиент S3. *(`deb`)* —
       [peak/s5cmd](https://github.com/peak/s5cmd)
-- [ ] **nora** — лёгкий мультиформатный artifact registry (Docker, npm, PyPI,
+- [x] **nora** — лёгкий мультиформатный artifact registry (Docker, npm, PyPI,
       Terraform, Ansible Galaxy и др.). *(`deb`)* —
-      [getnora-io/nora](https://github.com/getnora-io/nora)
-      (отдельный трекер развёртывания — в [`TODO-nora.md`](TODO-nora.md))
+      [getnora-io/nora](https://github.com/getnora-io/nora) — ставится ролью
+      `nora` (см. `README.md`, раздел «NORA artifact registry»)
 - [ ] **registry-cli** — манипуляции с docker-registry из командной строки.
       *(`pipx`)* — [andrey-pohilko/registry-cli](https://github.com/andrey-pohilko/registry-cli)
 - [ ] **gitlab-registry-images-cleaner** — чистка старых образов в GitLab
@@ -300,9 +300,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`deb`; ⭐ 19.3k)* — [Orange-OpenSource/hurl](https://github.com/Orange-OpenSource/hurl)
 - [ ] **xh** — быстрый и дружелюбный HTTP-клиент (замена httpie). *(`deb`; ⭐ 8.1k)* —
       [ducaale/xh](https://github.com/ducaale/xh)
-- [ ] **mkcert** — локально доверенные dev-сертификаты без настройки. *(`go`)* —
-      [FiloSottile/mkcert](https://github.com/FiloSottile/mkcert)
-      (разобран подробно под NORA в [`TODO-nora.md`](TODO-nora.md))
+- [x] **mkcert** — локально доверенные dev-сертификаты без настройки. *(`go`)* —
+      [FiloSottile/mkcert](https://github.com/FiloSottile/mkcert) — ставится ролью
+      `nora` (см. `README.md`, раздел «NORA artifact registry»)
 - [ ] **httptap** — разбор HTTP-запроса по слоям: DNS, connect, TLS, TTFB.
       *(`pipx`)* — [ozeranskii/httptap](https://github.com/ozeranskii/httptap)
 - [ ] **asn** — справка по IP/домену: ASN, RPKI, BGP, WHOIS, трейс. *(`git clone`)* —
