@@ -225,8 +225,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **oras** — клиент OCI-реестров для произвольных артефактов. *(`go`)* —
       [oras-project/oras](https://github.com/oras-project/oras)
       — ✅ добавлен в плейбук (роль `docker`, бинарником из тарболла).
-- [ ] **s5cmd** — очень быстрый параллельный клиент S3. *(`deb`)* —
+- [x] **s5cmd** — очень быстрый параллельный клиент S3. *(`deb`)* —
       [peak/s5cmd](https://github.com/peak/s5cmd)
+      — ✅ добавлен в плейбук (роль `iac`, бинарником из тарболла).
 - [x] **nora** — лёгкий мультиформатный artifact registry (Docker, npm, PyPI,
       Terraform, Ansible Galaxy и др.). *(`deb`)* —
       [getnora-io/nora](https://github.com/getnora-io/nora) — ставится ролью
@@ -310,7 +311,7 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **sniffnet** — кроссплатформенный GUI-мониторинг сетевого трафика.
       *(`deb`; ⭐ 41.6k)* — [GyulyVGC/sniffnet](https://github.com/GyulyVGC/sniffnet)
       — ✅ добавлен в плейбук (роль `network`, официальный .deb Sniffnet_LinuxDEB_amd64.deb).
-- [ ] **trippy** — TUI traceroute с историей и статистикой по хопам.
+- [x] **trippy** — TUI traceroute с историей и статистикой по хопам.
       *(`deb` / `snap`)* — [fujiapple852/trippy](https://github.com/fujiapple852/trippy)
       — ✅ добавлен в плейбук (роль `network`, бинарник trip под именем trippy).
 - [x] ⭐ **q** — крошечный DNS-клиент: UDP/TCP/DoH/DoT/DoQ/ODoH. *(`deb`)* —
@@ -320,10 +321,11 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [ogham/dog](https://github.com/ogham/dog)
       — ⛔ не ставится: upstream мёртв с 2021 (последний релиз v0.1.0), готовый
       бинарник динамически связан с `libssl.so.1.1`, которого нет в Ubuntu 26.04.
-      Покрывается уже добавленным `q`. Аналог с живым upstream — `doggo`
-      (tar.gz, статический бинарник).
-- [ ] **tcping** — `ping` поверх TCP-портов. *(`deb`)* —
+      Покрывается уже добавленным `q`. Живой аналог — **doggo**
+      (tar.gz, статический бинарник) — добавлен в плейбук (роль `network`).
+- [x] **tcping** — `ping` поверх TCP-портов. *(`deb`)* —
       [pouriyajamshidi/tcping](https://github.com/pouriyajamshidi/tcping)
+      — ✅ добавлен в плейбук (роль `network`, статическим бинарником из тарболла).
 - [x] ⭐ **termshark** — TUI-интерфейс к tshark/Wireshark. *(`go`; ⭐ 10.0k)* —
       [gcla/termshark](https://github.com/gcla/termshark)
       — ✅ добавлен в плейбук (роль `network`, бинарник termshark + зависимость tshark).
@@ -495,10 +497,12 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **lf** — терминальный файловый менеджер с vim-подобными клавишами.
       *(`go`)* — [gokcehan/lf](https://github.com/gokcehan/lf)
       — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
-- [ ] **fastfetch** — быстрый neofetch-подобный вывод информации о системе.
+- [x] **fastfetch** — быстрый neofetch-подобный вывод информации о системе.
       *(`deb`)* — [fastfetch-cli/fastfetch](https://github.com/fastfetch-cli/fastfetch)
-- [ ] **procs** — современная замена `ps` на Rust (дерево, цвета, поиск).
+      — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
+- [x] **procs** — современная замена `ps` на Rust (дерево, цвета, поиск).
       *(`cargo`)* — [dalance/procs](https://github.com/dalance/procs)
+      — ✅ добавлен в плейбук (роль `shell`, бинарником из zip-архива).
 - [ ] **auto-cpufreq** — автооптимизация частоты CPU и энергопотребления ноутбука.
       *(`snap` / `script`)* — [AdnanHodzic/auto-cpufreq](https://github.com/AdnanHodzic/auto-cpufreq)
 - [ ] **LACT** — GUI для настройки и мониторинга GPU (AMD/Intel/NVIDIA).

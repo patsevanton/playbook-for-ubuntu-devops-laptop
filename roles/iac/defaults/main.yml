@@ -39,6 +39,15 @@ iac_binaries:
     url: "https://github.com/imcitius/tgsieve/releases/download/{tag}/tgsieve_{version}_linux_amd64.tar.gz"
     archive: tar
     member: tgsieve
+  # s5cmd — очень быстрый параллельный клиент S3/S3-совместимых хранилищ
+  # (cp/mv/ls/rm/sync со сжатием и wildcards). Релиз — s5cmd_{version}_Linux-64bit.tar.gz,
+  # бинарник s5cmd в корне архива.
+  - name: s5cmd
+    source: github
+    repo: peak/s5cmd
+    url: "https://github.com/peak/s5cmd/releases/download/{tag}/s5cmd_{version}_Linux-64bit.tar.gz"
+    archive: tar
+    member: s5cmd
 
 tfenv_repo: https://github.com/tfutils/tfenv.git
 tfenv_dir: "{{ home_dir }}/.tfenv"

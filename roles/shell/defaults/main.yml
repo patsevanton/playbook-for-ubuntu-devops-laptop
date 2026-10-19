@@ -159,6 +159,25 @@ shell_binaries:
     url: "https://github.com/charmbracelet/gum/releases/download/{tag}/gum_{version}_Linux_x86_64.tar.gz"
     archive: tar
     member: gum_{version}_Linux_x86_64/gum
+  # fastfetch — быстрый neofetch-подобный вывод информации о системе (CPU, GPU,
+  # память, ОС, оболочка, DE/WM). Тег релиза без префикса v (2.70.0), поэтому
+  # {tag} и {version} одинаковы. В архиве бинарник лежит по пути
+  # fastfetch-linux-amd64/usr/bin/fastfetch.
+  - name: fastfetch
+    source: github
+    repo: fastfetch-cli/fastfetch
+    url: "https://github.com/fastfetch-cli/fastfetch/releases/download/{tag}/fastfetch-linux-amd64.tar.gz"
+    archive: tar
+    member: fastfetch-linux-amd64/usr/bin/fastfetch
+  # procs — современная замена ps на Rust: дерево процессов, цвета, поиск,
+  # сводка по CPU/памяти. Релиз — zip-архив procs-v{version}-x86_64-linux.zip,
+  # бинарник procs в корне.
+  - name: procs
+    source: github
+    repo: dalance/procs
+    url: "https://github.com/dalance/procs/releases/download/{tag}/procs-v{version}-x86_64-linux.zip"
+    archive: zip
+    member: procs
 
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"

@@ -83,18 +83,18 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   browse-pvc, pluto, pv-migrate, marvin,
 │   │                           #   kftui, ct (chart-testing)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
-│   │                           #   tfenv, tgenv
+│   │                           #   s5cmd, tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
 │   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
-│   │                           #   lf, gomplate, yamlfmt, gum,
+│   │                           #   lf, gomplate, yamlfmt, gum, fastfetch, procs,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
-│   │                           #   sshx, rkn-block-checker (pipx), ecapture,
-│   │                           #   termshark, websocat, sniffnet
+│   │                           #   tcping, doggo, sshx, rkn-block-checker (pipx),
+│   │                           #   ecapture, termshark, websocat, sniffnet
 │   ├── opencode/               # opencode (из npm-реестра)
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
@@ -141,7 +141,8 @@ ansible-lint                                   # проверка стиля (pr
    CEL-выражениями), kftui (TUI-менеджер port-forward), ct (линтинг и
    тестирование Helm-чартов) и headlamp (web/desktop UI Kubernetes).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
-   (сжатый вывод `terragrunt plan`), плюс tfenv и tgenv.
+   (сжатый вывод `terragrunt plan`), s5cmd (быстрый параллельный клиент S3),
+   плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
 9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git) и grype
@@ -156,16 +157,18 @@ ansible-lint                                   # проверка стиля (pr
     zellij (терминальный мультиплексор), navi (шпаргалки команд поверх fzf),
     fx (интерактивный просмотр JSON), hl (просмотр JSON-логов), mcfly
     (умная история команд по Ctrl-R), lf (терминальный файловый менеджер),
-    gomplate (шаблонизатор конфигов), yamlfmt (форматтер YAML) и gum
-    (примитивы для «красивых» shell-скриптов).
+    gomplate (шаблонизатор конфигов), yamlfmt (форматтер YAML), gum
+    (примитивы для «красивых» shell-скриптов), fastfetch (информация о
+    системе) и procs (современная замена ps).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
 13. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
     (проверка распространения DNS), `bandwhich` (трафик по процессам),
-    `q` (DNS-клиент с DoH/DoT/DoQ), `xh` (HTTP-клиент), `hurl` (HTTP-запросы
+    `q` (DNS-клиент с DoH/DoT/DoQ), `doggo` (DNS-клиент с человекочитаемым
+    цветным выводом), `xh` (HTTP-клиент), `hurl` (HTTP-запросы
     из plain-text `.hurl`-файлов), `trippy` (TUI traceroute со статистикой),
-    `sshx` (совместный терминал в браузере),
+    `tcping` (`ping` поверх TCP-портов), `sshx` (совместный терминал в браузере),
     `ecapture` (eBPF-захват TLS/SSL plaintext), `termshark` (TUI к
     Wireshark/tshark), `websocat` (netcat для WebSockets) и `sniffnet`
     (графический TUI-мониторинг трафика, .deb), а также
@@ -243,6 +246,7 @@ ansible-lint                                   # проверка стиля (pr
 | packer | releases.hashicorp.com |
 | driftctl | github.com/snyk/driftctl |
 | tgsieve | github.com/imcitius/tgsieve |
+| s5cmd | github.com/peak/s5cmd |
 | pgcenter | github.com/lesovsky/pgcenter |
 | vault | releases.hashicorp.com |
 | gitleaks | github.com/gitleaks/gitleaks |
@@ -253,6 +257,8 @@ ansible-lint                                   # проверка стиля (pr
 | xh | github.com/ducaale/xh |
 | hurl | github.com/Orange-OpenSource/hurl |
 | trippy | github.com/fujiapple852/trippy |
+| tcping | github.com/pouriyajamshidi/tcping |
+| doggo | github.com/mr-karan/doggo |
 | ecapture | github.com/gojue/ecapture |
 | termshark | github.com/gcla/termshark |
 | websocat | github.com/vi/websocat |
@@ -268,6 +274,8 @@ ansible-lint                                   # проверка стиля (pr
 | gomplate | github.com/hairyhenderson/gomplate |
 | yamlfmt | github.com/google/yamlfmt |
 | gum | github.com/charmbracelet/gum |
+| fastfetch | github.com/fastfetch-cli/fastfetch |
+| procs | github.com/dalance/procs |
 | oras | github.com/oras-project/oras |
 | lazygit | github.com/jesseduffield/lazygit |
 | lazydocker | github.com/jesseduffield/lazydocker |

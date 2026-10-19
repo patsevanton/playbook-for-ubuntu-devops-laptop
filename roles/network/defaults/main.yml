@@ -119,6 +119,24 @@ network_binaries:
     repo: vi/websocat
     url: "https://github.com/vi/websocat/releases/download/{tag}/websocat.x86_64-unknown-linux-musl"
     archive: none
+  # tcping — `ping` поверх TCP-порта: проверяет доступность хоста:порта по
+  # установлению соединения (когда ICMP закрыт). Статический тарболл
+  # tcping-linux-amd64-static.tar.gz, бинарник tcping в корне.
+  - name: tcping
+    source: github
+    repo: pouriyajamshidi/tcping
+    url: "https://github.com/pouriyajamshidi/tcping/releases/download/{tag}/tcping-linux-amd64-static.tar.gz"
+    archive: tar
+    member: tcping
+  # doggo — DNS-клиент с человекочитаемым цветным выводом (живой аналог
+  # мёртвого dog): DoH/DoT/DoQ, JSON-вывод. Релиз — doggo-linux-x86_64.tar.gz,
+  # бинарник doggo в корне.
+  - name: doggo
+    source: github
+    repo: mr-karan/doggo
+    url: "https://github.com/mr-karan/doggo/releases/download/{tag}/doggo-linux-x86_64.tar.gz"
+    archive: tar
+    member: doggo
 
 # --- Sniffnet: графический TUI-анализатор сетевого трафика -----------------
 # Ставится официальным .deb из GitHub-релиза (артефакт без версии в имени).
