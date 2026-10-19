@@ -73,14 +73,12 @@ fi
 export PIPX_HOME="${PIPX_HOME:-$HOME/.local/pipx}"
 export PIPX_BIN_DIR="${PIPX_BIN_DIR:-$HOME/.local/bin}"
 
-# --- atuin: НЕ используем ---------------------------------------------------
-# История команд (atuin) сознательно исключена. atuin подключает bash-preexec,
-# который на bash >= 5.3 вешает preexec-хук в PS0 строкой '${ ... }'.
-# Интеграция VTE (/etc/profile.d/vte-2.91.sh, gnome-terminal) заканчивает свой
-# PS0 последовательностью \e\\ (OSC-терминатор ST), чей завершающий '\'
-# экранирует '$' хука — и строка '${ __bp_invoke_preexec_from_ps0 "..." >&2; }'
-# печатается буквально перед каждой командой. Баг на стороне VTE, исправлен
-# только в vte 0.84:
-#   GNOME/vte#2951    https://gitlab.gnome.org/GNOME/vte/-/work_items/2951
-#   bash-preexec#186  https://github.com/rcaloras/bash-preexec/issues/186
-# Вернуть atuin можно после выхода vte 0.84 (или накатив патч из VTE#2951).
+# --- mcfly: умная история команд (ctrl-r) ---------------------------------
+# mcfly перехватывает ctrl-r и приоритизирует историю по контексту (каталог,
+# недавние команды, частота, код выхода); история хранится в SQLite
+# (~/.local/share/mcfly/history.db). В отличие от atuin хук ставится через
+# PROMPT_COMMAND, а не через PS0/bash-preexec, поэтому бага VTE (GNOME/vte#2951)
+# у mcfly нет.
+if command -v mcfly >/dev/null 2>&1; then
+  eval "$(mcfly init bash)"
+fi

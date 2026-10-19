@@ -37,7 +37,7 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 | Группа | Рекомендую ⭐ | Альтернативы | Почему |
 | --- | --- | --- | --- |
-| История shell | **atuin** | mcfly, hstr | синхронизация между машинами и статистика; mcfly/hstr проще, но локальные |
+| История shell | **mcfly** | atuin, hstr | atuin конфликтует с VTE (баг GNOME/vte#2951); mcfly/hstr локальные, но проще |
 | Шпаргалки команд | **navi** | cheat, tldr | объединяет свои и community-шпаргалки и работает поверх уже установленного `fzf` |
 | Терминальные мультиплексоры | **zellij** | 3mux | развитее и активнее; 3mux интересен только ради i3-навигации |
 | Анализ занятого места | **gdu** | dusage | быстрее и удобнее в TUI |
@@ -306,6 +306,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       — ✅ добавлен в плейбук (роль `network`, бинарником из тарболла).
 - [ ] **dog** — DNS-клиент с человекочитаемым цветным выводом. *(`cargo`)* —
       [ogham/dog](https://github.com/ogham/dog)
+      — ⛔ не ставится: upstream мёртв с 2021 (последний релиз v0.1.0), готовый
+      бинарник динамически связан с `libssl.so.1.1`, которого нет в Ubuntu 26.04.
+      Покрывается уже добавленным `q`. Аналог с живым upstream — `doggo`
+      (tar.gz, статический бинарник).
 - [ ] **tcping** — `ping` поверх TCP-портов. *(`deb`)* —
       [pouriyajamshidi/tcping](https://github.com/pouriyajamshidi/tcping)
 - [ ] **termshark** — TUI-интерфейс к tshark/Wireshark. *(`go`)* —
@@ -429,14 +433,11 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **zellij** — терминальный мультиплексор (сессии/вкладки/панели) с
       плагинами. *(`release` / `cargo`)* — [zellij-org/zellij](https://github.com/zellij-org/zellij)
       — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла).
-- [x] ⭐ **atuin** — синхронизируемая история shell: SQLite, fuzzy-поиск, статистика.
-      *(`deb` / `script`)* — [atuinsh/atuin](https://github.com/atuinsh/atuin)
-      — ❌ убран из плейбука: хук `atuin init bash` (bash-preexec) конфликтует
-      с интеграцией VTE в `PS0` — строка `${ __bp_invoke_preexec_from_ps0 ... }`
-      печатается текстом перед каждой командой. См. [VTE#2951](https://gitlab.gnome.org/GNOME/vte/-/work_items/2951),
-      [bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186). Вернуть после vte 0.84.
-- [ ] **mcfly** — fuzzy-поиск по истории команд с учётом контекста. *(`cargo`)* —
-      [cantino/mcfly](https://github.com/cantino/mcfly)
+- [x] ⭐ **mcfly** — умная история shell: SQLite, приоритизация по контексту, Ctrl-R.
+      *(`deb` / `script`)* — [cantino/mcfly](https://github.com/cantino/mcfly)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла). Выбран
+      вместо atuin, который конфликтовал с VTE (баг GNOME/vte#2951 — см.
+      [`not-install.md`](not-install.md)).
 - [x] ⭐ **navi** — интерактивные шпаргалки для команд (поверх fzf). *(`cargo`)* —
       [denisidoro/navi](https://github.com/denisidoro/navi)
       — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла).

@@ -153,7 +153,7 @@ Linux-пользователя. Канонический общий список
 `fx`, `jnv`, `octosql`, `gomplate`, `gonzo`, `hl`, `lazyjournal`,
 `json-log-viewer`, `logdy-core`, `otel-tui`, `bpftop`, `ecapture`, `linnix`,
 `tfvar`, `prettyplan`, `terraform-tui`, `tpm`, `sops`, `grype`, `flawz`, `mfa`,
-`eget`, `binup`, `stew`, `dra`, `zellij`, `atuin`, `mcfly`, `navi`, `cheat`,
+`eget`, `binup`, `stew`, `dra`, `zellij`, `mcfly`, `navi`, `cheat`,
 `tldr`, `gum`, `shellcheck`, `hstr`, `worktrunk`, `spacer`, `shellclear`,
 `3mux`, `dusage`, `gdu`, `lf`, `fastfetch`, `procs`, `auto-cpufreq`, `LACT`,
 `mcelog`, `wondershaper`, `sysinfo`, `lazygit`, `lumen`, `opencommit`,

@@ -80,21 +80,21 @@ shell_binaries:
     url: "https://github.com/pamburus/hl/releases/download/{tag}/hl-linux-x86_64-gnu.tar.gz"
     archive: tar
     member: hl
+  # mcfly — умная история команд: ctrl-r с приоритизацией по контексту
+  # (каталог, недавние команды, частота, код выхода) поверх SQLite. Выбран
+  # вместо atuin, который конфликтовал с VTE (баг GNOME/vte#2951 — см.
+  # not-install.md). Релиз — тарболл
+  # mcfly-v{version}-x86_64-unknown-linux-musl (glibc-сборки нет, только
+  # musl/статическая), бинарник лежит в корне архива.
+  - name: mcfly
+    source: github
+    repo: cantino/mcfly
+    url: "https://github.com/cantino/mcfly/releases/download/{tag}/mcfly-v{version}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: mcfly
 
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"
-
-# --- atuin: НЕ используем (причина — баг VTE) --------------------------------
-# История команд (atuin) сознательно исключена: atuin подключает bash-preexec,
-# который на bash >= 5.3 вешает preexec-хук в PS0 строкой '${ ... }'.
-# Интеграция VTE (/etc/profile.d/vte-2.91.sh, gnome-terminal) заканчивает свой
-# PS0 последовательностью \e\\ (OSC-терминатор ST), чей завершающий '\'
-# экранирует '$' хука — и строка '${ __bp_invoke_preexec_from_ps0 "..." >&2; }'
-# печатается буквально перед каждой командой. Баг на стороне VTE, исправлен
-# только в vte 0.84:
-#   GNOME/vte#2951    https://gitlab.gnome.org/GNOME/vte/-/work_items/2951
-#   bash-preexec#186  https://github.com/rcaloras/bash-preexec/issues/186
-# Вернуть atuin можно после выхода vte 0.84 (или накатив патч из VTE#2951).
 
 # --- Nerd Font: JetBrainsMono Nerd Font -------------------------------------
 # Starship рисует глифы ветки Git и Kubernetes из private use area, eza --icons

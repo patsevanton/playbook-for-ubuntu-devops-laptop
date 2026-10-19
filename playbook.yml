@@ -121,6 +121,7 @@
         - "{{ bin_dir }}/navi --version"
         - "{{ bin_dir }}/fx --version"
         - "{{ bin_dir }}/hl --version"
+        - "{{ bin_dir }}/mcfly --version"
         - "{{ bin_dir }}/lazygit --version"
         - "{{ bin_dir }}/lazydocker --version"
         - "{{ bin_dir }}/dive --version"

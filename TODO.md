@@ -7,7 +7,9 @@
 глобальные skills и `AGENTS.md` для opencode — в
 [`TODO-skills.md`](TODO-skills.md), pitwall (не ставится, см. issue
 о русских буквах: <https://github.com/quanticstudios/pitwall/issues/127>) —
-в [`TODO-pitwall.md`](TODO-pitwall.md), кандидаты из подборки
+в [`TODO-pitwall.md`](TODO-pitwall.md), утилиты, сознательно не ставимые
+плейбуком (с причинами и issue — atuin, pitwall и др.) —
+в [`not-install.md`](not-install.md), кандидаты из подборки
 collabnix/kubetools, которых нет в других файлах, —
 в [`TODO-kubetools.md`](TODO-kubetools.md).
 

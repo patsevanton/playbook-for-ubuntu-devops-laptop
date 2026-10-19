@@ -10,6 +10,27 @@
     name: "{{ shell_packages }}"
     state: present
 
+# atuin заменён на mcfly (баг VTE — см. defaults/main.yml и not-install.md).
+# Если atuin уже был установлен (предыдущим прогоном или вручную), чистим его
+# целиком: бинарник в bin_dir, конфиг (~/.config/atuin) и данные
+# (SQLite-история + ключи синхронизации в ~/.local/share/atuin). Каталог
+# ~/.atuin создаёт только официальный инсталлер atuin — убираем и его на
+# случай ручной установки. Прежний init-блок уже вычищен из devops-shell.sh.
+- name: Удалить бинарник atuin (заменён на mcfly)
+  become: true
+  ansible.builtin.file:
+    path: "{{ bin_dir }}/atuin"
+    state: absent
+
+- name: Удалить конфиг и данные atuin (каталоги в home-каталоге)
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ home_dir }}/.config/atuin"
+    - "{{ home_dir }}/.local/share/atuin"
+    - "{{ home_dir }}/.atuin"
+
 - name: Установить CLI-утилиты (актуальные версии)
   ansible.builtin.include_role:
     name: binaries

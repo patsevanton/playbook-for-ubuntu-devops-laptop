@@ -146,8 +146,8 @@ ansible-lint                                   # проверка стиля (pr
     M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
     difftastic (структурный diff), delta (улучшенный git-diff), gdu
     (анализатор диска), zellij (терминальный мультиплексор), navi
-    (шпаргалки команд поверх fzf), fx (интерактивный просмотр JSON) и hl
-    (просмотр JSON-логов).
+    (шпаргалки команд поверх fzf), fx (интерактивный просмотр JSON), hl
+    (просмотр JSON-логов) и mcfly (умная история команд по Ctrl-R).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
@@ -245,6 +245,7 @@ ansible-lint                                   # проверка стиля (pr
 | grype | github.com/anchore/grype |
 | zellij | github.com/zellij-org/zellij |
 | navi | github.com/denisidoro/navi |
+| mcfly | github.com/cantino/mcfly |
 | fx | github.com/antonmedv/fx |
 | hl | github.com/pamburus/hl |
 | kyanos | github.com/hengyoush/kyanos |
@@ -711,6 +712,9 @@ pgcenter report -f pgcenter.stat.tar                # отчёт по запис
 pitwall в плейбук не ставится. См. issue о невозможности вводить русские буквы:
 <https://github.com/quanticstudios/pitwall/issues/127>.
 
+Полный список утилит, которые плейбук сознательно не ставит (с причинами и
+ссылками на issue) — в [`not-install.md`](not-install.md).
+
 ---
 
 ## herdr и rtk — инструменты для AI-агентов
@@ -978,7 +982,8 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 - алиас `catbat` и тема для `bat`;
 - алиас `fd` → `fdfind` (в Ubuntu бинарь `fd-find` называется `fdfind`);
 - completion для `kubectl`, `helm`, `kubectx`, алиас `k = kubectl`;
-- `PIPX_HOME` / `PIPX_BIN_DIR`.
+- `PIPX_HOME` / `PIPX_BIN_DIR`;
+- `mcfly init bash` (умная история по Ctrl-R, см. раздел «mcfly — история команд»).
 
 Файл пишется из шаблона `roles/shell/templates/devops-shell.sh.j2` — правки
 в самом файле перезапишутся при следующем запуске. Чтобы убрать окружение:
@@ -992,20 +997,16 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 `roles/shell/files/starship.toml` в репозитории; путь назначения задаётся
 переменной `starship_config_file` в `group_vars/all.yml`.
 
-### atuin — история команд (не используется)
+### mcfly — история команд
 
-**atuin** сознательно исключён из плейбука. `atuin init bash` подключает
-`bash-preexec`, который на bash ≥ 5.3 вешает preexec-хук в `PS0` строкой
-`${ ... }`. Интеграция VTE (`/etc/profile.d/vte-2.91.sh`, gnome-terminal)
-заканчивает свой `PS0` последовательностью `\e\\` (OSC-терминатор ST), чей
-завершающий `\` экранирует `$` хука — и строка
-`${ __bp_invoke_preexec_from_ps0 "..." >&2; }` печатается буквально перед
-каждой командой.
+**mcfly** (роль `shell`, бинарник в `/usr/local/bin`) — умная история команд:
+перехватывает Ctrl-R и приоритизирует результаты по контексту (текущий каталог,
+недавние команды, частота, код выхода), хранит историю в SQLite
+(`~/.local/share/mcfly/history.db`). Хук подключается строкой
+`eval "$(mcfly init bash)"` в `~/.config/devops-shell.sh`.
 
-Баг на стороне VTE, исправлен только в vte 0.84:
-
-- [GNOME/vte#2951](https://gitlab.gnome.org/GNOME/vte/-/work_items/2951)
-- [rcaloras/bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186)
+Проверка: `mcfly --version`; история — нажать Ctrl-R после нескольких
+выполненных команд (или `mcfly search`).
 
 ### Nerd Font (иконки в prompt и списках файлов)
 
