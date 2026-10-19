@@ -57,3 +57,13 @@ git_binaries:
     url: "https://github.com/jesseduffield/lazygit/releases/download/{tag}/lazygit_{version}_linux_x86_64.tar.gz"
     archive: tar
     member: lazygit
+  # reviewdog — автоматическое code review: прогоняет любые линтеры
+  # (errorformat) и шлёт их замечания в GitHub/GitLab как inline-комментарии
+  # к PR/MR. Релиз — тарболл reviewdog_<version>_Linux_x86_64.tar.gz, бинарник
+  # reviewdog в корне архива.
+  - name: reviewdog
+    source: github
+    repo: reviewdog/reviewdog
+    url: "https://github.com/reviewdog/reviewdog/releases/download/{tag}/reviewdog_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: reviewdog

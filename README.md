@@ -104,6 +104,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
 │   ├── nora/                   # NORA artifact registry + mkcert TLS + CA клиентам,
 │   │                           #   Caddy как TLS-терминатор
+│   ├── monitoring/             # vmalert-tool (проверка алерт-правил)
 │   └── binaries/               # общий движок установки бинарников (вызывается ролями)
 ├── .ansible-lint
 └── README.md
@@ -189,7 +190,11 @@ ansible-lint                                   # проверка стиля (pr
 18. Ставит NORA artifact registry: `.deb`-пакет, локальный TLS-сертификат через
     mkcert, автодоверие CA у клиентов (системный store, Docker, npm, pip, Java)
     и Caddy как TLS-терминатор.
-19. В конце проверяет установку и печатает версии всех утилит.
+19. Ставит `vmalert-tool` (офлайн-проверка и unit-тесты алерт-правил
+    Prometheus-совместимых систем, роль `monitoring`), а также `reviewdog`
+    (автоматическое code review) в роли `git` и `grex` (генерация regex из
+    примеров) в роли `shell`.
+20. В конце проверяет установку и печатает версии всех утилит.
 
 ---
 
@@ -306,6 +311,9 @@ ansible-lint                                   # проверка стиля (pr
 | kyanos | github.com/hengyoush/kyanos |
 | starship | github.com/starship/starship |
 | bat | github.com/sharkdp/bat |
+| reviewdog | github.com/reviewdog/reviewdog |
+| grex | github.com/pemistahl/grex |
+| vmalert-tool | github.com/VictoriaMetrics/VictoriaMetrics |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
@@ -826,6 +834,33 @@ tldr tar                                   # краткие примеры по 
 cheat tar                                  # свои шпаргалки по утилите
 navi                                       # интерактивный поиск шпаргалки
 ```
+
+---
+
+## Проверка алерт-правил: vmalert-tool
+
+**vmalert-tool** (`VictoriaMetrics/VictoriaMetrics`, роль `monitoring`) —
+офлайн-утилита для валидации и unit-тестов alerting/recording-правил
+Prometheus-совместимых систем: проверяет конфиги и гоняет тесты без поднятия
+сервиса, без сервера и без Web UI. Единственный нужный бинарник из релизов
+VictoriaMetrics на ноутбуке (кладётся из тарболла `vmutils-...` как
+`vmalert-tool`).
+
+```bash
+vmalert-tool unittest -files rules.yaml -tests tests.yaml   # прогнать unit-тесты правил
+```
+
+Остальные бинарники VictoriaMetrics на ноуте не ставятся — им нужна локальная
+TSDB/приёмка метрик: `victoria-metrics` (сам сервер + Web UI), `vmctl`
+(миграция только **в** VictoriaMetrics), `vmagent` (сбор/пересылка метрик),
+`vmalert` (вычисление алертов в реальном времени), `vmauth` (прокси-аутентификация),
+`vmbackup`/`vmrestore` (бэкап/восстановление данных VM).
+
+Дополнительно роль `git` ставит **reviewdog** (`reviewdog/reviewdog`) — гоняет
+любые линтеры и шлёт их замечания как inline-комментарии в PR/MR
+(`reviewdog -f="eslint"`), а роль `shell` — **grex** (`pemistahl/grex`),
+генерирующую regex прямо из примеров строк (`grex -f`) — тоже из числа топовых
+неустановленных кандидатов.
 
 ---
 

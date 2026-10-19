@@ -57,6 +57,8 @@
       tags: [guardrails]
     - role: nora
       tags: [nora]
+    - role: monitoring
+      tags: [monitoring]
 
   post_tasks:
     - name: Проверить работу установленных утилит
@@ -160,6 +162,9 @@
         - "{{ bin_dir }}/lazydocker --version"
         - "{{ bin_dir }}/dive --version"
         - "{{ bin_dir }}/ctop -v"
+        - "{{ bin_dir }}/reviewdog -version"
+        - "{{ bin_dir }}/grex --version"
+        - "{{ bin_dir }}/vmalert-tool --version"
         - "{{ bin_dir }}/sops --version"
         - "{{ bin_dir }}/grype version"
         - "ansible-lint --version"
@@ -233,6 +238,66 @@
       ansible.builtin.command: gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor
       changed_when: false
       failed_when: false
+
+    # --- Удаление утилит, от которых отказались -----------------------------
+    # Причина отказов — в TODO-awesome-github.md: VictoriaMetrics (кроме
+    # vmalert-tool) не нужна без локального скрейпа метрик, LACT — нет сборки
+    # под Ubuntu 26.04, auto-cpufreq — не нужен. Чистим всё, что могло остаться
+    # от промежуточных прогонов плейбука или ручной установки, чтобы не плодить
+    # мёртвые инструменты.
+
+    # VictoriaMetrics: single-node бинарник (стоял в ранней версии роли
+    # monitoring) и каталог данных, который VM создаёт при запуске.
+    - name: Удалить бинарник victoria-metrics (оставили только vmalert-tool)
+      become: true
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "{{ bin_dir }}/victoria-metrics"
+        - "{{ home_dir }}/victoria-metrics-data"
+      loop_control:
+        label: "{{ item }}"
+
+    # LACT: удаляем пакеты .deb (GUI lact + демон lactd), чтобы не оставался
+    # systemd-юнит и desktop-ярлык в меню приложений.
+    - name: Удалить пакеты LACT (нет сборки под Ubuntu 26.04)
+      become: true
+      ansible.builtin.apt:
+        name:
+          - lact
+          - lact-daemon
+        state: absent
+        autoremove: true
+
+    # auto-cpufreq: удаляем pipx-окружение (шим + venv). `pipx uninstall`
+    # завершается с кодом 1 и печатает «Nothing to uninstall», если пакета нет —
+    # это норма для идемпотентного прогона, поэтому не считаем ошибкой.
+    - name: Удалить pipx-окружение auto-cpufreq (не нужен)
+      ansible.builtin.command:
+        cmd: "{{ pipx_executable }} uninstall auto-cpufreq"
+      environment:
+        PIPX_HOME: "{{ pipx_home }}"
+        PIPX_BIN_DIR: "{{ pipx_bin_dir }}"
+        PIPX_DEFAULT_PYTHON: "{{ pipx_python }}"
+      register: autocpufreq_uninstall
+      failed_when: false
+      changed_when: >-
+        autocpufreq_uninstall.rc == 0
+
+    # Конфиг и systemd-юнит создаёт `auto-cpufreq --install` при ручной
+    # установке сервиса — убираем и их, чтобы не оставалось хвостов.
+    - name: Удалить файлы auto-cpufreq
+      become: true
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "{{ pipx_bin_dir }}/auto-cpufreq"
+        - /etc/auto-cpufreq.conf
+        - /etc/systemd/system/auto-cpufreq.service
+      loop_control:
+        label: "{{ item }}"
 
     - name: Итог — версии установленных утилит
       ansible.builtin.debug:

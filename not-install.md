@@ -9,6 +9,9 @@
 | --- | --- | --- | --- |
 | atuin | синхронизируемая история команд (SQLite, fuzzy-поиск, статистика) | баг VTE: preexec-хук печатается буквально перед каждой командой в gnome-terminal | [GNOME/vte#2951](https://gitlab.gnome.org/GNOME/vte/-/work_items/2951), [rcaloras/bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186) |
 | pitwall | сетевой файрвол (GUI/TUI) | не работает ввод русских букв | [quanticstudios/pitwall#127](https://github.com/quanticstudios/pitwall/issues/127) |
+| victoria-metrics | single-node TSDB (локальный скрейп метрик + Web UI) | не нужна без приёмки/скрейпа метрик в локальную VM; от релизов VM оставлен только `vmalert-tool` | — |
+| LACT | GUI настройки и мониторинга GPU (AMD/Intel/NVIDIA) | в релизах нет сборки под Ubuntu 26.04 (только debian-12, ubuntu-2204, ubuntu-2404) | — |
+| auto-cpufreq | авто-оптимизация частоты CPU и энергопотребления | не нужен: хватает того, что в Ubuntu есть из коробки (`power-profiles-daemon` + `amd-pstate`/`intel_pstate`) | — |
 
 ---
 

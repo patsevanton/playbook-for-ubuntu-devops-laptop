@@ -275,8 +275,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
 - [ ] **yamlfixer** — автоматическое исправление замечаний `yamllint`. *(`pipx`)* —
       [opt-nc/yamlfixer](https://github.com/opt-nc/yamlfixer)
-- [ ] **grex** — генерирует регулярные выражения из примеров строк.
+- [x] ⭐ **grex** — генерирует регулярные выражения из примеров строк.
       *(`cargo` / `pipx`)* — [pemistahl/grex](https://github.com/pemistahl/grex)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла).
 - [ ] **sd** — интуитивная замена `sed` для поиска/замены. *(`cargo`)* —
       [chmln/sd](https://github.com/chmln/sd)
       — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла).
@@ -450,8 +451,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`cargo`)* — [max-sixty/worktrunk](https://github.com/max-sixty/worktrunk)
 - [ ] **changie** — автоматизация changelog и подготовки релизов. *(`deb`)* —
       [miniscruff/changie](https://github.com/miniscruff/changie)
-- [ ] **reviewdog** — автоматическое code review с любыми линтерами. *(`go`)* —
+- [x] ⭐ **reviewdog** — автоматическое code review с любыми линтерами. *(`go`)* —
       [reviewdog/reviewdog](https://github.com/reviewdog/reviewdog)
+      — ✅ добавлен в плейбук (роль `git`, бинарник из тарболла).
 
 ## Терминал, shell, продуктивность
 
@@ -514,8 +516,12 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       — ✅ добавлен в плейбук (роль `shell`, бинарником из zip-архива).
 - [ ] **auto-cpufreq** — автооптимизация частоты CPU и энергопотребления ноутбука.
       *(`snap` / `script`)* — [AdnanHodzic/auto-cpufreq](https://github.com/AdnanHodzic/auto-cpufreq)
+      — ❌ не устанавливаем: хватает того, что в Ubuntu есть из коробки
+      (`power-profiles-daemon` + `amd-pstate`/`intel_pstate`).
 - [ ] **LACT** — GUI для настройки и мониторинга GPU (AMD/Intel/NVIDIA).
       *(`deb`)* — [ilya-zlobintsev/LACT](https://github.com/ilya-zlobintsev/LACT)
+      — ❌ не устанавливаем: сборки под Ubuntu 26.04 в релизах пока нет
+      (только debian-12, ubuntu-2204, ubuntu-2404).
 - [ ] **mcelog** — userspace-логирование аппаратных ошибок памяти CPU (MCE).
       *(`make`)* — [andikleen/mcelog](https://github.com/andikleen/mcelog)
 - [ ] **wondershaper** — простое ограничение полосы пропускания адаптера.
@@ -541,9 +547,14 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Локальный мониторинг (обычно в кластере, но есть CLI)
 
-- [ ] **VictoriaMetrics** — быстрая и экономичная TSDB/мониторинг (single-binary
+- [x] **VictoriaMetrics** — быстрая и экономичная TSDB/мониторинг (single-binary
       для локального запуска). *(`go` / `release`)* —
       [VictoriaMetrics/VictoriaMetrics](https://github.com/VictoriaMetrics/VictoriaMetrics)
+      — ✅ частично: ставится только **vmalert-tool** (офлайн-проверка и
+      unit-тесты алерт-правил, роль `monitoring`). Сама TSDB и остальные
+      бинарники (`vmctl`, `vmagent`, `vmalert`, `vmauth`, `vmbackup`,
+      `vmrestore`) на ноуте не нужны — им требуется локальная приёмка/скрейп
+      метрик в VictoriaMetrics.
 - [ ] **coroot** — observability и APM с root-cause анализом. *(`go`)* —
       [coroot/coroot](https://github.com/coroot/coroot)
 - [ ] **opencost** — мониторинг стоимости ворклоадов Kubernetes и облака.

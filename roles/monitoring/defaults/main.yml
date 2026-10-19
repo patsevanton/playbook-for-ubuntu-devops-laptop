@@ -1,0 +1,31 @@
+---
+# ============================================================================
+# Роль monitoring: локальная утилита проверки алерт-правил vmalert-tool.
+# Версии определяются на момент запуска (source=github).
+#
+# vmalert-tool — офлайн-утилита для валидации и unit-тестов alerting и
+# recording-правил Prometheus-совместимых систем: проверяет конфиги и гоняет
+# тесты без поднятия сервиса, без сервера и без Web UI. Единственный нужный
+# бинарник из релизов VictoriaMetrics на ноутбуке.
+#
+# Бинарник лежит в тарболле vmutils-...-linux-amd64-v{version}.tar.gz под
+# именем vmalert-tool-prod — кладём его как vmalert-tool.
+#
+# Остальные бинарники VictoriaMetrics на ноуте не нужны:
+#   victoria-metrics-prod — сама TSDB (сервер + Web UI :8428); без приёмки
+#       метрик в локальную VM бесполезна;
+#   vmctl — миграция данных ТОЛЬКО в VictoriaMetrics (influx/prometheus/
+#       vm-native/opentsdb/remote-read) — без VM-приёмки бесполезна;
+#   vmagent — сбор/пересылка метрик куда-либо (продвинутый collector/relay);
+#   vmalert — вычисление алертов по правилам (нужен для прогона в реальном
+#       времени, заменяется офлайн-проверкой в vmalert-tool);
+#   vmauth — прокси-аутентификация перед бэкендом VM;
+#   vmbackup/vmrestore — бэкап/восстановление данных VM.
+# ============================================================================
+monitoring_binaries:
+  - name: vmalert-tool
+    source: github
+    repo: VictoriaMetrics/VictoriaMetrics
+    url: "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/{tag}/vmutils-linux-amd64-v{version}.tar.gz"
+    archive: tar
+    member: vmalert-tool-prod

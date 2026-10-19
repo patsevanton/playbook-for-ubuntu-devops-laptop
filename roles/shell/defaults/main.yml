@@ -178,6 +178,16 @@ shell_binaries:
     url: "https://github.com/dalance/procs/releases/download/{tag}/procs-v{version}-x86_64-linux.zip"
     archive: zip
     member: procs
+  # grex — генерирует регулярное выражение прямо из примеров строк (вводишь
+  # несколько совпадений — получаешь готовый pattern; удобно, когда самому
+  # собирать regex лень). Релиз — тарболл
+  # grex-v{version}-x86_64-unknown-linux-musl.tar.gz, бинарник grex в корне.
+  - name: grex
+    source: github
+    repo: pemistahl/grex
+    url: "https://github.com/pemistahl/grex/releases/download/{tag}/grex-v{version}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: grex
   # --- cheat — собственные шпаргалки команд ------------------------------------
 # Релиз cheat — gzip-сжатый одиночный бинарник cheat-linux-amd64.gz (НЕ тарболл),
 # поэтому роль binaries не подходит (понимает только tar/tarxz/zip/none).
