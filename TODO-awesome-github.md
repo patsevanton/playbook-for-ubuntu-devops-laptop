@@ -210,8 +210,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       — ✅ добавлен в плейбук (роль `docker`, бинарником из тарболла).
 - [ ] **dry** — терминальный менеджер Docker-контейнеров, образов, сетей.
       *(`go` / `release`)* — [moncho/dry](https://github.com/moncho/dry)
-- [ ] **ctop** — `top` для метрик контейнеров. *(`go` / `release`)* —
+- [x] ⭐ **ctop** — `top` для метрик контейнеров. *(`go` / `release`; ⭐ 17.8k)* —
       [bcicen/ctop](https://github.com/bcicen/ctop)
+      — ✅ добавлен в плейбук (роль `docker`, одиночный бинарник ctop-<ver>-linux-amd64).
 - [x] **lazydocker** — TUI-менеджер Docker/Podman (от автора lazygit). *(`go`)* —
       [jesseduffield/lazydocker](https://github.com/jesseduffield/lazydocker)
       — ✅ добавлен в плейбук (роль `docker`, бинарником из тарболла).
@@ -280,8 +281,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 - [ ] **bpftop** — real-time обзор запущенных eBPF-программ и их CPU. *(`deb`)* —
       [jfernandez/bpftop](https://github.com/jfernandez/bpftop)
-- [ ] **ecapture** — захват TLS/SSL plaintext через eBPF без MITM-прокси.
-      *(`deb`)* — [gojue/ecapture](https://github.com/gojue/ecapture)
+- [x] ⭐ **ecapture** — захват TLS/SSL plaintext через eBPF без MITM-прокси.
+      *(`deb`; ⭐ 15.5k)* — [gojue/ecapture](https://github.com/gojue/ecapture)
+      — ✅ добавлен в плейбук (роль `network`, бинарник ecapture-<ver>-linux-amd64).
 - [ ] **linnix** — eBPF-наблюдаемость с AI-детекцией инцидентов. *(`deb`)* —
       [linnix-os/linnix](https://github.com/linnix-os/linnix)
 - [ ] **oryx** — TUI-сниффер трафика на eBPF. *(`cargo`, нужен BPF)* —
@@ -302,8 +304,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       соединениям. *(`deb` из релиза / `tar.gz` + setcap; ⭐ 12k)* —
       [imsnif/bandwhich](https://github.com/imsnif/bandwhich)
       — ✅ добавлен в плейбук (роль `network`, бинарник + setcap CAP_NET_RAW).
-- [ ] **sniffnet** — кроссплатформенный GUI-мониторинг сетевого трафика.
-      *(`deb`)* — [GyulyVGC/sniffnet](https://github.com/GyulyVGC/sniffnet)
+- [x] ⭐ **sniffnet** — кроссплатформенный GUI-мониторинг сетевого трафика.
+      *(`deb`; ⭐ 41.6k)* — [GyulyVGC/sniffnet](https://github.com/GyulyVGC/sniffnet)
+      — ✅ добавлен в плейбук (роль `network`, официальный .deb Sniffnet_LinuxDEB_amd64.deb).
 - [ ] **trippy** — TUI traceroute с историей и статистикой по хопам.
       *(`deb` / `snap`)* — [fujiapple852/trippy](https://github.com/fujiapple852/trippy)
       — ✅ добавлен в плейбук (роль `network`, бинарник trip под именем trippy).
@@ -318,10 +321,12 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       (tar.gz, статический бинарник).
 - [ ] **tcping** — `ping` поверх TCP-портов. *(`deb`)* —
       [pouriyajamshidi/tcping](https://github.com/pouriyajamshidi/tcping)
-- [ ] **termshark** — TUI-интерфейс к tshark/Wireshark. *(`go`)* —
+- [x] ⭐ **termshark** — TUI-интерфейс к tshark/Wireshark. *(`go`; ⭐ 10.0k)* —
       [gcla/termshark](https://github.com/gcla/termshark)
-- [ ] **websocat** — netcat/curl для WebSockets. *(`deb`)* —
+      — ✅ добавлен в плейбук (роль `network`, бинарник termshark + зависимость tshark).
+- [x] ⭐ **websocat** — netcat/curl для WebSockets. *(`deb`; ⭐ 8.7k)* —
       [vi/websocat](https://github.com/vi/websocat)
+      — ✅ добавлен в плейбук (роль `network`, бинарник websocat.x86_64-unknown-linux-musl).
 - [x] **hurl** — запуск и тестирование HTTP-запросов из plain-text файлов.
       *(`deb`; ⭐ 19.3k)* — [Orange-OpenSource/hurl](https://github.com/Orange-OpenSource/hurl)
       — ✅ добавлен в плейбук (роль `network`, бинарником из тарболла).

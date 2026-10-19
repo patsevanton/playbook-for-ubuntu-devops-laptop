@@ -7,6 +7,8 @@ network_packages:
   - httpie
   - bind9-dnsutils
   - telnet
+  # tshark — CLI Wireshark (нужен termshark как зависимость для разбора PCAP).
+  - tshark
 
 # rkn-block-checker — Python-CLI: разбирает, каким способом провайдер режет
 # доступ (DNS-подмена, TCP reset, TLS DPI по SNI, заглушка провайдера).
@@ -89,6 +91,42 @@ network_binaries:
     url: "https://github.com/fujiapple852/trippy/releases/download/{tag}/trippy-{version}-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: trippy-{version}-x86_64-unknown-linux-gnu/trip
+  # ecapture — захват TLS-трафика приложений без CA-сертификатов через eBPF
+  # (SSL/TLS plaintext из зашифрованных соединений). Релиз —
+  # ecapture-{tag}-linux-amd64.tar.gz, бинарник ecapture лежит в каталоге
+  # ecapture-v{version}-linux-amd64/ архива (нужен eBPF — ядро с CONFIG_BPF).
+  - name: ecapture
+    source: github
+    repo: gojue/ecapture
+    url: "https://github.com/gojue/ecapture/releases/download/{tag}/ecapture-{tag}-linux-amd64.tar.gz"
+    archive: tar
+    member: ecapture-v{version}-linux-amd64/ecapture
+  # termshark — TUI для Wireshark/tcpdump: удобный просмотр PCAP в терминале.
+  # Требует tshark в рантайме (добавлен в network_packages). Релиз —
+  # termshark_{version}_linux_x64.tar.gz, бинарник лежит в каталоге
+  # termshark_{version}_linux_x64/ архива.
+  - name: termshark
+    source: github
+    repo: gcla/termshark
+    url: "https://github.com/gcla/termshark/releases/download/{tag}/termshark_{version}_linux_x64.tar.gz"
+    archive: tar
+    member: termshark_{version}_linux_x64/termshark
+  # websocat — swiss-army knife для WebSocket: CLI-клиент/сервер, проброс,
+  # тестирование (аналог netcat/socat для ws://). Одиночный статический
+  # бинарник websocat.x86_64-unknown-linux-musl (без версии в имени файла).
+  - name: websocat
+    source: github
+    repo: vi/websocat
+    url: "https://github.com/vi/websocat/releases/download/{tag}/websocat.x86_64-unknown-linux-musl"
+    archive: none
+
+# --- Sniffnet: графический TUI-анализатор сетевого трафика -----------------
+# Ставится официальным .deb из GitHub-релиза (артефакт без версии в имени).
+# Тег последнего релиза берётся из редиректа releases/latest.
+sniffnet_install: true
+sniffnet_repo: GyulyVGC/sniffnet
+sniffnet_deb_name: Sniffnet_LinuxDEB_amd64.deb
+sniffnet_deb_dir: "{{ tmp_dir }}/sniffnet"
 
 # sshx — совместный терминал в браузере (мгновенный шаринг сессии). Релизных
 # ассетов на GitHub нет: официальный install-скрипт качает sshx-<arch>-musl.tar.gz

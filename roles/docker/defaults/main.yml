@@ -43,3 +43,10 @@ docker_binaries:
     url: "https://github.com/jesseduffield/lazydocker/releases/download/{tag}/lazydocker_{version}_Linux_x86_64.tar.gz"
     archive: tar
     member: lazydocker
+  # ctop — `top` для метрик контейнеров (CPU/память/сеть по каждому контейнеру).
+  # Одиночный статический бинарник из релиза: ctop-<ver>-linux-amd64 (без v в имени файла).
+  - name: ctop
+    source: github
+    repo: bcicen/ctop
+    url: "https://github.com/bcicen/ctop/releases/download/{tag}/ctop-{version}-linux-amd64"
+    archive: none

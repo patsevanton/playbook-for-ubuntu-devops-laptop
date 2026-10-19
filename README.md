@@ -75,7 +75,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan,
 │   │                           #   lazygit
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2,
-│   │                           #   dive, lazydocker
+│   │                           #   dive, lazydocker, ctop
 │   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
 │   │                           #   stern, flate, flux-tools, cty, diffyml,
 │   │                           #   kubectl-k8i, kubespy, kubecolor, kube-capacity,
@@ -92,7 +92,8 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
-│   │                           #   sshx, rkn-block-checker (pipx)
+│   │                           #   sshx, rkn-block-checker (pipx), ecapture,
+│   │                           #   termshark, websocat, sniffnet
 │   ├── opencode/               # opencode (из npm-реестра)
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
@@ -125,7 +126,8 @@ ansible-lint                                   # проверка стиля (pr
    (локальный запуск GitLab CI), `pre-commit`, `reposcan` и `lazygit`
    (TUI для git).
 4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2,
-   а также `dive` (анализ слоёв образа) и `lazydocker` (TUI-менеджер контейнеров).
+   а также `dive` (анализ слоёв образа), `lazydocker` (TUI-менеджер контейнеров)
+    и `ctop` (`top` для метрик контейнеров).
 5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
    stern, flate, flux-tools (офлайн-рендер и дифф Flux GitOps), cty (sample-YAML
    из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод),
@@ -160,7 +162,10 @@ ansible-lint                                   # проверка стиля (pr
     (проверка распространения DNS), `bandwhich` (трафик по процессам),
     `q` (DNS-клиент с DoH/DoT/DoQ), `xh` (HTTP-клиент), `hurl` (HTTP-запросы
     из plain-text `.hurl`-файлов), `trippy` (TUI traceroute со статистикой),
-    `sshx` (совместный терминал в браузере) и
+    `sshx` (совместный терминал в браузере),
+    `ecapture` (eBPF-захват TLS/SSL plaintext), `termshark` (TUI к
+    Wireshark/tshark), `websocat` (netcat для WebSockets) и `sniffnet`
+    (графический TUI-мониторинг трафика, .deb), а также
     `rkn-block-checker` (через pipx), `kyanos` (eBPF-анализ сетевых запросов)
     и `showcert` (разбор X.509-сертификатов, через pipx).
 14. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
@@ -245,6 +250,9 @@ ansible-lint                                   # проверка стиля (pr
 | xh | github.com/ducaale/xh |
 | hurl | github.com/Orange-OpenSource/hurl |
 | trippy | github.com/fujiapple852/trippy |
+| ecapture | github.com/gojue/ecapture |
+| termshark | github.com/gcla/termshark |
+| websocat | github.com/vi/websocat |
 | eget | github.com/zyedidia/eget |
 | difftastic | github.com/Wilfred/difftastic |
 | delta | github.com/dandavison/delta |
@@ -256,6 +264,7 @@ ansible-lint                                   # проверка стиля (pr
 | lazygit | github.com/jesseduffield/lazygit |
 | lazydocker | github.com/jesseduffield/lazydocker |
 | dive | github.com/wagoodman/dive |
+| ctop | github.com/bcicen/ctop |
 | sops | github.com/getsops/sops |
 | grype | github.com/anchore/grype |
 | zellij | github.com/zellij-org/zellij |
@@ -275,6 +284,8 @@ ansible-lint                                   # проверка стиля (pr
 S3 (без релиз-ассетов GitHub, роль `network`), `headlamp` — из
 `.deb`-пакета GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
+`sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `tshark` — пакетом
+Ubuntu как зависимость `termshark` (роль `network`),
 глобальные skills для opencode — через `npx skills add` (роль `skills`, см.
 раздел «Глобальные skills для opencode»).
 
