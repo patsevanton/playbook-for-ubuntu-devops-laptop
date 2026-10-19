@@ -55,6 +55,15 @@
     dest: "{{ starship_config_file }}"
     mode: "0644"
 
+- name: Установить cheat (собственные шпаргалки команд)
+  ansible.builtin.include_tasks:
+    file: cheat.yml
+
+- name: Установить tldr (краткие примеры команд) через npm
+  ansible.builtin.include_tasks:
+    file: tldr.yml
+  when: tldr_install
+
 - name: Установить JetBrainsMono Nerd Font (иконки для prompt и файлов)
   ansible.builtin.include_tasks:
     file: nerd-font.yml

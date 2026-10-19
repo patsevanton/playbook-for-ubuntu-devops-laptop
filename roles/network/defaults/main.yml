@@ -137,6 +137,16 @@ network_binaries:
     url: "https://github.com/mr-karan/doggo/releases/download/{tag}/doggo-linux-x86_64.tar.gz"
     archive: tar
     member: doggo
+  # gotty — делится терминалом как веб-приложением (команда в браузере).
+  # Дополняет sshx (совместный терминал): пара интерактивных консольных утилит
+  # getty на 127.0.0.1. Релиз — тарболл gotty_linux_amd64.tar.gz, бинарник
+  # gotty в корне архива.
+  - name: gotty
+    source: github
+    repo: yudai/gotty
+    url: "https://github.com/yudai/gotty/releases/download/{tag}/gotty_linux_amd64.tar.gz"
+    archive: tar
+    member: gotty
 
 # --- Sniffnet: графический TUI-анализатор сетевого трафика -----------------
 # Ставится официальным .deb из GitHub-релиза (артефакт без версии в имени).

@@ -86,15 +86,18 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   s5cmd, tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
-│   ├── secrets/                # direnv, vault, gitleaks, sops, grype
+│   ├── secrets/                # direnv, vault, gitleaks, sops, grype, osquery
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
 │   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
 │   │                           #   lf, gomplate, yamlfmt, gum, fastfetch, procs,
+│   │                           #   cheat, tldr,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
-│   │                           #   tcping, doggo, sshx, rkn-block-checker (pipx),
+│   │                           #   tcping, doggo, gotty, sshx, rkn-block-checker (pipx),
 │   │                           #   ecapture, termshark, websocat, sniffnet
+│   ├── ebpf/                   # eBPF-наблюдаемость: pwru, bpftop, oryx,
+│   │                           #   pktstat-bpf, tracee
 │   ├── opencode/               # opencode (из npm-реестра)
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
@@ -145,8 +148,8 @@ ansible-lint                                   # проверка стиля (pr
    плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
-9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git) и grype
-   (сканер уязвимостей образов и ФС).
+9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git), grype
+   (сканер уязвимостей образов и ФС) и osquery (SQL-подобная инструментация ОС).
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
     M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
@@ -159,7 +162,8 @@ ansible-lint                                   # проверка стиля (pr
     (умная история команд по Ctrl-R), lf (терминальный файловый менеджер),
     gomplate (шаблонизатор конфигов), yamlfmt (форматтер YAML), gum
     (примитивы для «красивых» shell-скриптов), fastfetch (информация о
-    системе) и procs (современная замена ps).
+    системе), procs (современная замена ps), cheat (собственные шпаргалки
+    команд) и tldr (краткие примеры команд).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
@@ -168,20 +172,24 @@ ansible-lint                                   # проверка стиля (pr
     `q` (DNS-клиент с DoH/DoT/DoQ), `doggo` (DNS-клиент с человекочитаемым
     цветным выводом), `xh` (HTTP-клиент), `hurl` (HTTP-запросы
     из plain-text `.hurl`-файлов), `trippy` (TUI traceroute со статистикой),
-    `tcping` (`ping` поверх TCP-портов), `sshx` (совместный терминал в браузере),
+    `tcping` (`ping` поверх TCP-портов), `gotty` (терминал как веб-приложение),
+    `sshx` (совместный терминал в браузере),
     `ecapture` (eBPF-захват TLS/SSL plaintext), `termshark` (TUI к
     Wireshark/tshark), `websocat` (netcat для WebSockets) и `sniffnet`
     (графический TUI-мониторинг трафика, .deb), а также
     `rkn-block-checker` (через pipx), `kyanos` (eBPF-анализ сетевых запросов)
     и `showcert` (разбор X.509-сертификатов, через pipx).
-14. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
-15. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
+14. Ставит eBPF-наблюдаемость: `pwru` (eBPF-отладчик сетевого стека), `bpftop`
+    (обзор запущенных eBPF-программ), `oryx` (TUI-сниффер трафика), `pktstat-bpf`
+    (монитор трафика по процессам) и `tracee` (runtime-security и форензика).
+15. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
+16. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
-16. Добавляет пользователя в группу `docker`.
-17. Ставит NORA artifact registry: `.deb`-пакет, локальный TLS-сертификат через
+17. Добавляет пользователя в группу `docker`.
+18. Ставит NORA artifact registry: `.deb`-пакет, локальный TLS-сертификат через
     mkcert, автодоверие CA у клиентов (системный store, Docker, npm, pip, Java)
     и Caddy как TLS-терминатор.
-18. В конце проверяет установку и печатает версии всех утилит.
+19. В конце проверяет установку и печатает версии всех утилит.
 
 ---
 
@@ -262,6 +270,10 @@ ansible-lint                                   # проверка стиля (pr
 | ecapture | github.com/gojue/ecapture |
 | termshark | github.com/gcla/termshark |
 | websocat | github.com/vi/websocat |
+| pwru | github.com/cilium/pwru |
+| bpftop | github.com/jfernandez/bpftop |
+| oryx | github.com/pythops/oryx |
+| pktstat-bpf | github.com/dkorunic/pktstat-bpf |
 | eget | github.com/zyedidia/eget |
 | difftastic | github.com/Wilfred/difftastic |
 | delta | github.com/dandavison/delta |
@@ -276,6 +288,9 @@ ansible-lint                                   # проверка стиля (pr
 | gum | github.com/charmbracelet/gum |
 | fastfetch | github.com/fastfetch-cli/fastfetch |
 | procs | github.com/dalance/procs |
+| cheat | github.com/cheat/cheat |
+| tldr | registry.npmjs.org/tldr |
+| gotty | github.com/yudai/gotty |
 | oras | github.com/oras-project/oras |
 | lazygit | github.com/jesseduffield/lazygit |
 | lazydocker | github.com/jesseduffield/lazydocker |
@@ -300,8 +315,13 @@ ansible-lint                                   # проверка стиля (pr
 S3 (без релиз-ассетов GitHub, роль `network`), `headlamp` — из
 `.deb`-пакета GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
-`sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `tshark` — пакетом
-Ubuntu как зависимость `termshark` (роль `network`),
+`sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из
+gzip-сжатого одиночного бинарника релиза (роль `shell`), `osquery` — из
+`.deb`-пакета GitHub-релиза (роль `secrets`), `tldr` — через `npm install -g`
+(роль `shell`), `tshark` — пакетом
+Ubuntu как зависимость `termshark` (роль `network`), `tracee` — из тарболла
+GitHub-релиза вместе с сигнатурами безопасности в `/opt/tracee` + симлинк в
+`/usr/local/bin` (роль `ebpf`),
 глобальные skills для opencode — через `npx skills add` (роль `skills`, см.
 раздел «Глобальные skills для opencode»).
 
@@ -747,6 +767,98 @@ pgcenter report -f pgcenter.stat.tar                # отчёт по запис
 
 Для расширенной статистики в самой базе есть `pgcenter config` — ставит и
 снимает свою схему сбора статистики.
+
+---
+
+## eBPF-наблюдаемость: pwru, bpftop, oryx, pktstat-bpf, tracee
+
+Роль `ebpf` ставит пять локальных eBPF-утилит для отладки ядра, сети и
+runtime-безопасности:
+
+- **pwru** (`cilium/pwru`) — eBPF-отладчик сетевого стека Linux: показывает путь
+  пакета через ядро и «где он потерялся» (drop/reroute, таблицы маршрутизации,
+  iptables, XDP).
+- **bpftop** (`jfernandez/bpftop`) — real-time обзор запущенных eBPF-программ:
+  сколько CPU они занимают и сколько событий обрабатывают.
+- **oryx** (`pythops/oryx`) — TUI-сниффер сетевого трафика на eBPF: tcpdump в
+  интерактивном интерфейсе, фильтры по протоколам и направлению.
+- **pktstat-bpf** (`dkorunic/pktstat-bpf`) — монитор трафика на eBPF (TC/XDP/
+  kprobes): сводка по потокам, процессам и скоростям в терминале.
+- **tracee** (`aquasecurity/tracee`) — runtime-security и форензика Linux: сотни
+  событий (syscalls, файлы, сеть, контейнеры) и встроенные сигнатуры угроз.
+
+```bash
+sudo pwru                                  # где потерялся пакет (можно pcap-filter)
+sudo bpftop                                # обзор eBPF-программ в реальном времени
+sudo oryx -i eth0                          # TUI-сниффер трафика
+sudo pktstat-bpf --tui                     # сводка трафика по процессам
+sudo tracee                                # live-события системы
+tracee version                             # версия
+```
+
+Все они работают с eBPF в ядре и запускаются через `sudo` (нужны
+CAP_BPF/CAP_PERFMON/CAP_SYS_ADMIN), поэтому `setcap` на бинарники не навешиваем.
+Для работы нужны права на загрузку BPF-программ (на десктопе Ubuntu это доступно
+по умолчанию; в системах с `kernel.unprivileged_bpf_disabled=1` потребуется root).
+
+`tracee` ставится не через роль `binaries`: кроме самого бинарника релиз
+содержит Go-плагин с сигнатурами безопасности (`dist/signatures/builtin.so`).
+Бинарник кладётся в `/opt/tracee/` вместе с каталогом `signatures/`, а в
+`/usr/local/bin/tracee` — симлинк (tracee разрешает симлинк через
+`os.Executable()` и находит сигнатуры в `<каталог бинарника>/signatures`).
+
+---
+
+## Шпаргалки команд: navi, cheat, tldr
+
+Три взаимодополняющих инструмента для «как запускается команда» ставятся ролью
+`shell` (navi — уже была, cheat и tldr добавлены):
+
+- **tldr** (`tldr-pages/tldr`) — каноническая community-база кратких примеров
+  для сотен стандартных CLI-утилит. Клиент ставится через `npm install -g`.
+- **cheat** (`cheat/cheat`) — собственные шпаргалки: создаёте и редактируете
+  `cheatsheets/` и `cheatpaths`, версионируете в git.
+- **navi** (`denisidoro/navi`) — интерактивный выбор шпаргалок поверх fzf
+  (свои + community-коллекции).
+
+```bash
+tldr tar                                   # краткие примеры по утилите
+cheat tar                                  # свои шпаргалки по утилите
+navi                                       # интерактивный поиск шпаргалки
+```
+
+---
+
+## osquery — SQL-подобная инструментация ОС
+
+Роль `secrets` ставит **osquery** (`osquery/osquery`) официальным `.deb` из
+GitHub-релиза. Бинарники `/opt/osquery/bin/osqueryd` (демон) и `osqueryi`
+(интерактивная консоль) доступны через симлинки в `/usr/bin`.
+
+```bash
+osqueryi "SELECT hostname, cpu_brand, physical_memory FROM system_info;"
+osqueryi "SELECT pid, name, path FROM processes WHERE name LIKE '%ssh';"
+```
+
+Пакет кладёт и systemd-юнит `osqueryd.service`, но плейбук его не запускает:
+без файла конфигурации `/etc/osquery/osquery.conf` демон всё равно не
+поднимется, поэтому автозагрузку не трогаем и дефолты не ломаем (запуск — через
+`osqueryi` или настройка демона вручную).
+
+---
+
+## gotty — терминал как веб-приложение
+
+Роль `network` ставит **gotty** (`yudai/gotty`) — делится командами в браузере:
+
+```bash
+gotty -w htop                              # открыть htop в браузере (читает ввод)
+gotty -p 8080 -w top                       # на конкретном порту
+```
+
+Служит только на loopback по умолчанию; в отличие от `sshx` (внешний
+совместный терминал), gotty разворачивается локально и сам не ходит в сеть —
+сервис не поднимаем.
 
 ---
 

@@ -283,24 +283,29 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## eBPF и системная наблюдаемость
 
-- [ ] **bpftop** — real-time обзор запущенных eBPF-программ и их CPU. *(`deb`)* —
+- [x] **bpftop** — real-time обзор запущенных eBPF-программ и их CPU. *(`deb`)* —
       [jfernandez/bpftop](https://github.com/jfernandez/bpftop)
+      — ✅ добавлен в плейбук (роль `ebpf`, одиночный бинарник bpftop-x86_64).
 - [x] ⭐ **ecapture** — захват TLS/SSL plaintext через eBPF без MITM-прокси.
       *(`deb`; ⭐ 15.5k)* — [gojue/ecapture](https://github.com/gojue/ecapture)
       — ✅ добавлен в плейбук (роль `network`, бинарник ecapture-<ver>-linux-amd64).
 - [ ] **linnix** — eBPF-наблюдаемость с AI-детекцией инцидентов. *(`deb`)* —
       [linnix-os/linnix](https://github.com/linnix-os/linnix)
-- [ ] **oryx** — TUI-сниффер трафика на eBPF. *(`cargo`, нужен BPF)* —
+- [x] **oryx** — TUI-сниффер трафика на eBPF. *(`cargo`, нужен BPF)* —
       [pythops/oryx](https://github.com/pythops/oryx)
+      — ✅ добавлен в плейбук (роль `ebpf`, одиночный бинарник oryx-x86_64-musl).
 - [x] ⭐ **kyanos** — анализ сетевых запросов через eBPF (латентность, payload).
       *(`go`)* — [hengyoush/kyanos](https://github.com/hengyoush/kyanos)
       — ✅ добавлен в плейбук (роль `network`, бинарник kyanos_*_linux_amd64).
-- [ ] **pktstat-bpf** — монитор Ethernet-трафика на eBPF (TC/XDP/kprobes).
+- [x] **pktstat-bpf** — монитор Ethernet-трафика на eBPF (TC/XDP/kprobes).
       *(`deb`)* — [dkorunic/pktstat-bpf](https://github.com/dkorunic/pktstat-bpf)
-- [ ] **pwru** — eBPF-отладчик сетевого стека Linux («где потерялся пакет»).
+      — ✅ добавлен в плейбук (роль `ebpf`, бинарник из тарболла pktstat-bpf_Linux_x86_64).
+- [x] **pwru** — eBPF-отладчик сетевого стека Linux («где потерялся пакет»).
       *(`go`)* — [cilium/pwru](https://github.com/cilium/pwru)
-- [ ] **tracee** — runtime-security и форензика Linux на eBPF. *(`go`)* —
+      — ✅ добавлен в плейбук (роль `ebpf`, бинарник из тарболла pwru-linux-amd64).
+- [x] **tracee** — runtime-security и форензика Linux на eBPF. *(`go`)* —
       [aquasecurity/tracee](https://github.com/aquasecurity/tracee)
+      — ✅ добавлен в плейбук (роль `ebpf`, бинарник + сигнатуры в `/opt/tracee`).
 
 ## Сеть и сетевая диагностика
 
@@ -370,8 +375,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [ ] **EternalTerminal** — переподключаемый удалённый shell (сессия переживает
       обрыв). *(`apt` из репо ET; в latest .deb только arm64)* —
       [MisterTea/EternalTerminal](https://github.com/MisterTea/EternalTerminal)
-- [ ] **gotty** — делится терминалом как веб-приложением. *(`go` / `release`)* —
+- [x] **gotty** — делится терминалом как веб-приложением. *(`go` / `release`)* —
       [yudai/gotty](https://github.com/yudai/gotty)
+      — ✅ добавлен в плейбук (роль `network`, бинарником из тарболла).
 - [ ] **assh** — «умный» ssh-клиент: прокси, jump-хосты, генерация конфигов.
       *(`deb` / `go`)* — [moul/assh](https://github.com/moul/assh)
 
@@ -407,8 +413,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       установки. *(`pipx`)* — [ochronasec/ochrona-cli](https://github.com/ochronasec/ochrona-cli)
 - [ ] **vulncov** — корреляция Semgrep-сканов с покрытием тестами. *(`pipx`)* —
       [mllamazares/vulncov](https://github.com/mllamazares/vulncov)
-- [ ] **osquery** — SQL-подобная инструментация и мониторинг ОС. *(`deb`)* —
+- [x] **osquery** — SQL-подобная инструментация и мониторинг ОС. *(`deb`)* —
       [osquery/osquery](https://github.com/osquery/osquery)
+      — ✅ добавлен в плейбук (роль `secrets`, `.deb` из релиза; демон не поднимаем).
 - [ ] **KubeHound** — построение путей атак в Kubernetes. *(`go`)* —
       [DataDog/KubeHound](https://github.com/DataDog/KubeHound)
 - [ ] **kubestriker** — быстрый security-аудит Kubernetes. *(`pipx`)* —
@@ -459,10 +466,12 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **navi** — интерактивные шпаргалки для команд (поверх fzf). *(`cargo`)* —
       [denisidoro/navi](https://github.com/denisidoro/navi)
       — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла).
-- [ ] **cheat** — создание и просмотр собственных шпаргалок команд. *(`go`)* —
+- [x] **cheat** — создание и просмотр собственных шпаргалок команд. *(`go`)* —
       [cheat/cheat](https://github.com/cheat/cheat)
-- [ ] **tldr** — краткие примеры использования команд. *(`npm`)* —
+      — ✅ добавлен в плейбук (роль `shell`, отдельной задачей — релизный `.gz`).
+- [x] **tldr** — краткие примеры использования команд. *(`npm`)* —
       [tldr-pages/tldr](https://github.com/tldr-pages/tldr)
+      — ✅ добавлен в плейбук (роль `shell`, `npm install -g`).
 - [x] **gum** — «красивые» примитивы для shell-скриптов. *(`deb`)* —
       [charmbracelet/gum](https://github.com/charmbracelet/gum)
       — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).

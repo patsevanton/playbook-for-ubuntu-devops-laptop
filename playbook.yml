@@ -43,6 +43,8 @@
       tags: [shell]
     - role: network
       tags: [network]
+    - role: ebpf
+      tags: [ebpf]
     - role: opencode
       tags: [opencode]
     - role: ai_tools
@@ -134,6 +136,11 @@
         - "{{ bin_dir }}/termshark -v"
         - "{{ bin_dir }}/websocat --version"
         - "{{ bin_dir }}/zellij --version"
+        - "{{ bin_dir }}/pwru --version"
+        - "{{ bin_dir }}/bpftop --version"
+        - "{{ bin_dir }}/oryx --version"
+        - "{{ bin_dir }}/pktstat-bpf --version"
+        - "{{ bin_dir }}/tracee version"
         - "{{ bin_dir }}/navi --version"
         - "{{ bin_dir }}/fx --version"
         - "{{ bin_dir }}/hl --version"
@@ -145,6 +152,10 @@
         - "{{ bin_dir }}/fastfetch --version"
         - "{{ bin_dir }}/procs --version"
         - "{{ bin_dir }}/oras version"
+        - "{{ bin_dir }}/cheat --version"
+        - "{{ bin_dir }}/tldr --version"
+        - "{{ bin_dir }}/gotty --version"
+        - "osqueryi --version"
         - "{{ bin_dir }}/lazygit --version"
         - "{{ bin_dir }}/lazydocker --version"
         - "{{ bin_dir }}/dive --version"

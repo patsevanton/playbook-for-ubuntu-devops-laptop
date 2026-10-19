@@ -178,6 +178,17 @@ shell_binaries:
     url: "https://github.com/dalance/procs/releases/download/{tag}/procs-v{version}-x86_64-linux.zip"
     archive: zip
     member: procs
+  # --- cheat — собственные шпаргалки команд ------------------------------------
+# Релиз cheat — gzip-сжатый одиночный бинарник cheat-linux-amd64.gz (НЕ тарболл),
+# поэтому роль binaries не подходит (понимает только tar/tarxz/zip/none).
+# Ставится отдельной задачей tasks/cheat.yml (скачивание + gunzip + копирование).
+# --- tldr — краткие примеры команд (npm) -------------------------------------
+# Ставится через npm (единственный официальный способ на Ubuntu; пакета в apt
+# нет). Кладём глобально в bin_dir (/usr/local/bin) — это системный prefix npm,
+# а /usr/local/bin принадлежит root, поэтому задача идёт с become.
+tldr_install: true
+tldr_package: tldr
+tldr_bin: "{{ bin_dir }}/tldr"
 
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"

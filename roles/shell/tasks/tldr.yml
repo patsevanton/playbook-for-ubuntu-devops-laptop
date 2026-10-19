@@ -1,0 +1,27 @@
+---
+# ============================================================================
+# tldr — краткие готовые примеры использования команд (community-driven man
+# pages). Дополняет navi (личные шпаргалки) и cheat (свои cheatpath'ы):
+# это каноническая база «how do I …» для сотен стандартных CLI-утилит.
+#
+# Ставится через npm: npm уже есть (роль runtimes), пакета tldr в apt нет.
+# Системный npm-префикс — /usr/local, а /usr/local/bin принадлежит root,
+# поэтому задача идёт с become (по образцу роли opencode, которая копирует
+# свой бинарник в bin_dir под root). Кладётся ровно в целевой bin_dir
+# плейбука, PATH трогать не нужно.
+#
+# Идемпотентность: если {{ bin_dir }}/tldr уже есть — ничего не делаем.
+# Обновить = удалить файл или `sudo npm update -g tldr`.
+# ============================================================================
+
+- name: Проверить, установлен ли tldr
+  ansible.builtin.stat:
+    path: "{{ tldr_bin }}"
+  register: tldr_stat
+
+- name: Установить tldr через npm
+  become: true
+  when: not tldr_stat.stat.exists
+  ansible.builtin.command:
+    cmd: "npm install --global --prefix /usr/local {{ tldr_package }}"
+  changed_when: true
