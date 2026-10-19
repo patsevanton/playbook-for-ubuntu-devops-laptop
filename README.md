@@ -88,11 +88,11 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
-│   │                           #   delta, gdu, dust, JetBrainsMono Nerd Font,
-│   │                           #   mcommander, конфиг shell
+│   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
+│   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
-│   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, sshx,
-│   │                           #   rkn-block-checker (pipx)
+│   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
+│   │                           #   sshx, rkn-block-checker (pipx)
 │   ├── opencode/               # opencode (из npm-реестра)
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
@@ -147,17 +147,20 @@ ansible-lint                                   # проверка стиля (pr
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
     M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
     difftastic (структурный diff), delta (улучшенный git-diff), gdu
-    (анализатор диска), dust (наглядный du), zellij (терминальный
-    мультиплексор), navi (шпаргалки команд поверх fzf), fx (интерактивный
-    просмотр JSON), hl (просмотр JSON-логов) и mcfly (умная история команд
-    по Ctrl-R).
+    (анализатор диска), dust (наглядный du), dasel (запросы к
+    JSON/YAML/TOML/XML/CSV), jc (конвертация вывода CLI в JSON), sd
+    (интуитивная замена sed), shellcheck (статический анализ shell-скриптов),
+    zellij (терминальный мультиплексор), navi (шпаргалки команд поверх fzf),
+    fx (интерактивный просмотр JSON), hl (просмотр JSON-логов) и mcfly
+    (умная история команд по Ctrl-R).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
 13. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
     (проверка распространения DNS), `bandwhich` (трафик по процессам),
     `q` (DNS-клиент с DoH/DoT/DoQ), `xh` (HTTP-клиент), `hurl` (HTTP-запросы
-    из plain-text `.hurl`-файлов), `sshx` (совместный терминал в браузере) и
+    из plain-text `.hurl`-файлов), `trippy` (TUI traceroute со статистикой),
+    `sshx` (совместный терминал в браузере) и
     `rkn-block-checker` (через pipx), `kyanos` (eBPF-анализ сетевых запросов)
     и `showcert` (разбор X.509-сертификатов, через pipx).
 14. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
@@ -180,7 +183,7 @@ ansible-lint                                   # проверка стиля (pr
 | base | ca-certificates, curl, wget, git, jq, unzip, zip, tar, gzip, xz-utils, bash-completion, lsb-release, ansible-lint, pipx | база для работы, самого плейбука, проверки стиля и установки molecule |
 | runtimes | python3-venv, python3-pip, python3-dev, golang-go, nodejs, npm, openjdk-21-jdk | языковые рантаймы |
 | secrets | direnv | окружение по каталогам |
-| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig | удобная работа в терминале |
+| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck | удобная работа в терминале, статический анализ shell-скриптов |
 | network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
 | audio | pipewire, pipewire-bin, pipewire-pulse, wireplumber, hicolor-icon-theme | шумоподавление микрофона (HushMic) |
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
@@ -241,11 +244,15 @@ ansible-lint                                   # проверка стиля (pr
 | q | github.com/natesales/q |
 | xh | github.com/ducaale/xh |
 | hurl | github.com/Orange-OpenSource/hurl |
+| trippy | github.com/fujiapple852/trippy |
 | eget | github.com/zyedidia/eget |
 | difftastic | github.com/Wilfred/difftastic |
 | delta | github.com/dandavison/delta |
 | gdu | github.com/dundee/gdu |
 | dust | github.com/bootandy/dust |
+| dasel | github.com/TomWright/dasel |
+| jc | github.com/kellyjonbrazil/jc |
+| sd | github.com/chmln/sd |
 | lazygit | github.com/jesseduffield/lazygit |
 | lazydocker | github.com/jesseduffield/lazydocker |
 | dive | github.com/wagoodman/dive |

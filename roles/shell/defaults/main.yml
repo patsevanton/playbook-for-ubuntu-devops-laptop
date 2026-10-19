@@ -11,6 +11,8 @@ shell_packages:
   - fd-find
   # fontconfig даёт fc-cache — им обновляется кэш шрифтов (Nerd Font ниже).
   - fontconfig
+  # shellcheck — статический анализ shell-скриптов на ошибки и баги.
+  - shellcheck
 
 shell_binaries:
   - name: starship
@@ -100,6 +102,29 @@ shell_binaries:
     url: "https://github.com/bootandy/dust/releases/download/{tag}/dust-v{version}-x86_64-unknown-linux-musl.tar.gz"
     archive: tar
     member: dust-v{version}-x86_64-unknown-linux-musl/dust
+  # dasel — запросы и правка JSON/YAML/TOML/XML/CSV/HCL одной утилитой.
+  # Одиночный статический бинарник dasel_linux_amd64 из релиза.
+  - name: dasel
+    source: github
+    repo: TomWright/dasel
+    url: "https://github.com/TomWright/dasel/releases/download/{tag}/dasel_linux_amd64"
+    archive: none
+  # jc — конвертирует вывод обычных CLI-утилит (dig, df, ls, ...) в JSON.
+  # Тарболл с одиночным бинарником jc в корне (название без версии в пути).
+  - name: jc
+    source: github
+    repo: kellyjonbrazil/jc
+    url: "https://github.com/kellyjonbrazil/jc/releases/download/{tag}/jc-{version}-linux-x86_64.tar.gz"
+    archive: tar
+    member: jc
+  # sd — интуитивная замена sed для поиска/замены (понимает обычные regex-строки,
+  # а не sed-эскапинг). Бинарник в каталоге sd-v{version}-x86_64-unknown-linux-gnu.
+  - name: sd
+    source: github
+    repo: chmln/sd
+    url: "https://github.com/chmln/sd/releases/download/{tag}/sd-v{version}-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: sd-v{version}-x86_64-unknown-linux-gnu/sd
 
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"

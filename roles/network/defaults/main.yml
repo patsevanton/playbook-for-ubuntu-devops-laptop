@@ -80,6 +80,15 @@ network_binaries:
     url: "https://github.com/Orange-OpenSource/hurl/releases/download/{tag}/hurl-{version}-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: hurl-{version}-x86_64-unknown-linux-gnu/bin/hurl
+  # trippy — TUI traceroute с историей и статистикой по хопам. Тег релиза без
+  # префикса v (0.13.0). Бинарник внутри называется trip — кладём под именем
+  # trippy (как и называется инструмент), чтобы не путать с командой trip.
+  - name: trippy
+    source: github
+    repo: fujiapple852/trippy
+    url: "https://github.com/fujiapple852/trippy/releases/download/{tag}/trippy-{version}-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: trippy-{version}-x86_64-unknown-linux-gnu/trip
 
 # sshx — совместный терминал в браузере (мгновенный шаринг сессии). Релизных
 # ассетов на GitHub нет: официальный install-скрипт качает sshx-<arch>-musl.tar.gz

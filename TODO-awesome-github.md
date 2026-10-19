@@ -238,8 +238,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 - [ ] **dasel** — запросы и правка JSON/YAML/TOML/XML/CSV/HCL одной утилитой.
       *(`go` / `release`)* — [TomWright/dasel](https://github.com/TomWright/dasel)
+      — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник dasel_linux_amd64).
 - [ ] **jc** — конвертирует вывод обычных CLI-утилит в JSON. *(`deb` / `pipx`)* —
       [kellyjonbrazil/jc](https://github.com/kellyjonbrazil/jc)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла).
 - [x] ⭐ **fx** — интерактивный просмотрщик и обработчик JSON. *(`npm`)* —
       [antonmedv/fx](https://github.com/antonmedv/fx)
       — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник fx_linux_amd64).
@@ -272,6 +274,7 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`cargo` / `pipx`)* — [pemistahl/grex](https://github.com/pemistahl/grex)
 - [ ] **sd** — интуитивная замена `sed` для поиска/замены. *(`cargo`)* —
       [chmln/sd](https://github.com/chmln/sd)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла).
 
 ## eBPF и системная наблюдаемость
 
@@ -303,6 +306,7 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`deb`)* — [GyulyVGC/sniffnet](https://github.com/GyulyVGC/sniffnet)
 - [ ] **trippy** — TUI traceroute с историей и статистикой по хопам.
       *(`deb` / `snap`)* — [fujiapple852/trippy](https://github.com/fujiapple852/trippy)
+      — ✅ добавлен в плейбук (роль `network`, бинарник trip под именем trippy).
 - [x] ⭐ **q** — крошечный DNS-клиент: UDP/TCP/DoH/DoT/DoQ/ODoH. *(`deb`)* —
       [natesales/q](https://github.com/natesales/q)
       — ✅ добавлен в плейбук (роль `network`, бинарником из тарболла).
@@ -453,6 +457,7 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [charmbracelet/gum](https://github.com/charmbracelet/gum)
 - [ ] **shellcheck** — статический анализ shell-скриптов на баги. *(`apt`)* —
       [koalaman/shellcheck](https://github.com/koalaman/shellcheck)
+      — ✅ добавлен в плейбук (роль `shell`, пакетом из репозитория Ubuntu).
 - [ ] **hstr** — TUI-подсказки из истории bash/zsh. *(`deb`)* —
       [dvorka/hstr](https://github.com/dvorka/hstr)
 - [ ] **spacer** — вставляет разделители между выводами команд длинного пайплайна.
