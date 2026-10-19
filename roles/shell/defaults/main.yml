@@ -92,6 +92,14 @@ shell_binaries:
     url: "https://github.com/cantino/mcfly/releases/download/{tag}/mcfly-v{version}-x86_64-unknown-linux-musl.tar.gz"
     archive: tar
     member: mcfly
+  # dust — наглядный du: дерево каталогов с размером и графиком, быстрее du.
+  # Бинарник в каталоге dust-v{version}-x86_64-unknown-linux-musl.
+  - name: dust
+    source: github
+    repo: bootandy/dust
+    url: "https://github.com/bootandy/dust/releases/download/{tag}/dust-v{version}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: dust-v{version}-x86_64-unknown-linux-musl/dust
 
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"

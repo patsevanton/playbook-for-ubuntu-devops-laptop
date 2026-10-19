@@ -80,17 +80,18 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   stern, flate, flux-tools, cty, diffyml,
 │   │                           #   kubectl-k8i, kubespy, kubecolor, kube-capacity,
 │   │                           #   ktop, kubefetch, krew, view-secret, df-pv,
-│   │                           #   browse-pvc, pluto, pv-migrate, marvin
+│   │                           #   browse-pvc, pluto, pv-migrate, marvin,
+│   │                           #   kftui, ct (chart-testing)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
-│   │                           #   delta, gdu, JetBrainsMono Nerd Font,
+│   │                           #   delta, gdu, dust, JetBrainsMono Nerd Font,
 │   │                           #   mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
-│   │                           #   gai, dnsglobe, bandwhich, q, xh,
+│   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, sshx,
 │   │                           #   rkn-block-checker (pipx)
 │   ├── opencode/               # opencode (из npm-реестра)
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
@@ -134,7 +135,8 @@ ansible-lint                                   # проверка стиля (pr
    утилиты бинарниками — view-secret (декодирование секретов), df-pv
    (`df` по PV), browse-pvc (просмотр PVC) — а также pluto (устаревшие
    apiVersion), pv-migrate (миграция PV), marvin (сканер кластера
-   CEL-выражениями) и headlamp (web/desktop UI Kubernetes).
+   CEL-выражениями), kftui (TUI-менеджер port-forward), ct (линтинг и
+   тестирование Helm-чартов) и headlamp (web/desktop UI Kubernetes).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
@@ -145,17 +147,19 @@ ansible-lint                                   # проверка стиля (pr
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
     M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
     difftastic (структурный diff), delta (улучшенный git-diff), gdu
-    (анализатор диска), zellij (терминальный мультиплексор), navi
-    (шпаргалки команд поверх fzf), fx (интерактивный просмотр JSON), hl
-    (просмотр JSON-логов) и mcfly (умная история команд по Ctrl-R).
+    (анализатор диска), dust (наглядный du), zellij (терминальный
+    мультиплексор), navi (шпаргалки команд поверх fzf), fx (интерактивный
+    просмотр JSON), hl (просмотр JSON-логов) и mcfly (умная история команд
+    по Ctrl-R).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
 13. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
     (проверка распространения DNS), `bandwhich` (трафик по процессам),
-    `q` (DNS-клиент с DoH/DoT/DoQ), `xh` (HTTP-клиент) и `rkn-block-checker`
-    (через pipx), `kyanos` (eBPF-анализ сетевых запросов) и `showcert`
-    (разбор X.509-сертификатов, через pipx).
+    `q` (DNS-клиент с DoH/DoT/DoQ), `xh` (HTTP-клиент), `hurl` (HTTP-запросы
+    из plain-text `.hurl`-файлов), `sshx` (совместный терминал в браузере) и
+    `rkn-block-checker` (через pipx), `kyanos` (eBPF-анализ сетевых запросов)
+    и `showcert` (разбор X.509-сертификатов, через pipx).
 14. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
 15. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
@@ -221,6 +225,8 @@ ansible-lint                                   # проверка стиля (pr
 | pluto | github.com/FairwindsOps/pluto |
 | pv-migrate | github.com/utkuozdemir/pv-migrate |
 | marvin | github.com/undistro/marvin |
+| kftui | github.com/hcavarsan/kftray (TUI) |
+| ct | github.com/helm/chart-testing |
 | tflint | github.com/terraform-linters/tflint |
 | terraform-docs | github.com/terraform-docs/terraform-docs |
 | packer | releases.hashicorp.com |
@@ -234,10 +240,12 @@ ansible-lint                                   # проверка стиля (pr
 | bandwhich | github.com/imsnif/bandwhich |
 | q | github.com/natesales/q |
 | xh | github.com/ducaale/xh |
+| hurl | github.com/Orange-OpenSource/hurl |
 | eget | github.com/zyedidia/eget |
 | difftastic | github.com/Wilfred/difftastic |
 | delta | github.com/dandavison/delta |
 | gdu | github.com/dundee/gdu |
+| dust | github.com/bootandy/dust |
 | lazygit | github.com/jesseduffield/lazygit |
 | lazydocker | github.com/jesseduffield/lazydocker |
 | dive | github.com/wagoodman/dive |
@@ -256,7 +264,8 @@ ansible-lint                                   # проверка стиля (pr
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`) и
 коллекциями `community.docker`/`ansible.posix`, `rkn-block-checker` и `showcert`
-— из PyPI через pipx в `~/.local/bin` (роль `network`), `headlamp` — из
+— из PyPI через pipx в `~/.local/bin` (роль `network`), `sshx` — из тарболла
+S3 (без релиз-ассетов GitHub, роль `network`), `headlamp` — из
 `.deb`-пакета GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
 глобальные skills для opencode — через `npx skills add` (роль `skills`, см.

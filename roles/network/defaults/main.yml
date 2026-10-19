@@ -70,6 +70,22 @@ network_binaries:
     url: "https://github.com/hengyoush/kyanos/releases/download/{tag}/kyanos_{version}_linux_amd64.tar.gz"
     archive: tar
     member: kyanos
+  # hurl — запуск и тестирование HTTP-запросов из plain-text .hurl-файлов
+  # (парсер и раннер в одном бинарнике; отдельно есть hurlfmt). Тег релиза без
+  # префикса v (8.0.1), поэтому в URL подставляем {tag} и {version} одинаково.
+  # В архиве бинарник лежит в каталоге hurl-<ver>-x86_64-unknown-linux-gnu/bin.
+  - name: hurl
+    source: github
+    repo: Orange-OpenSource/hurl
+    url: "https://github.com/Orange-OpenSource/hurl/releases/download/{tag}/hurl-{version}-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: hurl-{version}-x86_64-unknown-linux-gnu/bin/hurl
+
+# sshx — совместный терминал в браузере (мгновенный шаринг сессии). Релизных
+# ассетов на GitHub нет: официальный install-скрипт качает sshx-<arch>-musl.tar.gz
+# с S3 (адрес без версии — всегда актуальный). Поэтому ставится отдельной
+# задачей sshx.yml, а не через роль binaries.
+sshx_url: "https://s3.amazonaws.com/sshx/sshx-x86_64-unknown-linux-musl.tar.gz"
 
 # bandwhich для чтения сетевого трафика требует CAP_NET_RAW — вешаем setcap
 # на бинарник, чтобы он работал без sudo. False = не навешивать (запуск через sudo).

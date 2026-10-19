@@ -152,8 +152,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       установленного плейбуком **diffyml**, не брать.
 - [ ] **kubevpn** — cloud-native dev-окружение и VPN в кластер. *(`go`)* —
       [kubenetworks/kubevpn](https://github.com/kubenetworks/kubevpn)
-- [ ] **kftray** — менеджер `kubectl port-forward` и reverse-туннелей (GUI+TUI).
+- [x] **kftray** — менеджер `kubectl port-forward` и reverse-туннелей (GUI+TUI).
       *(`AppImage` / `tar.gz`; ⭐ 1.6k)* — [hcavarsan/kftray](https://github.com/hcavarsan/kftray)
+      — ✅ добавлен в плейбук (роль `kubernetes`, TUI-бинарник `kftui`).
 - [ ] **txeh** — управление `/etc/hosts` из CLI. *(`deb`)* —
       [txn2/txeh](https://github.com/txn2/txeh)
 - [ ] **netobserv-cli** — сетевая наблюдаемость Kubernetes (eBPF, без агента).
@@ -190,8 +191,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`go`)* — [carvel-dev/kbld](https://github.com/carvel-dev/kbld)
 - [ ] **timoni** — пакетный менеджер Kubernetes на CUE. *(`go`)* —
       [stefanprodan/timoni](https://github.com/stefanprodan/timoni)
-- [ ] **chart-testing** — линтинг и тестирование Helm-чартов (`ct`). *(`tar.gz` linux_amd64 / `go`; ⭐ 1.6k)* —
+- [x] **chart-testing** — линтинг и тестирование Helm-чартов (`ct`). *(`tar.gz` linux_amd64 / `go`; ⭐ 1.6k)* —
       [helm/chart-testing](https://github.com/helm/chart-testing)
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник `ct`).
 - [ ] **helm-chartsnap** — snapshot-тестирование Helm-чартов. *(`go`)* —
       [jlandowner/helm-chartsnap](https://github.com/jlandowner/helm-chartsnap)
 - [ ] **charts-syncer** — синхронизация Helm-репозиториев. *(`go`)* —
@@ -316,8 +318,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [gcla/termshark](https://github.com/gcla/termshark)
 - [ ] **websocat** — netcat/curl для WebSockets. *(`deb`)* —
       [vi/websocat](https://github.com/vi/websocat)
-- [ ] **hurl** — запуск и тестирование HTTP-запросов из plain-text файлов.
+- [x] **hurl** — запуск и тестирование HTTP-запросов из plain-text файлов.
       *(`deb`; ⭐ 19.3k)* — [Orange-OpenSource/hurl](https://github.com/Orange-OpenSource/hurl)
+      — ✅ добавлен в плейбук (роль `network`, бинарником из тарболла).
 - [x] **xh** — быстрый и дружелюбный HTTP-клиент (замена httpie). *(`deb`; ⭐ 8.1k)* —
       [ducaale/xh](https://github.com/ducaale/xh)
       — ✅ добавлен в плейбук (роль `network`, бинарником из тарболла).
@@ -347,8 +350,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Удалённый доступ и шаринг терминала
 
-- [ ] ⭐ **sshx** — совместный терминал в браузере (мгновенный шаринг сессии).
+- [x] ⭐ **sshx** — совместный терминал в браузере (мгновенный шаринг сессии).
       *(`script` / `cargo`)* — [ekzhang/sshx](https://github.com/ekzhang/sshx)
+      — ✅ добавлен в плейбук (роль `network`, тарболл с S3).
 - [ ] **EternalTerminal** — переподключаемый удалённый shell (сессия переживает
       обрыв). *(`apt` из репо ET; в latest .deb только arm64)* —
       [MisterTea/EternalTerminal](https://github.com/MisterTea/EternalTerminal)
@@ -463,8 +467,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       путать с apt-пакетом `delta` — это другая утилита). *(`deb` git-delta /
       `cargo`; ⭐ 32.5k)* — [dandavison/delta](https://github.com/dandavison/delta)
       — ✅ добавлен в плейбук (роль `shell`).
-- [ ] **dust** — наглядный `du` с деревом и графиком. *(`deb` / `cargo`; ⭐ 12.5k)* —
+- [x] **dust** — наглядный `du` с деревом и графиком. *(`deb` / `cargo`; ⭐ 12.5k)* —
       [bootandy/dust](https://github.com/bootandy/dust)
+      — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
 
 ## Файлы, диск, система
 

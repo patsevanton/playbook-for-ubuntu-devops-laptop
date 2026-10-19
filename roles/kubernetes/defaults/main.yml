@@ -180,6 +180,22 @@ kubernetes_binaries:
     url: "https://github.com/undistro/marvin/releases/download/{tag}/marvin_Linux_x86_64.tar.gz"
     archive: tar
     member: marvin
+  # kftui — TUI-менеджер kubectl port-forward и reverse-туннелей (kftray).
+  # Из релиза берём TUI-бинарник: в архиве kftui_linux_amd64, кладём как kftui.
+  - name: kftui
+    source: github
+    repo: hcavarsan/kftray
+    url: "https://github.com/hcavarsan/kftray/releases/download/{tag}/kftui_linux_amd64.tar.gz"
+    archive: tar
+    member: kftui_linux_amd64
+  # chart-testing (ct) — линтинг и тестирование Helm-чартов (helm/chart-testing).
+  # Релиз — chart-testing_{version}_linux_amd64.tar.gz, бинарник ct в корне.
+  - name: ct
+    source: github
+    repo: helm/chart-testing
+    url: "https://github.com/helm/chart-testing/releases/download/{tag}/chart-testing_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: ct
 
 # --- Headlamp: web/desktop UI Kubernetes (.deb из GitHub-релиза) --------------
 # GUI-приложение ~123 МБ (Electron): ставится официальным .deb, появляется в

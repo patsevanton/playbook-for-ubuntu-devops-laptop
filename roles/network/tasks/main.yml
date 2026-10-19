@@ -48,3 +48,7 @@
   loop_control:
     label: "{{ item.item.name }}"
   changed_when: true
+
+- name: Установить sshx (совместный терминал в браузере)
+  ansible.builtin.include_tasks:
+    file: sshx.yml
