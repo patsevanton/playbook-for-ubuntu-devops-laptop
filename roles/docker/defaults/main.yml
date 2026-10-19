@@ -50,3 +50,12 @@ docker_binaries:
     repo: bcicen/ctop
     url: "https://github.com/bcicen/ctop/releases/download/{tag}/ctop-{version}-linux-amd64"
     archive: none
+  # oras — клиент OCI-реестров для произвольных артефактов (push/pull/manage
+  # любых артефактов, не только образов: Helm-чарты, SBOM, подписи).
+  # Релиз — oras_{version}_linux_amd64.tar.gz, бинарник oras в корне архива.
+  - name: oras
+    source: github
+    repo: oras-project/oras
+    url: "https://github.com/oras-project/oras/releases/download/{tag}/oras_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: oras

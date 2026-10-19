@@ -125,6 +125,40 @@ shell_binaries:
     url: "https://github.com/chmln/sd/releases/download/{tag}/sd-v{version}-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: sd-v{version}-x86_64-unknown-linux-gnu/sd
+  # lf — терминальный файловый менеджер с vim-подобными клавишами.
+  # Тег релиза без префикса v (r42), поэтому {tag} и {version} одинаковы.
+  # Артефакт — lf-linux-amd64.tar.gz, бинарник lf в корне архива.
+  - name: lf
+    source: github
+    repo: gokcehan/lf
+    url: "https://github.com/gokcehan/lf/releases/download/{tag}/lf-linux-amd64.tar.gz"
+    archive: tar
+    member: lf
+  # gomplate — шаблонизатор конфигов из разных источников (env, файлы, API,
+  # облачные провайдеры). Одиночный бинарник gomplate_linux-amd64 без версии
+  # в имени файла (тег релиза — vX.Y.Z).
+  - name: gomplate
+    source: github
+    repo: hairyhenderson/gomplate
+    url: "https://github.com/hairyhenderson/gomplate/releases/download/{tag}/gomplate_linux-amd64"
+    archive: none
+  # yamlfmt — форматтер YAML (переносимая логика из kubectl-форматтера).
+  # Релиз — yamlfmt_{version}_Linux_x86_64.tar.gz, бинарник yamlfmt в корне.
+  - name: yamlfmt
+    source: github
+    repo: google/yamlfmt
+    url: "https://github.com/google/yamlfmt/releases/download/{tag}/yamlfmt_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: yamlfmt
+  # gum — примитивы для «красивых» shell-скриптов (спиннеры, промпты, выбор из
+  # списка, подтверждения). Бинарник в каталоге gum_{version}_Linux_x86_64
+  # (обрати внимание: заглавные L в Linux и знак подчёркивания).
+  - name: gum
+    source: github
+    repo: charmbracelet/gum
+    url: "https://github.com/charmbracelet/gum/releases/download/{tag}/gum_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: gum_{version}_Linux_x86_64/gum
 
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"

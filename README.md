@@ -75,7 +75,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan,
 │   │                           #   lazygit
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2,
-│   │                           #   dive, lazydocker, ctop
+│   │                           #   dive, lazydocker, ctop, oras
 │   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
 │   │                           #   stern, flate, flux-tools, cty, diffyml,
 │   │                           #   kubectl-k8i, kubespy, kubecolor, kube-capacity,
@@ -89,6 +89,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
 │   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
+│   │                           #   lf, gomplate, yamlfmt, gum,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
@@ -126,8 +127,8 @@ ansible-lint                                   # проверка стиля (pr
    (локальный запуск GitLab CI), `pre-commit`, `reposcan` и `lazygit`
    (TUI для git).
 4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2,
-   а также `dive` (анализ слоёв образа), `lazydocker` (TUI-менеджер контейнеров)
-    и `ctop` (`top` для метрик контейнеров).
+   а также `dive` (анализ слоёв образа), `lazydocker` (TUI-менеджер контейнеров),
+    `ctop` (`top` для метрик контейнеров) и `oras` (клиент OCI-реестров).
 5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
    stern, flate, flux-tools (офлайн-рендер и дифф Flux GitOps), cty (sample-YAML
    из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод),
@@ -153,8 +154,10 @@ ansible-lint                                   # проверка стиля (pr
     JSON/YAML/TOML/XML/CSV), jc (конвертация вывода CLI в JSON), sd
     (интуитивная замена sed), shellcheck (статический анализ shell-скриптов),
     zellij (терминальный мультиплексор), navi (шпаргалки команд поверх fzf),
-    fx (интерактивный просмотр JSON), hl (просмотр JSON-логов) и mcfly
-    (умная история команд по Ctrl-R).
+    fx (интерактивный просмотр JSON), hl (просмотр JSON-логов), mcfly
+    (умная история команд по Ctrl-R), lf (терминальный файловый менеджер),
+    gomplate (шаблонизатор конфигов), yamlfmt (форматтер YAML) и gum
+    (примитивы для «красивых» shell-скриптов).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
@@ -261,6 +264,11 @@ ansible-lint                                   # проверка стиля (pr
 | dasel | github.com/TomWright/dasel |
 | jc | github.com/kellyjonbrazil/jc |
 | sd | github.com/chmln/sd |
+| lf | github.com/gokcehan/lf |
+| gomplate | github.com/hairyhenderson/gomplate |
+| yamlfmt | github.com/google/yamlfmt |
+| gum | github.com/charmbracelet/gum |
+| oras | github.com/oras-project/oras |
 | lazygit | github.com/jesseduffield/lazygit |
 | lazydocker | github.com/jesseduffield/lazydocker |
 | dive | github.com/wagoodman/dive |

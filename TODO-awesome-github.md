@@ -222,8 +222,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`deb`)* — [s0rg/decompose](https://github.com/s0rg/decompose)
 - [ ] **copacetic** — патчинг уязвимостей прямо в контейнерных образах.
       *(`go`)* — [project-copacetic/copacetic](https://github.com/project-copacetic/copacetic)
-- [ ] **oras** — клиент OCI-реестров для произвольных артефактов. *(`go`)* —
+- [x] **oras** — клиент OCI-реестров для произвольных артефактов. *(`go`)* —
       [oras-project/oras](https://github.com/oras-project/oras)
+      — ✅ добавлен в плейбук (роль `docker`, бинарником из тарболла).
 - [ ] **s5cmd** — очень быстрый параллельный клиент S3. *(`deb`)* —
       [peak/s5cmd](https://github.com/peak/s5cmd)
 - [x] **nora** — лёгкий мультиформатный artifact registry (Docker, npm, PyPI,
@@ -237,7 +238,7 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Логи, JSON, YAML, данные
 
-- [ ] **dasel** — запросы и правка JSON/YAML/TOML/XML/CSV/HCL одной утилитой.
+- [x] **dasel** — запросы и правка JSON/YAML/TOML/XML/CSV/HCL одной утилитой.
       *(`go` / `release`)* — [TomWright/dasel](https://github.com/TomWright/dasel)
       — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник dasel_linux_amd64).
 - [ ] **jc** — конвертирует вывод обычных CLI-утилит в JSON. *(`deb` / `pipx`)* —
@@ -250,8 +251,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [ynqa/jnv](https://github.com/ynqa/jnv)
 - [ ] **octosql** — SQL-запросы к JSON/CSV/Parquet-файлам. *(`go`)* —
       [cube2222/octosql](https://github.com/cube2222/octosql)
-- [ ] **gomplate** — шаблонизатор конфигов из разных источников (env, файлы, API).
+- [x] **gomplate** — шаблонизатор конфигов из разных источников (env, файлы, API).
       *(`go`)* — [hairyhenderson/gomplate](https://github.com/hairyhenderson/gomplate)
+      — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник).
 - [ ] **gonzo** — TUI-анализатор логов с графиками по столбцам. *(`go`)* —
       [control-theory/gonzo](https://github.com/control-theory/gonzo)
 - [x] ⭐ **hl** — быстрый просмотрщик и процессор логов (JSON/logfmt). *(`cargo`)* —
@@ -267,8 +269,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`go`)* — [ymtdzzz/otel-tui](https://github.com/ymtdzzz/otel-tui)
 - [ ] **jl** — работа с структурированным JSON-логированием. *(`go`)* —
       [koenbollen/jl](https://github.com/koenbollen/jl)
-- [ ] **yamlfmt** — форматтер YAML. *(`go`)* —
+- [x] **yamlfmt** — форматтер YAML. *(`go`)* —
       [google/yamlfmt](https://github.com/google/yamlfmt)
+      — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
 - [ ] **yamlfixer** — автоматическое исправление замечаний `yamllint`. *(`pipx`)* —
       [opt-nc/yamlfixer](https://github.com/opt-nc/yamlfixer)
 - [ ] **grex** — генерирует регулярные выражения из примеров строк.
@@ -458,8 +461,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [cheat/cheat](https://github.com/cheat/cheat)
 - [ ] **tldr** — краткие примеры использования команд. *(`npm`)* —
       [tldr-pages/tldr](https://github.com/tldr-pages/tldr)
-- [ ] **gum** — «красивые» примитивы для shell-скриптов. *(`deb`)* —
+- [x] **gum** — «красивые» примитивы для shell-скриптов. *(`deb`)* —
       [charmbracelet/gum](https://github.com/charmbracelet/gum)
+      — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
 - [ ] **shellcheck** — статический анализ shell-скриптов на баги. *(`apt`)* —
       [koalaman/shellcheck](https://github.com/koalaman/shellcheck)
       — ✅ добавлен в плейбук (роль `shell`, пакетом из репозитория Ubuntu).
@@ -488,8 +492,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **gdu** — быстрый анализатор диска с интерактивным TUI. *(`deb`)* —
       [dundee/gdu](https://github.com/dundee/gdu)
       — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
-- [ ] **lf** — терминальный файловый менеджер с vim-подобными клавишами.
+- [x] **lf** — терминальный файловый менеджер с vim-подобными клавишами.
       *(`go`)* — [gokcehan/lf](https://github.com/gokcehan/lf)
+      — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
 - [ ] **fastfetch** — быстрый neofetch-подобный вывод информации о системе.
       *(`deb`)* — [fastfetch-cli/fastfetch](https://github.com/fastfetch-cli/fastfetch)
 - [ ] **procs** — современная замена `ps` на Rust (дерево, цвета, поиск).
