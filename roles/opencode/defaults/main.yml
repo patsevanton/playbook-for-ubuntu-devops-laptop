@@ -9,6 +9,13 @@
 #
 # Для CPU без AVX2 берётся сборка -baseline.
 # ============================================================================
+# Каталог глобальной конфигурации opencode (AGENTS.md, plugins, skills).
+opencode_config_dir: "{{ home_dir }}/.config/opencode"
+# Глобальные инструкции: opencode подхватывает их во всех проектах,
+# проектный AGENTS.md их дополняет. Источник — files/AGENTS.md роли.
+opencode_agents_md_src: AGENTS.md
+opencode_agents_md_file: "{{ opencode_config_dir }}/AGENTS.md"
+
 opencode_registry: https://registry.npmjs.org
 opencode_package: "{{ opencode_registry }}/@opencode/cli-{{ opencode_target }}"
 opencode_meta_url: "{{ opencode_package }}/latest"

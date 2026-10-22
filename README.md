@@ -135,7 +135,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   netutils-linux (pipx), reachable (go install)
 │   ├── ebpf/                   # eBPF-наблюдаемость: pwru, bpftop, oryx,
 │   │                           #   pktstat-bpf, tracee
-│   ├── opencode/               # opencode (из npm-реестра)
+│   ├── opencode/               # opencode (из npm-реестра) + глобальный AGENTS.md
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
 │   ├── hardware/               # LACT (настройка и мониторинг GPU, .deb + lactd)
@@ -291,7 +291,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
     Parquet/CSV/JSON), shellclear (секреты и опасные
     команды в истории shell), nxs-backup (бэкапы по YAML-описанию),
     cheat (собственные шпаргалки команд) и tldr (краткие примеры команд).
-11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
+11. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и глобальный
+    `AGENTS.md` (`~/.config/opencode/AGENTS.md`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
 13. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
@@ -1395,6 +1396,20 @@ npx skills ls -g                       # список установленных
 
 Применить только skills: `ansible-playbook -K playbook.yml --tags skills`
 (сначала должен быть выполнен тег `runtimes` — нужен `npm`).
+
+---
+
+## Глобальные правила для opencode (`AGENTS.md`)
+
+Роль `opencode` кладёт `~/.config/opencode/AGENTS.md` — инструкции, которые
+opencode применяет во **всех** проектах (правила безопасности, работа с
+Kubernetes и git, доступные зоны и т.п.). Проектный `AGENTS.md` эти правила
+дополняет, а не отменяет.
+
+Источник — `roles/opencode/files/AGENTS.md`: правки вносятся в репозиторий,
+а плейбук приводит файл на машине к этому состоянию (локальные изменения
+перезаписываются). Применить только правила:
+`ansible-playbook -K playbook.yml --tags opencode`.
 
 ---
 

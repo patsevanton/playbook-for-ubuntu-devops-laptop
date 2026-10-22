@@ -19,8 +19,12 @@
 > ролью `skills` этого репозитория (`roles/skills/`): список воспроизведён по
 > lock-файлу рабочей машины `~/.agents/.skill-lock.json` (68 skills из
 > 16 git-репозиториев), ставится через `npx skills add … -g -y -a opencode`.
-> Разделы 1–2 и 7 (перенос skills) закрыты ролью; открытым остаётся только
-> глобальный `AGENTS.md` (разделы про него).
+> Разделы 1–2 и 7 (перенос skills) закрыты ролью.
+>
+> **Статус 2026-10-22:** глобальный `AGENTS.md` тоже реализован — роль
+> `opencode` кладёт `~/.config/opencode/AGENTS.md` из
+> `roles/opencode/files/AGENTS.md` (раздел 5). Копирование из `/home/user/`
+> (раздел 3) больше не нужно: текст живёт в репозитории.
 
 Как читать:
 
@@ -112,31 +116,19 @@
 
 ## 3. Глобальный `AGENTS.md`
 
-- [ ] Скопировать найденный в `/home/user/` глобальный `AGENTS.md`:
+- [x] Текст живёт в репозитории: `roles/opencode/files/AGENTS.md`, роль
+      `opencode` кладёт его в `~/.config/opencode/AGENTS.md` (см. раздел 5).
+      Копировать из `/home/user/` больше не нужно.
 
-  ```
-  sudo cp /home/user/<путь-к-найденному>/AGENTS.md /home/magnit/.config/opencode/AGENTS.md
-  sudo chown magnit:magnit /home/magnit/.config/opencode/AGENTS.md
-  ```
+- [x] Подключение в `opencode.jsonc` не требуется: opencode сам читает
+      глобальный `~/.config/opencode/AGENTS.md` (проверено — файл виден
+      агенту без поля `instructions`).
 
-- [ ] Подключить его глобально в `~/.config/opencode/opencode.jsonc` полем
-      `instructions` (см. [конфиг V2](https://opencode.ai/v2/docs/config)) —
-      чтобы он не «всплывал» только в тех проектах, где лежит `AGENTS.md`.
+- [x] Текст вычитан под ноутбук: машинных путей `/home/user/` и corp-стека
+      нет; остались общие правила (Kubernetes, зоны доступности, git).
 
-  ```jsonc
-  {
-    "$schema": "https://opencode.ai/config.json",
-    "instructions": ["AGENTS.md"],
-    // ... остальные настройки не трогать (provider, mcp)
-  }
-  ```
-
-- [ ] Вычитать текст под ноутбук: убрать машинные пути `/home/user/`,
-      требования к corp-стеку, лишние жёсткие ограничения; сохранить то,
-      что относится ко всем проектам (стиль, правила безопасности, формат).
-
-- [ ] Проверить порядок наложения: глобальный `AGENTS.md` не должен
-      затирать проектные `AGENTS.md` (проектные — приоритетнее/дополняют).
+- [x] Порядок наложения: проектный `AGENTS.md` дополняет глобальный,
+      а не отменяет его.
 
 ## 4. Глобальные subagents и commands (если были в `/home/user/`)
 
@@ -149,30 +141,29 @@
 
 ## 5. Автоматизация в Ansible (роль `opencode`)
 
-Сейчас роль `roles/opencode/` ставит только бинарник (`tasks/main.yml`,
-`defaults/main.yml`). Добавить глобальную конфигурацию — идемпотентно:
+Роль `roles/opencode/` ставит бинарник и глобальный `AGENTS.md`. Пока
+реализовано:
 
-- [ ] В `roles/opencode/defaults/main.yml` завести переменные:
+- [x] В `roles/opencode/defaults/main.yml` заведены переменные:
 
   ```yaml
-  opencode_config_dir: "{{ ansible_env.HOME }}/.config/opencode"
-  # skills, которые всегда ставятся глобально (пусто — пока не вычитан /home/user)
-  opencode_skills: []
-  #   - name: <skill-name>
-  #     src: files/skills/<skill-name>   # или git-URL
-  opencode_global_agents_md: ""          # путь к AGENTS.md в files/ роли, "" — не трогать
-  opencode_global_agents: []             # subagents из files/agent/
+  opencode_config_dir: "{{ home_dir }}/.config/opencode"
+  opencode_agents_md_src: AGENTS.md
+  opencode_agents_md_file: "{{ opencode_config_dir }}/AGENTS.md"
   ```
 
-- [ ] В `roles/opencode/tasks/main.yml` (или `tasks/config.yml`) добавить блок:
-      `file: state=directory` для `skills/`, `agent/`, `command/`; `copy`/`template`
-      для skills, `AGENTS.md` и subagents; `notify` на перезапуск сервиса не нужен —
-      opencode перечитывает конфиг сам, но проверить это на прогоне.
-- [ ] Исходники держать в репозитории: `roles/opencode/files/skills/<name>/…`,
-      `roles/opencode/files/AGENTS.md`, `roles/opencode/files/agent/<name>.md` —
-      и не тянуть из `/home/user/` при каждом прогоне.
-- [ ] Секреты в skills/`AGENTS.md` не хранить: только `{env:...}`-подстановки,
-      как уже сделано для API-ключей в `opencode.jsonc`.
+- [x] В `roles/opencode/tasks/main.yml` — `file: state=directory` для
+      каталога конфига и идемпотентный `copy` для `AGENTS.md`.
+      `notify` на перезапуск сервиса не нужен: opencode перечитывает конфиг сам.
+- [x] Исходник в репозитории: `roles/opencode/files/AGENTS.md` — из
+      `/home/user/` при прогоне ничего не тянется.
+- [x] Секретов в `AGENTS.md` нет (только правила).
+
+Осталось:
+
+- [ ] Перенести в роль остальную глобальную конфигурацию (если появится):
+      `skills/`, `agent/`, `command/` — `roles/opencode/files/skills/<name>/…`,
+      `roles/opencode/files/agent/<name>.md`.
 - [ ] Прогнать `ansible-playbook playbook.yml` (или только роль `opencode`),
       убедиться, что повторный прогон не меняет ничего (`changed=0`).
 

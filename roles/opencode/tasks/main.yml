@@ -74,3 +74,20 @@
         mode: "0755"
         owner: root
         group: root
+
+# --- Глобальные инструкции --------------------------------------------------
+# ~/.config/opencode/AGENTS.md действует во всех проектах; проектный
+# AGENTS.md его дополняет, а не отменяет. Файл управляется плейбуком:
+# правки вносить в roles/opencode/files/AGENTS.md, иначе следующий прогон
+# перезапишет локальные изменения.
+- name: Создать каталог конфигурации opencode
+  ansible.builtin.file:
+    path: "{{ opencode_config_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Положить глобальный AGENTS.md
+  ansible.builtin.copy:
+    src: "{{ opencode_agents_md_src }}"
+    dest: "{{ opencode_agents_md_file }}"
+    mode: "0644"
