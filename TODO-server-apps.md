@@ -24,8 +24,6 @@
 
 - [`TODO-node-tools.md`](TODO-node-tools.md) — агенты на ноды (DaemonSet,
   static Pod);
-- [`TODO-kubetools.md`](TODO-kubetools.md) — остальные кластерные сервисы из
-  подборки kubetools;
 - [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) — у проекта нет
   linux-amd64 бинарника;
 - [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) —

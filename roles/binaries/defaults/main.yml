@@ -10,6 +10,9 @@
 #   source        — github | gitlab | text
 #   repo          — owner/repo на GitHub (source=github) или путь проекта
 #                   в группе на GitLab, напр. gitlab-org/cli (source=gitlab)
+#   version       — необязательный тег релиза (напр. v0.8.0): ставится ровно
+#                   он, /releases/latest не запрашивается. Нужен, когда
+#                   последний релиз вышел без бинарников (inframap v0.8.1)
 #   version_url   — URL, отдающий версию текстом (source=text)
 #   version_strip — regex, срезающий префикс тега (по умолчанию ^v)
 #   url           — шаблон ссылки на файл; подставляются {tag} и {version}

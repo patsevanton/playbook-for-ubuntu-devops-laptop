@@ -10,8 +10,6 @@ eBPF-агенты, кэш образов и т.п. На ноутбуке они 
 
 - [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) — у проекта нет
   linux-amd64 бинарника (вопрос релиза);
-- [`TODO-kubetools.md`](TODO-kubetools.md), раздел 2 — кластерные сервисы и
-  операторы, которые живут как Deployment;
 - [`TODO-server-apps.md`](TODO-server-apps.md) — серверные приложения, сервисы
   и Helm-чарты (не на ноутбук);
 - [`not-install.md`](not-install.md) — осознанный отказ из-за бага/issue.
@@ -30,8 +28,7 @@ eBPF-агенты, кэш образов и т.п. На ноутбуке они 
 Способ установки сверен с ассетами последнего релиза 2026-10-22
 (`releases/latest` + `releases/expanded_assets`). Платформы целиком (Calico,
 Cilium, Longhorn, OpenEBS, MetalLB и т.п.) здесь не дублируются: они уже
-отнесены к серверным в [`TODO.md`](TODO.md) и в разделе 2
-[`TODO-kubetools.md`](TODO-kubetools.md).
+отнесены к серверным в [`TODO.md`](TODO.md).
 
 ---
 
@@ -136,15 +133,12 @@ Cilium, Longhorn, OpenEBS, MetalLB и т.п.) здесь не дублируют
 
 - **opencost**, **Kubecost** — стоимость ворклоадов; оба в
   [`TODO-server-apps.md`](TODO-server-apps.md).
-- **kube-state-metrics** — метрики состояния кластера; в
-  [`TODO-kubetools.md`](TODO-kubetools.md). **metrics-server** и
-  **prometheus-adapter** — серверы метрик для API/HPA; в трекерах пока не
+- **kube-state-metrics** — метрики состояния кластера; **metrics-server** и
+  **prometheus-adapter** — серверы метрик для API/HPA. В трекерах пока не
   описаны (metrics-server упоминается в `README.md` как зависимость `ktop`).
 - **descheduler**, **Autoscaler/VPA**, **Goldilocks**, **kube-green** —
-  контроллеры правки requests/limits и расписаний; в
-  [`TODO-kubetools.md`](TODO-kubetools.md).
-- **Chaos Mesh**, **chaoskube**, **kubeinvaders** — chaos-платформы; в
-  [`TODO-kubetools.md`](TODO-kubetools.md).
+  контроллеры правки requests/limits и расписаний.
+- **Chaos Mesh**, **chaoskube**, **kubeinvaders** — chaos-платформы.
 
 Локальный CLI к кластерному OpenCost — **`kubectl-cost`**
 ([opencost/kubectl-cost](https://github.com/opencost/kubectl-cost)) — наоборот,
@@ -163,7 +157,6 @@ Cilium, Longhorn, OpenEBS, MetalLB и т.п.) здесь не дублируют
       standalone-режим, тогда кандидата логично поставить ролью `binaries`.
 
 Связанное: [`TODO.md`](TODO.md) — что ставится и что серверное;
-[`TODO-kubetools.md`](TODO-kubetools.md) — кластерные сервисы;
 [`TODO-server-apps.md`](TODO-server-apps.md) — серверные приложения и
 Helm-чарты;
 [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) — нет бинарника;

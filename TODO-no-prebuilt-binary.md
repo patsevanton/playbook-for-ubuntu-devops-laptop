@@ -78,8 +78,7 @@
   задачей с зафиксированным тегом.
 - **Octant**, **Kubefirst**, **Kubexer**, **kube-shell**, **Finch**, **kor**,
   **kubectl-foreach** — рассмотрены вместе с очередной волной kubetools
-  и не ставятся: причины в [`not-install.md`](not-install.md), отметки в
-  [`TODO-kubetools.md`](TODO-kubetools.md).
+  и не ставятся: причины в [`not-install.md`](not-install.md).
 - **knee** — не нужен: инфраструктура поднимается своими Ansible-плейбуками,
   а knee — обёртка над 13 плейбуками из своего репозитория. См.
   [`not-install.md`](not-install.md).
@@ -88,8 +87,7 @@
   когда-нибудь начнёт их релизить.
 - **kondense** — не утилита для ноутбука: работает сайдкаром
   `kondense/kondense:1.1.0` внутри подов и правит им requests/limits.
-  Кандидат для [`TODO-kubetools.md`](TODO-kubetools.md), рядом с Goldilocks
-  и VPA.
+  Кандидат для кластерных сервисов, рядом с Goldilocks и VPA.
 - **EternalTerminal** — под 26.04 собирается amd64-пакет
   `et 7.0.0-resolute1` в PPA `ppa:jgmath2000/et`; проверено на 26.04.1:
   зависимости ставятся, `et --version` отвечает `7.0.0`. В релизе GitHub

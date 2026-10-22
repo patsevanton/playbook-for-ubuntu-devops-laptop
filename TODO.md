@@ -10,8 +10,7 @@ opencode 2 (один агент
 GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 кандидаты, чей бинарник не запускается на Ubuntu 26.04, —
 в [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md),
-кандидаты из подборки collabnix/kubetools, которых нет в других файлах, —
-в [`TODO-kubetools.md`](TODO-kubetools.md), утилиты для нод Kubernetes
+утилиты для нод Kubernetes
 (DaemonSet/агенты, не на ноутбук) — в
 [`TODO-node-tools.md`](TODO-node-tools.md), серверные приложения, утилиты и
 Helm-чарты (не на ноутбук) — в
@@ -33,7 +32,7 @@ Helm-чарты (не на ноутбук) — в
 является просто подборками.
 
 Дедупликация 2026-10-22: нодовые агенты Kubernetes (DaemonSet/static Pod)
-вынесены из `TODO-kubetools.md` и `TODO-no-prebuilt-binary.md` в отдельный
+вынесены из `TODO-no-prebuilt-binary.md` в отдельный
 [`TODO-node-tools.md`](TODO-node-tools.md) — чтобы не смешивать их с
 кластерными сервисами уровня Deployment и с кандидатами, у которых просто нет
 бинарника. Тогда же серверные приложения, сервисы и Helm-чарты собраны в
@@ -111,6 +110,6 @@ VictoriaMetrics — только `vmalert-tool`).
 `modern-unix`, `awesome-tunneling`, `awesome-prometheus-alerts`,
 `container-security-checklist`, `linux-network-performance-parameters`,
 `boilerplates`, `home-ops`/`homelab-gitops-k3s`) ставить нечего — это
-материалы для чтения. Инструменты из подборки `kubetools`, которых ещё нет
-в других файлах, разобраны отдельно — в
-[`TODO-kubetools.md`](TODO-kubetools.md).
+материалы для чтения. Подборка `kubetools` разобрана: что подошло — в
+`README.md`, причины отказов — в [`not-install.md`](not-install.md) и
+[`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md).
