@@ -7,6 +7,15 @@ network_packages:
   - httpie
   - bind9-dnsutils
   - telnet
+  # whois — запросы к WHOIS-серверам (владелец домена/сети, даты регистрации);
+  # обязательная зависимость скрипта asn.
+  - whois
+  # mtr-tiny — трассировка с потерей пакетов по каждому хопу; нужна asn для
+  # построения AS-path (без неё эта функция отключается).
+  - mtr-tiny
+  # ipcalc — разбор и деаггрегация CIDR-подсетей; asn использует его для
+  # детекта IXP-префиксов.
+  - ipcalc
   # tshark — CLI Wireshark (нужен termshark как зависимость для разбора PCAP).
   - tshark
 
@@ -157,6 +166,25 @@ network_binaries:
     url: "https://github.com/yudai/gotty/releases/download/{tag}/gotty_linux_amd64.tar.gz"
     archive: tar
     member: gotty
+  # txeh — управление /etc/hosts из командной строки (добавить/удалить запись,
+  # проверить и почистить дубли, показать только нужное) — удобно для локальной
+  # разработки вместо ручного редактирования через sudo. В тарболле
+  # txeh_Linux_x86_64.tar.gz бинарник txeh в корне.
+  - name: txeh
+    source: github
+    repo: txn2/txeh
+    url: "https://github.com/txn2/txeh/releases/download/{tag}/txeh_Linux_x86_64.tar.gz"
+    archive: tar
+    member: txeh
+  # assh — «умный» SSH-клиент: генерирует ~/.ssh/config из YAML-описания
+  # (хосты, jump-хосты, прокси, туннели), подставляет ключи и управляет
+  # прокси-командами. Релиз — assh_{version}_linux_amd64.tar.gz, бинарник assh.
+  - name: assh
+    source: github
+    repo: moul/assh
+    url: "https://github.com/moul/assh/releases/download/{tag}/assh_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: assh
 
 # --- Sniffnet: графический TUI-анализатор сетевого трафика -----------------
 # Ставится официальным .deb из GitHub-релиза (артефакт без версии в имени).
@@ -171,6 +199,14 @@ sniffnet_deb_dir: "{{ tmp_dir }}/sniffnet"
 # с S3 (адрес без версии — всегда актуальный). Поэтому ставится отдельной
 # задачей sshx.yml, а не через роль binaries.
 sshx_url: "https://s3.amazonaws.com/sshx/sshx-x86_64-unknown-linux-musl.tar.gz"
+
+# --- asn: справка по IP/домену (ASN, RPKI, BGP, WHOIS, трейс) ----------------
+# Релизных артефактов нет: asn — один bash-скрипт в корне репозитория (ветка
+# master). Ставится отдельной задачей asn.yml, как kubectx в роли kubernetes:
+# качаем raw-файл в bin_dir и делаем исполняемым. Зависимости (whois, host,
+# mtr, ipcalc) — в network_packages.
+network_asn_ref: master
+network_asn_url: "https://raw.githubusercontent.com/nitefood/asn/{{ network_asn_ref }}/asn"
 
 # bandwhich для чтения сетевого трафика требует CAP_NET_RAW — вешаем setcap
 # на бинарник, чтобы он работал без sudo. False = не навешивать (запуск через sudo).

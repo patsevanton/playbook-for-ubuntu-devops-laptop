@@ -29,3 +29,12 @@ monitoring_binaries:
     url: "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/{tag}/vmutils-linux-amd64-v{version}.tar.gz"
     archive: tar
     member: vmalert-tool-prod
+  # sloth — генератор Prometheus SLO/алертов из короткого описания:
+  # из YAML со SLI/SLO делает recording- и alerting-правила (multi-window
+  # burn-rate), избавляя от ручного копирования шаблонов. Одиночный
+  # бинарник sloth-linux-amd64 без архива и версии в имени файла.
+  - name: sloth
+    source: github
+    repo: slok/sloth
+    url: "https://github.com/slok/sloth/releases/download/{tag}/sloth-linux-amd64"
+    archive: none

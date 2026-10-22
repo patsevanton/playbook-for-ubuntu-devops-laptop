@@ -214,6 +214,34 @@ shell_binaries:
     repo: Lifailon/lazyjournal
     url: "https://github.com/Lifailon/lazyjournal/releases/download/{tag}/lazyjournal-{version}-linux-amd64"
     archive: none
+  # gonzo — TUI-анализатор логов: на лету строит графики по столбцам (уровень,
+  # сервис, коды ответа), ищет аномалии и раскладывает поток по частотам —
+  # удобно смотреть, что происходит в логах, стриме из stdin или файла.
+  # Релиз — gonzo-{version}-linux-amd64.tar.gz, бинарник gonzo в корне.
+  - name: gonzo
+    source: github
+    repo: control-theory/gonzo
+    url: "https://github.com/control-theory/gonzo/releases/download/{tag}/gonzo-{version}-linux-amd64.tar.gz"
+    archive: tar
+    member: gonzo
+  # otel-tui — терминальный просмотрщик OpenTelemetry: принимает OTLP
+  # (traces/logs/metrics) по gRPC/HTTP и показывает спаны, логи и метрики
+  # в TUI без Jaeger/Tempo. Релиз — otel-tui_Linux_x86_64.tar.gz, бинарник
+  # otel-tui в корне.
+  - name: otel-tui
+    source: github
+    repo: ymtdzzz/otel-tui
+    url: "https://github.com/ymtdzzz/otel-tui/releases/download/{tag}/otel-tui_Linux_x86_64.tar.gz"
+    archive: tar
+    member: otel-tui
+  # jl — фильтр структурированных JSON-логов: запускает команду и раскрашивает
+  # её вывод (level, время, поля), скрывает шумные поля и умеет
+  # `jl --follow`. Одиночный бинарник jl_linux_amd64 без версии в имени.
+  - name: jl
+    source: github
+    repo: koenbollen/jl
+    url: "https://github.com/koenbollen/jl/releases/download/{tag}/jl_linux_amd64"
+    archive: none
   # --- cheat — собственные шпаргалки команд ------------------------------------
 # Релиз cheat — gzip-сжатый одиночный бинарник cheat-linux-amd64.gz (НЕ тарболл),
 # поэтому роль binaries не подходит (понимает только tar/tarxz/zip/none).

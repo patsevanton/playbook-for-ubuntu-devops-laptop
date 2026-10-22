@@ -204,6 +204,35 @@ kubernetes_binaries:
     repo: carvel-dev/ytt
     url: "https://github.com/carvel-dev/ytt/releases/download/{tag}/ytt-linux-amd64"
     archive: none
+  # kbld — встраивает конкретные образы в Kubernetes-манифесты: находит image-
+  # ссылки, резолвит их в digest, при необходимости собирает и пушит, а на
+  # выходе отдаёт манифест с зафиксированными версиями (тот же набор, что ytt).
+  # Одиночный бинарник kbld-linux-amd64 без архива и версии в имени.
+  - name: kbld
+    source: github
+    repo: carvel-dev/kbld
+    url: "https://github.com/carvel-dev/kbld/releases/download/{tag}/kbld-linux-amd64"
+    archive: none
+  # chartsnap (helm-chartsnap) — snapshot-тесты Helm-чартов: рендерит чарт
+  # с разными values и сравнивает с сохранёнными снапшотами, показывая
+  # структурный diff YAML при изменениях. Релиз —
+  # chartsnap_v{version}_linux_amd64.tar.gz, бинарник chartsnap в корне.
+  - name: chartsnap
+    source: github
+    repo: jlandowner/helm-chartsnap
+    url: "https://github.com/jlandowner/helm-chartsnap/releases/download/{tag}/chartsnap_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: chartsnap
+  # kubewall — Kubernetes-дашборд одним бинарником: один UI на несколько
+  # кластеров (kubeconfig-файлы), просмотр и правка ресурсов, логи, exec,
+  # события — без установки чего-либо в сам кластер. Релиз —
+  # kubewall_Linux_x86_64.tar.gz, бинарник kubewall в корне.
+  - name: kubewall
+    source: github
+    repo: kubewall/kubewall
+    url: "https://github.com/kubewall/kubewall/releases/download/{tag}/kubewall_Linux_x86_64.tar.gz"
+    archive: tar
+    member: kubewall
 
 # --- Headlamp: web/desktop UI Kubernetes (.deb из GitHub-релиза) --------------
 # GUI-приложение ~123 МБ (Electron): ставится официальным .deb, появляется в

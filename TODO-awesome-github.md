@@ -89,16 +89,21 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Terraform / Terragrunt / IaC
 
-- [ ] **tfvar** — генерирует шаблон `variables.tf` из Terraform-кода.
-      *(`deb` / `go`)* — [shihanng/tfvar](https://github.com/shihanng/tfvar)
-- [ ] **tpm** — менеджер провайдеров Terraform/OpenTofu. *(`go`)* —
-      [Madh93/tpm](https://github.com/Madh93/tpm)
+- [x] **tfvar** — генерирует шаблон `variables.tf` из Terraform-кода.
+      *(`release`)* — [shihanng/tfvar](https://github.com/shihanng/tfvar)
+      — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
+      tfvar_linux_amd64.tar.gz).
+- [x] **tpm** — менеджер провайдеров Terraform/OpenTofu. *(`release`)* —
+      [Madh93/tpm](https://github.com/Madh93/tpm) — ✅ добавлен в плейбук
+      (роль `iac`, бинарник из тарболла tpm_Linux_x86_64.tar.gz).
 - [ ] **terraform-tui** — TUI для работы с Terraform-стейтом. *(`pipx`)* —
       [idoavrah/terraform-tui](https://github.com/idoavrah/terraform-tui)
 - [ ] **prettyplan** — форматирует большие `terraform plan` для ревью.
       *(`npm` / статический билд)* — [chrislewisdev/prettyplan](https://github.com/chrislewisdev/prettyplan)
-- [ ] **config-lint** — валидация конфигов (HCL/Terraform и др.). *(`go`)* —
+- [x] **config-lint** — валидация конфигов (HCL/Terraform и др.). *(`release`)* —
       [stelligent/config-lint](https://github.com/stelligent/config-lint)
+      — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
+      config-lint_Linux_x86_64.tar.gz).
 - [ ] **gitlab-terraform-manager** — управление GitLab Terraform backend.
       *(`go`)* — [CRASH-Tech/gitlab-terraform-manager](https://github.com/CRASH-Tech/gitlab-terraform-manager)
 - [ ] **terrapod** — self-hosted замена Terraform Enterprise (если понадобится
@@ -155,8 +160,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **kftray** — менеджер `kubectl port-forward` и reverse-туннелей (GUI+TUI).
       *(`AppImage` / `tar.gz`; ⭐ 1.6k)* — [hcavarsan/kftray](https://github.com/hcavarsan/kftray)
       — ✅ добавлен в плейбук (роль `kubernetes`, TUI-бинарник `kftui`).
-- [ ] **txeh** — управление `/etc/hosts` из CLI. *(`deb`)* —
-      [txn2/txeh](https://github.com/txn2/txeh)
+- [x] **txeh** — управление `/etc/hosts` из CLI. *(`release`)* —
+      [txn2/txeh](https://github.com/txn2/txeh) — ✅ добавлен в плейбук (роль
+      `network`, бинарник из тарболла txeh_Linux_x86_64.tar.gz).
 - [ ] **netobserv-cli** — сетевая наблюдаемость Kubernetes (eBPF, без агента).
       *(`go`)* — [netobserv/netobserv-cli](https://github.com/netobserv/netobserv-cli)
 - [x] **marvin** — сканер кластера CEL-выражениями: проблемы, мисконфиги,
@@ -177,8 +183,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **headlamp** — полноценный web/desktop UI для Kubernetes. *(`deb` / `AppImage`)* —
       [kubernetes-sigs/headlamp](https://github.com/kubernetes-sigs/headlamp)
       — ✅ добавлен в плейбук (роль `kubernetes`, `.deb` из релиза, desktop UI).
-- [ ] **kubewall** — dashboard одним бинарником на несколько кластеров.
-      *(`deb`)* — [kubewall/kubewall](https://github.com/kubewall/kubewall)
+- [x] **kubewall** — dashboard одним бинарником на несколько кластеров.
+      *(`release`)* — [kubewall/kubewall](https://github.com/kubewall/kubewall)
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
+      kubewall_Linux_x86_64.tar.gz).
 - [ ] **radar** — Kubernetes UI со встроенным MCP-сервером для AI-агентов.
       *(`deb`)* — [skyhook-io/radar](https://github.com/skyhook-io/radar)
 - [ ] **kubebox** — терминальная и веб-консоль для Kubernetes. *(`npm`)* —
@@ -189,15 +197,19 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`release`)* — [carvel-dev/ytt](https://github.com/carvel-dev/ytt)
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       ytt-linux-amd64 из релиза).
-- [ ] **kbld** — встраивает образы в манифесты (build/resolve/push).
-      *(`go`)* — [carvel-dev/kbld](https://github.com/carvel-dev/kbld)
+- [x] **kbld** — встраивает образы в манифесты (build/resolve/push).
+      *(`release`)* — [carvel-dev/kbld](https://github.com/carvel-dev/kbld)
+      — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
+      kbld-linux-amd64).
 - [ ] **timoni** — пакетный менеджер Kubernetes на CUE. *(`go`)* —
       [stefanprodan/timoni](https://github.com/stefanprodan/timoni)
 - [x] **chart-testing** — линтинг и тестирование Helm-чартов (`ct`). *(`tar.gz` linux_amd64 / `go`; ⭐ 1.6k)* —
       [helm/chart-testing](https://github.com/helm/chart-testing)
       — ✅ добавлен в плейбук (роль `kubernetes`, бинарник `ct`).
-- [ ] **helm-chartsnap** — snapshot-тестирование Helm-чартов. *(`go`)* —
+- [x] **helm-chartsnap** — snapshot-тестирование Helm-чартов. *(`release`)* —
       [jlandowner/helm-chartsnap](https://github.com/jlandowner/helm-chartsnap)
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник `chartsnap` из
+      тарболла chartsnap_v{version}_linux_amd64.tar.gz).
 - [ ] **charts-syncer** — синхронизация Helm-репозиториев. *(`go`)* —
       [bitnami/charts-syncer](https://github.com/bitnami/charts-syncer)
 - [ ] **capacitor** — UI для FluxCD. *(`npm`)* —
@@ -221,8 +233,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       — ✅ добавлен в плейбук (роль `docker`, бинарником из тарболла).
 - [ ] **docker-image-layer-explorer** — просмотр и распаковка слоёв образа.
       *(`pipx`)* — [Kartik1397/docker-image-layer-explorer](https://github.com/Kartik1397/docker-image-layer-explorer)
-- [ ] **decompose** — reverse-engineering docker-окружений (сети, тома, образы).
-      *(`deb`)* — [s0rg/decompose](https://github.com/s0rg/decompose)
+- [x] **decompose** — reverse-engineering docker-окружений (сети, тома, образы).
+      *(`release`)* — [s0rg/decompose](https://github.com/s0rg/decompose)
+      — ✅ добавлен в плейбук (роль `docker`, бинарник из тарболла
+      decompose_v{version}_linux_x86_64.tar.gz).
 - [ ] **copacetic** — патчинг уязвимостей прямо в контейнерных образах.
       *(`go`)* — [project-copacetic/copacetic](https://github.com/project-copacetic/copacetic)
 - [x] **oras** — клиент OCI-реестров для произвольных артефактов. *(`go`)* —
@@ -261,8 +275,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **gomplate** — шаблонизатор конфигов из разных источников (env, файлы, API).
       *(`go`)* — [hairyhenderson/gomplate](https://github.com/hairyhenderson/gomplate)
       — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник).
-- [ ] **gonzo** — TUI-анализатор логов с графиками по столбцам. *(`go`)* —
+- [x] **gonzo** — TUI-анализатор логов с графиками по столбцам. *(`release`)* —
       [control-theory/gonzo](https://github.com/control-theory/gonzo)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла
+      gonzo-{version}-linux-amd64.tar.gz).
 - [x] ⭐ **hl** — быстрый просмотрщик и процессор логов (JSON/logfmt). *(`cargo`)* —
       [pamburus/hl](https://github.com/pamburus/hl)
       — ✅ добавлен в плейбук (роль `shell`, бинарник hl-linux-x86_64-gnu).
@@ -274,10 +290,13 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [hedhyw/json-log-viewer](https://github.com/hedhyw/json-log-viewer)
 - [ ] **logdy-core** — realtime веб-просмотр логов (`tail -f` + браузерный UI).
       *(`go`)* — [logdyhq/logdy-core](https://github.com/logdyhq/logdy-core)
-- [ ] **otel-tui** — терминальный просмотрщик OpenTelemetry-трейсов/логов/метрик.
-      *(`go`)* — [ymtdzzz/otel-tui](https://github.com/ymtdzzz/otel-tui)
-- [ ] **jl** — работа с структурированным JSON-логированием. *(`go`)* —
-      [koenbollen/jl](https://github.com/koenbollen/jl)
+- [x] **otel-tui** — терминальный просмотрщик OpenTelemetry-трейсов/логов/метрик.
+      *(`release`)* — [ymtdzzz/otel-tui](https://github.com/ymtdzzz/otel-tui)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла
+      otel-tui_Linux_x86_64.tar.gz).
+- [x] **jl** — работа с структурированным JSON-логированием. *(`release`)* —
+      [koenbollen/jl](https://github.com/koenbollen/jl) — ✅ добавлен в плейбук
+      (роль `shell`, одиночный бинарник jl_linux_amd64).
 - [x] **yamlfmt** — форматтер YAML. *(`go`)* —
       [google/yamlfmt](https://github.com/google/yamlfmt)
       — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
@@ -358,8 +377,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **httptap** — разбор HTTP-запроса по слоям: DNS, connect, TLS, TTFB.
       *(`pipx`)* — [ozeranskii/httptap](https://github.com/ozeranskii/httptap)
       — ✅ добавлен в плейбук (роль `network`, через pipx из PyPI).
-- [ ] **asn** — справка по IP/домену: ASN, RPKI, BGP, WHOIS, трейс. *(`git clone`)* —
-      [nitefood/asn](https://github.com/nitefood/asn)
+- [x] **asn** — справка по IP/домену: ASN, RPKI, BGP, WHOIS, трейс.
+      *(`script`)* — [nitefood/asn](https://github.com/nitefood/asn)
+      — ✅ добавлен в плейбук (роль `network`, bash-скрипт из ветки master;
+      зависимости `whois`, `host`, `mtr`, `ipcalc` — пакетами apt).
 - [x] ⭐ **showcert** — «OpenSSL для людей»: разбор X.509-сертификатов. *(`pipx`)* —
       [yaroslaff/showcert](https://github.com/yaroslaff/showcert)
       — ✅ добавлен в плейбук (роль `network`, через pipx из PyPI).
@@ -389,8 +410,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **gotty** — делится терминалом как веб-приложением. *(`go` / `release`)* —
       [yudai/gotty](https://github.com/yudai/gotty)
       — ✅ добавлен в плейбук (роль `network`, бинарником из тарболла).
-- [ ] **assh** — «умный» ssh-клиент: прокси, jump-хосты, генерация конфигов.
-      *(`deb` / `go`)* — [moul/assh](https://github.com/moul/assh)
+- [x] **assh** — «умный» ssh-клиент: прокси, jump-хосты, генерация конфигов.
+      *(`release`)* — [moul/assh](https://github.com/moul/assh) — ✅ добавлен
+      в плейбук (роль `network`, бинарник из тарболла
+      assh_{version}_linux_amd64.tar.gz).
 
 ## Секреты и безопасность
 
@@ -409,8 +432,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`cargo`)* — [tellerops/teller](https://github.com/tellerops/teller)
 - [ ] **bank-vaults** — швейцарский нож для Vault: init, unseal, конфигурация.
       *(`go`)* — [bank-vaults/bank-vaults](https://github.com/bank-vaults/bank-vaults)
-- [ ] **medusa** — импорт/экспорт секретов HashiCorp Vault. *(`go`)* —
+- [x] **medusa** — импорт/экспорт секретов HashiCorp Vault. *(`release`)* —
       [jonasvinther/medusa](https://github.com/jonasvinther/medusa)
+      — ✅ добавлен в плейбук (роль `secrets`, бинарник из тарболла
+      medusa_{version}_linux_amd64.tar.gz).
 - [ ] **entropy** — ищет в кодовой базе строки с высокой энтропией (секреты).
       *(`go`)* — [EwenQuim/entropy](https://github.com/EwenQuim/entropy)
 - [ ] **shellclear** — находит секреты и опасные команды в истории shell.
@@ -574,8 +599,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`go`)* — [opencost/opencost](https://github.com/opencost/opencost)
 - [ ] **krr** — рекомендации ресурсов на основе Prometheus. *(`pipx`)* —
       [robusta-dev/krr](https://github.com/robusta-dev/krr)
-- [ ] **sloth** — генератор Prometheus SLO/алертов из простого описания.
-      *(`go`)* — [slok/sloth](https://github.com/slok/sloth)
+- [x] **sloth** — генератор Prometheus SLO/алертов из простого описания.
+      *(`release`)* — [slok/sloth](https://github.com/slok/sloth) — ✅ добавлен
+      в плейбук (роль `monitoring`, одиночный бинарник sloth-linux-amd64).
 - [ ] **gatus** — status page и проверки доступности из YAML. *(`go`)* —
       [TwiN/gatus](https://github.com/TwiN/gatus)
 - [ ] **cloudprober** — активный мониторинг сбоев до того, как их заметят

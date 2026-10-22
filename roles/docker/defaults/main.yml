@@ -68,3 +68,13 @@ docker_binaries:
     url: "https://github.com/moncho/dry/releases/download/{tag}/dry-linux-amd64.tar.gz"
     archive: tar
     member: dry
+  # decompose — reverse-engineering docker-окружений: по контейнерам собирает
+  # карту образов, сетей, томов и зависимостей (какой контейнер от чего зависит,
+  # какие порты открыты, где висят тома). Релиз —
+  # decompose_v{version}_linux_x86_64.tar.gz, бинарник decompose в корне.
+  - name: decompose
+    source: github
+    repo: s0rg/decompose
+    url: "https://github.com/s0rg/decompose/releases/download/{tag}/decompose_v{version}_linux_x86_64.tar.gz"
+    archive: tar
+    member: decompose

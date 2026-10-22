@@ -48,6 +48,36 @@ iac_binaries:
     url: "https://github.com/peak/s5cmd/releases/download/{tag}/s5cmd_{version}_Linux-64bit.tar.gz"
     archive: tar
     member: s5cmd
+  # tpm — менеджер провайдеров Terraform/OpenTofu: ставит нужные версии
+  # провайдеров (по lock-файлу или явно), обновляет и вращает их версии,
+  # не полагаясь на `terraform init` и глобальный кэш. Релиз —
+  # tpm_Linux_x86_64.tar.gz, бинарник tpm в корне.
+  - name: tpm
+    source: github
+    repo: Madh93/tpm
+    url: "https://github.com/Madh93/tpm/releases/download/{tag}/tpm_Linux_x86_64.tar.gz"
+    archive: tar
+    member: tpm
+  # tfvar — генерирует шаблон variables.tf из существующего Terraform-кода:
+  # собирает используемые переменные, их типы и значения по умолчанию
+  # (удобно, когда модуль писался без явного описания переменных). Релиз —
+  # tfvar_linux_amd64.tar.gz, бинарник tfvar в корне.
+  - name: tfvar
+    source: github
+    repo: shihanng/tfvar
+    url: "https://github.com/shihanng/tfvar/releases/download/{tag}/tfvar_linux_amd64.tar.gz"
+    archive: tar
+    member: tfvar
+  # config-lint — валидатор конфигов и IaC: проверяет Terraform/HCL, JSON,
+  # YAML и Kubernetes-манифесты набором декларативных правил (можно задавать
+  # свои) — по сути линтер политик в CI. Релиз —
+  # config-lint_Linux_x86_64.tar.gz, бинарник config-lint в корне.
+  - name: config-lint
+    source: github
+    repo: stelligent/config-lint
+    url: "https://github.com/stelligent/config-lint/releases/download/{tag}/config-lint_Linux_x86_64.tar.gz"
+    archive: tar
+    member: config-lint
 
 tfenv_repo: https://github.com/tfutils/tfenv.git
 tfenv_dir: "{{ home_dir }}/.tfenv"

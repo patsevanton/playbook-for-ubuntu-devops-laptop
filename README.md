@@ -75,28 +75,31 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan,
 │   │                           #   lazygit, wt (worktrunk), changie
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2,
-│   │                           #   dive, lazydocker, ctop, oras, dry
+│   │                           #   dive, lazydocker, ctop, oras, dry, decompose
 │   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
 │   │                           #   stern, flate, flux-tools, cty, diffyml,
 │   │                           #   kubectl-k8i, kubespy, kubecolor, kube-capacity,
 │   │                           #   ktop, kubefetch, krew, view-secret, df-pv,
 │   │                           #   browse-pvc, pluto, pv-migrate, marvin,
-│   │                           #   kftui, ct (chart-testing), ytt
+│   │                           #   kftui, ct (chart-testing), ytt, kbld,
+│   │                           #   chartsnap, kubewall
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
-│   │                           #   s5cmd, tfenv, tgenv
+│   │                           #   s5cmd, tpm, tfvar, config-lint, tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
-│   ├── secrets/                # direnv, vault, gitleaks, sops, grype, osquery, mfa
+│   ├── secrets/                # direnv, vault, gitleaks, sops, grype, osquery, mfa,
+│   │                           #   medusa
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
 │   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
-│   │                           #   jnv, octosql, lazyjournal,
+│   │                           #   jnv, octosql, lazyjournal, gonzo, otel-tui, jl,
 │   │                           #   lf, gomplate, yamlfmt, gum, fastfetch, procs,
 │   │                           #   cheat, tldr,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
+│   │                           #   whois, mtr-tiny, ipcalc,
 │   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
-│   │                           #   tcping, doggo, gotty, sshx, rkn-block-checker (pipx),
-│   │                           #   ssh-audit и httptap (pipx),
+│   │                           #   tcping, doggo, gotty, sshx, txeh, assh, asn,
+│   │                           #   rkn-block-checker (pipx), ssh-audit и httptap (pipx),
 │   │                           #   ecapture, termshark, websocat, sniffnet
 │   ├── ebpf/                   # eBPF-наблюдаемость: pwru, bpftop, oryx,
 │   │                           #   pktstat-bpf, tracee
@@ -106,7 +109,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
 │   ├── nora/                   # NORA artifact registry + mkcert TLS + CA клиентам,
 │   │                           #   Caddy как TLS-терминатор
-│   ├── monitoring/             # vmalert-tool (проверка алерт-правил)
+│   ├── monitoring/             # vmalert-tool (проверка алерт-правил), sloth (SLO)
 │   └── binaries/               # общий движок установки бинарников (вызывается ролями)
 ├── .ansible-lint
 └── README.md
@@ -135,8 +138,9 @@ ansible-lint                                   # проверка стиля (pr
    и `changie` (фрагменты changelog и подготовка релизов).
 4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2,
    а также `dive` (анализ слоёв образа), `lazydocker` (TUI-менеджер контейнеров),
-    `ctop` (`top` для метрик контейнеров), `oras` (клиент OCI-реестров)
-    и `dry` (терминальный менеджер Docker).
+    `ctop` (`top` для метрик контейнеров), `oras` (клиент OCI-реестров),
+    `dry` (терминальный менеджер Docker) и `decompose` (карта образов, сетей
+    и томов существующего docker-окружения).
 5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
    stern, flate, flux-tools (офлайн-рендер и дифф Flux GitOps), cty (sample-YAML
    из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод),
@@ -147,16 +151,21 @@ ansible-lint                                   # проверка стиля (pr
    (`df` по PV), browse-pvc (просмотр PVC) — а также pluto (устаревшие
    apiVersion), pv-migrate (миграция PV), marvin (сканер кластера
    CEL-выражениями), kftui (TUI-менеджер port-forward), ct (линтинг и
-   тестирование Helm-чартов), ytt (структурный шаблонизатор YAML)
-   и headlamp (web/desktop UI Kubernetes).
+   тестирование Helm-чартов), ytt (структурный шаблонизатор YAML), kbld
+   (фиксация образов в манифестах), chartsnap (snapshot-тесты Helm-чартов),
+   kubewall (дашборд на несколько кластеров) и headlamp (web/desktop UI
+   Kubernetes).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), s5cmd (быстрый параллельный клиент S3),
+   tpm (менеджер провайдеров Terraform/OpenTofu), tfvar (генерация
+   `variables.tf`), config-lint (валидация HCL/JSON/YAML по правилам),
    плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
 9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git), grype
-   (сканер уязвимостей образов и ФС), osquery (SQL-подобная инструментация ОС)
-   и mfa (терминальный менеджер 2FA/TOTP).
+   (сканер уязвимостей образов и ФС), osquery (SQL-подобная инструментация ОС),
+   mfa (терминальный менеджер 2FA/TOTP) и medusa (импорт/экспорт секретов
+   Vault).
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
     M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
@@ -167,10 +176,12 @@ ansible-lint                                   # проверка стиля (pr
     zellij (терминальный мультиплексор), navi (шпаргалки команд поверх fzf),
     fx (интерактивный просмотр JSON), jnv (интерактивный jq-фильтр JSON),
     octosql (SQL-запросы к JSON/CSV/Parquet), hl (просмотр JSON-логов),
-    lazyjournal (TUI для journald, auditd, Docker и файлов), mcfly
-    (умная история команд по Ctrl-R), lf (терминальный файловый менеджер),
-    gomplate (шаблонизатор конфигов), yamlfmt (форматтер YAML), gum
-    (примитивы для «красивых» shell-скриптов), fastfetch (информация о
+    lazyjournal (TUI для journald, auditd, Docker и файлов), gonzo
+    (TUI-анализ логов с графиками по столбцам), otel-tui (просмотр
+    OpenTelemetry-трейсов/логов/метрик), jl (раскраска JSON-логов),
+    mcfly (умная история команд по Ctrl-R), lf (терминальный файловый
+    менеджер), gomplate (шаблонизатор конфигов), yamlfmt (форматтер YAML),
+    gum (примитивы для «красивых» shell-скриптов), fastfetch (информация о
     системе), procs (современная замена ps), cheat (собственные шпаргалки
     команд) и tldr (краткие примеры команд).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
@@ -182,7 +193,9 @@ ansible-lint                                   # проверка стиля (pr
     цветным выводом), `xh` (HTTP-клиент), `hurl` (HTTP-запросы
     из plain-text `.hurl`-файлов), `trippy` (TUI traceroute со статистикой),
     `tcping` (`ping` поверх TCP-портов), `gotty` (терминал как веб-приложение),
-    `sshx` (совместный терминал в браузере),
+    `sshx` (совместный терминал в браузере), `txeh` (управление `/etc/hosts`),
+    `assh` (генерация SSH-конфигов, jump-хосты и прокси), `asn` (справка по
+    IP/домену: ASN, RPKI, BGP, WHOIS, трейс),
     `ecapture` (eBPF-захват TLS/SSL plaintext), `termshark` (TUI к
     Wireshark/tshark), `websocat` (netcat для WebSockets) и `sniffnet`
     (графический TUI-мониторинг трафика, .deb), а также
@@ -201,7 +214,8 @@ ansible-lint                                   # проверка стиля (pr
     mkcert, автодоверие CA у клиентов (системный store, Docker, npm, pip, Java)
     и Caddy как TLS-терминатор.
 19. Ставит `vmalert-tool` (офлайн-проверка и unit-тесты алерт-правил
-    Prometheus-совместимых систем, роль `monitoring`), а также `reviewdog`
+    Prometheus-совместимых систем) и `sloth` (генерация SLO/алертов из
+    описания) в роли `monitoring`, а также `reviewdog`
     (автоматическое code review) в роли `git` и `grex` (генерация regex из
     примеров) в роли `shell`.
 20. В конце проверяет установку и печатает версии всех утилит.
@@ -218,7 +232,7 @@ ansible-lint                                   # проверка стиля (pr
 | runtimes | python3-venv, python3-pip, python3-dev, golang-go, nodejs, npm, openjdk-21-jdk | языковые рантаймы |
 | secrets | direnv | окружение по каталогам |
 | shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck | удобная работа в терминале, статический анализ shell-скриптов |
-| network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
+| network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet, whois, mtr-tiny, ipcalc | сеть и диагностика (whois/mtr/ipcalc — зависимости `asn`) |
 | audio | pipewire, pipewire-bin, pipewire-pulse, wireplumber, hicolor-icon-theme | шумоподавление микрофона (HushMic) |
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
 | nora | mkcert, libnss3-tools, caddy, apache2-utils | mkcert (локальный CA), Caddy (TLS-терминатор), htpasswd (авторизация) |
@@ -332,6 +346,20 @@ ansible-lint                                   # проверка стиля (pr
 | changie | github.com/miniscruff/changie |
 | mfa | github.com/LexSerest/mfa |
 | vmalert-tool | github.com/VictoriaMetrics/VictoriaMetrics |
+| sloth | github.com/slok/sloth |
+| gonzo | github.com/control-theory/gonzo |
+| otel-tui | github.com/ymtdzzz/otel-tui |
+| jl | github.com/koenbollen/jl |
+| kbld | github.com/carvel-dev/kbld |
+| chartsnap | github.com/jlandowner/helm-chartsnap |
+| kubewall | github.com/kubewall/kubewall |
+| tpm | github.com/Madh93/tpm |
+| tfvar | github.com/shihanng/tfvar |
+| config-lint | github.com/stelligent/config-lint |
+| txeh | github.com/txn2/txeh |
+| assh | github.com/moul/assh |
+| decompose | github.com/s0rg/decompose |
+| medusa | github.com/jonasvinther/medusa |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
@@ -339,7 +367,8 @@ ansible-lint                                   # проверка стиля (pr
 коллекциями `community.docker`/`ansible.posix`, `rkn-block-checker`, `showcert`,
 `ssh-audit` и `httptap` — из PyPI через pipx в `~/.local/bin` (роль `network`),
 `sshx` — из тарболла S3 (без релиз-ассетов GitHub, роль `network`),
-`headlamp` — из
+`asn` — bash-скриптом из ветки master (без релизных артефактов, роль
+`network`), `headlamp` — из
 `.deb`-пакета GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
 `sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из
