@@ -93,6 +93,16 @@ git_binaries:
     repo: abhixdd/ghgrab
     url: "https://github.com/abhixdd/ghgrab/releases/download/{tag}/ghgrab-linux"
     archive: none
+  # glaball — массовое управление self-hosted GitLab-инстансами: обходит
+  # инстансы из конфига (токены, URL) и выполняет одну команду на всех —
+  # список проектов, права, архивация, перенос настроек. Дополняет glab
+  # (один инстанс) и gitlabform (состояние как код). Одиночный бинарник
+  # glaball-linux-amd64 без версии в имени файла.
+  - name: glaball
+    source: github
+    repo: flant/glaball
+    url: "https://github.com/flant/glaball/releases/download/{tag}/glaball-linux-amd64"
+    archive: none
 
 # Python-приложения для работы с GitLab (нет релизных бинарников — PyPI/pipx).
 git_pipx_apps:

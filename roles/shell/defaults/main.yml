@@ -262,6 +262,27 @@ shell_binaries:
     url: "https://github.com/samwho/spacer/releases/download/{tag}/spacer-x86_64-unknown-linux-musl.tar.gz"
     archive: tar
     member: spacer
+  # shellclear — ищет секреты и опасные команды в истории shell (ключи,
+  # токены, пароли, `curl -H "Authorization: ..."`), показывает находки и
+  # предлагает почистить. Работает с bash/zsh/fish, дополняет gitleaks
+  # (тот сканирует код, а не историю). Бинарник в каталоге
+  # shellclear-v{version}-x86_64-linux/ тарболла.
+  - name: shellclear
+    source: github
+    repo: rusty-ferris-club/shellclear
+    url: "https://github.com/rusty-ferris-club/shellclear/releases/download/{tag}/shellclear-v{version}-x86_64-linux.tar.xz"
+    archive: tarxz
+    member: shellclear-v{version}-x86_64-linux/shellclear
+  # nxs-backup — создание, доставка и ротация бэкапов: описываешь источники
+  # (файлы, БД, S3) и хранилища в YAML, а nxs-backup делает инкрементальные
+  # копии, шифрует и чистит старые по политике. Бинарник nxs-backup в корне
+  # тарболла nxs-backup-amd64.tar.gz (архив с ./ в путях).
+  - name: nxs-backup
+    source: github
+    repo: nixys/nxs-backup
+    url: "https://github.com/nixys/nxs-backup/releases/download/{tag}/nxs-backup-amd64.tar.gz"
+    archive: tar
+    member: nxs-backup
   # --- cheat — собственные шпаргалки команд ------------------------------------
 # Релиз cheat — gzip-сжатый одиночный бинарник cheat-linux-amd64.gz (НЕ тарболл),
 # поэтому роль binaries не подходит (понимает только tar/tarxz/zip/none).

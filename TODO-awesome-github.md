@@ -109,10 +109,14 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [stelligent/config-lint](https://github.com/stelligent/config-lint)
       — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
       config-lint_Linux_x86_64.tar.gz).
-- [ ] **gitlab-terraform-manager** — управление GitLab Terraform backend.
+- [x] **gitlab-terraform-manager** — управление GitLab Terraform backend.
       *(`go`)* — [CRASH-Tech/gitlab-terraform-manager](https://github.com/CRASH-Tech/gitlab-terraform-manager)
-- [ ] **tf-mirror** — self-hosted зеркало Terraform Provider Registry и бинарников
+      — ✅ добавлен в плейбук (роль `iac`, одиночный бинарник
+      gitlab-terraform-manager_linux_amd64).
+- [x] **tf-mirror** — self-hosted зеркало Terraform Provider Registry и бинарников
       HashiCorp (air-gapped/CI). *(`go`)* — [kashtan404/tf-mirror](https://github.com/kashtan404/tf-mirror)
+      — ✅ добавлен в плейбук (роль `iac`, одиночный бинарник
+      tf-mirror-linux-amd64).
 - [ ] **gruntwork-io/pre-commit** — набор pre-commit-хуков для Terraform.
       *(`pre-commit`)* — [gruntwork-io/pre-commit](https://github.com/gruntwork-io/pre-commit)
 
@@ -168,8 +172,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **txeh** — управление `/etc/hosts` из CLI. *(`release`)* —
       [txn2/txeh](https://github.com/txn2/txeh) — ✅ добавлен в плейбук (роль
       `network`, бинарник из тарболла txeh_Linux_x86_64.tar.gz).
-- [ ] **netobserv-cli** — сетевая наблюдаемость Kubernetes (eBPF, без агента).
+- [x] **netobserv-cli** — сетевая наблюдаемость Kubernetes (eBPF, без агента).
       *(`go`)* — [netobserv/netobserv-cli](https://github.com/netobserv/netobserv-cli)
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник `netobserv` из
+      тарболла netobserv-cli.tar.gz).
 - [x] **marvin** — сканер кластера CEL-выражениями: проблемы, мисконфиги,
       уязвимости. *(`go` / `release`)* — [undistro/marvin](https://github.com/undistro/marvin)
       — ✅ добавлен в плейбук (роль `kubernetes`).
@@ -198,8 +204,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       desktop UI).
 - [ ] **kubebox** — терминальная и веб-консоль для Kubernetes. *(`npm`)* —
       [astefanutti/kubebox](https://github.com/astefanutti/kubebox)
-- [ ] **kubeview** — визуализация ресурсов кластера и связей между ними.
+- [x] **kubeview** — визуализация ресурсов кластера и связей между ними.
       *(`go` / `make`)* — [benc-uk/kubeview](https://github.com/benc-uk/kubeview)
+      — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
+      kubeview-linux-amd64).
 - [x] **ytt** — шаблонизатор YAML, работающий со структурой, а не текстом.
       *(`release`)* — [carvel-dev/ytt](https://github.com/carvel-dev/ytt)
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
@@ -208,8 +216,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`release`)* — [carvel-dev/kbld](https://github.com/carvel-dev/kbld)
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       kbld-linux-amd64).
-- [ ] **timoni** — пакетный менеджер Kubernetes на CUE. *(`go`)* —
+- [x] **timoni** — пакетный менеджер Kubernetes на CUE. *(`go`)* —
       [stefanprodan/timoni](https://github.com/stefanprodan/timoni)
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
+      timoni_{version}_linux_amd64.tar.gz).
 - [x] **chart-testing** — линтинг и тестирование Helm-чартов (`ct`). *(`tar.gz` linux_amd64 / `go`; ⭐ 1.6k)* —
       [helm/chart-testing](https://github.com/helm/chart-testing)
       — ✅ добавлен в плейбук (роль `kubernetes`, бинарник `ct`).
@@ -217,10 +227,14 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [jlandowner/helm-chartsnap](https://github.com/jlandowner/helm-chartsnap)
       — ✅ добавлен в плейбук (роль `kubernetes`, бинарник `chartsnap` из
       тарболла chartsnap_v{version}_linux_amd64.tar.gz).
-- [ ] **charts-syncer** — синхронизация Helm-репозиториев. *(`go`)* —
+- [x] **charts-syncer** — синхронизация Helm-репозиториев. *(`go`)* —
       [bitnami/charts-syncer](https://github.com/bitnami/charts-syncer)
-- [ ] **capacitor** — UI для FluxCD. *(`npm`)* —
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
+      charts-syncer_{version}_linux_x86_64.tar.gz).
+- [x] **capacitor** — UI для FluxCD. *(`npm`)* —
       [gimlet-io/capacitor](https://github.com/gimlet-io/capacitor)
+      — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
+      next-Linux-x86_64 из релиза — на диск кладётся как `capacitor`).
 
 ## Docker и контейнеры
 
@@ -428,8 +442,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **mfa** — терминальный менеджер 2FA/TOTP. *(`release`)* —
       [LexSerest/mfa](https://github.com/LexSerest/mfa) — ✅ добавлен в плейбук
       (роль `secrets`, бинарник mfa из тарболла релиза).
-- [ ] **bank-vaults** — швейцарский нож для Vault: init, unseal, конфигурация.
+- [x] **bank-vaults** — швейцарский нож для Vault: init, unseal, конфигурация.
       *(`go`)* — [bank-vaults/bank-vaults](https://github.com/bank-vaults/bank-vaults)
+      — ✅ добавлен в плейбук (роль `secrets`, бинарник из тарболла
+      bank-vaults_{version}_Linux_x86_64.tar.gz).
 - [x] **medusa** — импорт/экспорт секретов HashiCorp Vault. *(`release`)* —
       [jonasvinther/medusa](https://github.com/jonasvinther/medusa)
       — ✅ добавлен в плейбук (роль `secrets`, бинарник из тарболла
@@ -438,12 +454,18 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`go`)* — [EwenQuim/entropy](https://github.com/EwenQuim/entropy)
       — ✅ добавлен в плейбук (роль `secrets`, сборкой из исходников:
       `go install github.com/EwenQuim/entropy@latest`).
-- [ ] **shellclear** — находит секреты и опасные команды в истории shell.
+- [x] **shellclear** — находит секреты и опасные команды в истории shell.
       *(`cargo`)* — [rusty-ferris-club/shellclear](https://github.com/rusty-ferris-club/shellclear)
-- [ ] **horusec** — SAST-сканер уязвимостей одной командой. *(`deb`)* —
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из tar.xz
+      shellclear-v{version}-x86_64-linux.tar.xz).
+- [x] **horusec** — SAST-сканер уязвимостей одной командой. *(`deb`)* —
       [ZupIT/horusec](https://github.com/ZupIT/horusec)
-- [ ] **dependency-check** — OWASP SCA: уязвимые зависимости проекта. *(`java`)* —
+      — ✅ добавлен в плейбук (роль `secrets`, одиночный бинарник
+      horusec_linux_amd64).
+- [x] **dependency-check** — OWASP SCA: уязвимые зависимости проекта. *(`java`)* —
       [dependency-check/DependencyCheck](https://github.com/dependency-check/DependencyCheck)
+      — ✅ добавлен в плейбук (роль `secrets`, zip в `/opt/dependency-check`
+      + обёртка в bin_dir; база NVD кэшируется в `~/.cache/dependency-check`).
 - [ ] **dagda** — статический анализ образов/контейнеров на malware и уязвимости.
       *(`pipx`)* — [eliasgranderubio/dagda](https://github.com/eliasgranderubio/dagda)
 - [ ] **ochrona-cli** — детект уязвимостей Python-зависимостей + безопасные
@@ -453,8 +475,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **osquery** — SQL-подобная инструментация и мониторинг ОС. *(`deb`)* —
       [osquery/osquery](https://github.com/osquery/osquery)
       — ✅ добавлен в плейбук (роль `secrets`, `.deb` из релиза; демон не поднимаем).
-- [ ] **KubeHound** — построение путей атак в Kubernetes. *(`go`)* —
+- [x] **KubeHound** — построение путей атак в Kubernetes. *(`go`)* —
       [DataDog/KubeHound](https://github.com/DataDog/KubeHound)
+      — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
+      kubehound-Linux-x86_64).
 - [ ] **kubestriker** — быстрый security-аудит Kubernetes. *(`pipx`)* —
       [vchinnipilli/kubestriker](https://github.com/vchinnipilli/kubestriker)
 - [ ] **kubernetes-rbac-audit** — аудит RBAC в кластере. *(`pipx`)* —
@@ -481,8 +505,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`cargo`)* — [abhixdd/ghgrab](https://github.com/abhixdd/ghgrab)
       — ✅ добавлен в плейбук (роль `git`, одиночный бинарник ghgrab-linux
       без версии в имени).
-- [ ] **glaball** — массовое управление self-hosted GitLab-инстансами. *(`go`)* —
+- [x] **glaball** — массовое управление self-hosted GitLab-инстансами. *(`go`)* —
       [flant/glaball](https://github.com/flant/glaball)
+      — ✅ добавлен в плейбук (роль `git`, одиночный бинарник
+      glaball-linux-amd64).
 - [x] **gitlabform** — configuration-as-code для GitLab (группы, проекты,
       настройки). *(`pipx`)* — [gitlabform/gitlabform](https://github.com/gitlabform/gitlabform)
       — ✅ добавлен в плейбук (роль `git`, через pipx из PyPI).
@@ -563,8 +589,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       (`power-profiles-daemon` + `amd-pstate`/`intel_pstate`).
 - [ ] **sysinfo** — скрипты сбора подробной системной информации. *(`pipx` / `git clone`)* —
       [peterbay/sysinfo](https://github.com/peterbay/sysinfo)
-- [ ] **nxs-backup** — создание, доставка и ротация бэкапов GNU/Linux.
+- [x] **nxs-backup** — создание, доставка и ротация бэкапов GNU/Linux.
       *(`go`)* — [nixys/nxs-backup](https://github.com/nixys/nxs-backup)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла
+      nxs-backup-amd64.tar.gz).
 
 ## Установщики бинарников (мета-инструменты)
 
@@ -606,8 +634,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       пользователи. *(`go`)* — [cloudprober/cloudprober](https://github.com/cloudprober/cloudprober)
       — ✅ добавлен в плейбук (роль `monitoring`, бинарник из тарболла
       cloudprober-v{version}-linux-x86_64.tar.gz).
-- [ ] **canary-checker** — health-check платформа (Kubernetes-native).
+- [x] **canary-checker** — health-check платформа (Kubernetes-native).
       *(`go`)* — [flanksource/canary-checker](https://github.com/flanksource/canary-checker)
+      — ✅ добавлен в плейбук (роль `monitoring`, одиночный бинарник
+      canary-checker_linux_amd64).
 
 ## Обучающие материалы и подборки (не утилиты)
 

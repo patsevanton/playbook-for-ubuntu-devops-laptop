@@ -49,6 +49,15 @@ monitoring_binaries:
     url: "https://github.com/cloudprober/cloudprober/releases/download/{tag}/cloudprober-v{version}-linux-x86_64.tar.gz"
     archive: tar
     member: cloudprober-v{version}-linux-x86_64/cloudprober
+  # canary-checker — health-check платформа: описываешь проверки (HTTP,
+  # DNS, TCP, Postgres, S3 и др.) в YAML, а canary-checker гоняет их и отдаёт
+  # метрики Prometheus. Работает и локально, и как Kubernetes-оператор.
+  # Одиночный бинарник canary-checker_linux_amd64 без версии в имени.
+  - name: canary-checker
+    source: github
+    repo: flanksource/canary-checker
+    url: "https://github.com/flanksource/canary-checker/releases/download/{tag}/canary-checker_linux_amd64"
+    archive: none
 
 # Go-приложения без релизных бинарников — собираются ролью go_apps.
 monitoring_go_apps:

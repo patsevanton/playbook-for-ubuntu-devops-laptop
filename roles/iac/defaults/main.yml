@@ -78,6 +78,23 @@ iac_binaries:
     url: "https://github.com/stelligent/config-lint/releases/download/{tag}/config-lint_Linux_x86_64.tar.gz"
     archive: tar
     member: config-lint
+  # tf-mirror — self-hosted зеркало Terraform Provider Registry и бинарников
+  # HashiCorp для air-gapped и CI-окружений: проксирует и кэширует
+  # провайдеров, чтобы `terraform init` работал без выхода в интернет.
+  # Одиночный бинарник tf-mirror-linux-amd64 без версии в имени.
+  - name: tf-mirror
+    source: github
+    repo: kashtan404/tf-mirror
+    url: "https://github.com/kashtan404/tf-mirror/releases/download/{tag}/tf-mirror-linux-amd64"
+    archive: none
+  # gitlab-terraform-manager — управление GitLab Terraform backend: создаёт
+  # проекты/стейты, настраивает доступ и мигрирует состояние между
+  # GitLab-инстансами. Одиночный бинарник gitlab-terraform-manager_linux_amd64.
+  - name: gitlab-terraform-manager
+    source: github
+    repo: CRASH-Tech/gitlab-terraform-manager
+    url: "https://github.com/CRASH-Tech/gitlab-terraform-manager/releases/download/{tag}/gitlab-terraform-manager_linux_amd64"
+    archive: none
 
 # Python-приложения IaC (нет релизных бинарников — PyPI/pipx).
 iac_pipx_apps:

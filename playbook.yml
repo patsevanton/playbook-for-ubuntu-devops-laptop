@@ -205,6 +205,18 @@
         - "{{ bin_dir }}/cloudprober --version"
         - "{{ bin_dir }}/krr --help"
         - "{{ bin_dir }}/dra --version"
+        - "{{ bin_dir }}/glaball --help"
+        - "{{ bin_dir }}/bank-vaults --help"
+        - "{{ bin_dir }}/horusec version"
+        - "{{ bin_dir }}/dependency-check --version"
+        - "{{ bin_dir }}/timoni version"
+        - "{{ bin_dir }}/kubehound version"
+        - "{{ bin_dir }}/charts-syncer version"
+        - "{{ bin_dir }}/netobserv version"
+        - "{{ bin_dir }}/canary-checker version"
+        - "{{ bin_dir }}/tf-mirror --version"
+        - "{{ bin_dir }}/shellclear --version"
+        - "{{ bin_dir }}/nxs-backup --version"
         - "ansible-lint --version"
         - "{{ pipx_bin_dir }}/molecule --version"
         - "mcommander --version"
@@ -215,7 +227,7 @@
       loop_control:
         label: "{{ item }}"
 
-    - name: Проверить наличие kubectx, gitlabcloner, rkn-check, showcert, headlamp, gatus и hushmic
+    - name: Проверить наличие бинарников и приложений без флага версии
       ansible.builtin.stat:
         path: "{{ item }}"
       register: extra_binaries_check
@@ -229,6 +241,10 @@
         - /usr/bin/radar-desktop
         - "{{ bin_dir }}/gatus"
         - /usr/bin/hushmic
+        - "{{ bin_dir }}/kubeview"
+        - "{{ bin_dir }}/capacitor"
+        - "{{ bin_dir }}/gitlab-terraform-manager"
+        - /opt/dependency-check/bin/dependency-check.sh
       loop_control:
         label: "{{ item }}"
 

@@ -73,7 +73,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── base/                   # проверки, каталоги, базовые пакеты (в т.ч. pipx),
 │   │                           #   yq, eget, dra, ansible-lint, molecule
 │   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan,
-│   │                           #   lazygit, wt (worktrunk), changie, ghgrab,
+│   │                           #   lazygit, wt (worktrunk), changie, ghgrab, glaball,
 │   │                           #   gitlabform (pipx)
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2,
 │   │                           #   dive, lazydocker, ctop, oras, dry, decompose,
@@ -85,20 +85,25 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   browse-pvc, pluto, pv-migrate, marvin,
 │   │                           #   kftui, ct (chart-testing), ytt, kbld,
 │   │                           #   chartsnap, kubewall, kubevpn, netfetch,
+│   │                           #   timoni, kubeview, kubehound, charts-syncer,
+│   │                           #   netobserv, capacitor,
 │   │                           #   headlamp и radar (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
+│   │                           #   tf-mirror, gitlab-terraform-manager,
 │   │                           #   tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype, osquery, mfa,
-│   │                           #   medusa, entropy (go install)
+│   │                           #   medusa, bank-vaults, horusec,
+│   │                           #   dependency-check (/opt + обёртка),
+│   │                           #   entropy (go install)
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
 │   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
 │   │                           #   jnv, octosql, lazyjournal, gonzo, otel-tui, jl,
 │   │                           #   logdy, spacer,
 │   │                           #   lf, gomplate, yamlfmt, gum, fastfetch, procs,
-│   │                           #   cheat, tldr,
+│   │                           #   shellclear, nxs-backup, cheat, tldr,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   whois, mtr-tiny, ipcalc,
@@ -116,7 +121,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── nora/                   # NORA artifact registry + mkcert TLS + CA клиентам,
 │   │                           #   Caddy как TLS-терминатор
 │   ├── monitoring/             # vmalert-tool (проверка алерт-правил), sloth (SLO),
-│   │                           #   cloudprober, gatus (go install), krr
+│   │                           #   cloudprober, canary-checker, gatus (go install), krr
 │   ├── binaries/               # общий движок установки бинарников (вызывается ролями)
 │   ├── pipx_apps/              # общий движок установки приложений из PyPI (pipx)
 │   └── go_apps/                # общий движок сборки Go-приложений (go install)
@@ -148,7 +153,8 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
    (локальный запуск GitLab CI), `pre-commit`, `reposcan`, `lazygit`
    (TUI для git), `wt` (worktrunk — параллельные ветки через git worktree),
    `changie` (фрагменты changelog и подготовка релизов), `ghgrab` (TUI-браузер
-   файлов GitHub/GitLab/Gitea) и `gitlabform` (GitLab как код, через pipx).
+   файлов GitHub/GitLab/Gitea), `glaball` (массовые команды на нескольких
+   self-hosted GitLab-инстансах) и `gitlabform` (GitLab как код, через pipx).
 4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2,
    а также `dive` (анализ слоёв образа), `lazydocker` (TUI-менеджер контейнеров),
     `ctop` (`top` для метрик контейнеров), `oras` (клиент OCI-реестров),
@@ -169,21 +175,30 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
    (фиксация образов в манифестах), chartsnap (snapshot-тесты Helm-чартов),
    kubewall (дашборд на несколько кластеров), kubevpn (VPN в кластер для
    локальной разработки), netfetch (поиск ворклоадов без NetworkPolicy),
+   timoni (пакетный менеджер Kubernetes на CUE), kubeview (граф ресурсов
+   кластера), kubehound (поиск путей атак в кластере), charts-syncer
+   (синхронизация Helm-репозиториев), netobserv (сетевая наблюдаемость на
+   eBPF без агента), capacitor (UI для FluxCD),
    headlamp (web/desktop UI Kubernetes) и radar (UI Kubernetes со встроенным
    MCP-сервером для AI-агентов, .deb).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), s5cmd (быстрый параллельный клиент S3),
    tpm (менеджер провайдеров Terraform/OpenTofu), tfvar (генерация
    `variables.tf`), config-lint (валидация HCL/JSON/YAML по правилам),
-   tftui (TUI для работы с Terraform-стейтом, через pipx),
+   tftui (TUI для работы с Terraform-стейтом, через pipx), tf-mirror
+   (локальное зеркало провайдеров Terraform для air-gapped/CI),
+   gitlab-terraform-manager (управление GitLab Terraform backend),
    плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
 9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git), grype
    (сканер уязвимостей образов и ФС), osquery (SQL-подобная инструментация ОС),
    mfa (терминальный менеджер 2FA/TOTP), medusa (импорт/экспорт секретов
-   Vault) и entropy (поиск строк с высокой энтропией — ключей и токенов —
-   по признаку случайности, а не по шаблону; `go install`).
+   Vault), bank-vaults (init/unseal и конфигурация Vault через YAML),
+   horusec (SAST одной командой), dependency-check (OWASP SCA: уязвимые
+   зависимости проекта, zip в `/opt` + обёртка) и entropy (поиск строк с
+   высокой энтропией — ключей и токенов — по признаку случайности, а не по
+   шаблону; `go install`).
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
     M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
@@ -202,8 +217,9 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
     mcfly (умная история команд по Ctrl-R), lf (терминальный файловый
     менеджер), gomplate (шаблонизатор конфигов), yamlfmt (форматтер YAML),
     gum (примитивы для «красивых» shell-скриптов), fastfetch (информация о
-    системе), procs (современная замена ps), cheat (собственные шпаргалки
-    команд) и tldr (краткие примеры команд).
+    системе), procs (современная замена ps), shellclear (секреты и опасные
+    команды в истории shell), nxs-backup (бэкапы по YAML-описанию),
+    cheat (собственные шпаргалки команд) и tldr (краткие примеры команд).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
@@ -236,7 +252,8 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
     и Caddy как TLS-терминатор.
 19. Ставит `vmalert-tool` (офлайн-проверка и unit-тесты алерт-правил
     Prometheus-совместимых систем), `sloth` (генерация SLO/алертов из
-    описания), `cloudprober` (активные пробы), `krr` (рекомендации
+    описания), `cloudprober` (активные пробы), `canary-checker` (health-check
+    платформа с проверками из YAML), `krr` (рекомендации
     requests/limits по фактическому потреблению) и `gatus` (health-dashboard
     и status page из YAML) в роли `monitoring`, а также `reviewdog`
     (автоматическое code review) в роли `git` и `grex` (генерация regex из
@@ -271,6 +288,7 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
 | gh | github.com/cli/cli |
 | glab | gitlab.com/gitlab-org/cli |
 | gitlabcloner | github.com/Andrey039/gitlabcloner |
+| glaball | github.com/flant/glaball |
 | glci | gitlab.com/gitlab-org/ci-cd/runner-tools/glci (Generic Packages) |
 | pre-commit | github.com/pre-commit/pre-commit (самодостаточный `.pyz`) |
 | reposcan | github.com/mabd-dev/reposcan |
@@ -379,19 +397,32 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
 | tpm | github.com/Madh93/tpm |
 | tfvar | github.com/shihanng/tfvar |
 | config-lint | github.com/stelligent/config-lint |
+| tf-mirror | github.com/kashtan404/tf-mirror |
+| gitlab-terraform-manager | github.com/CRASH-Tech/gitlab-terraform-manager |
 | txeh | github.com/txn2/txeh |
 | assh | github.com/moul/assh |
 | decompose | github.com/s0rg/decompose |
 | medusa | github.com/jonasvinther/medusa |
+| bank-vaults | github.com/bank-vaults/bank-vaults |
+| horusec | github.com/ZupIT/horusec |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
 | dra | github.com/devmatteini/dra |
 | ghgrab | github.com/abhixdd/ghgrab |
 | kubevpn | github.com/kubenetworks/kubevpn |
 | netfetch | github.com/deggja/netfetch |
+| timoni | github.com/stefanprodan/timoni |
+| kubeview | github.com/benc-uk/kubeview |
+| kubehound | github.com/DataDog/KubeHound |
+| charts-syncer | github.com/bitnami/charts-syncer |
+| netobserv | github.com/netobserv/netobserv-cli |
+| capacitor | github.com/gimlet-io/capacitor |
 | copa | github.com/project-copacetic/copacetic |
 | logdy | github.com/logdyhq/logdy-core |
 | spacer | github.com/samwho/spacer |
+| shellclear | github.com/rusty-ferris-club/shellclear |
+| nxs-backup | github.com/nixys/nxs-backup |
 | cloudprober | github.com/cloudprober/cloudprober |
+| canary-checker | github.com/flanksource/canary-checker |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`) и
@@ -401,7 +432,9 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
 `pipx_apps`, вызывается из `git` и `iac`), `gatus` и `entropy` — сборкой из
 исходников через `go install` (общая роль `go_apps`, вызывается из `monitoring`
 и `secrets`), `krr` — распаковкой PyInstaller-сборки в `/opt/krr` с обёрткой в
-`/usr/local/bin` (роль `monitoring`),
+`/usr/local/bin` (роль `monitoring`), `dependency-check` — распаковкой
+zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/bin` (роль
+`secrets`; база NVD кэшируется в `~/.cache/dependency-check`),
 `sshx` — из тарболла S3 (без релиз-ассетов GitHub, роль `network`),
 `asn` — bash-скриптом из ветки master (без релизных артефактов, роль
 `network`), `headlamp` и `radar` — из

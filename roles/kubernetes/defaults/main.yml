@@ -254,6 +254,61 @@ kubernetes_binaries:
     url: "https://github.com/deggja/netfetch/releases/download/{tag}/netfetch_{version}_linux_amd64.tar.gz"
     archive: tar
     member: netfetch_{version}_linux_amd64/netfetch
+  # timoni — пакетный менеджер Kubernetes на CUE: модули описывают ресурсы
+  # типизированно, с проверками и значениями, а timoni применяет их как
+  # helm-релиз (install/upgrade/delete). Альтернатива Helm для CUE-стека.
+  # Релиз — timoni_{version}_linux_amd64.tar.gz, бинарник timoni в корне.
+  - name: timoni
+    source: github
+    repo: stefanprodan/timoni
+    url: "https://github.com/stefanprodan/timoni/releases/download/{tag}/timoni_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: timoni
+  # kubeview — визуализация ресурсов кластера и связей между ними: граф
+  # объектов (deployments → pods → services) в браузере, одним бинарником,
+  # без установки чего-либо в кластер. Одиночный бинарник kubeview-linux-amd64.
+  - name: kubeview
+    source: github
+    repo: benc-uk/kubeview
+    url: "https://github.com/benc-uk/kubeview/releases/download/{tag}/kubeview-linux-amd64"
+    archive: none
+  # kubehound — построение путей атак в Kubernetes: собирает граф ролей,
+  # подов, секретов и нод и ищет цепочки доступа к привилегиям. Бинарник
+  # kubehound-Linux-x86_64 (заглавные буквы в имени) — кладём как kubehound.
+  - name: kubehound
+    source: github
+    repo: DataDog/KubeHound
+    url: "https://github.com/DataDog/KubeHound/releases/download/{tag}/kubehound-Linux-x86_64"
+    archive: none
+  # charts-syncer — синхронизация Helm-репозиториев: переносит чарты между
+  # реестрами (в т.ч. OCI), умеет инкрементально и по расписанию — для
+  # зеркал и air-gapped контуров. Релиз — charts-syncer_{version}_linux_x86_64.tar.gz,
+  # бинарник charts-syncer в корне.
+  - name: charts-syncer
+    source: github
+    repo: bitnami/charts-syncer
+    url: "https://github.com/bitnami/charts-syncer/releases/download/{tag}/charts-syncer_{version}_linux_x86_64.tar.gz"
+    archive: tar
+    member: charts-syncer
+  # netobserv — сетевая наблюдаемость Kubernetes на eBPF без агента в
+  # кластере: `netobserv` сам собирает потоки, DNS и метрики и показывает их
+  # в терминале/веб-UI. В тарболле бинарник лежит по пути build/netobserv,
+  # на диск кладём под именем команды — netobserv.
+  - name: netobserv
+    source: github
+    repo: netobserv/netobserv-cli
+    url: "https://github.com/netobserv/netobserv-cli/releases/download/{tag}/netobserv-cli.tar.gz"
+    archive: tar
+    member: build/netobserv
+  # capacitor — UI для FluxCD: показывает состояние GitOps-репозиториев,
+  # kustomization и helm-релизов без установки чего-либо в кластер (читает
+  # kubeconfig и CRD Flux). Одиночный бинарник next-Linux-x86_64 (так
+  # называется артефакт релиза) — кладём как capacitor.
+  - name: capacitor
+    source: github
+    repo: gimlet-io/capacitor
+    url: "https://github.com/gimlet-io/capacitor/releases/download/{tag}/next-Linux-x86_64"
+    archive: none
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и
