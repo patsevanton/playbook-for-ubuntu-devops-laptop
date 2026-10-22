@@ -53,6 +53,8 @@
       tags: [skills]
     - role: audio
       tags: [audio]
+    - role: hardware
+      tags: [hardware]
     - role: guardrails
       tags: [guardrails]
     - role: nora
@@ -158,6 +160,7 @@
         - "{{ bin_dir }}/tldr --version"
         - "{{ bin_dir }}/gotty --version"
         - "osqueryi --version"
+        - "lact --help"
         - "{{ bin_dir }}/lazygit --version"
         - "{{ bin_dir }}/lazydocker --version"
         - "{{ bin_dir }}/dive --version"
@@ -335,10 +338,9 @@
 
     # --- Удаление утилит, от которых отказались -----------------------------
     # Причина отказов — в TODO-awesome-github.md: VictoriaMetrics (кроме
-    # vmalert-tool) не нужна без локального скрейпа метрик, LACT — нет сборки
-    # под Ubuntu 26.04, auto-cpufreq — не нужен. Чистим всё, что могло остаться
-    # от промежуточных прогонов плейбука или ручной установки, чтобы не плодить
-    # мёртвые инструменты.
+    # vmalert-tool) не нужна без локального скрейпа метрик, auto-cpufreq —
+    # не нужен. Чистим всё, что могло остаться от промежуточных прогонов
+    # плейбука или ручной установки, чтобы не плодить мёртвые инструменты.
 
     # VictoriaMetrics: single-node бинарник (стоял в ранней версии роли
     # monitoring) и каталог данных, который VM создаёт при запуске.
@@ -352,17 +354,6 @@
         - "{{ home_dir }}/victoria-metrics-data"
       loop_control:
         label: "{{ item }}"
-
-    # LACT: удаляем пакеты .deb (GUI lact + демон lactd), чтобы не оставался
-    # systemd-юнит и desktop-ярлык в меню приложений.
-    - name: Удалить пакеты LACT (нет сборки под Ubuntu 26.04)
-      become: true
-      ansible.builtin.apt:
-        name:
-          - lact
-          - lact-daemon
-        state: absent
-        autoremove: true
 
     # auto-cpufreq: удаляем pipx-окружение (шим + venv). `pipx uninstall`
     # завершается с кодом 1 и печатает «Nothing to uninstall», если пакета нет —

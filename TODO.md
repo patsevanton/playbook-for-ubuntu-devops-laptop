@@ -49,7 +49,7 @@ GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 `kubespy`, `kubecolor`, `kube-capacity`, `ktop`, `kubefetch`, `vault`,
 `gitleaks`, `starship`, `bat`, `eza`, `zoxide`, `fzf`, `ripgrep`, `fd-find`,
 `direnv`, `uv`, `yq`, `nmap`, `tcpdump`, `httpie`, `opencode`,
-`herdr`, `rtk`, `mcommander`, `HushMic`, `rkn-block-checker`, `gai`, `dnsglobe`,
+`herdr`, `rtk`, `mcommander`, `HushMic`, `LACT`, `rkn-block-checker`, `gai`, `dnsglobe`,
 `docker`, `guardrails-llm-filter`.
 
 `ansible-core` ставится один раз вручную при bootstrap (см. `README.md`).

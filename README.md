@@ -128,6 +128,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── opencode/               # opencode (из npm-реестра)
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
+│   ├── hardware/               # LACT (настройка и мониторинг GPU, .deb + lactd)
 │   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
 │   ├── nora/                   # NORA artifact registry + mkcert TLS + CA клиентам,
 │   │                           #   Caddy как TLS-терминатор
@@ -290,7 +291,9 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 14. Ставит eBPF-наблюдаемость: `pwru` (eBPF-отладчик сетевого стека), `bpftop`
     (обзор запущенных eBPF-программ), `oryx` (TUI-сниффер трафика), `pktstat-bpf`
     (монитор трафика по процессам) и `tracee` (runtime-security и форензика).
-15. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire).
+15. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire) —
+    и LACT — GUI и демон `lactd` для настройки и мониторинга GPU (AMD/Intel/
+    NVIDIA): температура, частоты, вентиляторы, лимиты мощности.
 16. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
     Docker-контейнер маскировки PII/секретов на пути к LLM.
 17. Добавляет пользователя в группу `docker`.
@@ -326,7 +329,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | nora | mkcert, libnss3-tools, caddy, apache2-utils | mkcert (локальный CA), Caddy (TLS-терминатор), htpasswd (авторизация) |
 
 Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`),
-`HushMic` (роль `audio`), `headlamp` и `radar` (роль `kubernetes`).
+`HushMic` (роль `audio`), `LACT` (роль `hardware`), `headlamp` и `radar`
+(роль `kubernetes`).
 
 ### Скачиваемые бинарники в `/usr/local/bin`
 

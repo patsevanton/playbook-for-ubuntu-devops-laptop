@@ -12,7 +12,7 @@
 `binaries`.
 
 Как читать: `- [ ]` — ждёт подходящего релиза; в заметке — что именно
-сломано и чем утилита покрыта сейчас.
+сломано, ссылка на issue апстрима и чем утилита покрыта сейчас.
 
 ---
 
@@ -22,8 +22,12 @@
       [ogham/dog](https://github.com/ogham/dog)
       — ⛔ не запускается: upstream мёртв с 2021 (последний релиз v0.1.0),
       бинарник динамически связан с `libssl.so.1.1`, которого нет в Ubuntu
-      26.04. Покрывается `q` и `doggo` (роль `network`). Пересмотреть, если
-      выйдет релиз со статической сборкой.
+      26.04. Симптом подтверждён в
+      [ogham/dog#109](https://github.com/ogham/dog/issues/109); смежные
+      открытые issue — [#98](https://github.com/ogham/dog/issues/98) и
+      [#122](https://github.com/ogham/dog/issues/122). Покрывается `q` и
+      `doggo` (роль `network`). Пересмотреть, если выйдет релиз со статической
+      сборкой.
 
 ## Секреты
 
@@ -31,18 +35,10 @@
       *(`cargo`)* — [tellerops/teller](https://github.com/tellerops/teller)
       — ⛔ не запускается: последний релиз (v2.0.7, 2024) собран динамически
       против `libssl.so.1.1`, которого нет в Ubuntu 26.04; статических сборок
-      и сборок под OpenSSL 3 апстрим не публикует. Покрывается `sops` +
-      `vault` + `medusa`. Пересмотреть при новом релизе.
-
-## Железо
-
-- [ ] **LACT** — GUI для настройки и мониторинга GPU (AMD/Intel/NVIDIA).
-      *(`deb`)* — [ilya-zlobintsev/LACT](https://github.com/ilya-zlobintsev/LACT)
-      — ⛔ не запускается: в релизах нет сборки под Ubuntu 26.04 (только
-      debian-12, ubuntu-2204, ubuntu-2404). Пакет для 24.04 может заработать
-      (glibc обратно совместима, сборка под старый дистрибутив обычно идёт на
-      новом), но на 26.04 не проверялся. Пересмотреть, когда появится сборка
-      под 26.04.
+      и сборок под OpenSSL 3 апстрим не публикует. Отслеживается в
+      [tellerops/teller#290](https://github.com/tellerops/teller/issues/290)
+      (OPEN; комментарий с проверкой на 26.04 добавлен 2026-10-22).
+      Покрывается `sops` + `vault` + `medusa`. Пересмотреть при новом релизе.
 
 ## Kubernetes
 
@@ -51,8 +47,11 @@
       — ⛔ не устанавливается: пакет 2021 года с жёсткими пинами
       (`figlet==0.0.1`, `PyYAML==5.3.1`, `prompt-toolkit==1.0.15`) — под
       Python 3.14 `pip install kubestriker` падает («No matching distribution
-      found for figlet==0.0.1»). Покрывается `kube-linter`, `kubeconform`,
-      `marvin` и `kubehound`. Пересмотреть, если апстрим снимет пины.
+      found for figlet==0.0.1»). Отслеживается в
+      [vchinnipilli/kubestriker#36](https://github.com/vchinnipilli/kubestriker/issues/36)
+      (OPEN; про устаревший `prompt-toolkit` — [#29](https://github.com/vchinnipilli/kubestriker/issues/29)).
+      Покрывается `kube-linter`, `kubeconform`, `marvin` и `kubehound`.
+      Пересмотреть, если апстрим снимет пины.
 
 ## Безопасность
 
@@ -61,4 +60,6 @@
       — ⛔ не устанавливается: пин `faiss-cpu==1.9.0` не имеет колёс под Python
       3.14 (доступны только 1.12+), `pip install git+https://github.com/mllamazares/vulncov.git`
       падает на сборке зависимостей; пакета на PyPI
-      нет. Пересмотреть, если апстрим ослабит пин.
+      нет. Заведено
+      [mllamazares/vulncov#1](https://github.com/mllamazares/vulncov/issues/1)
+      (OPEN, 2026-10-22). Пересмотреть, если апстрим ослабит пин.

@@ -190,7 +190,7 @@ Linux-пользователя. Канонический общий список
 `tfvar`, `prettyplan`, `terraform-tui`, `tpm`, `sops`, `grype`, `flawz`, `mfa`,
 `eget`, `binup`, `stew`, `dra`, `zellij`, `mcfly`, `navi`, `cheat`,
 `tldr`, `gum`, `shellcheck`, `hstr`, `worktrunk`, `spacer`, `shellclear`,
-`3mux`, `dusage`, `gdu`, `lf`, `fastfetch`, `procs`, `auto-cpufreq`, `LACT`,
+`3mux`, `dusage`, `gdu`, `lf`, `fastfetch`, `procs`, `auto-cpufreq`,
 `mcelog`, `wondershaper`, `sysinfo`, `lazygit`, `lumen`, `opencommit`,
 `gptcommit`, `CodeGPT`, `ghgrab`, `glaball`, `bandwhich`, `sniffnet`, `trippy`,
 `q`, `dog`, `tcping`, `termshark`, `kyanos`, `oryx`, `pktstat-bpf`, `asn`,
@@ -199,9 +199,10 @@ Linux-пользователя. Канонический общий список
 
 Часть из них после разбора вынесена из `TODO-awesome-github.md` в отдельные
 трекеры: `flawz`, `stew`, `mcelog`, `wondershaper`, `EternalTerminal` — в
-[`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md), `dog`, `teller`,
-`LACT` — в
-[`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
+[`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md), `dog`, `teller` —
+в [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
+`LACT` добавлен в плейбук (роль `hardware`) после появления сборки под
+Ubuntu 26.04 в релизе v0.10.1.
 
 ---
 
