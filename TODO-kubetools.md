@@ -41,9 +41,10 @@
       сразу. *(`script`)* — [johanhaleby/kubetail](https://github.com/johanhaleby/kubetail) —
       не нужен: то же делает `stern` из роли `kubernetes`.
 - [x] **kubectl-ports-rs** — плагин kubectl: список открытых портов ресурсов
-      Pod. *(`krew`)* — [widnyana/kubectl-ports-rs](https://github.com/widnyana/kubectl-ports-rs) —
-      не ставим: в релизе 1.1.1 нет ассетов, только krew/cargo
-      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
+      Pod. *(`release`)* — [widnyana/kubectl-ports-rs](https://github.com/widnyana/kubectl-ports-rs) —
+      добавлен в роль `kubernetes` (`kubectl-ports`) с зафиксированным тегом
+      1.1.0: в релизе 1.1.1 ассетов нет, а в 1.1.0 есть готовый
+      `kubectl-ports_1.1.0-x86_64-unknown-linux-musl.tar.gz`.
 
 ### Cluster Management
 
@@ -620,7 +621,6 @@
 
 | Кандидат | GitHub | Что это | Почему отброшен | Где подробности |
 | --- | --- | --- | --- | --- |
-| kubectl-ports-rs | [widnyana/kubectl-ports-rs](https://github.com/widnyana/kubectl-ports-rs) | krew-плагин `kubectl ports`: список открытых портов подов и сервисов | нет релизных бинарников — только krew/cargo | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
 | kubectl-snapshot | [fbrubbo/kubectl-snapshot](https://github.com/fbrubbo/kubectl-snapshot) | `kubectl resource-snapshot`: снимок потребления CPU/памяти подами, HPA, деплойментами и нодами плюс проверка PDB и probes | в релизе нет ассетов, проект заброшен с 2020 | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
 | Octant | [vmware-archive/octant](https://github.com/vmware-archive/octant) | веб-панель для визуального просмотра и отладки объектов кластера, с плагинами | архивный проект (2023); дублирует `headlamp`/`radar` | [`not-install.md`](not-install.md) |
 | xlskubectl | [learnk8s/xlskubectl](https://github.com/learnk8s/xlskubectl) | управление кластером из таблицы Google Sheets | нет ни релизов, ни пакета на PyPI | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |

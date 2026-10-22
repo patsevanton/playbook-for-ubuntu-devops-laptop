@@ -106,6 +106,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   kubeprompt, kustomizer, buoy, k9sight,
 │   │                           #   hanoi-cli, kzero/kubectl-kzero, ktunnel,
 │   │                           #   kubectl-duplicate, kubectl-fd,
+│   │                           #   kubectl-ports (тег 1.1.0),
 │   │                           #   kubectl-relay, gwctl, kbu, kurt,
 │   │                           #   kubediff, kubetrim, kubevious, k8shark,
 │   │                           #   node-gizmo, burn, tk, audit2rbac,
@@ -265,7 +266,10 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    (ноды), burn (стоимость), tk (Grafana Tanka), audit2rbac (RBAC из
    audit-логов), knetvis (NetworkPolicy, pipx), pumba (chaos), kopilot
    (AI-ассистент) и kubectl-outagedeck (статус облаков). Ещё через pipx —
-   kptop (Prometheus-метрики). Следующая волна kubetools — самые популярные
+   kptop (Prometheus-метрики). Отдельной задачей ставится kubectl-ports —
+   плагин `kubectl ports` с таблицей портов подов и сервисов (тег
+   зафиксирован на 1.1.0: в последнем релизе апстрима ассетов нет).
+   Следующая волна kubetools — самые популярные
    из оставшихся кандидатов: keploy (тест-кейсы
    из реального трафика), okteto (разработка в кластере), garden
    (оркестратор разработки), ig/Inspektor Gadget (eBPF-гаджеты), peirates
@@ -586,6 +590,7 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | kubernetes-mcp-server | github.com/containers/kubernetes-mcp-server |
 | kubecm | github.com/sunny0826/kubecm |
 | kubectl-slice | github.com/patrickdappollonio/kubectl-slice |
+| kubectl-ports | github.com/widnyana/kubectl-ports-rs (тег 1.1.0) |
 | helmify | github.com/arttor/helmify |
 | kail | github.com/boz/kail |
 | kubeaudit | github.com/Shopify/kubeaudit |
@@ -671,7 +676,8 @@ zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/b
 `sshx` — из тарболла S3 (без релиз-ассетов GitHub, роль `network`),
 `docker-image-layer-explorer` — одиночным релизным python-скриптом с
 зафиксированным тегом `v0.1.0` (у апстрима нет релиза с меткой «Latest»,
-роль `docker`),
+роль `docker`), `kubectl-ports` — бинарником из релиза с зафиксированным
+тегом `1.1.0` (в последнем релизе `1.1.1` ассетов нет, роль `kubernetes`),
 `headlamp`, `radar`, `monokle`, `rubick` и `klustr` — из
 `.deb`-пакетов GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),

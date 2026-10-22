@@ -1077,3 +1077,21 @@ cdk8s_bin: "{{ bin_dir }}/cdk8s"
 kubebox_install: true
 kubebox_package: kubebox
 kubebox_bin: "{{ bin_dir }}/kubebox"
+
+# --- kubectl-ports: порты подов и сервисов (плагин kubectl) ------------------
+# `kubectl ports` печатает таблицу портов, объявленных контейнерами подов
+# (namespace, под, контейнер, порт/протокол, имя порта), а `kubectl ports svc`
+# — опубликованные порты Service'ов (ClusterIP, targetPort, port, NodePort).
+# Написан на Rust (kube-rs), релизный бинарник — статический musl, без
+# зависимостей от библиотек системы.
+#
+# Ставится отдельной задачей, а не через kubernetes_binaries: в последнем
+# релизе 1.1.1 не собрались ассеты (в релизе нет ни одного файла), рабочий
+# бинарник есть только в 1.1.0 — поэтому тег зафиксирован. Как только апстрим
+# выпустит релиз с ассетами, запись можно перенести в kubernetes_binaries.
+# Апстрим в krew-index плагин не публикует, а cargo/rust в плейбуке нет.
+kubectl_ports_install: true
+kubectl_ports_version: 1.1.0
+kubectl_ports_archive: "kubectl-ports_{{ kubectl_ports_version }}-x86_64-unknown-linux-musl.tar.gz"
+kubectl_ports_url: "https://github.com/widnyana/kubectl-ports-rs/releases/download/{{ kubectl_ports_version }}/{{ kubectl_ports_archive }}"
+kubectl_ports_unpack_dir: "{{ tmp_dir }}/kubectl-ports"

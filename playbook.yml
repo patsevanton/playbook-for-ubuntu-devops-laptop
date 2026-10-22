@@ -245,6 +245,7 @@
         - "{{ bin_dir }}/kubernetes-mcp-server --version"
         - "{{ bin_dir }}/kubecm version"
         - "{{ bin_dir }}/kubectl-slice --version"
+        - "{{ bin_dir }}/kubectl-ports --version"
         - "{{ bin_dir }}/helmify --version"
         - "{{ bin_dir }}/kail version"
         - "{{ bin_dir }}/kubeaudit version"

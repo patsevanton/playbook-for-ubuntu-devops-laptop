@@ -51,6 +51,11 @@
     file: kubebox.yml
   when: kubebox_install
 
+- name: Установить kubectl-ports (порты подов и сервисов)
+  ansible.builtin.include_tasks:
+    file: kubectl-ports.yml
+  when: kubectl_ports_install
+
 - name: Проверить наличие kubectx
   ansible.builtin.stat:
     path: "{{ bin_dir }}/kubectx"
