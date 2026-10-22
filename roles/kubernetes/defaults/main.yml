@@ -339,6 +339,14 @@ kubernetes_binaries:
     url: "https://github.com/helmfile/helmfile/releases/download/{tag}/helmfile_{version}_linux_amd64.tar.gz"
     archive: tar
     member: helmfile
+  # kind — Kubernetes IN Docker: локальный кластер в контейнерах одной командой
+  # (`kind create cluster`), референсная реализация для тестов манифестов и
+  # CI. Одиночный бинарник kind-linux-amd64 без версии в имени.
+  - name: kind
+    source: github
+    repo: kubernetes-sigs/kind
+    url: "https://github.com/kubernetes-sigs/kind/releases/download/{tag}/kind-linux-amd64"
+    archive: none
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и

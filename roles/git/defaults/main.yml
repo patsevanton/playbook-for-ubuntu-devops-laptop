@@ -151,6 +151,17 @@ git_binaries:
     url: "https://github.com/nektos/act/releases/download/{tag}/act_Linux_x86_64.tar.gz"
     archive: tar
     member: act
+  # jj (jujutsu) — VCS от авторов Mercurial: работает поверх обычного
+  # git-репозитория (`.git` остаётся на месте), но команды проще: изменения
+  # фиксируются автоматически, история переписывается без индекса и stash.
+  # Дополняет git/lazygit — можно пробовать на существующих репозиториях.
+  # Релиз — jj-v{version}-x86_64-unknown-linux-musl.tar.gz, бинарник jj.
+  - name: jj
+    source: github
+    repo: jj-vcs/jj
+    url: "https://github.com/jj-vcs/jj/releases/download/{tag}/jj-v{version}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: jj
 
 # Python-приложения для работы с GitLab (нет релизных бинарников — PyPI/pipx).
 git_pipx_apps:

@@ -103,6 +103,13 @@ iac_pipx_apps:
   # `terraform state` и разбора JSON. Команда — tftui.
   - name: tftui
     creates: tftui
+  # checkov — статический анализ IaC (Terraform/OpenTofu, Kubernetes, Dockerfile,
+  # CloudFormation, Helm, GitHub Actions) на мисконфиги безопасности:
+  # открытые бакеты, отсутствие шифрования, публичные порты. Отчёты в
+  # CLI/SARIF/JSON. Дополняет tflint и config-lint: те про стиль и правила,
+  # checkov — про безопасность. На PyPI пакет `checkov`, команда — checkov.
+  - name: checkov
+    creates: checkov
 
 tfenv_repo: https://github.com/tfutils/tfenv.git
 tfenv_dir: "{{ home_dir }}/.tfenv"

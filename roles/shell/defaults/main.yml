@@ -302,6 +302,75 @@ shell_binaries:
     url: "https://github.com/mihaigalos/dusage/releases/download/{tag}/dusage-{version}-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: dusage
+  # mise — один менеджер версий для node/python/go/terraform/… (замена
+  # asdf/nvm/pyenv/direnv-части): `mise use -g node@22`, версии привязаны к
+  # каталогу через .mise.toml. Дополняет уже стоящие uv/Go/Node — нужен, когда
+  # в проекте свои версии рантаймов. В тарболле бинарник лежит по пути
+  # mise/bin/mise (рядом man и completions).
+  - name: mise
+    source: github
+    repo: jdx/mise
+    url: "https://github.com/jdx/mise/releases/download/{tag}/mise-v{version}-linux-x64.tar.gz"
+    archive: tar
+    member: mise/bin/mise
+  # just — командный раннер: рецепты в justfile вместо Makefile, без проблем
+  # с табами и с аргументами по умолчанию. Тег релиза без префикса v (1.59.0).
+  # Бинарник just в корне тарболла just-{version}-x86_64-unknown-linux-musl.
+  - name: just
+    source: github
+    repo: casey/just
+    url: "https://github.com/casey/just/releases/download/{tag}/just-{version}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: just
+  # yazi — быстрый TUI-файловый менеджер на Rust: асинхронный ввод-вывод,
+  # превью изображений/кода, вкладки. Дополняет lf (тот минималистичнее).
+  # Релиз — zip yazi-x86_64-unknown-linux-gnu.zip, бинарник в одноимённом
+  # каталоге.
+  - name: yazi
+    source: github
+    repo: sxyazi/yazi
+    url: "https://github.com/sxyazi/yazi/releases/download/{tag}/yazi-x86_64-unknown-linux-gnu.zip"
+    archive: zip
+    member: yazi-x86_64-unknown-linux-gnu/yazi
+  # glow — рендер Markdown прямо в терминале (README, заметки, комментарии
+  # из API): заголовки, списки, код и ссылки читаемы без браузера.
+  # Релиз — glow_{version}_Linux_x86_64.tar.gz, бинарник в каталоге
+  # glow_{version}_Linux_x86_64.
+  - name: glow
+    source: github
+    repo: charmbracelet/glow
+    url: "https://github.com/charmbracelet/glow/releases/download/{tag}/glow_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: glow_{version}_Linux_x86_64/glow
+  # btm (bottom) — кроссплатформенный монитор процессов/CPU/памяти/сети с
+  # графиками: замена top/htop с историей. Кладём под именем btm (как
+  # называется команда). Бинарник btm в корне тарболла
+  # bottom_x86_64-unknown-linux-gnu.tar.gz.
+  - name: btm
+    source: github
+    repo: ClementTsang/bottom
+    url: "https://github.com/ClementTsang/bottom/releases/download/{tag}/bottom_x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: btm
+  # hyperfine — бенчмарк команд: прогрев, несколько прогонов, среднее и
+  # отклонение, сравнение вариантов (`hyperfine -N 'cmd1' 'cmd2'`).
+  # Бинарник в каталоге hyperfine-v{version}-x86_64-unknown-linux-musl.
+  - name: hyperfine
+    source: github
+    repo: sharkdp/hyperfine
+    url: "https://github.com/sharkdp/hyperfine/releases/download/{tag}/hyperfine-v{version}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: hyperfine-v{version}-x86_64-unknown-linux-musl/hyperfine
+  # duckdb — встраиваемая аналитическая СУБД: SQL по Parquet/CSV/JSON прямо
+  # из CLI (`duckdb -c "select * from 'logs.parquet' limit 5"`). Дополняет
+  # octosql (тот про запросы к файлам, duckdb — полноценный SQL-движок).
+  # Релиз — duckdb-cli-linux-amd64.tar.gz, бинарник duckdb в корне.
+  - name: duckdb
+    source: github
+    repo: duckdb/duckdb
+    url: "https://github.com/duckdb/duckdb/releases/download/{tag}/duckdb-cli-linux-amd64.tar.gz"
+    archive: tar
+    member: duckdb
 
 # Python-приложения роли shell — ставятся через pipx в изолированное окружение.
 shell_pipx_apps:

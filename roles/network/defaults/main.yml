@@ -228,6 +228,26 @@ network_binaries:
     url: "https://github.com/Hakky54/certificate-ripper/releases/download/{tag}/crip-linux-amd64.tar.gz"
     archive: tar
     member: crip
+  # k6 — нагрузочное тестирование сценариями на JS: сценарии, пороги (thresholds),
+  # вывод в Prometheus/JSON. Для проверки, как сервис держит нагрузку, до
+  # выката. Бинарник в каталоге k6-v{version}-linux-amd64 тарболла.
+  - name: k6
+    source: github
+    repo: grafana/k6
+    url: "https://github.com/grafana/k6/releases/download/{tag}/k6-v{version}-linux-amd64.tar.gz"
+    archive: tar
+    member: k6-v{version}-linux-amd64/k6
+  # gping — ping с графиком задержек в терминале: видно джиттер и потери во
+  # времени, а не только среднее. Дополняет tcping (тот про TCP-порты) и
+  # trippy (трассировка). Тег релиза с префиксом gping- (gping-v1.21.0),
+  # поэтому срезаем его version_strip; бинарник gping в корне тарболла.
+  - name: gping
+    source: github
+    repo: orf/gping
+    version_strip: "^gping-v"
+    url: "https://github.com/orf/gping/releases/download/{tag}/gping-Linux-musl-x86_64.tar.gz"
+    archive: tar
+    member: gping
 
 # --- Sniffnet: графический TUI-анализатор сетевого трафика -----------------
 # Ставится официальным .deb из GitHub-релиза (артефакт без версии в имени).
