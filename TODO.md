@@ -55,7 +55,10 @@ Helm-чарты (не на ноутбук) — в
 `herdr`, `rtk`, `mcommander`, `HushMic`, `LACT`, `rkn-block-checker`, `gai`, `dnsglobe`,
 `docker`, `guardrails-llm-filter`, `kops`, `devpod`, `kompose`,
 `ko`, `kubie`, `kubefwd`, `kubectl-tree`, `conftest`, `kube-bench`,
-`kube-hunter`, `cdk8s`, `kubernetes-mcp-server`.
+`kube-hunter`, `cdk8s`, `kubernetes-mcp-server`, `kubecm`,
+`kubectl-slice`, `helmify`, `kail`, `kubeaudit`, `rbac-tool`,
+`kluctl`, `kube-burner`, `kwok`, `kwokctl`, `kpexec`,
+`groot`, `k2tf`, `kubesec`, `kpt`, `kube-job`.
 
 `argocd`, `pulumi` и `kubebuilder` не ставятся: Argo CD не используется, IaC —
 на Terraform, Kubernetes-операторы не создаются

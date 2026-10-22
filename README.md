@@ -95,7 +95,10 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   kubie, kubefwd, kubectl-tree, conftest,
 │   │                           #   kube-bench, kube-hunter (pipx),
 │   │                           #   cdk8s (npm), kubernetes-mcp-server,
-│   │                           #   headlamp и radar (UI, .deb)
+│   │                           #   kubecm, kubectl-slice, helmify, kail,
+│   │                           #   kubeaudit, rbac-tool, kluctl, kube-burner,
+│   │                           #   kwok/kwokctl, kpexec, groot, k2tf, kubesec,
+│   │                           #   kpt, kube-job, headlamp и radar (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
 │   │                           #   tf-mirror, gitlab-terraform-manager,
@@ -216,7 +219,15 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    conftest (политики Rego/OPA для конфигов), kube-bench (CIS Kubernetes
    Benchmark), kube-hunter (поиск уязвимостей кластера, через pipx),
    cdk8s (манифесты кодом, через npm) и kubernetes-mcp-server (MCP-сервер
-   для AI-агентов).
+   для AI-агентов). Дополнительно ставятся kubecm (управление kubeconfig),
+   kubectl-slice (разбиение multi-doc YAML), helmify (Helm-чарт из
+   манифестов), kail (`tail` логов подов по селектору), kubeaudit (аудит
+   security-мисконфигов), rbac-tool (анализ RBAC), kluctl (декларативный
+   GitOps-деплой), kube-burner (нагрузочные тесты кластера),
+   kwok/kwokctl (симуляция нод без kubelet), kpexec (привилегированный exec
+   в контейнере), groot (диагностический архив кластера для RCA), k2tf
+   (Kubernetes YAML → Terraform HCL), kubesec (риск-анализ манифестов),
+   kpt (пакеты Kubernetes-конфигов) и kube-job (одноразовые Job из CLI).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), s5cmd (быстрый параллельный клиент S3),
    tpm (менеджер провайдеров Terraform/OpenTofu), tfvar (генерация
@@ -521,6 +532,21 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | conftest | github.com/open-policy-agent/conftest |
 | kube-bench | github.com/aquasecurity/kube-bench |
 | kubernetes-mcp-server | github.com/containers/kubernetes-mcp-server |
+| kubecm | github.com/sunny0826/kubecm |
+| kubectl-slice | github.com/patrickdappollonio/kubectl-slice |
+| helmify | github.com/arttor/helmify |
+| kail | github.com/boz/kail |
+| kubeaudit | github.com/Shopify/kubeaudit |
+| rbac-tool | github.com/alcideio/rbac-tool |
+| kluctl | github.com/kluctl/kluctl |
+| kube-burner | github.com/kube-burner/kube-burner |
+| kwok, kwokctl | github.com/kubernetes-sigs/kwok |
+| kpexec | github.com/ssup2/kpexec |
+| groot | github.com/hrodrig/groot |
+| k2tf | github.com/sl1pm4t/k2tf |
+| kubesec | github.com/controlplaneio/kubesec |
+| kpt | github.com/kptdev/kpt |
+| kube-job | github.com/h3poteto/kube-job |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`),

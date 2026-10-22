@@ -37,8 +37,9 @@
 
 ### Pods
 
-- [ ] **kubetail** (johanhaleby) — bash-скрипт: tail логов нескольких подов
-      сразу. *(`script`)* — [johanhaleby/kubetail](https://github.com/johanhaleby/kubetail)
+- [x] **kubetail** (johanhaleby) — bash-скрипт: tail логов нескольких подов
+      сразу. *(`script`)* — [johanhaleby/kubetail](https://github.com/johanhaleby/kubetail) —
+      не нужен: то же делает `stern` из роли `kubernetes`.
 - [ ] **kubectl-ports-rs** — плагин kubectl: список открытых портов ресурсов
       Pod. *(`krew`)* — [widnyana/kubectl-ports-rs](https://github.com/widnyana/kubectl-ports-rs)
 
@@ -97,10 +98,12 @@
       *(`go` / `release`)* — [omrikiei/ktunnel](https://github.com/omrikiei/ktunnel)
 - [ ] **Vimkubectl** — управление любыми k8s-ресурсами прямо из Vim.
       *(`vim plugin`)* — [rottencandy/vimkubectl](https://github.com/rottencandy/vimkubectl)
-- [ ] **fubectl** — набор bash-функций: меньше повторяющихся команд kubectl.
-      *(`script`)* — [kubermatic/fubectl](https://github.com/kubermatic/fubectl)
-- [ ] **kube-ps1** — prompt с текущим контекстом/namespace Kubernetes.
-      *(`script`)* — [jonmosco/kube-ps1](https://github.com/jonmosco/kube-ps1)
+- [x] **fubectl** — набор bash-функций: меньше повторяющихся команд kubectl.
+      *(`script`)* — [kubermatic/fubectl](https://github.com/kubermatic/fubectl) —
+      не нужен: bash-скрипт (см. `not-install.md`).
+- [x] **kube-ps1** — prompt с текущим контекстом/namespace Kubernetes.
+      *(`script`)* — [jonmosco/kube-ps1](https://github.com/jonmosco/kube-ps1) —
+      не нужен: bash-скрипт (см. `not-install.md`).
 - [x] **Conftest** — тесты структурированных конфигов на языке Rego (OPA).
       *(`deb` / `release`)* — [open-policy-agent/conftest](https://github.com/open-policy-agent/conftest) —
       добавлен в роль `kubernetes`.
@@ -125,15 +128,17 @@
       контекстам. *(`script` / `krew`)* — [ahmetb/kubectl-foreach](https://github.com/ahmetb/kubectl-foreach)
 - [ ] **kubecui** — делает kubectl дружелюбнее (TUI-обёртка). *(`pipx`)* —
       [pymag09/kubecui](https://github.com/pymag09/kubecui)
-- [ ] **q-as-kubectl** — ещё один способ управлять командами k8s через `q`.
-      *(`script`)* — [ildar-shaimordanov/q-as-kubectl](https://github.com/ildar-shaimordanov/q-as-kubectl)
+- [x] **q-as-kubectl** — ещё один способ управлять командами k8s через `q`.
+      *(`script`)* — [ildar-shaimordanov/q-as-kubectl](https://github.com/ildar-shaimordanov/q-as-kubectl) —
+      не нужен: bash-скрипт (см. `not-install.md`).
 - [ ] **kubectl-find** — UNIX-find-подобный плагин kubectl: поиск и действия над
       ресурсами. *(`krew`)* — [alikhil/kubectl-find](https://github.com/alikhil/kubectl-find)
 - [x] **kubefwd** — массовый port-forward сервисов с уникальными IP и записями в
       `/etc/hosts`. *(`release` / `go`)* — [txn2/kubefwd](https://github.com/txn2/kubefwd) —
       добавлен в роль `kubernetes`.
-- [ ] **kubecm** — удобное управление `kubeconfig`. *(`release` / `go`)* —
-      [sunny0826/kubecm](https://github.com/sunny0826/kubecm)
+- [x] **kubecm** — удобное управление `kubeconfig`. *(`release` / `go`)* —
+      [sunny0826/kubecm](https://github.com/sunny0826/kubecm) —
+      добавлен в роль `kubernetes` (kubecm_v{version}_Linux_x86_64.tar.gz).
 - [ ] **krelay** — альтернатива `kubectl port-forward`: TCP/UDP до IP/хоста внутри
       кластера. *(`krew`)* — [knight42/krelay](https://github.com/knight42/krelay)
 - [ ] **gwctl** — управление и разбор ресурсов Gateway API. *(`go` / `release`)* —
@@ -163,8 +168,9 @@
 
 - [ ] **kubectl-mtail** — плагин kubectl: tail логов подов по label selector.
       *(`go`)* — [grzesuav/kubectl-mtail](https://gitlab.com/grzesuav/kubectl-mtail)
-- [ ] **kail** — просмотрщик логов Kubernetes (`tail -f` по кластеру). *(`release`)* —
-      [boz/kail](https://github.com/boz/kail)
+- [x] **kail** — просмотрщик логов Kubernetes (`tail -f` по кластеру). *(`release`)* —
+      [boz/kail](https://github.com/boz/kail) —
+      добавлен в роль `kubernetes` (kail_v{version}_linux_amd64.tar.gz).
 - [ ] **kubetail** (kubetail-org) — real-time logging dashboard: терминал или
       браузер. *(`release`)* — [kubetail-org/kubetail](https://github.com/kubetail-org/kubetail)
 
@@ -179,8 +185,9 @@
       *(`release`)* — [vmware-tanzu/crash-diagnostics](https://github.com/vmware-tanzu/crash-diagnostics)
 - [ ] **kubectl-doctor** — плагин-триаж кластера («brew doctor» для k8s).
       *(`krew`)* — [emirozer/kubectl-doctor](https://github.com/emirozer/kubectl-doctor)
-- [ ] **kpexec** — запуск команд в контейнере с повышенными привилегиями.
-      *(`release`)* — [ssup2/kpexec](https://github.com/ssup2/kpexec)
+- [x] **kpexec** — запуск команд в контейнере с повышенными привилегиями.
+      *(`release`)* — [ssup2/kpexec](https://github.com/ssup2/kpexec) —
+      добавлен в роль `kubernetes` (kpexec_v{version}_linux_amd64.tar.gz).
 - [ ] **Inspektor Gadget** — набор eBPF-инструментов для отладки и инспекции
       ресурсов/приложений. *(`deb` / `release`)* —
       [inspektor-gadget/inspektor-gadget](https://github.com/inspektor-gadget/inspektor-gadget)
@@ -190,8 +197,9 @@
       окружениями). *(`go`)* — [Ramilito/kubediff](https://github.com/Ramilito/kubediff)
 - [ ] **k8shark** — снимок состояния кластера в архив + replay через mock API
       server. *(`release`)* — [phenixblue/k8shark](https://github.com/phenixblue/k8shark)
-- [ ] **groot** — read-only диагностика: логи подов, события и контекст API в один
-      `.tar.gz` для RCA. *(`release`)* — [hrodrig/groot](https://github.com/hrodrig/groot)
+- [x] **groot** — read-only диагностика: логи подов, события и контекст API в один
+      `.tar.gz` для RCA. *(`release`)* — [hrodrig/groot](https://github.com/hrodrig/groot) —
+      добавлен в роль `kubernetes` (groot_v{version}_linux_amd64.tar.gz).
 
 ### Development Tools/Kit
 
@@ -222,8 +230,9 @@
       добавлен в роль `kubernetes` (npm-пакет `cdk8s-cli`).
 - [ ] **Arkade** — «магазин» готовых установок (в т.ч. k8s-утилит) одной командой.
       *(`script`)* — [alexellis/arkade](https://github.com/alexellis/arkade)
-- [ ] **k2tf** — конвертер Kubernetes YAML → Terraform HCL. *(`release`)* —
-      [sl1pm4t/k2tf](https://github.com/sl1pm4t/k2tf)
+- [x] **k2tf** — конвертер Kubernetes YAML → Terraform HCL. *(`release`)* —
+      [sl1pm4t/k2tf](https://github.com/sl1pm4t/k2tf) —
+      добавлен в роль `kubernetes` (k2tf_{version}_Linux_amd64.tar.gz).
 - [x] **Kompose** — конвертация docker-compose в ресурсы Kubernetes. *(`release`)* —
       [kubernetes/kompose](https://github.com/kubernetes/kompose) —
       добавлен в роль `kubernetes`.
@@ -231,8 +240,11 @@
       *(`script`)* — [gefyrahq/gefyra](https://github.com/gefyrahq/gefyra)
 - [ ] **odo** — CLI для быстрой итеративной разработки на k8s и Podman.
       *(`release`)* — [redhat-developer/odo](https://github.com/redhat-developer/odo)
-- [ ] **k8tz** — CLI и admission-controller: инъекция таймзон в Pods/CronJobs.
-      *(`release`)* — [k8tz/k8tz](https://github.com/k8tz/k8tz)
+- [x] **k8tz** — CLI и admission-controller: инъекция таймзон в Pods/CronJobs.
+      *(`release`)* — [k8tz/k8tz](https://github.com/k8tz/k8tz) —
+      не ставим на ноутбук: основная часть — admission controller в кластере
+      (CLI только устанавливает его и правит YAML), см.
+      [`TODO-server-apps.md`](TODO-server-apps.md).
 - [ ] **KDash** — простой и быстрый дашборд Kubernetes на Rust. *(`cargo` / `release`)* —
       [kdash-rs/kdash](https://github.com/kdash-rs/kdash)
 - [ ] **K8Studio** — кроссплатформенный IDE-клиент для кластеров Kubernetes.
@@ -243,8 +255,9 @@
       *(`release`)* — [iximiuz/kexp](https://github.com/iximiuz/kexp)
 - [ ] **k8s-insider** — zero-config доступ к сети кластера. *(`release`)* —
       [TrueGoric/k8s-insider](https://github.com/TrueGoric/k8s-insider)
-- [ ] **Helmify** — создание Helm-чарта из Kubernetes YAML. *(`go` / `release`)* —
-      [arttor/helmify](https://github.com/arttor/helmify)
+- [x] **Helmify** — создание Helm-чарта из Kubernetes YAML. *(`go` / `release`)* —
+      [arttor/helmify](https://github.com/arttor/helmify) —
+      добавлен в роль `kubernetes` (helmify_Linux_x86_64.tar.gz).
 - [ ] **Reckoner** — декларативная установка и управление релизами Helm.
       *(`release`)* — [FairwindsOps/reckoner](https://github.com/FairwindsOps/reckoner)
 - [ ] **Katenary** — конвертация docker-compose в настраиваемый Helm-чарт.
@@ -257,8 +270,9 @@
       [sixfeetup/scaf](https://github.com/sixfeetup/scaf)
 - [ ] **KubePug** — pre-upgrade checker: устаревшие API в манифестах. *(`release`)* —
       [kubepug/kubepug](https://github.com/kubepug/kubepug)
-- [ ] **kubectl-slice** — плагин kubectl: разбиение multi-YAML на отдельные файлы.
-      *(`krew` / `release`)* — [patrickdappollonio/kubectl-slice](https://github.com/patrickdappollonio/kubectl-slice)
+- [x] **kubectl-slice** — плагин kubectl: разбиение multi-YAML на отдельные файлы.
+      *(`krew` / `release`)* — [patrickdappollonio/kubectl-slice](https://github.com/patrickdappollonio/kubectl-slice) —
+      добавлен в роль `kubernetes` (бинарник kubectl-slice из релиза).
 - [ ] **KubeDiagrams** — генерация диаграмм архитектуры из манифестов, kustomize,
       Helm и состояния кластера. *(`pipx`)* — [philippemerle/KubeDiagrams](https://github.com/philippemerle/KubeDiagrams)
 - [ ] **Grafana-Tanka** — гибкая и переиспользуемая конфигурация Kubernetes
@@ -268,8 +282,10 @@
 
 ### Alternative Tools for Development
 
-- [ ] **minikube** — локальный одноузловой Kubernetes. *(`deb` / `release`)* —
-      [kubernetes/minikube](https://github.com/kubernetes/minikube)
+- [x] **minikube** — локальный одноузловой Kubernetes. *(`deb` / `release`)* —
+      [kubernetes/minikube](https://github.com/kubernetes/minikube) —
+      не ставим: работаем с облачными кластерами, для локальных тестов уже есть
+      `kind`, см. [`not-install.md`](not-install.md).
 - [ ] **mokctl** — сборка conformant multi-node кластеров в контейнерах.
       *(`release`)* — [bashtools/mokctl](https://github.com/bashtools/mokctl)
 
@@ -287,8 +303,9 @@
       [helmwave/helmwave](https://github.com/helmwave/helmwave)
 - [ ] **Helmsman** — «Helm Charts as Code». *(`release`)* —
       [Praqma/helmsman](https://github.com/Praqma/helmsman)
-- [ ] **Kluctl** — templated declarative деплой (push/pull GitOps). *(`release`)* —
-      [kluctl/kluctl](https://github.com/kluctl/kluctl)
+- [x] **Kluctl** — templated declarative деплой (push/pull GitOps). *(`release`)* —
+      [kluctl/kluctl](https://github.com/kluctl/kluctl) —
+      добавлен в роль `kubernetes` (kluctl_v{version}_linux_amd64.tar.gz).
 - [ ] **kubedog** — наблюдение за ресурсами в CI/CD пайплайнах. *(`release`)* —
       [werf/kubedog](https://github.com/werf/kubedog)
 - [ ] **Nelm** — современная альтернатива Helm (исправляет болячки Helm).
@@ -315,8 +332,9 @@
       *(`krew`)* — [aquasecurity/kubectl-who-can](https://github.com/aquasecurity/kubectl-who-can)
 - [ ] **rbac-lookup** — поиск ролей/clusterRole у пользователей, SA и групп.
       *(`release` / `go`)* — [FairwindsOps/rbac-lookup](https://github.com/FairwindsOps/rbac-lookup)
-- [ ] **kubeaudit** — аудит кластера против типовых security-контролей.
-      *(`release` / `go`)* — [Shopify/kubeaudit](https://github.com/Shopify/kubeaudit)
+- [x] **kubeaudit** — аудит кластера против типовых security-контролей.
+      *(`release` / `go`)* — [Shopify/kubeaudit](https://github.com/Shopify/kubeaudit) —
+      добавлен в роль `kubernetes` (kubeaudit_{version}_linux_amd64.tar.gz).
 - [ ] **audit2rbac** — автогенерация RBAC-политик из audit-логов. *(`go`)* —
       [liggitt/audit2rbac](https://github.com/liggitt/audit2rbac)
 - [ ] **Chartsec** — сканер безопасности Helm-чартов. *(`release`)* —
@@ -325,12 +343,16 @@
       *(`script`)* — [datreeio/datree](https://github.com/datreeio/datree)
 - [ ] **Krane** — статический анализ и визуализация RBAC. *(`release`)* —
       [appvia/krane](https://github.com/appvia/krane)
-- [ ] **kubesec** — анализ рисков безопасности k8s-ресурсов. *(`release`)* —
-      [controlplaneio/kubesec](https://github.com/controlplaneio/kubesec)
+- [x] **kubesec** — анализ рисков безопасности k8s-ресурсов. *(`release`)* —
+      [controlplaneio/kubesec](https://github.com/controlplaneio/kubesec) —
+      добавлен в роль `kubernetes` (kubesec_linux_amd64.tar.gz).
 - [ ] **Hardeneks** — проверки соответствия EKS best practices. *(`pipx`)* —
       [aws-samples/hardeneks](https://github.com/aws-samples/hardeneks)
-- [ ] **Hubble** — сетевая/сервисная/security-наблюдаемость на eBPF (CLI).
-      *(`release`)* — [cilium/hubble](https://github.com/cilium/hubble)
+- [x] **Hubble** — сетевая/сервисная/security-наблюдаемость на eBPF (CLI).
+      *(`release`)* — [cilium/hubble](https://github.com/cilium/hubble) —
+      не ставим на ноутбук: CLI работает только с Hubble Relay, который
+      разворачивается в кластере вместе с Cilium, см.
+      [`TODO-server-apps.md`](TODO-server-apps.md).
 - [ ] **Peirates** — пентест-инструмент Kubernetes. *(`release`)* —
       [inguardians/peirates](https://github.com/inguardians/peirates)
 - [ ] **kubectl-kubesec** — плагин kubectl: анализ рисков ресурсов. *(`krew`)* —
@@ -341,8 +363,9 @@
       *(`pipx`)* — [WithSecureLabs/IceKube](https://github.com/WithSecureLabs/IceKube)
 - [ ] **kubectl-modify-secret** — плагин: правка секретов без base64.
       *(`krew`)* — [rajatjindal/kubectl-modify-secret](https://github.com/rajatjindal/kubectl-modify-secret)
-- [ ] **rbac-tool** — RBAC Power Toys: визуализация, анализ, генерация, запросы.
-      *(`release` / `go`)* — [alcideio/rbac-tool](https://github.com/alcideio/rbac-tool)
+- [x] **rbac-tool** — RBAC Power Toys: визуализация, анализ, генерация, запросы.
+      *(`release` / `go`)* — [alcideio/rbac-tool](https://github.com/alcideio/rbac-tool) —
+      добавлен в роль `kubernetes` (rbac-tool_v{version}_linux_amd64.tar.gz).
 - [ ] **MKAT** — all-in-one аудит-тулкит для managed Kubernetes (пока EKS).
       *(`pipx`)* — [DataDog/managed-kubernetes-auditing-toolkit](https://github.com/DataDog/managed-kubernetes-auditing-toolkit)
 - [ ] **scan2html** — плагин Trivy: вывод сканов в интерактивный HTML.
@@ -357,10 +380,12 @@
 
 ### Testing Tools
 
-- [ ] **kube-burner** — стресс-тестирование кластеров Kubernetes. *(`release`)* —
-      [kube-burner/kube-burner](https://github.com/kube-burner/kube-burner)
-- [ ] **KWOK** — «Kubernetes WithOut Kubelet»: симуляция тысяч нод и кластеров.
-      *(`release`)* — [kubernetes-sigs/kwok](https://github.com/kubernetes-sigs/kwok)
+- [x] **kube-burner** — стресс-тестирование кластеров Kubernetes. *(`release`)* —
+      [kube-burner/kube-burner](https://github.com/kube-burner/kube-burner) —
+      добавлен в роль `kubernetes` (kube-burner-V{version}-linux-x86_64.tar.gz).
+- [x] **KWOK** — «Kubernetes WithOut Kubelet»: симуляция тысяч нод и кластеров.
+      *(`release`)* — [kubernetes-sigs/kwok](https://github.com/kubernetes-sigs/kwok) —
+      добавлены в роль `kubernetes` бинарники kwok и kwokctl.
 - [ ] **Keploy** — конвертация пользовательского трафика в тест-кейсы и заглушки.
       *(`script`)* — [keploy/keploy](https://github.com/keploy/keploy)
 - [ ] **Nighthawk** — HTTP load-tester (constant & adaptive rates, insights).
@@ -371,8 +396,11 @@
 
 ### Observability
 
-- [ ] **cri-tools** (`crictl`) — CLI и валидация для CRI Kubelet. *(`release`)* —
-      [kubernetes-sigs/cri-tools](https://github.com/kubernetes-sigs/cri-tools)
+- [x] **cri-tools** (`crictl`) — CLI и валидация для CRI Kubelet. *(`release`)* —
+      [kubernetes-sigs/cri-tools](https://github.com/kubernetes-sigs/cri-tools) —
+      не ставим: на ноутбуке Docker не предоставляет CRI-эндпоинт (containerd
+      Docker-движка запущен без CRI-плагина), а узлы облачных кластеров
+      диагностируются не с ноутбука, см. [`not-install.md`](not-install.md).
 - [x] **kubectl-tree** — плагин kubectl: иерархия объектов по ownerReferences.
       *(`krew`)* — [ahmetb/kubectl-tree](https://github.com/ahmetb/kubectl-tree) —
       добавлен в роль `kubernetes`.
@@ -381,8 +409,9 @@
 
 ### Kubernetes Tools for Specific Cloud
 
-- [ ] **helm-ssm** — получение и инъекция секретов из AWS SSM в Helm.
-      *(`script`)* — [totango/helm-ssm](https://github.com/totango/helm-ssm)
+- [x] **helm-ssm** — получение и инъекция секретов из AWS SSM в Helm.
+      *(`script`)* — [totango/helm-ssm](https://github.com/totango/helm-ssm) —
+      не нужен: bash-скрипт (см. `not-install.md`).
 - [ ] **Skupper** — мультиоблачная коммуникация для Kubernetes. *(`release`)* —
       [skupper.io](https://skupper.io/)
 - [ ] **eksdemo** — «easy button» для изучения и демонстрации Amazon EKS.
@@ -390,8 +419,9 @@
 
 ### Backup Tools
 
-- [ ] **kube-dump** — бэкап кластера в YAML-манифесты. *(`script`)* —
-      [WoozyMasta/kube-dump](https://github.com/WoozyMasta/kube-dump)
+- [x] **kube-dump** — бэкап кластера в YAML-манифесты. *(`script`)* —
+      [WoozyMasta/kube-dump](https://github.com/WoozyMasta/kube-dump) —
+      не нужен: bash-скрипт (см. `not-install.md`).
 - [ ] **cnpg-drill** — проверка бэкапов CloudNativePG (restore + read-only SQL).
       *(`release`)* — [danielgaskins/cnpg-drill](https://github.com/danielgaskins/cnpg-drill)
 
@@ -443,8 +473,9 @@
 
 ### Cleanup
 
-- [ ] **CRI-Purge** — очистка кэшированных CRI-образов Kubernetes.
-      *(`script`)* — [reefland/cri-purge](https://github.com/reefland/cri-purge)
+- [x] **CRI-Purge** — очистка кэшированных CRI-образов Kubernetes.
+      *(`script`)* — [reefland/cri-purge](https://github.com/reefland/cri-purge) —
+      не нужен: bash-скрипт (см. `not-install.md`).
 - [ ] **Kubetrim** — CLI: автоочистка `KUBECONFIG`. *(`release` / `go`)* —
       [alexellis/kubetrim](https://github.com/alexellis/kubetrim)
 
@@ -454,12 +485,14 @@
       [functionio/function](https://github.com/functionio/function)
 - [ ] **Alterant** — простой модификатор Kubernetes-конфигурации. *(`release`)* —
       [cloud66-oss/alterant](https://github.com/cloud66-oss/alterant)
-- [ ] **kpt** — управление, кастомизация и применение k8s-конфигов.
-      *(`release`)* — [GoogleContainerTools/kpt](https://github.com/GoogleContainerTools/kpt)
+- [x] **kpt** — управление, кастомизация и применение k8s-конфигов.
+      *(`release`)* — [kptdev/kpt](https://github.com/kptdev/kpt) —
+      добавлен в роль `kubernetes` (kpt_linux_amd64-{version}.tar.gz).
 - [ ] **yupd** — обновление YAML-файлов «по-GitOps». *(`release`)* —
       [srozange/yupd](https://github.com/srozange/yupd)
-- [ ] **kube-job** — запуск одноразовых job в Kubernetes из CLI. *(`release`)* —
-      [h3poteto/kube-job](https://github.com/h3poteto/kube-job)
+- [x] **kube-job** — запуск одноразовых job в Kubernetes из CLI. *(`release`)* —
+      [h3poteto/kube-job](https://github.com/h3poteto/kube-job) —
+      добавлен в роль `kubernetes` (kube-job_v{version}_linux_amd64.zip).
 - [ ] **Scaphandre** — агент метрик энергопотребления. *(`cargo` / `apt`)* —
       [hubblo-org/scaphandre](https://github.com/hubblo-org/scaphandre)
 

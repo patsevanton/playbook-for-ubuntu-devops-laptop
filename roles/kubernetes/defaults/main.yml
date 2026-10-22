@@ -423,6 +423,136 @@ kubernetes_binaries:
     repo: containers/kubernetes-mcp-server
     url: "https://github.com/containers/kubernetes-mcp-server/releases/download/{tag}/kubernetes-mcp-server-linux-amd64"
     archive: none
+  # kubecm — управление kubeconfig: слияние, переименование, переключение
+  # контекстов и namespace, алиасы. Релиз — kubecm_v{version}_Linux_x86_64.tar.gz.
+  - name: kubecm
+    source: github
+    repo: sunny0826/kubecm
+    url: "https://github.com/sunny0826/kubecm/releases/download/{tag}/kubecm_v{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: kubecm
+  # kubectl-slice — плагин kubectl: разбивает multi-document YAML на отдельные
+  # файлы по kind/name (удобно для GitOps и ревью). Имя с префиксом даёт
+  # `kubectl slice`. В имени артефакта версии нет.
+  - name: kubectl-slice
+    source: github
+    repo: patrickdappollonio/kubectl-slice
+    url: "https://github.com/patrickdappollonio/kubectl-slice/releases/download/{tag}/kubectl-slice_linux_x86_64.tar.gz"
+    archive: tar
+    member: kubectl-slice
+  # helmify — генерирует Helm-чарт (Chart.yaml, values.yaml, шаблоны) из
+  # готовых Kubernetes-манифестов. Релиз — helmify_Linux_x86_64.tar.gz.
+  - name: helmify
+    source: github
+    repo: arttor/helmify
+    url: "https://github.com/arttor/helmify/releases/download/{tag}/helmify_Linux_x86_64.tar.gz"
+    archive: tar
+    member: helmify
+  # kail — `tail -f` по логам подов с фильтрами по label selector, ноде,
+  # namespace и контейнеру. Релиз — kail_v{version}_linux_amd64.tar.gz.
+  - name: kail
+    source: github
+    repo: boz/kail
+    url: "https://github.com/boz/kail/releases/download/{tag}/kail_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kail
+  # kubeaudit — аудит ресурсов кластера на security-мисконфиги: privileged,
+  # root, capabilities, отсутствие NetworkPolicy/limits и т.п.
+  - name: kubeaudit
+    source: github
+    repo: Shopify/kubeaudit
+    url: "https://github.com/Shopify/kubeaudit/releases/download/{tag}/kubeaudit_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kubeaudit
+  # rbac-tool — RBAC-анализ: lookup субъекта, who-can, визуализация связей,
+  # генерация политик и поиск избыточных прав.
+  - name: rbac-tool
+    source: github
+    repo: alcideio/rbac-tool
+    url: "https://github.com/alcideio/rbac-tool/releases/download/{tag}/rbac-tool_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: rbac-tool
+  # kluctl — декларативный деплой Kubernetes (push и pull GitOps): шаблоны,
+  # дифф перед применением, prune и управление несколькими окружениями.
+  - name: kluctl
+    source: github
+    repo: kluctl/kluctl
+    url: "https://github.com/kluctl/kluctl/releases/download/{tag}/kluctl_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kluctl
+  # kube-burner — нагрузочные и стресс-тесты кластера: создание/удаление
+  # объектов по сценарию, замер latency и проверка SLO. В имени артефакта
+  # версия с заглавной V.
+  - name: kube-burner
+    source: github
+    repo: kube-burner/kube-burner
+    url: "https://github.com/kube-burner/kube-burner/releases/download/{tag}/kube-burner-V{version}-linux-x86_64.tar.gz"
+    archive: tar
+    member: kube-burner
+  # kwok/kwokctl — «Kubernetes WithOut Kubelet»: симуляция тысяч нод и подов
+  # без реальных контейнеров. kwokctl управляет такими кластерами (kind и др.).
+  # Оба — одиночные бинарники без версии в имени.
+  - name: kwok
+    source: github
+    repo: kubernetes-sigs/kwok
+    url: "https://github.com/kubernetes-sigs/kwok/releases/download/{tag}/kwok-linux-amd64"
+    archive: none
+  - name: kwokctl
+    source: github
+    repo: kubernetes-sigs/kwok
+    url: "https://github.com/kubernetes-sigs/kwok/releases/download/{tag}/kwokctl-linux-amd64"
+    archive: none
+  # kpexec — запуск команды в контейнере с привилегиями хоста (через
+  # временный привилегированный под), когда в образе нет нужных утилит.
+  - name: kpexec
+    source: github
+    repo: ssup2/kpexec
+    url: "https://github.com/ssup2/kpexec/releases/download/{tag}/kpexec_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kpexec
+  # groot — read-only диагностика кластера: логи подов, события, describe и
+  # контекст API в один tar.gz для разбора инцидента.
+  - name: groot
+    source: github
+    repo: hrodrig/groot
+    url: "https://github.com/hrodrig/groot/releases/download/{tag}/groot_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: groot
+  # k2tf — конвертация Kubernetes YAML в Terraform HCL. Полезен при переносе
+  # ручных манифестов в Terraform-стек. Релиз — k2tf_{version}_Linux_amd64.tar.gz.
+  - name: k2tf
+    source: github
+    repo: sl1pm4t/k2tf
+    url: "https://github.com/sl1pm4t/k2tf/releases/download/{tag}/k2tf_{version}_Linux_amd64.tar.gz"
+    archive: tar
+    member: k2tf
+  # kubesec — статический анализ безопасности Kubernetes-манифестов: баллы
+  # риска и конкретные нарушения (privileged, hostPath, capabilities и т.п.).
+  # Работает локально с YAML, без кластера. Релиз без версии в имени.
+  - name: kubesec
+    source: github
+    repo: controlplaneio/kubesec
+    url: "https://github.com/controlplaneio/kubesec/releases/download/{tag}/kubesec_linux_amd64.tar.gz"
+    archive: tar
+    member: kubesec
+  # kpt — управление пакетами Kubernetes-конфигов: fetch/update пакетов,
+  # функции KRM, рендер и live-apply через kubeconfig. Релиз —
+  # kpt_linux_amd64-{version}.tar.gz, бинарник kpt.
+  - name: kpt
+    source: github
+    repo: kptdev/kpt
+    url: "https://github.com/kptdev/kpt/releases/download/{tag}/kpt_linux_amd64-{version}.tar.gz"
+    archive: tar
+    member: kpt
+  # kube-job — запуск одноразовых Job в Kubernetes из CLI: образ, команда,
+  # ресурсы и ожидание завершения без ручного составления манифеста.
+  # Релиз — zip kube-job_v{version}_linux_amd64.zip.
+  - name: kube-job
+    source: github
+    repo: h3poteto/kube-job
+    url: "https://github.com/h3poteto/kube-job/releases/download/{tag}/kube-job_v{version}_linux_amd64.zip"
+    archive: zip
+    member: kube-job
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и

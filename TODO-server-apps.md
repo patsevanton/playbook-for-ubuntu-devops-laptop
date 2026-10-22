@@ -72,6 +72,11 @@
       [pixie-io/pixie](https://github.com/pixie-io/pixie)
 - [ ] **odigos** — авто-инструментирование приложений для OTel.
       *(`helm`)* — [odigos-io/odigos](https://github.com/odigos-io/odigos)
+- [ ] **hubble** — наблюдаемость Cilium: Hubble Relay и UI в кластере.
+      *(`helm` / `образ`)* — [cilium/hubble](https://github.com/cilium/hubble)
+      — CLI `hubble` только клиент к Relay; без Cilium и Hubble в кластере
+      он бесполезен. Локальная наблюдаемость на ноутбуке уже есть —
+      `netobserv` (eBPF, без агента).
 - [ ] **opencost** — стоимость ворклоадов Kubernetes и облака. *(`helm`)* —
       [opencost/opencost](https://github.com/opencost/opencost)
       — в релизах только SBOM; распространяется контейнерным образом.
@@ -191,6 +196,10 @@
       [aenix-io/cozystack](https://github.com/aenix-io/cozystack)
 - [ ] **kagent** — AI-агенты для операций в Kubernetes. *(`helm`)* —
       [kagent-dev/kagent](https://github.com/kagent-dev/kagent)
+- [ ] **k8tz** — admission controller: таймзоны в Pods/CronJobs.
+      *(`образ`)* — [k8tz/k8tz](https://github.com/k8tz/k8tz)
+      — ставится в кластер; на ноутбуке CLI умеет только править YAML и
+      устанавливать сам контроллер, поэтому в роль `kubernetes` не входит.
 - [ ] **rbac-wizard** — веб-UI для визуализации RBAC кластера: кто к чему
       имеет доступ, цепочки ServiceAccount → Role → ClusterRole. *(`helm`)* —
       [pehlicd/rbac-wizard](https://github.com/pehlicd/rbac-wizard)
