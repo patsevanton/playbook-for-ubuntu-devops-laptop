@@ -444,6 +444,10 @@ shell_pipx_apps:
 tldr_install: true
 tldr_package: tldr
 tldr_bin: "{{ bin_dir }}/tldr"
+# Клиент npm хранит базу страниц в ~/.tldr/cache; пустой кэш даёт ошибку
+# «Local cache is empty». Плейбук наполняет его `tldr --update` при первом
+# запуске (или если кэш удалили вручную).
+tldr_cache_dir: "{{ home_dir }}/.tldr/cache"
 
 bashrc_path: "{{ home_dir }}/.bashrc"
 bashrc_marker: "# {mark} DEVOPS PLAYBOOK (ansible role: shell)"

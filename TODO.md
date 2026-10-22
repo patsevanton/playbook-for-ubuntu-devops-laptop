@@ -68,18 +68,19 @@ Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 `kbu`, `kurt`, `kubediff`, `kubetrim`, `kubevious`, `k8shark`,
 `node-gizmo`, `burn`, `tk`, `audit2rbac`, `knetvis`, `pumba`, `kopilot`,
 `kubectl-outagedeck`, `kptop`, `kubectl-fields`, `kosko`,
-`monokle`, `rubick`, `klustr`, `devspace`, `kubent`, `rustnet`, `flox`,
+`monokle`, `rubick`, `klustr`, `devspace`, `kubent`, `rustnet`,
 `lazysql`.
 
 Добавлены 2026-10-22 из [`TODO-trend-github.md`](TODO-trend-github.md) (топ-15
 приложений по звёздам среди оставшихся кандидатов; `dev-sec` — коллекция
 Ansible Galaxy, а не приложение, поэтому вместо неё в набор вошёл следующий по
-звёздам `terrascan`): `gitui`, `vhs`, `dagger`, `devbox`, `limactl`/`lima`,
+звёздам `terrascan`): `gitui`, `vhs`, `dagger`, `limactl`/`lima`,
 `pgcli`, `harlequin`, `terraformer`, `terrascan`, `steampipe`, `kubectl-ai`,
 `k3d`, `telepresence`, `tilt`, `mirrord`.
 
-Добавлены 2026-10-22 из того же файла следующим топ-5 по звёздам (снова без
-`dev-sec`): `devspace`, `rustnet`, `lazysql`, `flox`, `kubent`.
+Добавлены 2026-10-22 из того же файла следующим по звёздам (снова без
+`dev-sec`): `devspace`, `rustnet`, `lazysql`, `kubent`. `devbox` и `flox`
+удалены: Nix не используется.
 
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см. [`not-install.md`](not-install.md) и
@@ -106,9 +107,9 @@ Ansible Galaxy, а не приложение, поэтому вместо неё
 Compose или Helm-релиз. Полный список с описаниями и ссылками — в
 [`TODO-server-apps.md`](TODO-server-apps.md).
 
-`VictoriaMetrics` и `coroot` сюда не относятся: у обоих есть single-binary
-режим для локального запуска, поэтому они стоят в роли `monitoring` (из
-VictoriaMetrics — только `vmalert-tool`).
+`VictoriaMetrics` сюда не относится: у него есть single-binary режим для
+локального запуска, поэтому он стоит в роли `monitoring` (из VictoriaMetrics —
+только `vmalert-tool`).
 
 Нодовые агенты Kubernetes (DaemonSet/static Pod: `goldpinger`,
 `node-exporter`, `kured`, eBPF-агенты и т.п.) — отдельный список:

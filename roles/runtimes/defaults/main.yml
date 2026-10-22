@@ -32,17 +32,6 @@ runtimes_binaries:
     url: "https://github.com/dagger/dagger/releases/download/{tag}/dagger_v{version}_linux_amd64.tar.gz"
     archive: tar
     member: dagger
-  # devbox — изолированные dev-окружения из Nix-пакетов без изучения Nix:
-  # `devbox init`, `devbox add python@3.12`, `devbox shell` — версии и
-  # зависимости фиксируются в devbox.json и не трогают систему. Дополняет
-  # mise (тот про менеджмент версий, devbox — про пакеты и окружение целиком).
-  # Релиз — devbox_{version}_linux_amd64.tar.gz, бинарник devbox в корне.
-  - name: devbox
-    source: github
-    repo: jetify-com/devbox
-    url: "https://github.com/jetify-com/devbox/releases/download/{tag}/devbox_{version}_linux_amd64.tar.gz"
-    archive: tar
-    member: devbox
 
 # --- Lima: Linux-VM поверх Linux ---------------------------------------------
 # Запускает изолированные Linux-VM (containerd, Docker, k3s внутри) без
@@ -57,16 +46,3 @@ runtimes_lima_dir: /opt/lima
 runtimes_lima_binaries:
   - limactl
   - lima
-
-# --- Flox: детерминированные окружения на Nix --------------------------------
-# `flox init`, `flox install`, `flox activate` — пакеты и версии фиксируются в
-# manifest.toml, окружение живёт отдельно и не трогает систему. Дополняет
-# devbox (тот тоже на Nix, но с devbox.json и своим каталогом пакетов).
-# Релизов на GitHub нет: .deb раздаётся с downloads.flox.dev, версия —
-# текстом из <channel>/LATEST_VERSION. Поэтому ставится отдельной задачей
-# flox.yml, а не через роль binaries.
-runtimes_flox_install: true
-runtimes_flox_channel: stable
-runtimes_flox_version_url: "https://downloads.flox.dev/by-env/{{ runtimes_flox_channel }}/LATEST_VERSION"
-runtimes_flox_deb_url: "https://downloads.flox.dev/by-env/{{ runtimes_flox_channel }}/deb/flox-{{ runtimes_flox_version }}.x86_64-linux.deb"
-runtimes_flox_deb_dir: "{{ tmp_dir }}/flox"

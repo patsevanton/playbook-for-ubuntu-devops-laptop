@@ -76,7 +76,7 @@
       Prometheus с remote-write receiver, логи и трейсы — ClickHouse. Без
       этого стека UI пустой, поэтому на ноутбуке держать его незачем: для
       Kubernetes — Helm-релиз в кластере и `kubectl port-forward`, для хоста —
-      отдельный `docker compose`. **Перенести из роли `monitoring`.**
+      отдельный `docker compose`. В плейбуке не ставится.
 - [ ] **odigos** — авто-инструментирование приложений для OTel.
       *(`helm`)* — [odigos-io/odigos](https://github.com/odigos-io/odigos)
 - [ ] **hubble** — наблюдаемость Cilium: Hubble Relay и UI в кластере.
@@ -256,6 +256,3 @@
 - [ ] `VictoriaMetrics` сюда **не** относится: у него есть single-binary
       режим для локального запуска, поэтому он стоит в роли `monitoring`
       (из VictoriaMetrics — только `vmalert-tool`).
-- [ ] Перенести `coroot` из роли `monitoring` в раздел 1: single-binary —
-      только сервер, для работы нужен отдельный стек (агент, Prometheus,
-      ClickHouse), а не бинарник на ноутбуке.

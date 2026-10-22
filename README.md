@@ -131,8 +131,8 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   checkov (pipx), tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL),
 │   │                           #   pgcli (pipx)
-│   ├── runtimes/               # Python, uv, Go, Node.js, Java, dagger, devbox,
-│   │                           #   flox, Lima (Linux-VM, /opt + симлинки)
+│   ├── runtimes/               # Python, uv, Go, Node.js, Java, dagger,
+│   │                           #   Lima (Linux-VM, /opt + симлинки)
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype, trivy,
 │   │                           #   age, lynis, osquery, mfa,
 │   │                           #   medusa, bank-vaults, horusec,
@@ -168,7 +168,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── nora/                   # NORA artifact registry + mkcert TLS + CA клиентам,
 │   │                           #   Caddy как TLS-терминатор
 │   ├── monitoring/             # vmalert-tool (проверка алерт-правил), sloth (SLO),
-│   │                           #   cloudprober, canary-checker, coroot, krr
+│   │                           #   cloudprober, canary-checker, krr
 │   ├── binaries/               # общий движок установки бинарников (вызывается ролями)
 │   ├── pipx_apps/              # общий движок установки приложений из PyPI (pipx)
 │   └── go_apps/                # общий движок сборки Go-приложений (go install)
@@ -329,8 +329,7 @@ ansible-lint                                   # проверка стиля (pr
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL, и `pgcli`
    (psql с автодополнением и подсветкой, через pipx).
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21, `dagger`
-   (CI-пайплайны как код), `devbox` (изолированные окружения на Nix),
-   `flox` (детерминированные окружения на Nix), `limactl`/`lima` (Linux-VM
+   (CI-пайплайны как код), `limactl`/`lima` (Linux-VM
    поверх Linux; QEMU — пакетами apt, сам архив распаковывается в `/opt/lima`).
 9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git), grype
    (сканер уязвимостей образов и ФС), trivy (уязвимости образов, IaC и
@@ -423,8 +422,7 @@ ansible-lint                                   # проверка стиля (pr
 19. Ставит `vmalert-tool` (офлайн-проверка и unit-тесты алерт-правил
     Prometheus-совместимых систем), `sloth` (генерация SLO/алертов из
     описания), `cloudprober` (активные пробы), `canary-checker` (health-check
-    платформа с проверками из YAML), `coroot` (observability/APM с root-cause
-    анализом) и `krr` (рекомендации
+    платформа с проверками из YAML) и `krr` (рекомендации
     requests/limits по фактическому потреблению) в роли `monitoring`, а также `reviewdog`
     (автоматическое code review) в роли `git` и `grex` (генерация regex из
     примеров) в роли `shell`.
@@ -451,8 +449,7 @@ ansible-lint                                   # проверка стиля (pr
 
 Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`),
 `HushMic` (роль `audio`), `LACT` (роль `hardware`), `headlamp`, `radar`,
-`monokle`, `rubick` и `klustr` (роль `kubernetes`), `flox` (роль
-`runtimes`).
+`monokle`, `rubick` и `klustr` (роль `kubernetes`).
 
 ### Скачиваемые бинарники в `/usr/local/bin`
 
@@ -602,7 +599,6 @@ ansible-lint                                   # проверка стиля (pr
 | nxs-backup | github.com/nixys/nxs-backup |
 | cloudprober | github.com/cloudprober/cloudprober |
 | canary-checker | github.com/flanksource/canary-checker |
-| coroot | github.com/coroot/coroot |
 | gossl | github.com/vvrnv/gossl |
 | crip (certificate-ripper) | github.com/Hakky54/certificate-ripper |
 | jlv (json-log-viewer) | github.com/hedhyw/json-log-viewer |
@@ -723,7 +719,6 @@ ansible-lint                                   # проверка стиля (pr
 | gitui | github.com/extrawurst/gitui |
 | vhs | github.com/charmbracelet/vhs |
 | dagger | github.com/dagger/dagger |
-| devbox | github.com/jetify-com/devbox |
 | terraformer | github.com/GoogleCloudPlatform/terraformer |
 | terrascan | github.com/tenable/terrascan |
 | steampipe | github.com/turbot/steampipe |
@@ -763,9 +758,7 @@ zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/b
 `headlamp`, `radar`, `monokle`, `rubick` и `klustr` — из
 `.deb`-пакетов GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
-`sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `flox` — из
-`.deb`-пакета с `downloads.flox.dev` (роль `runtimes`, версия из
-`stable/LATEST_VERSION`), `cheat` — из
+`sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из
 gzip-сжатого одиночного бинарника релиза (роль `shell`), `osquery` — из
 `.deb`-пакета GitHub-релиза (роль `secrets`), `tldr`, `kubebox`, `cdk8s` и
 `kosko` — через `npm install -g` (роли `shell` и `kubernetes`), `tshark` —
@@ -1325,7 +1318,8 @@ CAP_BPF/CAP_PERFMON/CAP_SYS_ADMIN), поэтому `setcap` на бинарни�
 `shell` (navi — уже была, cheat и tldr добавлены):
 
 - **tldr** (`tldr-pages/tldr`) — каноническая community-база кратких примеров
-  для сотен стандартных CLI-утилит. Клиент ставится через `npm install -g`.
+  для сотен стандартных CLI-утилит. Клиент ставится через `npm install -g`,
+  кэш страниц плейбук наполняет сразу (`tldr --update`).
 - **cheat** (`cheat/cheat`) — собственные шпаргалки: создаёте и редактируете
   `cheatsheets/` и `cheatpaths`, версионируете в git.
 - **navi** (`denisidoro/navi`) — интерактивный выбор шпаргалок поверх fzf
@@ -1462,41 +1456,6 @@ jlv app.log                                 # или `kubectl logs ... | jlv`
 kubebox                                     # TUI по текущему контексту
 kubebox --server 127.0.0.1:8080             # веб-режим на localhost
 ```
-
----
-
-## coroot — локальный observability/APM
-
-**coroot** (`coroot/coroot`, роль `monitoring`, одиночный бинарник) — сервер
-и UI: карта сервисов, инспекции, трейсы, логи и подсказки root-cause.
-Важно: бинарник `coroot` — только сервер. Данные собирает
-`coroot-node-agent` (eBPF, privileged), а хранят ClickHouse и Prometheus с
-включённым remote-write receiver. Плейбук ставит только сервер, поэтому без
-этих компонентов UI будет пустым — это не «всё в одном».
-
-Минимальный локальный запуск (ClickHouse, Prometheus и агент ставятся
-вручную, см. [`TODO-server-apps.md`](TODO-server-apps.md)):
-
-```bash
-# 1. Prometheus с приёмом remote write: ARGS="--enable-feature=remote-write-receiver"
-# 2. Сервер: SQLite для конфигурации, метрики — в Prometheus, логи — в ClickHouse
-coroot --bootstrap-prometheus-url=http://127.0.0.1:9090 \
-       --bootstrap-clickhouse-address=127.0.0.1:9000
-
-# 3. Агент на хосте (eBPF, нужен privileged и host PID)
-docker run -d --name coroot-node-agent --network host --privileged --pid host \
-  -v /sys/kernel/tracing:/sys/kernel/tracing:rw \
-  -v /sys/kernel/debug:/sys/kernel/debug:rw \
-  -v /sys/fs/cgroup:/host/sys/fs/cgroup:ro \
-  ghcr.io/coroot/coroot-node-agent \
-  --cgroupfs-root=/host/sys/fs/cgroup \
-  --collector-endpoint=http://127.0.0.1:8080
-```
-
-UI — <http://localhost:8080>. Для Kubernetes coroot ставится в кластер
-Helm-чартом или оператором (не на ноутбук), а смотреть в него удобнее через
-`kubectl port-forward`. Требуется ядро Linux ≥ 4.16; Docker-in-Docker
-(например, minikube) не поддерживается из-за ограничений eBPF.
 
 ---
 

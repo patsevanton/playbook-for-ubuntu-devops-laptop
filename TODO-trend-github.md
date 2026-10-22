@@ -205,12 +205,12 @@ Linux-пользователя. Прежний общий список канд�
       — ✅ добавлен в плейбук (роль `runtimes`, бинарник из тарболла
       dagger_v{version}_linux_amd64.tar.gz).
 - [x] **devbox** — изолированные dev-окружения из Nix-пакетов без изучения Nix. *(12.4k ⭐, `tar.gz`)*
-      — ✅ добавлен в плейбук (роль `runtimes`, бинарник из тарболла
-      devbox_{version}_linux_amd64.tar.gz).
+      — ⛔ добавлялся в плейбук (роль `runtimes`, тарболл
+      devbox_{version}_linux_amd64.tar.gz), затем удалён: без Nix не работает,
+      а Nix не используется.
 - [x] **flox** — детерминированные окружения на базе Nix. *(4.2k ⭐, `script` — install.flox.dev)*
-      — ✅ добавлен в плейбук (роль `runtimes`, официальный .deb
-      flox-{version}.x86_64-linux.deb с downloads.flox.dev; версия — из
-      stable/LATEST_VERSION).
+      — ⛔ добавлялся в плейбук (роль `runtimes`, .deb с downloads.flox.dev),
+      затем удалён: Nix не используется.
 - [x] **lima** — Linux-VM поверх Linux (гоняет контейнеры без Docker Desktop). *(22.1k ⭐, `tar.gz`)*
       — ✅ добавлен в плейбук (роль `runtimes`, архив распаковывается в
       /opt/lima + симлинки limactl/lima; QEMU — пакетами apt).
