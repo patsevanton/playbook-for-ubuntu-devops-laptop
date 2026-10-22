@@ -103,6 +103,54 @@ git_binaries:
     repo: flant/glaball
     url: "https://github.com/flant/glaball/releases/download/{tag}/glaball-linux-amd64"
     archive: none
+  # lumen — просмотр git diff в терминале с подсветкой и генерация сообщения
+  # коммита через LLM (локальную или облачную). Релиз — тарболл
+  # lumen-x86_64-unknown-linux-gnu.tar.gz, бинарник lumen в корне. opencommit
+  # (npm) не берём — opencode умеет то же; lumen оставлен как локальный TUI
+  # для просмотра диффа.
+  - name: lumen
+    source: github
+    repo: jnsahaj/lumen
+    url: "https://github.com/jnsahaj/lumen/releases/download/{tag}/lumen-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: lumen
+  # gptcommit — git-хук prepare-commit-msg: собирает staged-дифф, просит LLM
+  # (OpenAI/Anthropic/Ollama) сообщение коммита и подставляет его в редактор.
+  # Релиз — gptcommit-x86_64-unknown-linux-gnu.tar.gz, бинарник в корне.
+  - name: gptcommit
+    source: github
+    repo: zurawiki/gptcommit
+    url: "https://github.com/zurawiki/gptcommit/releases/download/{tag}/gptcommit-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: gptcommit
+  # CodeGPT — CLI для LLM-ревью и сообщений коммитов: `codegpt commit --preview`,
+  # `codegpt review`. Одиночный бинарник CodeGPT-{version}-linux-amd64
+  # (без архива) — на диск кладём как codegpt.
+  - name: codegpt
+    source: github
+    repo: appleboy/CodeGPT
+    url: "https://github.com/appleboy/CodeGPT/releases/download/{tag}/CodeGPT-{version}-linux-amd64"
+    archive: none
+  # typos — быстрый поиск опечаток в коде и документации с автоисправлением
+  # (`typos --write-changes`): не словарь, а статистика по идентификаторам,
+  # поэтому почти не даёт ложных срабатываний на именах переменных.
+  # Релиз — typos-v{version}-x86_64-unknown-linux-musl.tar.gz, бинарник typos
+  # в корне архива.
+  - name: typos
+    source: github
+    repo: crate-ci/typos
+    url: "https://github.com/crate-ci/typos/releases/download/{tag}/typos-{tag}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: typos
+  # act — локальный запуск GitHub Actions в Docker: читает .github/workflows,
+  # поднимает контейнеры джобов и прогоняет шаги без пуша в GitHub. Пара к
+  # glci (локальный GitLab CI). Релиз — act_Linux_x86_64.tar.gz, бинарник act.
+  - name: act
+    source: github
+    repo: nektos/act
+    url: "https://github.com/nektos/act/releases/download/{tag}/act_Linux_x86_64.tar.gz"
+    archive: tar
+    member: act
 
 # Python-приложения для работы с GitLab (нет релизных бинарников — PyPI/pipx).
 git_pipx_apps:

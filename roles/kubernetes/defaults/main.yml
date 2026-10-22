@@ -309,6 +309,36 @@ kubernetes_binaries:
     repo: gimlet-io/capacitor
     url: "https://github.com/gimlet-io/capacitor/releases/download/{tag}/next-Linux-x86_64"
     archive: none
+  # kubeconform — валидация манифестов по схемам OpenAPI без кластера и без
+  # GitHub API: подтягивает схемы встроенных типов и CRD (или берёт локальные),
+  # понимает Kustomize/Helm-вывод и multi-doc YAML. Замена kubectl apply
+  # --dry-run в CI. Релиз — kubeconform-linux-amd64.tar.gz, бинарник в корне.
+  - name: kubeconform
+    source: github
+    repo: yannh/kubeconform
+    url: "https://github.com/yannh/kubeconform/releases/download/{tag}/kubeconform-linux-amd64.tar.gz"
+    archive: tar
+    member: kubeconform
+  # kube-linter — статический анализ манифестов на антипаттерны: нет probes,
+  # requests/limits, securityContext, устаревшие API, опасно широкие RBAC.
+  # Дополняет kubeconform (схемы) и pluto (removed API): здесь — best practices.
+  # Релиз — kube-linter-linux.tar.gz, бинарник kube-linter в корне.
+  - name: kube-linter
+    source: github
+    repo: stackrox/kube-linter
+    url: "https://github.com/stackrox/kube-linter/releases/download/{tag}/kube-linter-linux.tar.gz"
+    archive: tar
+    member: kube-linter
+  # helmfile — декларативное описание набора Helm-релизов в helmfile.yaml:
+  # окружения, зависимости, values из нескольких источников, diff перед
+  # применением (`helmfile diff`) и sync. Сам helm в плейбуке уже есть; helmfile
+  # становится над ним. Релиз — helmfile_{version}_linux_amd64.tar.gz.
+  - name: helmfile
+    source: github
+    repo: helmfile/helmfile
+    url: "https://github.com/helmfile/helmfile/releases/download/{tag}/helmfile_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: helmfile
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и

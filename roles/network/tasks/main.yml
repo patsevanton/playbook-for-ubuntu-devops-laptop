@@ -15,6 +15,12 @@
   vars:
     binaries_to_install: "{{ network_binaries }}"
 
+- name: Установить Go-приложения сетевой диагностики (reachable)
+  ansible.builtin.include_role:
+    name: go_apps
+  vars:
+    go_apps: "{{ network_go_apps }}"
+
 # bandwhich читает пакеты на сетевых интерфейсах — для этого нужен CAP_NET_RAW
 # (и CAP_NET_ADMIN на случай, если включён режим promiscuous). setcap разрешает
 # это без sudo при каждом запуске. Идемпотентно: на существующий файл просто

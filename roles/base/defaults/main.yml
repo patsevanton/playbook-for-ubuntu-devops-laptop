@@ -47,6 +47,18 @@ base_binaries:
     url: "https://github.com/devmatteini/dra/releases/download/{tag}/dra-{version}-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: dra-{version}-x86_64-unknown-linux-gnu/dra
+  # binup — установка приложений из GitHub-релизов по декларативному манифесту
+  # (binup.yaml): сам выбирает нужный ассет под платформу, кладёт бинарник в
+  # указанный каталог и умеет обновлять до новой версии. Дополняет eget
+  # (разовая установка одной командой) и dra (конкретные файлы релиза).
+  # Апстрим публикует только .tar.bz2 — для этого в роли binaries добавлен
+  # тип архива tarbz2; бинарник binup в корне архива.
+  - name: binup
+    source: github
+    repo: KonishchevDmitry/binup
+    url: "https://github.com/KonishchevDmitry/binup/releases/download/{tag}/binup-{tag}-linux-x64.tar.bz2"
+    archive: tarbz2
+    member: binup
 
 # molecule — фреймворк тестирования Ansible-ролей и плейбуков (прогон ролей
 # в контейнерах/VM). Пакета в apt и релизных бинарников нет — ставится из PyPI

@@ -43,3 +43,22 @@
       (glibc обратно совместима, сборка под старый дистрибутив обычно идёт на
       новом), но на 26.04 не проверялся. Пересмотреть, когда появится сборка
       под 26.04.
+
+## Kubernetes
+
+- [ ] **kubestriker** — быстрый security-аудит Kubernetes. *(`pipx`)* —
+      [vchinnipilli/kubestriker](https://github.com/vchinnipilli/kubestriker)
+      — ⛔ не устанавливается: пакет 2021 года с жёсткими пинами
+      (`figlet==0.0.1`, `PyYAML==5.3.1`, `prompt-toolkit==1.0.15`) — под
+      Python 3.14 `pip install kubestriker` падает («No matching distribution
+      found for figlet==0.0.1»). Покрывается `kube-linter`, `kubeconform`,
+      `marvin` и `kubehound`. Пересмотреть, если апстрим снимет пины.
+
+## Безопасность
+
+- [ ] **vulncov** — корреляция Semgrep-сканов с покрытием тестами. *(`pipx`)* —
+      [mllamazares/vulncov](https://github.com/mllamazares/vulncov)
+      — ⛔ не устанавливается: пин `faiss-cpu==1.9.0` не имеет колёс под Python
+      3.14 (доступны только 1.12+), `pip install git+https://github.com/mllamazares/vulncov.git`
+      падает на сборке зависимостей; пакета на PyPI
+      нет. Пересмотреть, если апстрим ослабит пин.

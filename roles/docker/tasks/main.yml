@@ -62,6 +62,11 @@
   vars:
     binaries_to_install: "{{ docker_binaries }}"
 
+- name: Установить docker-image-layer-explorer (слои образа)
+  ansible.builtin.include_tasks:
+    file: docker-image-layer-explorer.yml
+  when: docker_image_layer_explorer_install
+
 - name: Добавить пользователя в группу docker
   become: true
   ansible.builtin.user:

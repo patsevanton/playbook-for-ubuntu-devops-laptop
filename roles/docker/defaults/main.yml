@@ -89,3 +89,22 @@ docker_binaries:
     url: "https://github.com/project-copacetic/copacetic/releases/download/{tag}/copa_{version}_linux_amd64.tar.gz"
     archive: tar
     member: copa
+  # hadolint — линтер Dockerfile: проверяет best practices (pin версий,
+  # apt-get без кэша, curl|sh, отсутствие USER), часть правил прогоняет через
+  # shellcheck внутри RUN. Одиночный статический бинарник hadolint-linux-x86_64
+  # без архива.
+  - name: hadolint
+    source: github
+    repo: hadolint/hadolint
+    url: "https://github.com/hadolint/hadolint/releases/download/{tag}/hadolint-linux-x86_64"
+    archive: none
+
+# --- docker-image-layer-explorer: слои docker-образа -------------------------
+# Список слоёв образа с содержимым каждого и распаковка выбранного слоя
+# (`--layer N`, `--extract PATH`). В релизе — готовый python-скрипт без
+# внешних зависимостей (docker CLI + tar). Дополняет dive: dive оценивает
+# эффективность образа, этот — быстро достаёт файлы из нужного слоя.
+# Ставится отдельной задачей: у апстрима нет релиза с меткой «Latest»,
+# поэтому тег зафиксирован (единственный релиз, v0.1.0).
+docker_image_layer_explorer_install: true
+docker_image_layer_explorer_version: v0.1.0

@@ -37,4 +37,5 @@ binaries_archive_extensions:
   none: ""
   tar: tar.gz
   tarxz: tar.xz
+  tarbz2: tar.bz2
   zip: zip

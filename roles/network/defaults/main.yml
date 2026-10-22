@@ -46,6 +46,24 @@ network_pipx_apps:
   # называется dns-lexicon (пакет `lexicon` — это другая библиотека).
   - name: dns-lexicon
     creates: lexicon
+  # netutils-linux — набор утилит для диагностики и тюнинга сетевого стека:
+  # network-top (кто ест сеть по процессам/сокетам), softirq-top и
+  # softnet-stat-top (распределение softirq по CPU), rps/autorps/autoxps
+  # (раскладка очередей и RPS/XPS), rx-buffers-increase, link-rate,
+  # pcap-tcp-stream, netdev-pci-speed. Ставится из PyPI (пакет на чистом
+  # Python, без бинарников в релизах) в изолированное окружение pipx;
+  # в PATH появляются сами команды, marker — network-top.
+  - name: netutils-linux
+    creates: network-top
+
+# Go-приложения без релизных бинарников — собираются ролью go_apps.
+network_go_apps:
+  # reachable — быстрая проверка доступности домена по резолверам
+  # (A/AAAA/CNAME, цепочка прокси) и по HTTP: показывает код ответа, время и
+  # расхождения между резолверами. Релизных ассетов апстрим не публикует,
+  # поэтому ставим `go install`.
+  - name: reachable
+    package: github.com/italolelis/reachable
 
 # Скачиваемые бинарники сетевой диагностики.
 network_binaries:

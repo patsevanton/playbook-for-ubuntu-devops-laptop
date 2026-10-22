@@ -82,10 +82,16 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **ansible-role-pgcenter** — роль установки `pgCenter` (мониторинг Postgres).
       *(`ansible-galaxy role`)* — [vitabaks/ansible-role-pgcenter](https://github.com/vitabaks/ansible-role-pgcenter)
       — ✅ не нужна: сам `pgcenter` уже ставится плейбуком (роль `postgres`).
-- [ ] **knee** — интерактивный CLI поверх Ansible: полуавтоматический setup
+- [x] **knee** — интерактивный CLI поверх Ansible: полуавтоматический setup
       инфраструктуры. *(`pipx`)* — [shurutech/knee](https://github.com/shurutech/knee)
-- [ ] **scantron** — распределённый фреймворк nmap/masscan с расписанием и API
+      — без предустановки не ставится: на PyPI пакета нет (в README — git clone
+      + `pip install -r requirements.txt` с пинами ansible-lint 6.22.2 и
+      typer 0.9.0), а релиз v0.0.1 — только тег. Перенесён в
+      [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md).
+- [x] **scantron** — распределённый фреймворк nmap/masscan с расписанием и API
       (Ansible-разворачивание). *(`pipx` / `make`)* — [rackerlabs/scantron](https://github.com/rackerlabs/scantron)
+      — релизов нет вообще: это набор Ansible-плейбуков с Django-сервером и БД.
+      Перенесён в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md).
 
 ## Terraform / Terragrunt / IaC
 
@@ -99,8 +105,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **terraform-tui** — TUI для работы с Terraform-стейтом. *(`pipx`)* —
       [idoavrah/terraform-tui](https://github.com/idoavrah/terraform-tui)
       — ✅ добавлен в плейбук (роль `iac`, через pipx — команда `tftui`).
-- [ ] **prettyplan** — форматирует большие `terraform plan` для ревью.
+- [x] **prettyplan** — форматирует большие `terraform plan` для ревью.
       *(`npm` / статический билд)* — [chrislewisdev/prettyplan](https://github.com/chrislewisdev/prettyplan)
+      — ❌ не ставим: это одностраничный веб-сайт (HTML+JS работает в браузере),
+      а не CLI-утилита; апстрим архивирован.
 - [x] **config-lint** — валидация конфигов (HCL/Terraform и др.). *(`release`)* —
       [stelligent/config-lint](https://github.com/stelligent/config-lint)
       — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
@@ -113,8 +121,11 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       HashiCorp (air-gapped/CI). *(`go`)* — [kashtan404/tf-mirror](https://github.com/kashtan404/tf-mirror)
       — ✅ добавлен в плейбук (роль `iac`, одиночный бинарник
       tf-mirror-linux-amd64).
-- [ ] **gruntwork-io/pre-commit** — набор pre-commit-хуков для Terraform.
+- [x] **gruntwork-io/pre-commit** — набор pre-commit-хуков для Terraform.
       *(`pre-commit`)* — [gruntwork-io/pre-commit](https://github.com/gruntwork-io/pre-commit)
+      — ❌ не ставим отдельно: это репозиторий хуков, а не приложение. Сам
+      `pre-commit` уже стоит (роль `git`), а хуки подключаются в
+      `.pre-commit-config.yaml` конкретного проекта.
 
 > `terraform` и `terragrunt` плейбук не ставит напрямую — они управляются через
 > `tfenv`/`tgenv` (см. `TODO.md` и `README.md`).
@@ -248,8 +259,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **lazydocker** — TUI-менеджер Docker/Podman (от автора lazygit). *(`go`)* —
       [jesseduffield/lazydocker](https://github.com/jesseduffield/lazydocker)
       — ✅ добавлен в плейбук (роль `docker`, бинарником из тарболла).
-- [ ] **docker-image-layer-explorer** — просмотр и распаковка слоёв образа.
+- [x] **docker-image-layer-explorer** — просмотр и распаковка слоёв образа.
       *(`pipx`)* — [Kartik1397/docker-image-layer-explorer](https://github.com/Kartik1397/docker-image-layer-explorer)
+      — ✅ добавлен в плейбук (роль `docker`: релизный python-скрипт без
+      внешних зависимостей, ставится одиночным файлом).
 - [x] **decompose** — reverse-engineering docker-окружений (сети, тома, образы).
       *(`release`)* — [s0rg/decompose](https://github.com/s0rg/decompose)
       — ✅ добавлен в плейбук (роль `docker`, бинарник из тарболла
@@ -268,10 +281,15 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       Terraform, Ansible Galaxy и др.). *(`deb`)* —
       [getnora-io/nora](https://github.com/getnora-io/nora) — ставится ролью
       `nora` (см. `README.md`, раздел «NORA artifact registry»)
-- [ ] **registry-cli** — манипуляции с docker-registry из командной строки.
+- [x] **registry-cli** — манипуляции с docker-registry из командной строки.
       *(`pipx`)* — [andrey-pohilko/registry-cli](https://github.com/andrey-pohilko/registry-cli)
-- [ ] **gitlab-registry-images-cleaner** — чистка старых образов в GitLab
+      — перенесён в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md):
+      это одиночный `registry.py` плюс `pip install -r requirements-*.txt`;
+      ни пакета на PyPI, ни релизных артефактов нет.
+- [x] **gitlab-registry-images-cleaner** — чистка старых образов в GitLab
       registry. *(`pipx`)* — [n0madic/gitlab-registry-images-cleaner](https://github.com/n0madic/gitlab-registry-images-cleaner)
+      — перенесён в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md):
+      одиночный python-скрипт с `requirements.txt`, пакета на PyPI нет.
 
 ## Логи, JSON, YAML, данные
 
@@ -342,8 +360,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **ecapture** — захват TLS/SSL plaintext через eBPF без MITM-прокси.
       *(`deb`; ⭐ 15.5k)* — [gojue/ecapture](https://github.com/gojue/ecapture)
       — ✅ добавлен в плейбук (роль `network`, бинарник ecapture-<ver>-linux-amd64).
-- [ ] **linnix** — eBPF-наблюдаемость с AI-детекцией инцидентов. *(`deb`)* —
+- [x] **linnix** — eBPF-наблюдаемость с AI-детекцией инцидентов. *(`deb`)* —
       [linnix-os/linnix](https://github.com/linnix-os/linnix)
+      — перенесён в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md):
+      релиз v0.2.0 опубликован без ассетов (ни `.deb`, ни бинарников).
 - [x] **oryx** — TUI-сниффер трафика на eBPF. *(`cargo`, нужен BPF)* —
       [pythops/oryx](https://github.com/pythops/oryx)
       — ✅ добавлен в плейбук (роль `ebpf`, одиночный бинарник oryx-x86_64-musl).
@@ -418,10 +438,16 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`pipx`)* — [AnalogJ/lexicon](https://github.com/AnalogJ/lexicon)
       — ✅ добавлен в плейбук (роль `network`, через pipx из пакета
       `dns-lexicon` — команда `lexicon`).
-- [ ] **netutils-linux** — набор утилит для тюнинга и диагностики сетевого стека
+- [x] **netutils-linux** — набор утилит для тюнинга и диагностики сетевого стека
       Linux. *(`pipx` / `make`)* — [strizhechenko/netutils-linux](https://github.com/strizhechenko/netutils-linux)
-- [ ] **reachable** — быстрая проверка доступности домена. *(`go`)* —
+      — ✅ добавлен в плейбук (роль `network`, через pipx из PyPI): в PATH
+      появляются `network-top`, `softirq-top`, `softnet-stat-top`, `rps`,
+      `autorps`, `autoxps`, `rx-buffers-increase`, `link-rate`,
+      `pcap-tcp-stream`, `netdev-pci-speed`.
+- [x] **reachable** — быстрая проверка доступности домена. *(`go`)* —
       [italolelis/reachable](https://github.com/italolelis/reachable)
+      — ✅ добавлен в плейбук (роль `network`, сборкой `go install`: релиз
+      0.1.0 опубликован без ассетов).
 
 ## Удалённый доступ и шаринг терминала
 
@@ -471,12 +497,20 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [dependency-check/DependencyCheck](https://github.com/dependency-check/DependencyCheck)
       — ✅ добавлен в плейбук (роль `secrets`, zip в `/opt/dependency-check`
       + обёртка в bin_dir; база NVD кэшируется в `~/.cache/dependency-check`).
-- [ ] **dagda** — статический анализ образов/контейнеров на malware и уязвимости.
+- [x] **dagda** — статический анализ образов/контейнеров на malware и уязвимости.
       *(`pipx`)* — [eliasgranderubio/dagda](https://github.com/eliasgranderubio/dagda)
-- [ ] **ochrona-cli** — детект уязвимостей Python-зависимостей + безопасные
+      — перенесён в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md):
+      это сервер (Django + MongoDB + docker-образ), а не CLI-утилита.
+- [x] **ochrona-cli** — детект уязвимостей Python-зависимостей + безопасные
       установки. *(`pipx`)* — [ochronasec/ochrona-cli](https://github.com/ochronasec/ochrona-cli)
-- [ ] **vulncov** — корреляция Semgrep-сканов с покрытием тестами. *(`pipx`)* —
+      — ✅ добавлен в плейбук (роль `secrets`, через pipx: на PyPI пакет
+      называется `ochrona`, команда — `ochrona`).
+- [x] **vulncov** — корреляция Semgrep-сканов с покрытием тестами. *(`pipx`)* —
       [mllamazares/vulncov](https://github.com/mllamazares/vulncov)
+      — перенесён в
+      [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md):
+      пин `faiss-cpu==1.9.0` не имеет колёс под Python 3.14, `pipx install`
+      падает на сборке зависимостей; на PyPI пакета нет (ставится из git).
 - [x] **osquery** — SQL-подобная инструментация и мониторинг ОС. *(`deb`)* —
       [osquery/osquery](https://github.com/osquery/osquery)
       — ✅ добавлен в плейбук (роль `secrets`, `.deb` из релиза; демон не поднимаем).
@@ -484,10 +518,17 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [DataDog/KubeHound](https://github.com/DataDog/KubeHound)
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       kubehound-Linux-x86_64).
-- [ ] **kubestriker** — быстрый security-аудит Kubernetes. *(`pipx`)* —
+- [x] **kubestriker** — быстрый security-аудит Kubernetes. *(`pipx`)* —
       [vchinnipilli/kubestriker](https://github.com/vchinnipilli/kubestriker)
-- [ ] **kubernetes-rbac-audit** — аудит RBAC в кластере. *(`pipx`)* —
+      — перенесён в
+      [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md):
+      пакет 2021 года с жёсткими пинами (`figlet==0.0.1`, `PyYAML==5.3.1`,
+      `prompt-toolkit==1.0.15`) — под Python 3.14 не устанавливается.
+- [x] **kubernetes-rbac-audit** — аудит RBAC в кластере. *(`pipx`)* —
       [cyberark/kubernetes-rbac-audit](https://github.com/cyberark/kubernetes-rbac-audit)
+      — перенесён в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md):
+      один скрипт `ExtensiveRoleCheck.py` без упаковки, работает офлайн по
+      заранее выгруженным JSON ролей; покрывается `rbac-wizard` и `kubehound`.
 - [x] **rbac-wizard** — UI для визуализации RBAC-ресурсов. *(`go`)* —
       [pehlicd/rbac-wizard](https://github.com/pehlicd/rbac-wizard)
       — ✅ добавлен в плейбук (роль `secrets`, сборкой `go install`: релизные
@@ -498,16 +539,22 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **lazygit** — TUI для git: статус, коммиты, rebase, конфликты.
       *(`release` / `go`)* — [jesseduffield/lazygit](https://github.com/jesseduffield/lazygit)
       — ✅ добавлен в плейбук (роль `git`).
-- [ ] **lumen** — просмотр git diff + генерация коммитов через LLM. *(`cargo`)* —
+- [x] **lumen** — просмотр git diff + генерация коммитов через LLM. *(`cargo`)* —
       [jnsahaj/lumen](https://github.com/jnsahaj/lumen)
+      — ✅ добавлен в плейбук (роль `git`, бинарник из тарболла
+      lumen-x86_64-unknown-linux-gnu.tar.gz).
 - [ ] ⭐ **opencommit** — генерация осмысленных git-сообщений через GPT.
       *(`npm`)* — [di-sukharev/opencommit](https://github.com/di-sukharev/opencommit)
       — ❌ не устанавливаем: то же самое умеет opencode (генерирует сообщение
       коммита по диффу). Отдельный CLI не нужен.
-- [ ] **gptcommit** — git-хук `prepare-commit-msg`: сообщения через LLM.
+- [x] **gptcommit** — git-хук `prepare-commit-msg`: сообщения через LLM.
       *(`cargo` + hook)* — [zurawiki/gptcommit](https://github.com/zurawiki/gptcommit)
-- [ ] **CodeGPT** — CLI-генерация сообщений коммитов и ревью через LLM.
+      — ✅ добавлен в плейбук (роль `git`, бинарник из тарболла
+      gptcommit-x86_64-unknown-linux-gnu.tar.gz; хук включается в проекте).
+- [x] **CodeGPT** — CLI-генерация сообщений коммитов и ревью через LLM.
       *(`go`)* — [appleboy/CodeGPT](https://github.com/appleboy/CodeGPT)
+      — ✅ добавлен в плейбук (роль `git`, одиночный бинарник
+      CodeGPT-<ver>-linux-amd64; на диск кладётся как `codegpt`).
 - [x] **ghgrab** — TUI для просмотра и скачивания файлов из GitHub/GitLab/Gitea.
       *(`cargo`)* — [abhixdd/ghgrab](https://github.com/abhixdd/ghgrab)
       — ✅ добавлен в плейбук (роль `git`, одиночный бинарник ghgrab-linux
@@ -554,14 +601,18 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **shellcheck** — статический анализ shell-скриптов на баги. *(`apt`)* —
       [koalaman/shellcheck](https://github.com/koalaman/shellcheck)
       — ✅ добавлен в плейбук (роль `shell`, пакетом из репозитория Ubuntu).
-- [ ] **hstr** — TUI-подсказки из истории bash/zsh. *(`deb`)* —
-      [dvorka/hstr](https://github.com/dvorka/hstr)
+- [x] **hstr** — TUI-подсказки из истории bash/zsh. *(`deb`)* —
+      [dvorka/hstr](https://github.com/dvorka/hstr) — ⛔ дубль уже
+      установленного плейбуком **mcfly** (таблица выбора выше), хотя пакет и
+      есть в репозитории Ubuntu (3.1). Не берём.
 - [x] **spacer** — вставляет разделители между выводами команд длинного пайплайна.
       *(`cargo`)* — [samwho/spacer](https://github.com/samwho/spacer)
       — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла
       spacer-x86_64-unknown-linux-musl.tar.gz).
-- [ ] **3mux** — мультиплексор терминала в стиле i3. *(`go`)* —
+- [x] **3mux** — мультиплексор терминала в стиле i3. *(`go`)* —
       [aaronjanse/3mux](https://github.com/aaronjanse/3mux)
+      — ✅ добавлен в плейбук (роль `shell`, сборкой `go install`: релизных
+      ассетов нет; дополняет zellij тайлингом в стиле i3).
 - [x] **difftastic** — структурный diff (понимает синтаксис языка).
       *(`tar.gz` / `cargo`; ⭐ 26k)* —
       [Wilfred/difftastic](https://github.com/Wilfred/difftastic)
@@ -596,8 +647,11 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`snap` / `script`)* — [AdnanHodzic/auto-cpufreq](https://github.com/AdnanHodzic/auto-cpufreq)
       — ❌ не устанавливаем: хватает того, что в Ubuntu есть из коробки
       (`power-profiles-daemon` + `amd-pstate`/`intel_pstate`).
-- [ ] **sysinfo** — скрипты сбора подробной системной информации. *(`pipx` / `git clone`)* —
+- [x] **sysinfo** — скрипты сбора подробной системной информации. *(`pipx` / `git clone`)* —
       [peterbay/sysinfo](https://github.com/peterbay/sysinfo)
+      — перенесён в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md):
+      набор bash/python-скриптов без упаковки (нет ни PyPI, ни релизов);
+      похожие данные дают `procs`, `fastfetch` и `jc`.
 - [x] **nxs-backup** — создание, доставка и ротация бэкапов GNU/Linux.
       *(`go`)* — [nixys/nxs-backup](https://github.com/nixys/nxs-backup)
       — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла
@@ -608,8 +662,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **eget** — установка готовых бинарников прямо из GitHub-релизов. *(`go`)* —
       [zyedidia/eget](https://github.com/zyedidia/eget)
       — ✅ добавлен в плейбук (роль `base`).
-- [ ] **binup** — автоматическая установка приложений из GitHub-релизов.
+- [x] **binup** — автоматическая установка приложений из GitHub-релизов.
       *(`cargo`)* — [KonishchevDmitry/binup](https://github.com/KonishchevDmitry/binup)
+      — ✅ добавлен в плейбук (роль `base`, `.tar.bz2` — для него в роли
+      `binaries` появился тип архива `tarbz2`).
 - [x] **dra** — скачивание релизных ассетов GitHub по имени. *(`deb`)* —
       [devmatteini/dra](https://github.com/devmatteini/dra)
       — ✅ добавлен в плейбук (роль `base`, бинарник из тарболла
