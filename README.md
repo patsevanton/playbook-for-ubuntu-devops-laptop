@@ -86,7 +86,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   kftui, ct (chart-testing), ytt, kbld,
 │   │                           #   chartsnap, kubewall, kubevpn, netfetch,
 │   │                           #   timoni, kubeview, kubehound, charts-syncer,
-│   │                           #   netobserv, capacitor,
+│   │                           #   netobserv, capacitor, kubebox (npm),
 │   │                           #   headlamp и radar (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
@@ -97,12 +97,13 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype, osquery, mfa,
 │   │                           #   medusa, bank-vaults, horusec,
 │   │                           #   dependency-check (/opt + обёртка),
-│   │                           #   entropy (go install)
+│   │                           #   entropy, rbac-wizard (go install)
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
 │   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
 │   │                           #   jnv, octosql, lazyjournal, gonzo, otel-tui, jl,
-│   │                           #   logdy, spacer,
-│   │                           #   lf, gomplate, yamlfmt, gum, fastfetch, procs,
+│   │                           #   logdy, jlv, spacer,
+│   │                           #   lf, gomplate, yamlfmt, yamlfixer (pipx), gum,
+│   │                           #   fastfetch, procs, dusage,
 │   │                           #   shellclear, nxs-backup, cheat, tldr,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
@@ -110,7 +111,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
 │   │                           #   tcping, doggo, gotty, sshx, txeh, assh, asn,
 │   │                           #   rkn-block-checker (pipx), ssh-audit и httptap (pipx),
-│   │                           #   lexicon (pipx),
+│   │                           #   lexicon (pipx), gossl, crip (certificate-ripper),
 │   │                           #   ecapture, termshark, websocat, sniffnet
 │   ├── ebpf/                   # eBPF-наблюдаемость: pwru, bpftop, oryx,
 │   │                           #   pktstat-bpf, tracee
@@ -121,7 +122,8 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── nora/                   # NORA artifact registry + mkcert TLS + CA клиентам,
 │   │                           #   Caddy как TLS-терминатор
 │   ├── monitoring/             # vmalert-tool (проверка алерт-правил), sloth (SLO),
-│   │                           #   cloudprober, canary-checker, gatus (go install), krr
+│   │                           #   cloudprober, canary-checker, coroot,
+│   │                           #   gatus (go install), krr
 │   ├── binaries/               # общий движок установки бинарников (вызывается ролями)
 │   ├── pipx_apps/              # общий движок установки приложений из PyPI (pipx)
 │   └── go_apps/                # общий движок сборки Go-приложений (go install)
@@ -133,7 +135,7 @@ ansible-lint                                   # проверка стиля (pr
 `kubernetes`, `iac`, `postgres`, `secrets`, `shell`, `network`, `opencode`,
 передавая список того, что нужно поставить. Каждая роль хранит свой список в
 `roles/<роль>/defaults/main.yml`. Так же устроены `pipx_apps` (приложения из
-PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходников:
+PyPI через pipx: `git`, `iac`, `shell`) и `go_apps` (сборка из исходников:
 `secrets`, `monitoring`).
 
 Имя `playbook.yml` выбрано осознанно; в чужих проектах точку входа часто называют
@@ -178,7 +180,8 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
    timoni (пакетный менеджер Kubernetes на CUE), kubeview (граф ресурсов
    кластера), kubehound (поиск путей атак в кластере), charts-syncer
    (синхронизация Helm-репозиториев), netobserv (сетевая наблюдаемость на
-   eBPF без агента), capacitor (UI для FluxCD),
+   eBPF без агента), capacitor (UI для FluxCD), kubebox (терминальная и веб
+   консоль Kubernetes, npm),
    headlamp (web/desktop UI Kubernetes) и radar (UI Kubernetes со встроенным
    MCP-сервером для AI-агентов, .deb).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
@@ -196,9 +199,10 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
    mfa (терминальный менеджер 2FA/TOTP), medusa (импорт/экспорт секретов
    Vault), bank-vaults (init/unseal и конфигурация Vault через YAML),
    horusec (SAST одной командой), dependency-check (OWASP SCA: уязвимые
-   зависимости проекта, zip в `/opt` + обёртка) и entropy (поиск строк с
+   зависимости проекта, zip в `/opt` + обёртка), entropy (поиск строк с
    высокой энтропией — ключей и токенов — по признаку случайности, а не по
-   шаблону; `go install`).
+   шаблону; `go install`) и rbac-wizard (веб-UI для визуализации RBAC
+   кластера; `go install`).
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
     M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
@@ -212,12 +216,15 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
     lazyjournal (TUI для journald, auditd, Docker и файлов), gonzo
     (TUI-анализ логов с графиками по столбцам), otel-tui (просмотр
     OpenTelemetry-трейсов/логов/метрик), jl (раскраска JSON-логов),
-    logdy (просмотр логов в браузере в реальном времени), spacer
-    (разделители с таймингом между шагами пайплайна),
+    logdy (просмотр логов в браузере в реальном времени), jlv
+    (интерактивный просмотр JSON-логов), spacer (разделители с таймингом
+    между шагами пайплайна),
     mcfly (умная история команд по Ctrl-R), lf (терминальный файловый
     менеджер), gomplate (шаблонизатор конфигов), yamlfmt (форматтер YAML),
+    yamlfixer (автоисправление замечаний yamllint, через pipx),
     gum (примитивы для «красивых» shell-скриптов), fastfetch (информация о
-    системе), procs (современная замена ps), shellclear (секреты и опасные
+    системе), procs (современная замена ps), dusage (наглядный подсчёт
+    занятого места), shellclear (секреты и опасные
     команды в истории shell), nxs-backup (бэкапы по YAML-описанию),
     cheat (собственные шпаргалки команд) и tldr (краткие примеры команд).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
@@ -237,9 +244,11 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
     (графический TUI-мониторинг трафика, .deb), а также
     `rkn-block-checker` (через pipx), `kyanos` (eBPF-анализ сетевых запросов),
     `showcert` (разбор X.509-сертификатов, через pipx), `ssh-audit`
-    (аудит конфигурации SSH-серверов и клиентов, через pipx) и `httptap`
+    (аудит конфигурации SSH-серверов и клиентов, через pipx), `httptap`
     (разбор HTTP-запроса по слоям: DNS, connect, TLS, TTFB, через pipx),
-    `lexicon` (управление DNS-записями у разных провайдеров, через pipx).
+    `lexicon` (управление DNS-записями у разных провайдеров, через pipx),
+    `gossl` (проверка SSL-сертификата: цепочка, срок, протоколы) и `crip`
+    (certificate-ripper — извлечение цепочки сертификатов с хоста).
 14. Ставит eBPF-наблюдаемость: `pwru` (eBPF-отладчик сетевого стека), `bpftop`
     (обзор запущенных eBPF-программ), `oryx` (TUI-сниффер трафика), `pktstat-bpf`
     (монитор трафика по процессам) и `tracee` (runtime-security и форензика).
@@ -253,7 +262,8 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
 19. Ставит `vmalert-tool` (офлайн-проверка и unit-тесты алерт-правил
     Prometheus-совместимых систем), `sloth` (генерация SLO/алертов из
     описания), `cloudprober` (активные пробы), `canary-checker` (health-check
-    платформа с проверками из YAML), `krr` (рекомендации
+    платформа с проверками из YAML), `coroot` (observability/APM с root-cause
+    анализом), `krr` (рекомендации
     requests/limits по фактическому потреблению) и `gatus` (health-dashboard
     и status page из YAML) в роли `monitoring`, а также `reviewdog`
     (автоматическое code review) в роли `git` и `grex` (генерация regex из
@@ -423,13 +433,21 @@ PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходн
 | nxs-backup | github.com/nixys/nxs-backup |
 | cloudprober | github.com/cloudprober/cloudprober |
 | canary-checker | github.com/flanksource/canary-checker |
+| coroot | github.com/coroot/coroot |
+| gossl | github.com/vvrnv/gossl |
+| crip (certificate-ripper) | github.com/Hakky54/certificate-ripper |
+| jlv (json-log-viewer) | github.com/hedhyw/json-log-viewer |
+| dusage | github.com/mihaigalos/dusage |
+| kubebox | registry.npmjs.org/kubebox |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
-`~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`) и
-коллекциями `community.docker`/`ansible.posix`, `rkn-block-checker`, `showcert`,
+`~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`),
+`rkn-block-checker`, `showcert`,
 `ssh-audit`, `httptap` и `lexicon` — из PyPI через pipx в `~/.local/bin` (роль
-`network`), `gitlabform` и `tftui` — из PyPI через pipx (общая роль
-`pipx_apps`, вызывается из `git` и `iac`), `gatus` и `entropy` — сборкой из
+`network`), `yamlfixer` — из PyPI через pipx (роль `shell`), `gitlabform` и
+`tftui` — из PyPI через pipx (общая роль
+`pipx_apps`, вызывается из `git` и `iac`), `gatus`, `entropy` и
+`rbac-wizard` — сборкой из
 исходников через `go install` (общая роль `go_apps`, вызывается из `monitoring`
 и `secrets`), `krr` — распаковкой PyInstaller-сборки в `/opt/krr` с обёрткой в
 `/usr/local/bin` (роль `monitoring`), `dependency-check` — распаковкой
@@ -442,8 +460,8 @@ zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/b
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
 `sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из
 gzip-сжатого одиночного бинарника релиза (роль `shell`), `osquery` — из
-`.deb`-пакета GitHub-релиза (роль `secrets`), `tldr` — через `npm install -g`
-(роль `shell`), `tshark` — пакетом
+`.deb`-пакета GitHub-релиза (роль `secrets`), `tldr` и `kubebox` — через
+`npm install -g` (роли `shell` и `kubernetes`), `tshark` — пакетом
 Ubuntu как зависимость `termshark` (роль `network`), `tracee` — из тарболла
 GitHub-релиза вместе с сигнатурами безопасности в `/opt/tracee` + симлинк в
 `/usr/local/bin` (роль `ebpf`),
@@ -488,9 +506,10 @@ ansible-lint                    # профиль production, конфиг .ansib
 Вместе с ним ставятся:
 
 - **molecule-plugins** с extra `docker` — драйверы сценариев; драйвер `docker`
-  гоняет тесты в контейнерах Docker (Engine ставится ролью `docker`),
-- коллекции **community.docker** и **ansible.posix** в `~/.ansible/collections`
-  — их модулями сам драйвер docker поднимает и разбирает контейнеры.
+  гоняет тесты в контейнерах Docker (Engine ставится ролью `docker`).
+  Коллекции **community.docker** и **ansible.posix**, которыми драйвер
+  поднимает контейнеры, плейбук не ставит: molecule доставит их сама в
+  `~/.ansible/collections` при первом `molecule test` (`molecule dependency`).
 
 ```bash
 molecule drivers                # доступные драйверы: docker, podman, vagrant, ...
@@ -1044,6 +1063,69 @@ gotty -p 8080 -w top                       # на конкретном порт�
 
 ---
 
+## TLS-сертификаты: gossl и crip
+
+Две утилиты роли `network` для работы с X.509 без ручного `openssl s_client`:
+
+- **gossl** (`vvrnv/gossl`) — проверка сертификата хоста: цепочка, срок
+  действия, поддерживаемые протоколы; печатает вердикт по каждому пункту.
+- **crip** (certificate-ripper, `Hakky54/certificate-ripper`) — вытаскивает
+  цепочку сертификатов с удалённого хоста и умеет сразу положить её в PEM/trust
+  store. Нативная сборка (GraalVM), JVM не требуется.
+
+```bash
+gossl verify --domain example.com
+crip print --url https://example.com
+crip trust --url https://example.com        # добавить в системный trust store
+```
+
+---
+
+## YAML и JSON-логи: yamlfixer и jlv
+
+- **yamlfixer** (`opt-nc/yamlfixer`, роль `shell`, через pipx) — берёт вывод
+  `yamllint` и исправляет замечания (отступы, кавычки, пробелы), дополняя
+  `yamllint` и `yamlfmt`: `switch`-стиль линтера остаётся, а правки делаются
+  автоматически.
+- **jlv** (json-log-viewer, `hedhyw/json-log-viewer`, роль `shell`) —
+  интерактивный просмотр JSON-логов: строки раскладываются в таблицу с
+  фильтрами по полям и переходом к ошибкам. Дополняет `hl`
+  (универсальный пейджер логов): `jlv` заточен под навигацию по JSON-потоку.
+
+```bash
+yamllint -f parsable . | yamlfixer
+jlv app.log                                 # или `kubectl logs ... | jlv`
+```
+
+---
+
+## kubebox — консоль Kubernetes по SSH
+
+**kubebox** (`astefanutti/kubebox`, роль `kubernetes`, ставится через npm) —
+терминальный dashboard: поды, логи, `exec`, YAML, события; умеет поднимать
+веб-режим в браузере. В отличие от `headlamp` (desktop-приложение) работает
+прямо в ssh-сессии и не требует GUI.
+
+```bash
+kubebox                                     # TUI по текущему контексту
+kubebox --server 127.0.0.1:8080             # веб-режим на localhost
+```
+
+---
+
+## coroot — локальный observability/APM
+
+**coroot** (`coroot/coroot`, роль `monitoring`, одиночный бинарник) собирает
+метрики, трейсы и логи контейнеров и раскладывает их по карте сервисов с
+root-cause подсказками. Поднимается локально (`coroot` слушает `:8080`) —
+не требует отдельного стека Prometheus/Grafana для быстрого разбора.
+
+```bash
+coroot                                      # сервер + UI на http://localhost:8080
+```
+
+---
+
 ## pitwall — терминал для coding-агентов
 
 pitwall в плейбук не ставится. См. issue о невозможности вводить русские буквы:
@@ -1057,7 +1139,10 @@ pitwall в плейбук не ставится. См. issue о невозмож
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
 Утилиты, которые работают агентом на нодах Kubernetes (DaemonSet/static Pod и
 не ставятся на ноутбук), собраны в
-[`TODO-node-tools.md`](TODO-node-tools.md).
+[`TODO-node-tools.md`](TODO-node-tools.md). Из Ansible Galaxy плейбук не ставит
+ничего — ни ролей, ни коллекций, ни готовых playbook'ов (почему и как поставить
+в конкретном проекте) — в
+[`TODO-ansible-galaxy-not-install.md`](TODO-ansible-galaxy-not-install.md).
 
 ---
 

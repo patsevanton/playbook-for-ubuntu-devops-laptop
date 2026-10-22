@@ -333,3 +333,12 @@ kubectx_ref: master
 kubectx_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/kubectx"
 kubectx_completion_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/completion/kubectx.bash"
 kubectx_completion_path: /etc/bash_completion.d/kubectx
+
+# --- kubebox: терминальная и веб-консоль Kubernetes --------------------------
+# Терминальный dashboard (pod, logs, exec, YAML) с запуском по SSH без
+# desktop-приложения и с опцией веб-режима в браузере. Апстрим публикует
+# только npm-пакет (бинарников в релизах нет), ставится `npm install -g`.
+# Дополняет headlamp (desktop GUI) именно для ssh-сессий.
+kubebox_install: true
+kubebox_package: kubebox
+kubebox_bin: "{{ bin_dir }}/kubebox"

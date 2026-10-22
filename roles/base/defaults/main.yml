@@ -56,9 +56,3 @@ base_binaries:
 # тесты в контейнерах Docker (Engine ставится ролью docker).
 molecule_pipx_name: molecule
 molecule_pipx_inject: "molecule-plugins[docker]"
-# Коллекции Ansible нужны самому драйверу docker: его сценарии molecule
-# запускает модулями community.docker и ansible.posix. Ставятся в
-# ~/.ansible/collections (общий каталог для apt- и pipx-версий ansible-core).
-molecule_collections:
-  - community.docker
-  - ansible.posix

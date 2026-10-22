@@ -92,22 +92,3 @@
     PIPX_DEFAULT_PYTHON: "{{ pipx_python }}"
   when: not molecule_stat.stat.exists
   changed_when: true
-
-# Коллекции нужны самому драйверу docker (его сценарии запускаются модулями
-# community.docker / ansible.posix). Ставятся в пользовательский каталог
-# ansible (~/.ansible/collections), поэтому без become.
-- name: Проверить коллекции Ansible для драйвера docker molecule
-  ansible.builtin.stat:
-    path: "{{ home_dir }}/.ansible/collections/ansible_collections/{{ item | replace('.', '/') }}"
-  loop: "{{ molecule_collections }}"
-  loop_control:
-    label: "{{ item }}"
-  register: molecule_collections_stat
-
-- name: Установить коллекции Ansible для драйвера docker molecule
-  ansible.builtin.command:
-    cmd: "ansible-galaxy collection install {{ item.item }}"
-  loop: "{{ molecule_collections_stat.results | rejectattr('stat.exists') | list }}"
-  loop_control:
-    label: "{{ item.item }}"
-  changed_when: true

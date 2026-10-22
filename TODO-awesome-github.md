@@ -27,6 +27,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
   [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
 - Утилиты для нод Kubernetes (DaemonSet/static Pod, не на ноутбук) вынесены
   в [`TODO-node-tools.md`](TODO-node-tools.md).
+- Из Ansible Galaxy плейбук не ставит ничего — ни ролей, ни коллекций, ни
+  готовых playbook'ов; перечисленные ниже кандидаты — только примеры. Почему и
+  как поставить при необходимости:
+  [`TODO-ansible-galaxy-not-install.md`](TODO-ansible-galaxy-not-install.md).
 - В скобках — способ установки для Ubuntu 26.04 / x86_64:
   `deb` — готовый `.deb` в GitHub-релизе, `AppImage`, `apt`, `snap`,
   `release` — готовый бинарник/архив из релиза,
@@ -66,25 +70,15 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Ansible и управление конфигурацией
 
+> Из Ansible Galaxy плейбук не ставит **ничего**: ни ролей, ни коллекций, ни
+> готовых playbook'ов. Перечисленные ниже — лишь кандидаты из awesome-списка,
+> а не разрешённый список; правило общее. Причины и команды для установки в
+> конкретном проекте:
+> [`TODO-ansible-galaxy-not-install.md`](TODO-ansible-galaxy-not-install.md).
+
 - [x] **molecule** — фреймворк тестирования Ansible-ролей (прогон ролей в
       контейнерах/VM). *(`pipx`; ⭐ 4.2k)* — [ansible/molecule](https://github.com/ansible/molecule)
       — ✅ добавлен в плейбук (роль `base`: pipx + драйвер docker).
-- [ ] **cloud.terraform** — Ansible-коллекция: запуск Terraform/OpenTofu из
-      плейбуков (plan/apply/state как задачи). *(`ansible-galaxy collection`)* —
-      [ansible-collections/cloud.terraform](https://github.com/ansible-collections/cloud.terraform)
-- [ ] **ansible-role-docker** — проверенная роль установки Docker (geerlingguy).
-      *(`ansible-galaxy role`)* — [geerlingguy/ansible-role-docker](https://github.com/geerlingguy/ansible-role-docker)
-- [ ] **ansible-role-wireguard** — роль WireGuard-VPN для Ubuntu/Debian/RHEL.
-      *(`ansible-galaxy role`)* — [githubixx/ansible-role-wireguard](https://github.com/githubixx/ansible-role-wireguard)
-- [ ] **ansible-collection-smallstep** — коллекция для Smallstep CLI и `step-ca`
-      (PKI/сертификаты). *(`ansible-galaxy collection`)* —
-      [maxhoesel-ansible/ansible-collection-smallstep](https://github.com/maxhoesel-ansible/ansible-collection-smallstep)
-- [ ] **ansible-haproxy** — роль установки актуального HAProxy. *(`ansible-galaxy role`)* —
-      [Oefenweb/ansible-haproxy](https://github.com/Oefenweb/ansible-haproxy)
-- [ ] **java_role** / **nexus-role** — роли idealista: Java (OpenJDK/Corretto) и
-      Sonatype Nexus. *(`ansible-galaxy role`)* —
-      [idealista/java_role](https://github.com/idealista/java_role),
-      [idealista/nexus-role](https://github.com/idealista/nexus-role)
 - [x] **ansible-role-pgcenter** — роль установки `pgCenter` (мониторинг Postgres).
       *(`ansible-galaxy role`)* — [vitabaks/ansible-role-pgcenter](https://github.com/vitabaks/ansible-role-pgcenter)
       — ✅ не нужна: сам `pgcenter` уже ставится плейбуком (роль `postgres`).
@@ -204,8 +198,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`deb`)* — [skyhook-io/radar](https://github.com/skyhook-io/radar)
       — ✅ добавлен в плейбук (роль `kubernetes`, .deb из релиза,
       desktop UI).
-- [ ] **kubebox** — терминальная и веб-консоль для Kubernetes. *(`npm`)* —
+- [x] **kubebox** — терминальная и веб-консоль для Kubernetes. *(`npm`)* —
       [astefanutti/kubebox](https://github.com/astefanutti/kubebox)
+      — ✅ добавлен в плейбук (роль `kubernetes`, `npm install -g kubebox`;
+      вместе с headlamp — он для desktop, kubebox для ssh-сессий).
 - [x] **kubeview** — визуализация ресурсов кластера и связей между ними.
       *(`go` / `make`)* — [benc-uk/kubeview](https://github.com/benc-uk/kubeview)
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
@@ -309,8 +305,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`release`)* — [Lifailon/lazyjournal](https://github.com/Lifailon/lazyjournal)
       — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник
       lazyjournal-<ver>-linux-amd64 из релиза).
-- [ ] **json-log-viewer** — интерактивный просмотр JSON-логов. *(`deb`)* —
+- [x] **json-log-viewer** — интерактивный просмотр JSON-логов. *(`deb`)* —
       [hedhyw/json-log-viewer](https://github.com/hedhyw/json-log-viewer)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник `jlv` из тарболла).
+      Дополняет `hl`: hl — универсальный пейджер, jlv — навигация по JSON.
 - [x] **logdy-core** — realtime веб-просмотр логов (`tail -f` + браузерный UI).
       *(`go`)* — [logdyhq/logdy-core](https://github.com/logdyhq/logdy-core)
       — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник logdy_linux_amd64
@@ -325,8 +323,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **yamlfmt** — форматтер YAML. *(`go`)* —
       [google/yamlfmt](https://github.com/google/yamlfmt)
       — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
-- [ ] **yamlfixer** — автоматическое исправление замечаний `yamllint`. *(`pipx`)* —
+- [x] **yamlfixer** — автоматическое исправление замечаний `yamllint`. *(`pipx`)* —
       [opt-nc/yamlfixer](https://github.com/opt-nc/yamlfixer)
+      — ✅ добавлен в плейбук (роль `shell`, через pipx; на PyPI пакет
+      называется `yamlfixer-opt-nc`, команда — `yamlfixer`).
 - [x] ⭐ **grex** — генерирует регулярные выражения из примеров строк.
       *(`cargo` / `pipx`)* — [pemistahl/grex](https://github.com/pemistahl/grex)
       — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла).
@@ -403,11 +403,14 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **showcert** — «OpenSSL для людей»: разбор X.509-сертификатов. *(`pipx`)* —
       [yaroslaff/showcert](https://github.com/yaroslaff/showcert)
       — ✅ добавлен в плейбук (роль `network`, через pipx из PyPI).
-- [ ] **certificate-ripper** — извлекает цепочки сертификатов с удалённых
+- [x] **certificate-ripper** — извлекает цепочки сертификатов с удалённых
       серверов. *(`jar` + `apt install openjdk`)* —
       [Hakky54/certificate-ripper](https://github.com/Hakky54/certificate-ripper)
-- [ ] **gossl** — CLI-проверка SSL-сертификатов. *(`go`)* —
+      — ✅ добавлен в плейбук (роль `network`, бинарник `crip` из нативной
+      GraalVM-сборки crip-linux-amd64.tar.gz — JVM не нужна).
+- [x] **gossl** — CLI-проверка SSL-сертификатов. *(`go`)* —
       [vvrnv/gossl](https://github.com/vvrnv/gossl)
+      — ✅ добавлен в плейбук (роль `network`, бинарник из тарболла).
 - [x] **ssh-audit** — аудит конфигурации SSH-серверов и клиентов. *(`pipx`)* —
       [jtesta/ssh-audit](https://github.com/jtesta/ssh-audit)
       — ✅ добавлен в плейбук (роль `network`, через pipx из PyPI).
@@ -485,8 +488,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [vchinnipilli/kubestriker](https://github.com/vchinnipilli/kubestriker)
 - [ ] **kubernetes-rbac-audit** — аудит RBAC в кластере. *(`pipx`)* —
       [cyberark/kubernetes-rbac-audit](https://github.com/cyberark/kubernetes-rbac-audit)
-- [ ] **rbac-wizard** — UI для визуализации RBAC-ресурсов. *(`go`)* —
+- [x] **rbac-wizard** — UI для визуализации RBAC-ресурсов. *(`go`)* —
       [pehlicd/rbac-wizard](https://github.com/pehlicd/rbac-wizard)
+      — ✅ добавлен в плейбук (роль `secrets`, сборкой `go install`: релизные
+      ассеты апстрима — только Helm-чарт).
 
 ## Git, GitHub/GitLab и CI/CD
 
@@ -571,8 +576,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 
 ## Файлы, диск, система
 
-- [ ] **dusage** — наглядный подсчёт занятого места на диске. *(`deb`)* —
+- [x] **dusage** — наглядный подсчёт занятого места на диске. *(`deb`)* —
       [mihaigalos/dusage](https://github.com/mihaigalos/dusage)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла): не TUI, а
+      быстрый вывод в скриптах и ssh-сессиях, где gdu не запустить.
 - [x] ⭐ **gdu** — быстрый анализатор диска с интерактивным TUI. *(`deb`)* —
       [dundee/gdu](https://github.com/dundee/gdu)
       — ✅ добавлен в плейбук (роль `shell`, бинарником из тарболла).
@@ -618,8 +625,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       бинарники (`vmctl`, `vmagent`, `vmalert`, `vmauth`, `vmbackup`,
       `vmrestore`) на ноуте не нужны — им требуется локальная приёмка/скрейп
       метрик в VictoriaMetrics.
-- [ ] **coroot** — observability и APM с root-cause анализом. *(`go`)* —
+- [x] **coroot** — observability и APM с root-cause анализом. *(`go`)* —
       [coroot/coroot](https://github.com/coroot/coroot)
+      — ✅ добавлен в плейбук (роль `monitoring`, одиночный бинарник
+      coroot-amd64 из релиза).
 - [x] **krr** — рекомендации ресурсов на основе Prometheus. *(`pipx`)* —
       [robusta-dev/krr](https://github.com/robusta-dev/krr)
       — ✅ добавлен в плейбук (роль `monitoring`, распаковка PyInstaller-сборки

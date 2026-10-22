@@ -37,6 +37,12 @@
   vars:
     binaries_to_install: "{{ shell_binaries }}"
 
+- name: Установить Python-приложения для работы с YAML (yamlfixer)
+  ansible.builtin.include_role:
+    name: pipx_apps
+  vars:
+    pipx_apps: "{{ shell_pipx_apps }}"
+
 - name: Создать каталог ~/.config
   ansible.builtin.file:
     path: "{{ home_dir }}/.config"

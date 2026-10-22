@@ -283,7 +283,35 @@ shell_binaries:
     url: "https://github.com/nixys/nxs-backup/releases/download/{tag}/nxs-backup-amd64.tar.gz"
     archive: tar
     member: nxs-backup
-  # --- cheat — собственные шпаргалки команд ------------------------------------
+  # jlv (json-log-viewer) — интерактивный просмотр JSON-логов: строки
+  # раскладываются в таблицу, фильтры по полям, переход к ошибкам. Дополняет
+  # hl (универсальный пейджер): jlv заточен под навигацию по JSON-потоку.
+  # Релиз — jlv_linux_amd64.tar.gz, бинарник jlv в корне.
+  - name: jlv
+    source: github
+    repo: hedhyw/json-log-viewer
+    url: "https://github.com/hedhyw/json-log-viewer/releases/download/{tag}/jlv_linux_amd64.tar.gz"
+    archive: tar
+    member: jlv
+  # dusage — быстрый подсчёт занятого места на диске: список каталогов в
+  # порядке убывания, опционально inode и глубина. Простая альтернатива
+  # интерактивному gdu для скриптов и `ssh`-сессий.
+  - name: dusage
+    source: github
+    repo: mihaigalos/dusage
+    url: "https://github.com/mihaigalos/dusage/releases/download/{tag}/dusage-{version}-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: dusage
+
+# Python-приложения роли shell — ставятся через pipx в изолированное окружение.
+shell_pipx_apps:
+  # yamlfixer — автоматически исправляет замечания yamllint (отступы,
+  # кавычки, пробелы, пустые строки), дополняя yamllint и yamlfmt.
+  # На PyPI пакет называется yamlfixer-opt-nc, команда — yamlfixer.
+  - name: yamlfixer-opt-nc
+    creates: yamlfixer
+
+# --- cheat — собственные шпаргалки команд ------------------------------------
 # Релиз cheat — gzip-сжатый одиночный бинарник cheat-linux-amd64.gz (НЕ тарболл),
 # поэтому роль binaries не подходит (понимает только tar/tarxz/zip/none).
 # Ставится отдельной задачей tasks/cheat.yml (скачивание + gunzip + копирование).

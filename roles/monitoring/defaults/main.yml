@@ -58,6 +58,15 @@ monitoring_binaries:
     repo: flanksource/canary-checker
     url: "https://github.com/flanksource/canary-checker/releases/download/{tag}/canary-checker_linux_amd64"
     archive: none
+  # coroot — observability/APM с root-cause анализом: собирает метрики,
+  # трейсы и логи контейнеров и раскладывает их по карте сервисов, подсказывая
+  # причину деградации. Одиночный бинарник coroot-amd64 (сервер + встроенный
+  # UI на :8080) — удобно поднять локально, не разворачивая отдельный стек.
+  - name: coroot
+    source: github
+    repo: coroot/coroot
+    url: "https://github.com/coroot/coroot/releases/download/{tag}/coroot-amd64"
+    archive: none
 
 # Go-приложения без релизных бинарников — собираются ролью go_apps.
 monitoring_go_apps:

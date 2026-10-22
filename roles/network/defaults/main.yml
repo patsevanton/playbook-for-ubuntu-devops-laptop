@@ -191,6 +191,25 @@ network_binaries:
     url: "https://github.com/moul/assh/releases/download/{tag}/assh_{version}_linux_amd64.tar.gz"
     archive: tar
     member: assh
+  # gossl — простой чекер SSL-сертификатов: цепочка, срок действия,
+  # поддерживаемые протоколы и SNI без ручного `openssl s_client`. Релиз —
+  # gossl_{version}_linux_amd64.tar.gz, бинарник gossl в корне.
+  - name: gossl
+    source: github
+    repo: vvrnv/gossl
+    url: "https://github.com/vvrnv/gossl/releases/download/{tag}/gossl_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: gossl
+  # crip (certificate-ripper) — вытаскивает цепочку сертификатов с удалённого
+  # хоста и умеет сразу положить её в PEM/trust store. Апстрим публикует
+  # нативную сборку (GraalVM, JVM не нужна) в crip-linux-amd64.tar.gz;
+  # бинарник называется crip — под этим именем и кладём (это команда).
+  - name: crip
+    source: github
+    repo: Hakky54/certificate-ripper
+    url: "https://github.com/Hakky54/certificate-ripper/releases/download/{tag}/crip-linux-amd64.tar.gz"
+    archive: tar
+    member: crip
 
 # --- Sniffnet: графический TUI-анализатор сетевого трафика -----------------
 # Ставится официальным .deb из GitHub-релиза (артефакт без версии в имени).

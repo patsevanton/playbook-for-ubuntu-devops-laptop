@@ -214,6 +214,13 @@
         - "{{ bin_dir }}/charts-syncer version"
         - "{{ bin_dir }}/netobserv version"
         - "{{ bin_dir }}/canary-checker version"
+        - "{{ bin_dir }}/coroot --help"
+        - "{{ bin_dir }}/gossl version"
+        - "{{ bin_dir }}/crip --version"
+        - "{{ bin_dir }}/jlv --version"
+        - "{{ bin_dir }}/dusage --help"
+        - "{{ bin_dir }}/rbac-wizard version"
+        - "{{ pipx_bin_dir }}/yamlfixer --version"
         - "{{ bin_dir }}/tf-mirror --version"
         - "{{ bin_dir }}/shellclear --version"
         - "{{ bin_dir }}/nxs-backup --version"
@@ -243,6 +250,7 @@
         - /usr/bin/hushmic
         - "{{ bin_dir }}/kubeview"
         - "{{ bin_dir }}/capacitor"
+        - "{{ bin_dir }}/kubebox"
         - "{{ bin_dir }}/gitlab-terraform-manager"
         - /opt/dependency-check/bin/dependency-check.sh
       loop_control:

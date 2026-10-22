@@ -20,6 +20,11 @@
     file: radar.yml
   when: radar_install
 
+- name: Установить kubebox (терминальная и веб-консоль Kubernetes)
+  ansible.builtin.include_tasks:
+    file: kubebox.yml
+  when: kubebox_install
+
 - name: Проверить наличие kubectx
   ansible.builtin.stat:
     path: "{{ bin_dir }}/kubectx"

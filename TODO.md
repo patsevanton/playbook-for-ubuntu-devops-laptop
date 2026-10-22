@@ -16,7 +16,9 @@ GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 кандидаты из подборки collabnix/kubetools, которых нет в других файлах, —
 в [`TODO-kubetools.md`](TODO-kubetools.md), утилиты для нод Kubernetes
 (DaemonSet/агенты, не на ноутбук) — в
-[`TODO-node-tools.md`](TODO-node-tools.md).
+[`TODO-node-tools.md`](TODO-node-tools.md), всё из Ansible Galaxy (роли,
+коллекции, готовые playbook'и), которое плейбук не ставит, — в
+[`TODO-ansible-galaxy-not-install.md`](TODO-ansible-galaxy-not-install.md).
 
 Источник подборки: все репозитории со ⭐ аккаунта (2057 шт.), из них отобраны
 ~570 похожих на локально устанавливаемые утилиты и вручную вычищены до списков
