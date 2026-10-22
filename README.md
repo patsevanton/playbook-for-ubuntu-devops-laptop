@@ -1017,7 +1017,11 @@ pitwall в плейбук не ставится. См. issue о невозмож
 <https://github.com/quanticstudios/pitwall/issues/127>.
 
 Полный список утилит, которые плейбук сознательно не ставит (с причинами и
-ссылками на issue) — в [`not-install.md`](not-install.md).
+ссылками на issue) — в [`not-install.md`](not-install.md). Кандидаты, которые
+ждут готового бинарника на GitHub, — в
+[`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md), а те, чей бинарник
+не запускается на Ubuntu 26.04, — в
+[`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
 
 ---
 

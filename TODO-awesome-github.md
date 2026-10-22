@@ -19,6 +19,12 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - `- [ ]` — кандидат, ещё не рассмотрен.
 - `- [x]` — рассмотрен и добавлен в плейбук (или стал не нужен) — см. заметку
   у пункта; что уже ставит плейбук — в [`TODO.md`](TODO.md).
+- Кандидаты без готового бинарника на GitHub (только исходники, чарт или
+  контейнерный образ) вынесены в
+  [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md).
+- Кандидаты, чей бинарник не запускается на Ubuntu 26.04 (старая OpenSSL,
+  нет сборки под дистрибутив), вынесены в
+  [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
 - В скобках — способ установки для Ubuntu 26.04 / x86_64:
   `deb` — готовый `.deb` в GitHub-релизе, `AppImage`, `apt`, `snap`,
   `release` — готовый бинарник/архив из релиза,
@@ -82,8 +88,6 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       — ✅ не нужна: сам `pgcenter` уже ставится плейбуком (роль `postgres`).
 - [ ] **knee** — интерактивный CLI поверх Ansible: полуавтоматический setup
       инфраструктуры. *(`pipx`)* — [shurutech/knee](https://github.com/shurutech/knee)
-- [ ] **k3s-ansible** — готовый плейбук HA-кластера k3s (kube-vip, MetalLB).
-      *(`git clone`)* — [timothystewart6/k3s-ansible](https://github.com/timothystewart6/k3s-ansible)
 - [ ] **scantron** — распределённый фреймворк nmap/masscan с расписанием и API
       (Ansible-разворачивание). *(`pipx` / `make`)* — [rackerlabs/scantron](https://github.com/rackerlabs/scantron)
 
@@ -107,8 +111,6 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       config-lint_Linux_x86_64.tar.gz).
 - [ ] **gitlab-terraform-manager** — управление GitLab Terraform backend.
       *(`go`)* — [CRASH-Tech/gitlab-terraform-manager](https://github.com/CRASH-Tech/gitlab-terraform-manager)
-- [ ] **terrapod** — self-hosted замена Terraform Enterprise (если понадобится
-      свой backend/runner). *(`make`)* — [mattrobinsonsre/terrapod](https://github.com/mattrobinsonsre/terrapod)
 - [ ] **tf-mirror** — self-hosted зеркало Terraform Provider Registry и бинарников
       HashiCorp (air-gapped/CI). *(`go`)* — [kashtan404/tf-mirror](https://github.com/kashtan404/tf-mirror)
 - [ ] **gruntwork-io/pre-commit** — набор pre-commit-хуков для Terraform.
@@ -171,8 +173,6 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **marvin** — сканер кластера CEL-выражениями: проблемы, мисконфиги,
       уязвимости. *(`go` / `release`)* — [undistro/marvin](https://github.com/undistro/marvin)
       — ✅ добавлен в плейбук (роль `kubernetes`).
-- [ ] **kondense** — автоматический подбор requests/limits для контейнеров.
-      *(`go`)* — [unagex/kondense](https://github.com/unagex/kondense)
 - [x] **netfetch** — скан кластера на незащищённые NetworkPolicy ворклоады.
       *(`go`)* — [deggja/netfetch](https://github.com/deggja/netfetch)
       — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
@@ -221,8 +221,6 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [bitnami/charts-syncer](https://github.com/bitnami/charts-syncer)
 - [ ] **capacitor** — UI для FluxCD. *(`npm`)* —
       [gimlet-io/capacitor](https://github.com/gimlet-io/capacitor)
-- [ ] **goldpinger** — проверка связности между нодами кластера. *(`go`)* —
-      [bloomberg/goldpinger](https://github.com/bloomberg/goldpinger)
 
 ## Docker и контейнеры
 
@@ -361,12 +359,6 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **q** — крошечный DNS-клиент: UDP/TCP/DoH/DoT/DoQ/ODoH. *(`deb`)* —
       [natesales/q](https://github.com/natesales/q)
       — ✅ добавлен в плейбук (роль `network`, бинарником из тарболла).
-- [ ] **dog** — DNS-клиент с человекочитаемым цветным выводом. *(`cargo`)* —
-      [ogham/dog](https://github.com/ogham/dog)
-      — ⛔ не ставится: upstream мёртв с 2021 (последний релиз v0.1.0), готовый
-      бинарник динамически связан с `libssl.so.1.1`, которого нет в Ubuntu 26.04.
-      Покрывается уже добавленным `q`. Живой аналог — **doggo**
-      (tar.gz, статический бинарник) — добавлен в плейбук (роль `network`).
 - [x] **tcping** — `ping` поверх TCP-портов. *(`deb`)* —
       [pouriyajamshidi/tcping](https://github.com/pouriyajamshidi/tcping)
       — ✅ добавлен в плейбук (роль `network`, статическим бинарником из тарболла).
@@ -417,9 +409,6 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **sshx** — совместный терминал в браузере (мгновенный шаринг сессии).
       *(`script` / `cargo`)* — [ekzhang/sshx](https://github.com/ekzhang/sshx)
       — ✅ добавлен в плейбук (роль `network`, тарболл с S3).
-- [ ] **EternalTerminal** — переподключаемый удалённый shell (сессия переживает
-      обрыв). *(`apt` из репо ET; в latest .deb только arm64)* —
-      [MisterTea/EternalTerminal](https://github.com/MisterTea/EternalTerminal)
 - [x] **gotty** — делится терминалом как веб-приложением. *(`go` / `release`)* —
       [yudai/gotty](https://github.com/yudai/gotty)
       — ✅ добавлен в плейбук (роль `network`, бинарником из тарболла).
@@ -436,17 +425,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **grype** — сканер уязвимостей контейнерных образов и ФС. *(`deb`)* —
       [anchore/grype](https://github.com/anchore/grype)
       — ✅ добавлен в плейбук (роль `secrets`, бинарником из тарболла).
-- [ ] **flawz** — TUI-браузер CVE/уязвимостей. *(`cargo`)* —
-      [orhun/flawz](https://github.com/orhun/flawz)
 - [x] **mfa** — терминальный менеджер 2FA/TOTP. *(`release`)* —
       [LexSerest/mfa](https://github.com/LexSerest/mfa) — ✅ добавлен в плейбук
       (роль `secrets`, бинарник mfa из тарболла релиза).
-- [ ] **teller** — облачно-независимый менеджер секретов для разработчика.
-      *(`cargo`)* — [tellerops/teller](https://github.com/tellerops/teller)
-      — ⛔ не ставится: последний релиз (v2.0.7, 2024) собран динамически
-      против `libssl.so.1.1`, которого нет в Ubuntu 26.04; готовых
-      статических/OpenSSL-3 сборок апстрим не публикует. Покрывается
-      `sops` + `vault` + `medusa`.
 - [ ] **bank-vaults** — швейцарский нож для Vault: init, unseal, конфигурация.
       *(`go`)* — [bank-vaults/bank-vaults](https://github.com/bank-vaults/bank-vaults)
 - [x] **medusa** — импорт/экспорт секретов HashiCorp Vault. *(`release`)* —
@@ -580,20 +561,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       *(`snap` / `script`)* — [AdnanHodzic/auto-cpufreq](https://github.com/AdnanHodzic/auto-cpufreq)
       — ❌ не устанавливаем: хватает того, что в Ubuntu есть из коробки
       (`power-profiles-daemon` + `amd-pstate`/`intel_pstate`).
-- [ ] **LACT** — GUI для настройки и мониторинга GPU (AMD/Intel/NVIDIA).
-      *(`deb`)* — [ilya-zlobintsev/LACT](https://github.com/ilya-zlobintsev/LACT)
-      — ❌ не устанавливаем: сборки под Ubuntu 26.04 в релизах пока нет
-      (только debian-12, ubuntu-2204, ubuntu-2404).
-- [ ] **mcelog** — userspace-логирование аппаратных ошибок памяти CPU (MCE).
-      *(`make`)* — [andikleen/mcelog](https://github.com/andikleen/mcelog)
-- [ ] **wondershaper** — простое ограничение полосы пропускания адаптера.
-      *(`make`)* — [magnific0/wondershaper](https://github.com/magnific0/wondershaper)
 - [ ] **sysinfo** — скрипты сбора подробной системной информации. *(`pipx` / `git clone`)* —
       [peterbay/sysinfo](https://github.com/peterbay/sysinfo)
 - [ ] **nxs-backup** — создание, доставка и ротация бэкапов GNU/Linux.
       *(`go`)* — [nixys/nxs-backup](https://github.com/nixys/nxs-backup)
-- [ ] **bench-scripts** — набор скриптов бенчмарка Linux-сервера. *(`git clone`)* —
-      [haydenjames/bench-scripts](https://github.com/haydenjames/bench-scripts)
 
 ## Установщики бинарников (мета-инструменты)
 
@@ -602,8 +573,6 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       — ✅ добавлен в плейбук (роль `base`).
 - [ ] **binup** — автоматическая установка приложений из GitHub-релизов.
       *(`cargo`)* — [KonishchevDmitry/binup](https://github.com/KonishchevDmitry/binup)
-- [ ] **stew** — независимый пакетный менеджер для скомпилированных бинарников.
-      *(`go`)* — [alxrem/stew](https://github.com/alxrem/stew)
 - [x] **dra** — скачивание релизных ассетов GitHub по имени. *(`deb`)* —
       [devmatteini/dra](https://github.com/devmatteini/dra)
       — ✅ добавлен в плейбук (роль `base`, бинарник из тарболла
@@ -621,8 +590,6 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       метрик в VictoriaMetrics.
 - [ ] **coroot** — observability и APM с root-cause анализом. *(`go`)* —
       [coroot/coroot](https://github.com/coroot/coroot)
-- [ ] **opencost** — мониторинг стоимости ворклоадов Kubernetes и облака.
-      *(`go`)* — [opencost/opencost](https://github.com/opencost/opencost)
 - [x] **krr** — рекомендации ресурсов на основе Prometheus. *(`pipx`)* —
       [robusta-dev/krr](https://github.com/robusta-dev/krr)
       — ✅ добавлен в плейбук (роль `monitoring`, распаковка PyInstaller-сборки

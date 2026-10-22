@@ -162,6 +162,12 @@ Linux-пользователя. Канонический общий список
 `certificate-ripper`, `showcert`, `gossl`, `ssh-audit`, `httptap`, `sshx`,
 `EternalTerminal`, `gotty`, `websocat`, `assh`.
 
+Часть из них после разбора вынесена из `TODO-awesome-github.md` в отдельные
+трекеры: `flawz`, `stew`, `mcelog`, `wondershaper`, `EternalTerminal` — в
+[`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md), `dog`, `teller`,
+`LACT` — в
+[`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
+
 ---
 
 ## Не для локальной установки (сервер/платформа)

@@ -9,8 +9,11 @@
 о русских буквах: <https://github.com/quanticstudios/pitwall/issues/127>) —
 в [`TODO-pitwall.md`](TODO-pitwall.md), утилиты, сознательно не ставимые
 плейбуком (с причинами и issue — atuin, pitwall и др.) —
-в [`not-install.md`](not-install.md), кандидаты из подборки
-collabnix/kubetools, которых нет в других файлах, —
+в [`not-install.md`](not-install.md), кандидаты без готового бинарника на
+GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
+кандидаты, чей бинарник не запускается на Ubuntu 26.04, —
+в [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md),
+кандидаты из подборки collabnix/kubetools, которых нет в других файлах, —
 в [`TODO-kubetools.md`](TODO-kubetools.md).
 
 Источник подборки: все репозитории со ⭐ аккаунта (2057 шт.), из них отобраны

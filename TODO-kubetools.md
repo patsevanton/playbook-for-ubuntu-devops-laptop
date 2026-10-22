@@ -840,7 +840,10 @@
 - **Уже есть в [`TODO-awesome-github.md`](TODO-awesome-github.md) — 16:**
   `headlamp`, `pluto`, `kubeview`, `rbac-wizard`, `kftray`, `kubebox`,
   `kubectl-browse-pvc`, `goldpinger`, `netfetch`, `kbld`, `kubestriker`,
-  `KubeHound`, `kondense`, `radar`, `krew`, `opencost`.
+  `KubeHound`, `kondense`, `radar`, `krew`, `opencost`. Из них `goldpinger`,
+  `kondense` и `opencost` вынесены в
+  [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) (нет готового
+  бинарника).
 - **Уже есть в [`TODO-trend-github.md`](TODO-trend-github.md) — 23:**
   `k8sgpt`, `kubectl-ai`, `kind`, `vcluster`, `glasskube`, `kubeshark`, `tilt`,
   `skaffold`, `terrascan`, `trivy`, `kube-linter`, `kubescape`, `kube-score`,
