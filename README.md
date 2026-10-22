@@ -1055,6 +1055,9 @@ pitwall в плейбук не ставится. См. issue о невозмож
 [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md), а те, чей бинарник
 не запускается на Ubuntu 26.04, — в
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
+Утилиты, которые работают агентом на нодах Kubernetes (DaemonSet/static Pod и
+не ставятся на ноутбук), собраны в
+[`TODO-node-tools.md`](TODO-node-tools.md).
 
 ---
 

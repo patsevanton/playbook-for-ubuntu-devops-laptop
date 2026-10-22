@@ -460,6 +460,10 @@
 локальной установки») сюда уже не попали. Способ установки не указываем:
 зависит от кластера (обычно Helm-чарт или манифест).
 
+Нодовые агенты-утилиты (связность, метрики хоста, eBPF-наблюдаемость) собраны
+в [`TODO-node-tools.md`](TODO-node-tools.md); платформы целиком (CNI, CSI,
+балансировщики) остаются здесь.
+
 **Pods**
 
 - kube-s3 — Kubernetes pods used shared S3 storage. — [github.com/freegroup/kube-s3](https://github.com/freegroup/kube-s3)
@@ -480,7 +484,6 @@
 - Gardener — Deliver fully-managed clusters at scale everywhere with your own Kubernetes-as-a-Service. — [https://gardener.cloud/](https://gardener.cloud/)
 - Kamaji — Build and operate Kubernetes at scale with a fraction of operational burden. — [github.com/clastix/kamaji](https://github.com/clastix/kamaji)
 - Kudo — declarative approach to building production-grade Kubernetes Operators. — [github.com/kudobuilder/kudo](https://github.com/kudobuilder/kudo)
-- node-problem-detector — This is a place for various problem detectors running on the Kubernetes nodes. — [github.com/kubernetes/node-problem-detector](https://github.com/kubernetes/node-problem-detector)
 - k0s — k0s is an all-inclusive Kubernetes distribution, which is configured with all of the features needed to build a Kubernetes cluster and packaged as a single binary for ease of use. — [github.com/k0sproject/k0s](https://github.com/k0sproject/k0s)
 - k0smotron — Deploy and run Kubernetes control planes powered by k0s on any existing cluster. — [github.com/k0sproject/k0smotron](https://github.com/k0sproject/k0smotron)
 - ClusterPedia — The Encyclopedia of Kubernetes clusters. — [github.com/clusterpedia-io/clusterpedia](https://github.com/clusterpedia-io/clusterpedia)
@@ -514,13 +517,11 @@
 - Kueue — Kueue is a set of APIs and controller for job queueing. — [github.com/kubernetes-sigs/kueue](https://github.com/kubernetes-sigs/kueue)
 - Autoscaler — autoscaler Autoscaling components for Kubernetes. — [github.com/kubernetes/autoscaler](https://github.com/kubernetes/autoscaler)
 - Karpenter — Kubernetes Node Autoscaler built for flexibility, performance, and simplicity. — [github.com/aws/karpenter](https://github.com/aws/karpenter)
-- Kured — Kubernetes Reboot Daemon. — [github.com/kubereboot/kured](https://github.com/kubereboot/kured)
 - ksync — Sync files between your local system and a kubernetes cluster. — [github.com/ksync/ksync](https://github.com/ksync/ksync)
 - fleet — Manage large fleets of Kubernetes clusters. — [github.com/rancher/fleet](https://github.com/rancher/fleet)
 - stash — Backup your Kubernetes Stateful Applications. — [github.com/stashed/stash](https://github.com/stashed/stash)
 - Descheduler — Descheduler for Kubernetes. — [github.com/kubernetes-sigs/descheduler](https://github.com/kubernetes-sigs/descheduler)
 - cloudtty — A Friendly Kubernetes CloudShell (Web Terminal) !. — [github.com/cloudtty/cloudtty](https://github.com/cloudtty/cloudtty)
-- Kubernetes Image Puller — Caching images on a cluster by creating a DaemonSet downloading and running the container images on each node. — [github.com/che-incubator/kubernetes-image-puller](https://github.com/che-incubator/kubernetes-image-puller)
 - Kubed — Kubed with a intuitive interactive interface within Emacs help us work with our Kubernetes clusters and deployments with the full power of kubectl. — [github.com/eshelyaron/kubed](https://github.com/eshelyaron/kubed)
 
 **Alert and Monitoring**
@@ -546,10 +547,8 @@
 - ELK — Elasticsearch, Logstash, Kibana. — [https://github.com/elastic](https://github.com/elastic)
 - fluentbit — Fast and Lightweight Log processor and forwarder for Linux, BSD and OSX. — [github.com/fluent/fluent-bit](https://github.com/fluent/fluent-bit)
 - Loki — Like Prometheus, but for logs. — [github.com/grafana/loki](https://github.com/grafana/loki)
-- k8spacket — packets traffic visualization for kubernetes. — [github.com/k8spacket/k8spacket](https://github.com/k8spacket/k8spacket)
 - Otterize network mapper — Map Kubernetes in-cluster traffic and export as text, intents, or an image. — [github.com/otterize/network-mapper](https://github.com/otterize/network-mapper)
 - kube-audit-rest — Kubernetes audit logging, when you don't control the control plane. — [github.com/richardoc/kube-audit-rest](https://github.com/richardoc/kube-audit-rest)
-- retina — eBPF distributed networking observability tool for Kubernetes. — [github.com/microsoft/retina](https://github.com/microsoft/retina)
 - sablier — Starting containers on demand and close automatically when not in use. — [github.com/acouvreur/sablier](https://github.com/acouvreur/sablier)
 
 **Troubleshooting / Debugging**
@@ -557,7 +556,6 @@
 - Knative Inspect — A light-weight debugging tool for Knative's system components. — [github.com/nimakaviani/knative-inspect](https://github.com/nimakaviani/knative-inspect)
 - Kubeman — To find information from Kubernetes clusters, and to investigate issues related to Kubernetes and Istio. — [github.com/walmartlabs/kubeman](https://github.com/walmartlabs/kubeman)
 - Koolkits — 🧰 Opinionated, language-specific, batteries-included debug container images for Kubernetes. — [github.com/lightrun-platform/koolkits](https://github.com/lightrun-platform/koolkits)
-- KubeSkoop — kubernetes networking diagnose tool for different CNI plug-ins and IAAS providers. — [github.com/alibaba/kubeskoop](https://github.com/alibaba/kubeskoop)
 - kdave — The kdave (Kubernetes Deprecated API Versions Exporter) checks for any deprecated or removed apiVersions in the cluster and exports them in a Prometheus metrics format. — [github.com/wayfair-incubator/kdave](https://github.com/wayfair-incubator/kdave)
 - kubebuddy — A PowerShell tool for monitoring and managing Kubernetes clusters, supporting JSON, TXT, and HTML output formats with a CLI option for streamlined operations, including health check scoring for cluster assessment. — [github.com/kubedeckio/kubebuddy](https://github.com/kubedeckio/kubebuddy)
 
@@ -640,14 +638,12 @@
 - KubeClarity — KubeClarity is a tool for detection and management of Software Bill Of Materials (SBOM) and vulnerabilities of container images and filesystems. — [github.com/openclarity/kubeclarity](https://github.com/openclarity/kubeclarity)
 - Oligo — Observe application behavior to see what your risks really are – and stop breaches before they begin. — [https://www.oligo.security/](https://www.oligo.security/)
 - kube-advisor.io — kube-advisor.io lets you detect misconfigurations and best practice violations of your Kubernetes clusters - continuously and in real-time. — [https://kube-advisor.io/](https://kube-advisor.io/)
-- Tetragon — eBPF-based Security Observability and Runtime Enforcement for Kubernetes. — [github.com/cilium/tetragon](https://github.com/cilium/tetragon)
 - Darkmoon — Open source (GPLv3) autonomous penetration testing platform: 50 specialist agents over MCP drive 50+ offensive tools across Kubernetes, cloud, web, API and Active Directory, with proof of exploitation behind each finding. Self hosted, with a privacy gateway that tokenizes sensitive target values before any cloud model sees them. — [github.com/ascit31/dark-moon](https://github.com/ascit31/dark-moon)
 
 **Network Policies**
 
 - Calico — Cloud native connectivity and network policy. — [github.com/projectcalico/calico](https://github.com/projectcalico/calico)
 - kokotap — Tools for kubernetes pod network tapping. — [github.com/redhat-nfvpe/kokotap](https://github.com/redhat-nfvpe/kokotap)
-- Submariner — Connect all your Kubernetes clusters, no matter where they are in the worl. — [github.com/submariner-io/submariner](https://github.com/submariner-io/submariner)
 - egress-operator — An operator to produce egress gateway pods and control access to them with network policies. — [github.com/monzo/egress-operator](https://github.com/monzo/egress-operator)
 - Kilo (k8s + wg) — A multi-cloud network overlay built on WireGuard and designed for Kubernetes. — [github.com/squat/kilo](https://github.com/squat/kilo)
 - Spiderpool — underlay network solution of cloud native, for bare metal, VM and public clou. — [github.com/spidernet-io/spiderpool](https://github.com/spidernet-io/spiderpool)
@@ -696,8 +692,6 @@
 - Grafana Tempo — Grafana Tempo is a high volume, minimal dependency distributed tracing backen. — [github.com/grafana/tempo](https://github.com/grafana/tempo)
 - kubeinvaders — Gamified Chaos Engineering Tool for Kubernetes. — [github.com/lucky-sideburn/kubeinvaders](https://github.com/lucky-sideburn/kubeinvaders)
 - Karpor — Intelligence for Kubernetes - world's most promising Kubernetes Visualization Tool for Developer and Platform Engineering teams. — [github.com/kusionstack/karpor](https://github.com/kusionstack/karpor)
-- DeepFlow — eBPF Observability - Distributed Tracing and Profiling for Kubernetes. — [github.com/deepflowio/deepflow](https://github.com/deepflowio/deepflow)
-- Alaz — Advanced eBPF Agent for Kubernetes Observability - monitor K8s service interactions and performance metrics. — [github.com/getanteon/alaz](https://github.com/getanteon/alaz)
 - OpenTelemetry — High-quality, ubiquitous, and portable telemetry to enable effective observability. — [https://opentelemetry.io/](https://opentelemetry.io/)
 - Robusta — Kubernetes observability and automation, with an awesome Prometheus integration. — [github.com/robusta-dev/robusta](https://github.com/robusta-dev/robusta)
 
@@ -736,7 +730,6 @@
 - Rook — Storage Orchestration for Kubernetes. — [github.com/rook/rook](https://github.com/rook/rook)
 - SeaweedFS — Distributed file system supports read-write many volumes. — [github.com/chrislusf/seaweedfs](https://github.com/chrislusf/seaweedfs)
 - TiKV — Distributed transactional key-value database. — [github.com/tikv/tikv](https://github.com/tikv/tikv)
-- TopoLVM — Capacity-aware CSI plugin for Kubernetes. — [github.com/topolvm/topolvm](https://github.com/topolvm/topolvm)
 - velero — Backup and migrate Kubernetes applications and their persistent volumes. — [github.com/vmware-tanzu/velero](https://github.com/vmware-tanzu/velero)
 - Vitess — Vitess is a database clustering system for horizontal scaling of MySQL. — [github.com/vitessio/vitess](https://github.com/vitessio/vitess)
 - kaDalu — A lightweight Persistent storage solution for Kubernetes / OpenShift using GlusterFS in backgroun. — [github.com/kadalu/kadalu](https://github.com/kadalu/kadalu)
@@ -765,7 +758,6 @@
 - Kubecost — Cross-cloud cost allocation models for workloads running on Kubernetes. — [github.com/kubecost/cost-model](https://github.com/kubecost/cost-model)
 - PerfectScale — Reduce Kubernetes costs while improving performance and resilience with data-driven intelligence built for continuous optimization. — [https://www.perfectscale.io](https://www.perfectscale.io)
 - kube-green — kube-green is a simple k8s addon that automatically shuts down (some of) your resources when you don't need them. — [github.com/kube-green/kube-green](https://github.com/kube-green/kube-green)
-- kepler — Kepler (Kubernetes-based Efficient Power Level Exporter) uses eBPF to probe performance counters and other system stats, use ML models to estimate workload energy consumption based on these stats, and exports them as Prometheus metrics. — [https://github/stars/sustainable-computing-io/kepler](https://github/stars/sustainable-computing-io/kepler)
 - StormForge — Autonomous Rightsizing for Kubernetes Workloads. — [https://stormforge.io](https://stormforge.io)
 - Attune — Kubernetes operator for safe, in-place pod resource right-sizing using Prometheus metrics. — [github.com/attune-io/attune](https://github.com/attune-io/attune)
 - Paralleliq — Model-aware GPU fleet optimization layer for AI infrastructure — detects GPU waste, quantifies cost impact, and delivers actionable recommendations with approval workflows. — [https://www.paralleliq.ai](https://www.paralleliq.ai)
@@ -789,7 +781,6 @@
 
 **Caching**
 
-- kube-fledged — A kubernetes operator for creating and managing a cache of container images directly on the cluster worker nodes. — [github.com/senthilrch/kube-fledged](https://github.com/senthilrch/kube-fledged)
 - Tugger — Kubernetes Admission Webhook to enforce pulling of Docker images from the private registry. — [github.com/jainishshah17/tugger](https://github.com/jainishshah17/tugger)
 - kube-image-keeper (kuik) — kuik is a container image caching system for Kubernetes. — [github.com/enix/kube-image-keeper](https://github.com/enix/kube-image-keeper)
 - harbor — A trusted cloud native registry project that stores,caches, signs, and scans content. — [github.com/goharbor/harbor](https://github.com/goharbor/harbor)
@@ -805,7 +796,6 @@
 
 **Cleanup**
 
-- kube-fencing — cleaning resources from the failed nodes that's blocks any further operation and recovery. — [github.com/kvaps/kube-fencing](https://github.com/kvaps/kube-fencing)
 - k8s-cleaner — Cleaner is a Kubernetes controller that helps you maintain a clean and efficient Kubernetes environment by proactively identifying, removing, or updating stale resources. — [github.com/gianlucam76/k8s-cleaner](https://github.com/gianlucam76/k8s-cleaner)
 - Pred8tor — Pred8tor is a simple tool to clean up K8s objects that were tagged for expiration. — [github.com/pavelzag/pred8tor](https://github.com/pavelzag/pred8tor)
 - KubeTidy — KubeTidy is a PowerShell tool that helps you manage your Kubernetes kubeconfig files by removing unreachable clusters, along with their associated users and contexts. For Windows, Macos, and Linux. — [github.com/kubedeckio/kubetidy](https://github.com/kubedeckio/kubetidy)
@@ -840,8 +830,9 @@
 - **Уже есть в [`TODO-awesome-github.md`](TODO-awesome-github.md) — 16:**
   `headlamp`, `pluto`, `kubeview`, `rbac-wizard`, `kftray`, `kubebox`,
   `kubectl-browse-pvc`, `goldpinger`, `netfetch`, `kbld`, `kubestriker`,
-  `KubeHound`, `kondense`, `radar`, `krew`, `opencost`. Из них `goldpinger`,
-  `kondense` и `opencost` вынесены в
+  `KubeHound`, `kondense`, `radar`, `krew`, `opencost`. Из них `goldpinger`
+  вынесен в [`TODO-node-tools.md`](TODO-node-tools.md) (агент на нодах),
+  `kondense` и `opencost` — в
   [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) (нет готового
   бинарника).
 - **Уже есть в [`TODO-trend-github.md`](TODO-trend-github.md) — 23:**

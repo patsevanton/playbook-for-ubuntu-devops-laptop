@@ -14,7 +14,9 @@ GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 кандидаты, чей бинарник не запускается на Ubuntu 26.04, —
 в [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md),
 кандидаты из подборки collabnix/kubetools, которых нет в других файлах, —
-в [`TODO-kubetools.md`](TODO-kubetools.md).
+в [`TODO-kubetools.md`](TODO-kubetools.md), утилиты для нод Kubernetes
+(DaemonSet/агенты, не на ноутбук) — в
+[`TODO-node-tools.md`](TODO-node-tools.md).
 
 Источник подборки: все репозитории со ⭐ аккаунта (2057 шт.), из них отобраны
 ~570 похожих на локально устанавливаемые утилиты и вручную вычищены до списков
@@ -27,6 +29,12 @@ GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 `TODO-awesome-github.md` вместе с блоками «⭐ Рекомендую». Здесь остались
 справочные списки: что уже ставит плейбук, что не ставится на ноутбук и что
 является просто подборками.
+
+Дедупликация 2026-10-22: нодовые агенты Kubernetes (DaemonSet/static Pod)
+вынесены из `TODO-kubetools.md` и `TODO-no-prebuilt-binary.md` в отдельный
+[`TODO-node-tools.md`](TODO-node-tools.md) — чтобы не смешивать их с
+кластерными сервисами уровня Deployment и с кандидатами, у которых просто нет
+бинарника.
 
 ---
 
@@ -68,6 +76,10 @@ GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 `APISIX`, `Kong`, `kubesphere`, `Unleash`, `bytebase`, `coder`, `atlantis`,
 `semaphore`, `Terrakube` (замена Terraform Enterprise и аналоги), `Crossplane`,
 `kagent`, `cloudnative-pg`.
+
+Нодовые агенты Kubernetes (DaemonSet/static Pod: `goldpinger`,
+`node-exporter`, `kured`, eBPF-агенты и т.п.) — отдельный список:
+[`TODO-node-tools.md`](TODO-node-tools.md).
 
 Ранее здесь числились `VictoriaMetrics` и `coroot` — перенесены в кандидаты
 (`TODO-awesome-github.md`, раздел «Локальный мониторинг»): у обоих есть

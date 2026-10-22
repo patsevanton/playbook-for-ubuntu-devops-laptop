@@ -38,12 +38,13 @@
 
 ## Kubernetes
 
+Нодовые агенты (DaemonSet, static Pod) — отдельный список:
+[`TODO-node-tools.md`](TODO-node-tools.md). Здесь остаются кластерные
+инструменты, у которых просто нет бинарника.
+
 - [ ] **kondense** — автоматический подбор requests/limits для контейнеров.
       *(`go`)* — [unagex/kondense](https://github.com/unagex/kondense)
       — в релизах нет ассетов, только исходники (`go build`).
-- [ ] **goldpinger** — проверка связности между нодами кластера. *(`go`)* —
-      [bloomberg/goldpinger](https://github.com/bloomberg/goldpinger)
-      — в релизах только Helm-чарт; распространяется контейнерным образом.
 - [ ] **opencost** — мониторинг стоимости ворклоадов Kubernetes и облака.
       *(`go`)* — [opencost/opencost](https://github.com/opencost/opencost)
       — в релизах только SBOM-файлы; распространяется контейнерным образом.

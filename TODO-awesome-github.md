@@ -25,6 +25,8 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - Кандидаты, чей бинарник не запускается на Ubuntu 26.04 (старая OpenSSL,
   нет сборки под дистрибутив), вынесены в
   [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
+- Утилиты для нод Kubernetes (DaemonSet/static Pod, не на ноутбук) вынесены
+  в [`TODO-node-tools.md`](TODO-node-tools.md).
 - В скобках — способ установки для Ubuntu 26.04 / x86_64:
   `deb` — готовый `.deb` в GitHub-релизе, `AppImage`, `apt`, `snap`,
   `release` — готовый бинарник/архив из релиза,
