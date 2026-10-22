@@ -37,11 +37,15 @@
       {{ binaries_stat.results | rejectattr('stat.exists') | map(attribute='item') | list }}
 
 # --- 2. Актуальные версии — только для отсутствующих -----------------------
-- name: Узнать теги последних релизов GitHub (через редирект releases/latest)
+# Редиректов может быть несколько: переименованный репозиторий
+# сначала уводит на новый owner, и только затем — на /releases/tag/<tag>.
+# Поэтому идём по всей цепочке и берём тег из итогового url, а не из
+# первого location (иначе вместо тега можно получить "latest").
+- name: Узнать теги последних релизов GitHub (по итоговому url после редиректов)
   ansible.builtin.uri:
     url: "https://github.com/{{ item.repo }}/releases/latest"
-    follow_redirects: none
-    status_code: [301, 302, 303, 307, 308]
+    follow_redirects: all
+    status_code: [200]
     headers:
       User-Agent: "{{ http_user_agent }}"
   loop: "{{ binaries_missing | selectattr('source', 'equalto', 'github') | list }}"
@@ -50,11 +54,11 @@
   register: binaries_github_result
   changed_when: false
 
-- name: Узнать теги последних релизов GitLab (через редирект releases/permalink/latest)
+- name: Узнать теги последних релизов GitLab (по итоговому url после редиректов)
   ansible.builtin.uri:
     url: "https://gitlab.com/{{ item.repo }}/-/releases/permalink/latest"
-    follow_redirects: none
-    status_code: [301, 302, 303, 307, 308]
+    follow_redirects: all
+    status_code: [200]
     headers:
       User-Agent: "{{ http_user_agent }}"
   loop: "{{ binaries_missing | selectattr('source', 'equalto', 'gitlab') | list }}"
@@ -83,8 +87,8 @@
       { {% for r in (binaries_github_result.results | default([]))
                     + (binaries_gitlab_result.results | default([])) %}
       {{ r.item.name | to_json }}:
-      {{ (r.location | default('') | regex_replace('^.*/releases/tag/', '')
-                               | regex_replace('^.*/releases/', '')) | to_json }},
+      {{ (r.url | default('') | regex_replace('^.*/releases/tag/', '')
+                            | regex_replace('^.*/releases/', '')) | to_json }},
       {% endfor %} }
 
 - name: Собрать словарь версий из текстовых endpoint'ов
@@ -123,6 +127,7 @@
   ansible.builtin.assert:
     that:
       - item.version | length > 0
+      - item.version | lower != 'latest'
     fail_msg: "Не удалось определить актуальную версию для {{ item.name }} (проверьте доступ в сеть)"
   loop: "{{ binaries_resolved }}"
   loop_control:

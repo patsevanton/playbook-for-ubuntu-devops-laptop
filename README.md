@@ -538,7 +538,7 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | devpod | github.com/loft-sh/devpod |
 | kompose | github.com/kubernetes/kompose |
 | ko | github.com/google/ko |
-| kubie | github.com/sbstp/kubie |
+| kubie | github.com/kubie-org/kubie |
 | kubefwd | github.com/txn2/kubefwd |
 | kubectl-tree | github.com/ahmetb/kubectl-tree |
 | conftest | github.com/open-policy-agent/conftest |

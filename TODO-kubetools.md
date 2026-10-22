@@ -114,7 +114,7 @@
 - [ ] **Click** — интерактивный CLI-контроллер для Kubernetes. *(`pipx`)* —
       [databricks/click](https://github.com/databricks/click)
 - [x] **Kubie** — более мощная альтернатива `kubectx`/`kubens` (изолированные
-      kubeconfig по shell). *(`cargo` / `release`)* — [sbstp/kubie](https://github.com/sbstp/kubie) —
+      kubeconfig по shell). *(`cargo` / `release`)* — [kubie-org/kubie](https://github.com/kubie-org/kubie) —
       добавлен в роль `kubernetes`.
 - [ ] **Finch** — CLI-клиент контейнерной разработки (обёртка над Lima/ncrun).
       *(`deb`)* — [runfinch/finch](https://github.com/runfinch/finch)

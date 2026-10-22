@@ -381,8 +381,8 @@ kubernetes_binaries:
   # контекстов и запуск команд в нужном кластере. Одиночный бинарник.
   - name: kubie
     source: github
-    repo: sbstp/kubie
-    url: "https://github.com/sbstp/kubie/releases/download/{tag}/kubie-linux-amd64"
+    repo: kubie-org/kubie
+    url: "https://github.com/kubie-org/kubie/releases/download/{tag}/kubie-linux-amd64"
     archive: none
   # kubefwd — массовый port-forward сервисов namespace с выдачей IP и записей
   # в /etc/hosts. В архиве бинарник kubefwd в корне.
