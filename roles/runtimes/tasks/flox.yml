@@ -1,0 +1,70 @@
+---
+# ============================================================================
+# Flox — детерминированные окружения на базе Nix.
+#
+# `flox init` создаёт manifest.toml, `flox install <pkg>` добавляет пакеты,
+# `flox activate` входит в окружение. Версии фиксируются в манифесте и не
+# трогают системные пакеты.
+#
+# Релизов на GitHub нет: .deb раздаётся с downloads.flox.dev, поэтому роль
+# binaries не подходит. Версия читается текстом из
+# <channel>/LATEST_VERSION (без GitHub API).
+#
+# Идемпотентность: есть /usr/bin/flox — ничего не делаем (обновление flox —
+# через apt, как обычного пакета).
+# ============================================================================
+
+- name: Проверить, установлен ли flox
+  ansible.builtin.stat:
+    path: /usr/bin/flox
+  register: runtimes_flox_stat
+
+- name: Установить flox
+  when: not runtimes_flox_stat.stat.exists
+  block:
+    - name: Узнать актуальную версию flox
+      ansible.builtin.uri:
+        url: "{{ runtimes_flox_version_url }}"
+        return_content: true
+        headers:
+          User-Agent: "{{ http_user_agent }}"
+      register: runtimes_flox_version_result
+      changed_when: false
+
+    - name: Определить версию flox
+      ansible.builtin.set_fact:
+        runtimes_flox_version: "{{ runtimes_flox_version_result.content | trim }}"
+
+    - name: Проверить, что версия flox определилась
+      ansible.builtin.assert:
+        that:
+          - runtimes_flox_version | length > 0
+        fail_msg: "Не удалось определить версию flox (проверьте доступ в сеть)"
+
+    - name: Создать каталог для .deb flox
+      become: true
+      ansible.builtin.file:
+        path: "{{ runtimes_flox_deb_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Скачать .deb-пакет flox
+      become: true
+      ansible.builtin.get_url:
+        url: "{{ runtimes_flox_deb_url }}"
+        dest: "{{ runtimes_flox_deb_dir }}/flox-{{ runtimes_flox_version }}.x86_64-linux.deb"
+        mode: "0644"
+        force: true
+
+    # postinst пакета распаковывает Nix и создаёт группу flox — apt делает всё
+    # сам, включая зависимости.
+    - name: Установить flox из .deb
+      become: true
+      ansible.builtin.apt:
+        deb: "{{ runtimes_flox_deb_dir }}/flox-{{ runtimes_flox_version }}.x86_64-linux.deb"
+
+    - name: Удалить временный .deb flox
+      become: true
+      ansible.builtin.file:
+        path: "{{ runtimes_flox_deb_dir }}"
+        state: absent

@@ -121,7 +121,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   k8sgpt, kubescape, popeye, vcluster,
 │   │                           #   skaffold, kubeshark, helm-diff (плагин helm),
 │   │                           #   kubectl-ai, k3d, telepresence, tilt, mirrord,
-│   │                           #   monokle и rubick (UI, .deb)
+│   │                           #   devspace, kubent, monokle и rubick (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
 │   │                           #   tf-mirror, gitlab-terraform-manager,
@@ -132,7 +132,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL),
 │   │                           #   pgcli (pipx)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java, dagger, devbox,
-│   │                           #   Lima (Linux-VM, /opt + симлинки)
+│   │                           #   flox, Lima (Linux-VM, /opt + симлинки)
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype, trivy,
 │   │                           #   age, lynis, osquery, mfa,
 │   │                           #   medusa, bank-vaults, horusec,
@@ -148,7 +148,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   fastfetch, procs, dusage,
 │   │                           #   mise, just, yazi, glow, btm (bottom),
 │   │                           #   hyperfine, duckdb, vhs, harlequin (pipx),
-│   │                           #   shellclear, nxs-backup, cheat, tldr,
+│   │                           #   lazysql, shellclear, nxs-backup, cheat, tldr,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
@@ -157,7 +157,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   rkn-block-checker (pipx), ssh-audit и httptap (pipx),
 │   │                           #   lexicon (pipx), gossl, crip (certificate-ripper),
 │   │                           #   ecapture, termshark, websocat, sniffnet,
-│   │                           #   netutils-linux (pipx), reachable (go install)
+│   │                           #   rustnet, netutils-linux (pipx), reachable (go install)
 │   ├── ebpf/                   # eBPF-наблюдаемость: pwru, bpftop, oryx,
 │   │                           #   pktstat-bpf, tracee
 │   ├── opencode/               # opencode (из npm-реестра) + глобальный AGENTS.md
@@ -301,7 +301,9 @@ ansible-lint                                   # проверка стиля (pr
    трафика подов на L7 через eBPF), `kubectl-ai` (AI-ассистент: генерирует и
    правит kubectl-команды и манифесты), `telepresence` (локальный сервис «как
    будто в кластере»), `tilt` (live-update приложений с веб-UI), `mirrord`
-   (локальный процесс в сети, ФС и окружении пода), а также плагин `helm-diff`
+   (локальный процесс в сети, ФС и окружении пода), `devspace` (синхронизация
+   файлов и hot-reload в кластере по `devspace.yaml`), `kubent` (что сломается
+   при апгрейде: удалённые apiVersion), а также плагин `helm-diff`
    (`helm diff upgrade` — что изменится до применения чарта; ставится
    отдельной задачей).
    Desktop-клиенты `monokle`, `rubick` и
@@ -327,9 +329,9 @@ ansible-lint                                   # проверка стиля (pr
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL, и `pgcli`
    (psql с автодополнением и подсветкой, через pipx).
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21, `dagger`
-   (CI-пайплайны как код), `devbox` (изолированные окружения на Nix) и
-   `limactl`/`lima` (Linux-VM поверх Linux; QEMU — пакетами apt, сам архив
-   распаковывается в `/opt/lima`).
+   (CI-пайплайны как код), `devbox` (изолированные окружения на Nix),
+   `flox` (детерминированные окружения на Nix), `limactl`/`lima` (Linux-VM
+   поверх Linux; QEMU — пакетами apt, сам архив распаковывается в `/opt/lima`).
 9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git), grype
    (сканер уязвимостей образов и ФС), trivy (уязвимости образов, IaC и
    секреты в одном сканере), age (простое шифрование файлов — бэкенд sops),
@@ -374,7 +376,8 @@ ansible-lint                                   # проверка стиля (pr
     (рендер Markdown в терминале), btm (монитор процессов и ресурсов с
     графиками), hyperfine (бенчмарк команд), duckdb (SQL по
     Parquet/CSV/JSON), vhs (запись терминальных GIF/видео из сценария),
-    harlequin (SQL-IDE в терминале, через pipx), shellclear (секреты и опасные
+    harlequin (SQL-IDE в терминале, через pipx), lazysql (TUI-клиент к MySQL,
+    PostgreSQL, MSSQL и SQLite), shellclear (секреты и опасные
     команды в истории shell), nxs-backup (бэкапы по YAML-описанию),
     cheat (собственные шпаргалки команд) и tldr (краткие примеры команд).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и глобальный
@@ -390,7 +393,8 @@ ansible-lint                                   # проверка стиля (pr
     `sshx` (совместный терминал в браузере), `txeh` (управление `/etc/hosts`),
     `assh` (генерация SSH-конфигов, jump-хосты и прокси),
     `ecapture` (eBPF-захват TLS/SSL plaintext), `termshark` (TUI к
-    Wireshark/tshark), `websocat` (netcat для WebSockets) и `sniffnet`
+    Wireshark/tshark), `websocat` (netcat для WebSockets), `rustnet`
+    (TUI-мониторинг сети по процессам с разбором пакетов) и `sniffnet`
     (графический TUI-мониторинг трафика, .deb), а также
     `rkn-block-checker` (через pipx), `kyanos` (eBPF-анализ сетевых запросов),
     `showcert` (разбор X.509-сертификатов, через pipx), `ssh-audit`
@@ -447,7 +451,8 @@ ansible-lint                                   # проверка стиля (pr
 
 Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`),
 `HushMic` (роль `audio`), `LACT` (роль `hardware`), `headlamp`, `radar`,
-`monokle`, `rubick` и `klustr` (роль `kubernetes`).
+`monokle`, `rubick` и `klustr` (роль `kubernetes`), `flox` (роль
+`runtimes`).
 
 ### Скачиваемые бинарники в `/usr/local/bin`
 
@@ -727,6 +732,10 @@ ansible-lint                                   # проверка стиля (pr
 | telepresence | github.com/telepresenceio/telepresence |
 | tilt | github.com/tilt-dev/tilt |
 | mirrord | github.com/metalbear-co/mirrord |
+| devspace | github.com/devspace-sh/devspace |
+| kubent (kube-no-trouble) | github.com/doitintl/kube-no-trouble |
+| rustnet | github.com/domcyrus/rustnet |
+| lazysql | github.com/jorgerojas26/lazysql |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`),
@@ -754,7 +763,9 @@ zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/b
 `headlamp`, `radar`, `monokle`, `rubick` и `klustr` — из
 `.deb`-пакетов GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
-`sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из
+`sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `flox` — из
+`.deb`-пакета с `downloads.flox.dev` (роль `runtimes`, версия из
+`stable/LATEST_VERSION`), `cheat` — из
 gzip-сжатого одиночного бинарника релиза (роль `shell`), `osquery` — из
 `.deb`-пакета GitHub-релиза (роль `secrets`), `tldr`, `kubebox`, `cdk8s` и
 `kosko` — через `npm install -g` (роли `shell` и `kubernetes`), `tshark` —

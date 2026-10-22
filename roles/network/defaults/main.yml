@@ -239,6 +239,18 @@ network_binaries:
     url: "https://github.com/orf/gping/releases/download/{tag}/gping-Linux-musl-x86_64.tar.gz"
     archive: tar
     member: gping
+  # rustnet — TUI-монитор сети по процессам с разбором пакетов: соединения
+  # TCP/UDP/QUIC, протоколы (HTTP, TLS/SNI, DNS, SSH), трафик и здоровье
+  # соединений. Дополняет bandwhich (тот только про полосу по процессам) и
+  # pktstat-bpf. Берём статическую musl-сборку: бинарник лежит в каталоге
+  # rustnet-v{version}-x86_64-unknown-linux-musl, зависимостей от системы нет.
+  # Для захвата пакетов нужен setcap (см. tasks/main.yml).
+  - name: rustnet
+    source: github
+    repo: domcyrus/rustnet
+    url: "https://github.com/domcyrus/rustnet/releases/download/{tag}/rustnet-v{version}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: rustnet-v{version}-x86_64-unknown-linux-musl/rustnet
 
 # --- Sniffnet: графический TUI-анализатор сетевого трафика -----------------
 # Ставится официальным .deb из GitHub-релиза (артефакт без версии в имени).
@@ -257,3 +269,8 @@ sshx_url: "https://s3.amazonaws.com/sshx/sshx-x86_64-unknown-linux-musl.tar.gz"
 # bandwhich для чтения сетевого трафика требует CAP_NET_RAW — вешаем setcap
 # на бинарник, чтобы он работал без sudo. False = не навешивать (запуск через sudo).
 network_bandwhich_setcap: true
+
+# rustnet читает пакеты через libpcap, а владельца соединения ищет через eBPF:
+# нужны CAP_NET_RAW, CAP_BPF и CAP_PERFMON. setcap позволяет запускать TUI
+# без sudo (иначе — `sudo rustnet`). False = не навешивать.
+network_rustnet_setcap: true

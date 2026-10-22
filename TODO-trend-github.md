@@ -46,7 +46,9 @@ Linux-пользователя. Прежний общий список канд�
       kubescape_{version}_linux_amd64).
 - [ ] **polaris** (FairwindsOps) — аудит и автофикс конфигов на соответствие best practices. *(3.4k ⭐, `tar.gz`)*
 - [ ] **nova** (FairwindsOps) — находит Helm-релизы с устаревшими версиями чартов. *(0.9k ⭐, `tar.gz`)*
-- [ ] **kubent** (kube-no-trouble) — показывает, что сломается при апгрейде кластера (removed APIs). *(3.7k ⭐, `tar.gz`)*
+- [x] **kubent** (kube-no-trouble) — показывает, что сломается при апгрейде кластера (removed APIs). *(3.7k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
+      kubent-{version}-linux-amd64.tar.gz).
 - [ ] **kubectl-neat** — убирает из `kubectl get -o yaml` служебный мусор (`managedFields`, `status`). *(2.1k ⭐, `tar.gz`)*
 - [ ] **kubectl-validate** (kubernetes-sigs) — офлайн-валидация манифестов родными схемами. *(0.3k ⭐, `tar.gz`)*
 
@@ -59,7 +61,9 @@ Linux-пользователя. Прежний общий список канд�
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       mirrord из zip-архива mirrord_linux_x86_64.zip).
 - [ ] **glasskube** — пакетный менеджер для Kubernetes с GUI и CLI (dependency-aware). *(3.5k ⭐, `deb`)*
-- [ ] **devspace** — деплой и hot-reload приложения прямо в кластер. *(5.2k ⭐, `bin` linux-amd64)*
+- [x] **devspace** — деплой и hot-reload приложения прямо в кластер. *(5.2k ⭐, `bin` linux-amd64)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
+      devspace-linux-amd64; репозиторий переехал на devspace-sh/devspace).
 - [x] **kubeshark** — Wireshark-подобный анализ трафика внутри кластера (eBPF). *(12.1k ⭐, `bin` linux-amd64)*
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       kubeshark_linux_amd64).
@@ -160,7 +164,10 @@ Linux-пользователя. Прежний общий список канд�
 - [x] **witr** — трассировка: почему запущен процесс / кто занял порт / чей файл. *(22.7k ⭐, `deb`)*
       — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник
       witr-linux-amd64).
-- [ ] **rustnet** — сетевой мониторинг по процессам в TUI (глубокий разбор пакетов). *(5.1k ⭐, `deb`)*
+- [x] **rustnet** — сетевой мониторинг по процессам в TUI (глубокий разбор пакетов). *(5.1k ⭐, `deb`)*
+      — ✅ добавлен в плейбук (роль `network`, статическая musl-сборка
+      rustnet-v{version}-x86_64-unknown-linux-musl.tar.gz + setcap
+      cap_net_raw,cap_bpf,cap_perfmon).
 - [x] **glow** — рендер Markdown прямо в терминале (для README и заметок). *(27.7k ⭐, `deb` / apt 2.1.1)*
       — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла
       glow_{version}_Linux_x86_64.tar.gz).
@@ -200,7 +207,10 @@ Linux-пользователя. Прежний общий список канд�
 - [x] **devbox** — изолированные dev-окружения из Nix-пакетов без изучения Nix. *(12.4k ⭐, `tar.gz`)*
       — ✅ добавлен в плейбук (роль `runtimes`, бинарник из тарболла
       devbox_{version}_linux_amd64.tar.gz).
-- [ ] **flox** — детерминированные окружения на базе Nix. *(4.2k ⭐, `script` — install.flox.dev)*
+- [x] **flox** — детерминированные окружения на базе Nix. *(4.2k ⭐, `script` — install.flox.dev)*
+      — ✅ добавлен в плейбук (роль `runtimes`, официальный .deb
+      flox-{version}.x86_64-linux.deb с downloads.flox.dev; версия — из
+      stable/LATEST_VERSION).
 - [x] **lima** — Linux-VM поверх Linux (гоняет контейнеры без Docker Desktop). *(22.1k ⭐, `tar.gz`)*
       — ✅ добавлен в плейбук (роль `runtimes`, архив распаковывается в
       /opt/lima + симлинки limactl/lima; QEMU — пакетами apt).
@@ -220,7 +230,9 @@ Linux-пользователя. Прежний общий список канд�
 - [x] **harlequin** — SQL-IDE в терминале (DuckDB, Postgres, MySQL и др.). *(6.5k ⭐, `pipx`)*
       — ✅ добавлен в плейбук (роль `shell`, через pipx из PyPI; драйверы
       конкретных СУБД — extras/inject).
-- [ ] **lazysql** — TUI-клиент к нескольким СУБД сразу. *(4.4k ⭐, `tar.gz`)*
+- [x] **lazysql** — TUI-клиент к нескольким СУБД сразу. *(4.4k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла
+      lazysql_Linux_x86_64.tar.gz).
 
 ---
 

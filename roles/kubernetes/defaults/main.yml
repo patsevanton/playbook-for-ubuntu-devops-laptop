@@ -1108,6 +1108,27 @@ kubernetes_binaries:
     url: "https://github.com/metalbear-co/mirrord/releases/download/{tag}/mirrord_linux_x86_64.zip"
     archive: zip
     member: mirrord
+  # devspace — разработка прямо в кластере: синхронизация файлов, hot-reload,
+  # сборка и деплой по devspace.yaml, профили окружений и терминалы в подах.
+  # Дополняет skaffold/tilt (те про сборку и live-update) именно sync-циклом.
+  # Репозиторий переехал с loft-sh на devspace-sh; одиночный бинарник
+  # devspace-linux-amd64 без версии в имени.
+  - name: devspace
+    source: github
+    repo: devspace-sh/devspace
+    url: "https://github.com/devspace-sh/devspace/releases/download/{tag}/devspace-linux-amd64"
+    archive: none
+  # kubent (kube-no-trouble) — проверка перед апгрейдом кластера: какие
+  # apiVersion в кластере и манифестах уже удалены в целевой версии
+  # Kubernetes. Дополняет pluto/kubepug (те про манифесты) обзором живого
+  # кластера. Тег без префикса v (0.7.3), архив
+  # kubent-{version}-linux-amd64.tar.gz, бинарник kubent в корне.
+  - name: kubent
+    source: github
+    repo: doitintl/kube-no-trouble
+    url: "https://github.com/doitintl/kube-no-trouble/releases/download/{tag}/kubent-{version}-linux-amd64.tar.gz"
+    archive: tar
+    member: kubent
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и

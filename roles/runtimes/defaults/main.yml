@@ -57,3 +57,16 @@ runtimes_lima_dir: /opt/lima
 runtimes_lima_binaries:
   - limactl
   - lima
+
+# --- Flox: детерминированные окружения на Nix --------------------------------
+# `flox init`, `flox install`, `flox activate` — пакеты и версии фиксируются в
+# manifest.toml, окружение живёт отдельно и не трогает систему. Дополняет
+# devbox (тот тоже на Nix, но с devbox.json и своим каталогом пакетов).
+# Релизов на GitHub нет: .deb раздаётся с downloads.flox.dev, версия —
+# текстом из <channel>/LATEST_VERSION. Поэтому ставится отдельной задачей
+# flox.yml, а не через роль binaries.
+runtimes_flox_install: true
+runtimes_flox_channel: stable
+runtimes_flox_version_url: "https://downloads.flox.dev/by-env/{{ runtimes_flox_channel }}/LATEST_VERSION"
+runtimes_flox_deb_url: "https://downloads.flox.dev/by-env/{{ runtimes_flox_channel }}/deb/flox-{{ runtimes_flox_version }}.x86_64-linux.deb"
+runtimes_flox_deb_dir: "{{ tmp_dir }}/flox"

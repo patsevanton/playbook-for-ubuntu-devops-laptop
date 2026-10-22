@@ -44,3 +44,8 @@
   ansible.builtin.include_tasks:
     file: lima.yml
   when: runtimes_lima_install
+
+- name: Установить flox (окружения на Nix)
+  ansible.builtin.include_tasks:
+    file: flox.yml
+  when: runtimes_flox_install

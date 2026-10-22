@@ -68,7 +68,8 @@ Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 `kbu`, `kurt`, `kubediff`, `kubetrim`, `kubevious`, `k8shark`,
 `node-gizmo`, `burn`, `tk`, `audit2rbac`, `knetvis`, `pumba`, `kopilot`,
 `kubectl-outagedeck`, `kptop`, `kubectl-fields`, `kosko`,
-`monokle`, `rubick`, `klustr`.
+`monokle`, `rubick`, `klustr`, `devspace`, `kubent`, `rustnet`, `flox`,
+`lazysql`.
 
 Добавлены 2026-10-22 из [`TODO-trend-github.md`](TODO-trend-github.md) (топ-15
 приложений по звёздам среди оставшихся кандидатов; `dev-sec` — коллекция
@@ -76,6 +77,9 @@ Ansible Galaxy, а не приложение, поэтому вместо неё
 звёздам `terrascan`): `gitui`, `vhs`, `dagger`, `devbox`, `limactl`/`lima`,
 `pgcli`, `harlequin`, `terraformer`, `terrascan`, `steampipe`, `kubectl-ai`,
 `k3d`, `telepresence`, `tilt`, `mirrord`.
+
+Добавлены 2026-10-22 из того же файла следующим топ-5 по звёздам (снова без
+`dev-sec`): `devspace`, `rustnet`, `lazysql`, `flox`, `kubent`.
 
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см. [`not-install.md`](not-install.md) и
