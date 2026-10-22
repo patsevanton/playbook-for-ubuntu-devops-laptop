@@ -102,8 +102,12 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   static-tcpdump, kdash, kubetail, kubepug,
 │   │                           #   kube-prompt, rbac-lookup, kubectl-who-can,
 │   │                           #   korb, kl, kubectl-doctor, kbom,
-│   │                           #   kubectl-modify-secret,
-│   │                           #   headlamp и radar (UI, .deb)
+│   │                           #   kubectl-modify-secret, silver-surfer,
+│   │                           #   kubeprompt, kustomizer, buoy, k9sight,
+│   │                           #   hanoi-cli, kzero/kubectl-kzero, ktunnel,
+│   │                           #   kubectl-duplicate, kubectl-fd,
+│   │                           #   kubectl-relay, gwctl, kbu,
+│   │                           #   headlamp, radar, monokle и rubick (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
 │   │                           #   tf-mirror, gitlab-terraform-manager,
@@ -239,6 +243,16 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    kubectl-who-can (разбор RBAC), korb (перенос PVC), kl (логи нескольких
    контейнеров), kubectl-doctor (триаж кластера), kbom (инвентарь/SBOM
    кластера) и kubectl-modify-secret (правка секретов без base64).
+   Следующая волна kubetools: silver-surfer (проверка совместимости
+   apiVersion при апгрейде), kubeprompt (контекст кластера в prompt),
+   kustomizer (пакеты конфигов как OCI-артефакты), buoy (декларативный
+   TUI-дашборд), k9sight (TUI для отладки workload'ов), hanoi-cli (советник
+   по ребалансировке подов), kzero/kubectl-kzero (декларативные down/up
+   кластера), ktunnel (туннель в кластер без SSH), kubectl-duplicate
+   (дублирование ресурсов), kubectl-fd (поиск ресурсов в духе find),
+   kubectl-relay (замена port-forward), gwctl (разбор Gateway API) и kbu
+   (однопанельный TUI). Desktop-клиенты `monokle` и `rubick` ставятся
+   `.deb`-пакетами.
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), s5cmd (быстрый параллельный клиент S3),
    tpm (менеджер провайдеров Terraform/OpenTofu), tfvar (генерация
@@ -358,8 +372,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | nora | mkcert, libnss3-tools, caddy, apache2-utils | mkcert (локальный CA), Caddy (TLS-терминатор), htpasswd (авторизация) |
 
 Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`),
-`HushMic` (роль `audio`), `LACT` (роль `hardware`), `headlamp` и `radar`
-(роль `kubernetes`).
+`HushMic` (роль `audio`), `LACT` (роль `hardware`), `headlamp`, `radar`,
+`monokle` и `rubick` (роль `kubernetes`).
 
 ### Скачиваемые бинарники в `/usr/local/bin`
 
@@ -559,6 +573,19 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | kubesec | github.com/controlplaneio/kubesec |
 | kpt | github.com/kptdev/kpt |
 | kube-job | github.com/h3poteto/kube-job |
+| silver-surfer | github.com/devtron-labs/silver-surfer |
+| kubeprompt | github.com/jlesquembre/kubeprompt |
+| kustomizer | github.com/stefanprodan/kustomizer |
+| buoy | github.com/everettraven/buoy |
+| k9sight | github.com/doganarif/k9sight |
+| hanoi-cli | github.com/k-krew/hanoi-cli |
+| kzero, kubectl-kzero | github.com/hrodrig/kzero |
+| ktunnel | github.com/omrikiei/ktunnel |
+| kubectl-duplicate | github.com/Telemaco019/duplik8s |
+| kubectl-fd | github.com/alikhil/kubectl-find |
+| kubectl-relay | github.com/knight42/krelay |
+| gwctl | github.com/kubernetes-sigs/gwctl |
+| kbu | github.com/vulcanshen/kbu |
 | kubectl-sniff, static-tcpdump | github.com/eldadru/ksniff |
 | kdash | github.com/kdash-rs/kdash |
 | kubetail | github.com/kubetail-org/kubetail |

@@ -40,65 +40,95 @@
 - [x] **kubetail** (johanhaleby) — bash-скрипт: tail логов нескольких подов
       сразу. *(`script`)* — [johanhaleby/kubetail](https://github.com/johanhaleby/kubetail) —
       не нужен: то же делает `stern` из роли `kubernetes`.
-- [ ] **kubectl-ports-rs** — плагин kubectl: список открытых портов ресурсов
-      Pod. *(`krew`)* — [widnyana/kubectl-ports-rs](https://github.com/widnyana/kubectl-ports-rs)
+- [x] **kubectl-ports-rs** — плагин kubectl: список открытых портов ресурсов
+      Pod. *(`krew`)* — [widnyana/kubectl-ports-rs](https://github.com/widnyana/kubectl-ports-rs) —
+      не ставим: в релизе 1.1.1 нет ассетов, только krew/cargo
+      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
 
 ### Cluster Management
 
-- [ ] **Monokle** — desktop-инструмент для авторства, анализа и деплоя
+- [x] **Monokle** — desktop-инструмент для авторства, анализа и деплоя
       Kubernetes-конфигов. *(`deb` / `AppImage`)* —
-      [kubeshop/monokle](https://github.com/kubeshop/monokle)
+      [kubeshop/monokle](https://github.com/kubeshop/monokle) —
+      добавлен в роль `kubernetes` (`Monokle-linux-{version}-amd64.deb`).
 - [x] **kops** — установка, апгрейд и управление production-кластерами K8s.
       *(`release`)* — [kubernetes/kops](https://github.com/kubernetes/kops) —
       добавлен в роль `kubernetes`.
-- [ ] **silver-surfer** — проверка совместимости `apiVersion` и путь миграции
+- [x] **silver-surfer** — проверка совместимости `apiVersion` и путь миграции
       при апгрейде кластера. *(`release` / `go`)* —
-      [devtron-labs/silver-surfer](https://github.com/devtron-labs/silver-surfer)
-- [ ] **kubeprompt** — информация о текущем кластере/контексте в prompt shell.
-      *(`release`?)* — [jlesquembre/kubeprompt](https://github.com/jlesquembre/kubeprompt)
-- [ ] **kubectl-snapshot** — плагин kubectl: снимки состояния кластера.
-      *(`krew`)* — [fbrubbo/kubectl-snapshot](https://github.com/fbrubbo/kubectl-snapshot)
+      [devtron-labs/silver-surfer](https://github.com/devtron-labs/silver-surfer) —
+      добавлен в роль `kubernetes` (в архиве бинарник `kubedd`).
+- [x] **kubeprompt** — информация о текущем кластере/контексте в prompt shell.
+      *(`release`?)* — [jlesquembre/kubeprompt](https://github.com/jlesquembre/kubeprompt) —
+      добавлен в роль `kubernetes` (`kubeprompt_Linux_x86_64.tar.gz`).
+- [x] **kubectl-snapshot** — плагин kubectl: снимки состояния кластера.
+      *(`krew`)* — [fbrubbo/kubectl-snapshot](https://github.com/fbrubbo/kubectl-snapshot) —
+      не ставим: в релизе нет ассетов, проект заброшен с 2020 года
+      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
 - [x] **kapp** — деплой «Kubernetes-приложений» (набор ресурсов по метке).
       *(`release` / `go`)* — [k14s/kapp](https://github.com/k14s/kapp) —
       не используется: деплой через Helm/Flux, см. [`not-install.md`](not-install.md).
-- [ ] **Octant** — web-UI для понимания сложности кластера (архивный, но
+- [x] **Octant** — web-UI для понимания сложности кластера (архивный, но
       полезен как локальный дашборд). *(`release`)* —
-      [vmware-tanzu/octant](https://github.com/vmware-tanzu/octant)
-- [ ] **xlskubectl** — управление кластером из «электронной таблицы».
-      *(`pipx`)* — [learnk8s/xlskubectl](https://github.com/learnk8s/xlskubectl)
-- [ ] **Kubefirst** — CLI: разворачивает готовую GitOps-платформу с нуля.
-      *(`script`)* — [kubefirst/kubefirst](https://github.com/kubefirst/kubefirst)
-- [ ] **kustomizer** — экспериментальный менеджер пакетов k8s-конфигов как OCI
-      артефактов. *(`release`)* — [stefanprodan/kustomizer](https://github.com/stefanprodan/kustomizer)
-- [ ] **KindScaler** — управление нодами KinD-кластера без пересоздания.
-      *(`go`)* — [lobuhi/kindscaler](https://github.com/lobuhi/kindscaler)
-- [ ] **buoy** — декларативный Kubernetes-дашборд в терминале. *(`release`)* —
-      [everettraven/buoy](https://github.com/everettraven/buoy)
-- [ ] **k9sight** — быстрый keyboard-driven TUI для отладки workload'ов.
-      *(`release` / `go`)* — [doganarif/k9sight](https://github.com/doganarif/k9sight)
-- [ ] **Hanoi-CLI** — интерактивный советник по ребалансировке подов, симулирует
-      отказ нод. *(`release`)* — [k-krew/hanoi-cli](https://github.com/k-krew/hanoi-cli)
-- [ ] **Kubexer Kubernetes IDE** — кроссплатформенный desktop-клиент: ресурсы,
+      [vmware-tanzu/octant](https://github.com/vmware-tanzu/octant) —
+      не ставим: репозиторий в архиве, дашборд дублирует `headlamp`/`radar`.
+- [x] **xlskubectl** — управление кластером из «электронной таблицы».
+      *(`pipx`)* — [learnk8s/xlskubectl](https://github.com/learnk8s/xlskubectl) —
+      не ставим: нет ни релизов, ни пакета на PyPI (см.
+      [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
+- [x] **Kubefirst** — CLI: разворачивает готовую GitOps-платформу с нуля.
+      *(`script`)* — [kubefirst/kubefirst](https://github.com/kubefirst/kubefirst) —
+      не ставим: разворачивает платформу на Argo CD, который в плейбуке
+      не используется (см. [`not-install.md`](not-install.md)).
+- [x] **kustomizer** — экспериментальный менеджер пакетов k8s-конфигов как OCI
+      артефактов. *(`release`)* — [stefanprodan/kustomizer](https://github.com/stefanprodan/kustomizer) —
+      добавлен в роль `kubernetes` (`kustomizer_{version}_linux_amd64.tar.gz`).
+- [x] **KindScaler** — управление нодами KinD-кластера без пересоздания.
+      *(`go`)* — [lobuhi/kindscaler](https://github.com/lobuhi/kindscaler) —
+      не ставим: релизов нет, только `go build` (см.
+      [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
+- [x] **buoy** — декларативный Kubernetes-дашборд в терминале. *(`release`)* —
+      [everettraven/buoy](https://github.com/everettraven/buoy) —
+      добавлен в роль `kubernetes` (`buoy_{version}_linux_amd64.tar.gz`).
+- [x] **k9sight** — быстрый keyboard-driven TUI для отладки workload'ов.
+      *(`release` / `go`)* — [doganarif/k9sight](https://github.com/doganarif/k9sight) —
+      добавлен в роль `kubernetes` (`k9sight_{version}_linux_amd64.tar.gz`).
+- [x] **Hanoi-CLI** — интерактивный советник по ребалансировке подов, симулирует
+      отказ нод. *(`release`)* — [k-krew/hanoi-cli](https://github.com/k-krew/hanoi-cli) —
+      добавлен в роль `kubernetes` (`hanoi-cli_{version}_linux_amd64.tar.gz`).
+- [x] **Kubexer Kubernetes IDE** — кроссплатформенный desktop-клиент: ресурсы,
       топология, helm, GitOps (ArgoCD/Flux). *(`deb`)* —
-      [kubexer.com](https://kubexer.com) (закрытый; ссылка на сайт)
-- [ ] **Rubick** — k8s desktop-клиент (Tauri + Rust + React), RBAC-aware.
-      *(`deb`)* — [Dudude-bit/rubick](https://github.com/Dudude-bit/rubick)
-- [ ] **kzero** — декларативные down/up/reset кластера для bastion-обслуживания.
-      *(`release`)* — [hrodrig/kzero](https://github.com/hrodrig/kzero)
+      [kubexer.com](https://kubexer.com) (закрытый; ссылка на сайт) —
+      не ставим: закрытое ПО без публичного релиза, версию и артефакт
+      не проверить.
+- [x] **Rubick** — k8s desktop-клиент (Tauri + Rust + React), RBAC-aware.
+      *(`deb`)* — [Dudude-bit/rubick](https://github.com/Dudude-bit/rubick) —
+      добавлен в роль `kubernetes` (`Rubick_{version}_amd64.deb`).
+- [x] **kzero** — декларативные down/up/reset кластера для bastion-обслуживания.
+      *(`release`)* — [hrodrig/kzero](https://github.com/hrodrig/kzero) —
+      добавлен в роль `kubernetes` как `kzero` и `kubectl-kzero`.
 
 ### Cluster with Core CLI tools
 
-- [ ] **kube-shell** — интегрированный интерактивный shell для kubectl с
+- [x] **kube-shell** — интегрированный интерактивный shell для kubectl с
       автодополнением. *(`pipx`)* —
-      [cloudnativelabs/kube-shell](https://github.com/cloudnativelabs/kube-shell)
-- [ ] **kuttle** — обёртка kubectl для sshuttle без SSH. *(`pipx`)* —
-      [kayrus/kuttle](https://github.com/kayrus/kuttle)
-- [ ] **kubectl-sudo** — запуск k8s-команд с привилегиями другого пользователя.
-      *(`krew`)* — [postfinance/kubectl-sudo](https://github.com/postfinance/kubectl-sudo)
-- [ ] **Ktunnel** — публикация локальных ресурсов в Kubernetes (туннель).
-      *(`go` / `release`)* — [omrikiei/ktunnel](https://github.com/omrikiei/ktunnel)
-- [ ] **Vimkubectl** — управление любыми k8s-ресурсами прямо из Vim.
-      *(`vim plugin`)* — [rottencandy/vimkubectl](https://github.com/rottencandy/vimkubectl)
+      [cloudnativelabs/kube-shell](https://github.com/cloudnativelabs/kube-shell) —
+      не ставим: проект заброшен (последний релиз 0.0.23, 2017), современные
+      Kubernetes он не покрывает; интерактивный режим даёт `kube-prompt`.
+- [x] **kuttle** — обёртка kubectl для sshuttle без SSH. *(`pipx`)* —
+      [kayrus/kuttle](https://github.com/kayrus/kuttle) —
+      не ставим: имя `kuttle` на PyPI занято другим проектом, релизов нет
+      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
+- [x] **kubectl-sudo** — запуск k8s-команд с привилегиями другого пользователя.
+      *(`krew`)* — [postfinance/kubectl-sudo](https://github.com/postfinance/kubectl-sudo) —
+      не ставим: в релизе нет ассетов, только krew
+      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
+- [x] **Ktunnel** — публикация локальных ресурсов в Kubernetes (туннель).
+      *(`go` / `release`)* — [omrikiei/ktunnel](https://github.com/omrikiei/ktunnel) —
+      добавлен в роль `kubernetes` (`ktunnel_{version}_Linux_x86_64.tar.gz`).
+- [x] **Vimkubectl** — управление любыми k8s-ресурсами прямо из Vim.
+      *(`vim plugin`)* — [rottencandy/vimkubectl](https://github.com/rottencandy/vimkubectl) —
+      не ставим: плагин Vim, а не отдельная утилита для плейбука.
 - [x] **fubectl** — набор bash-функций: меньше повторяющихся команд kubectl.
       *(`script`)* — [kubermatic/fubectl](https://github.com/kubermatic/fubectl) —
       не нужен: bash-скрипт (см. `not-install.md`).
@@ -111,43 +141,64 @@
 - [x] **Kube-prompt** — интерактивный kubectl-клиент с автодополнением.
       *(`release` / `go`)* — [c-bata/kube-prompt](https://github.com/c-bata/kube-prompt) —
       добавлен в роль `kubernetes` (kube-prompt_v{version}_linux_amd64.zip).
-- [ ] **Click** — интерактивный CLI-контроллер для Kubernetes. *(`pipx`)* —
-      [databricks/click](https://github.com/databricks/click)
+- [x] **Click** — интерактивный CLI-контроллер для Kubernetes. *(`pipx`)* —
+      [databricks/click](https://github.com/databricks/click) —
+      не ставим: ставится только через cargo, релизных бинарников нет
+      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
 - [x] **Kubie** — более мощная альтернатива `kubectx`/`kubens` (изолированные
       kubeconfig по shell). *(`cargo` / `release`)* — [kubie-org/kubie](https://github.com/kubie-org/kubie) —
       добавлен в роль `kubernetes`.
-- [ ] **Finch** — CLI-клиент контейнерной разработки (обёртка над Lima/ncrun).
-      *(`deb`)* — [runfinch/finch](https://github.com/runfinch/finch)
-- [ ] **kor** — поиск неиспользуемых ресурсов Kubernetes. *(`release` / `go`)* —
-      [yonahd/kor](https://github.com/yonahd/kor)
-- [ ] **image-builder** — сборка VM-образов Kubernetes для разных провайдеров.
-      *(`script` / `pipx`)* — [kubernetes-sigs/image-builder](https://github.com/kubernetes-sigs/image-builder)
-- [ ] **Duplik8s** — плагин kubectl: дублирование ресурсов кластера. *(`krew`)* —
-      [Telemaco019/duplik8s](https://github.com/Telemaco019/duplik8s)
+- [x] **Finch** — CLI-клиент контейнерной разработки (обёртка над Lima/ncrun).
+      *(`deb`)* — [runfinch/finch](https://github.com/runfinch/finch) —
+      не ставим: на ноутбуке уже есть Docker с Compose, Finch дублирует его
+      (см. [`not-install.md`](not-install.md)).
+- [x] **kor** — поиск неиспользуемых ресурсов Kubernetes. *(`release` / `go`)* —
+      [yonahd/kor](https://github.com/yonahd/kor) —
+      не ставим: `releases/latest` указывает на релиз Helm-чарта, а CLI-бинарники
+      лежат под другим тегом — версию без GitHub API не определить
+      (см. [`not-install.md`](not-install.md)).
+- [x] **image-builder** — сборка VM-образов Kubernetes для разных провайдеров.
+      *(`script` / `pipx`)* — [kubernetes-sigs/image-builder](https://github.com/kubernetes-sigs/image-builder) —
+      не ставим: это набор Ansible/Packer-скриптов для образов VM, а не
+      локальная CLI-утилита.
+- [x] **Duplik8s** — плагин kubectl: дублирование ресурсов кластера. *(`krew`)* —
+      [Telemaco019/duplik8s](https://github.com/Telemaco019/duplik8s) —
+      добавлен в роль `kubernetes` как `kubectl-duplicate`
+      (`duplik8s_Linux_x86_64.tar.gz`).
 - [x] **kl** — интерактивный TUI для логов нескольких контейнеров/кластеров.
       *(`release` / `go`)* — [robinovitch61/kl](https://github.com/robinovitch61/kl) —
       добавлен в роль `kubernetes` (kl_{version}_Linux_x86_64.tar.gz).
-- [ ] **kubectl-foreach** — параллельный запуск kubectl по всем/некоторым
-      контекстам. *(`script` / `krew`)* — [ahmetb/kubectl-foreach](https://github.com/ahmetb/kubectl-foreach)
-- [ ] **kubecui** — делает kubectl дружелюбнее (TUI-обёртка). *(`pipx`)* —
-      [pymag09/kubecui](https://github.com/pymag09/kubecui)
+- [x] **kubectl-foreach** — параллельный запуск kubectl по всем/некоторым
+      контекстам. *(`script` / `krew`)* — [ahmetb/kubectl-foreach](https://github.com/ahmetb/kubectl-foreach) —
+      не ставим: распространяется только bash-скриптом
+      (см. [`not-install.md`](not-install.md)).
+- [x] **kubecui** — делает kubectl дружелюбнее (TUI-обёртка). *(`pipx`)* —
+      [pymag09/kubecui](https://github.com/pymag09/kubecui) —
+      не ставим: нет ни релизов, ни пакета на PyPI
+      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
 - [x] **q-as-kubectl** — ещё один способ управлять командами k8s через `q`.
       *(`script`)* — [ildar-shaimordanov/q-as-kubectl](https://github.com/ildar-shaimordanov/q-as-kubectl) —
       не нужен: bash-скрипт (см. `not-install.md`).
-- [ ] **kubectl-find** — UNIX-find-подобный плагин kubectl: поиск и действия над
-      ресурсами. *(`krew`)* — [alikhil/kubectl-find](https://github.com/alikhil/kubectl-find)
+- [x] **kubectl-find** — UNIX-find-подобный плагин kubectl: поиск и действия над
+      ресурсами. *(`krew`)* — [alikhil/kubectl-find](https://github.com/alikhil/kubectl-find) —
+      добавлен в роль `kubernetes` как `kubectl-fd`
+      (`kubectl-fd_Linux_x86_64.tar.gz`, команда `kubectl fd`).
 - [x] **kubefwd** — массовый port-forward сервисов с уникальными IP и записями в
       `/etc/hosts`. *(`release` / `go`)* — [txn2/kubefwd](https://github.com/txn2/kubefwd) —
       добавлен в роль `kubernetes`.
 - [x] **kubecm** — удобное управление `kubeconfig`. *(`release` / `go`)* —
       [sunny0826/kubecm](https://github.com/sunny0826/kubecm) —
       добавлен в роль `kubernetes` (kubecm_v{version}_Linux_x86_64.tar.gz).
-- [ ] **krelay** — альтернатива `kubectl port-forward`: TCP/UDP до IP/хоста внутри
-      кластера. *(`krew`)* — [knight42/krelay](https://github.com/knight42/krelay)
-- [ ] **gwctl** — управление и разбор ресурсов Gateway API. *(`go` / `release`)* —
-      [kubernetes-sigs/gwctl](https://github.com/kubernetes-sigs/gwctl)
-- [ ] **kbu** — однопанельный TUI Kubernetes (навигация Tab/Space/Enter/Esc).
-      *(`release` / `go`)* — [vulcanshen/kbu](https://github.com/vulcanshen/kbu)
+- [x] **krelay** — альтернатива `kubectl port-forward`: TCP/UDP до IP/хоста внутри
+      кластера. *(`krew`)* — [knight42/krelay](https://github.com/knight42/krelay) —
+      добавлен в роль `kubernetes` как `kubectl-relay`
+      (`kubectl-relay_v{version}_linux-amd64.tar.gz`).
+- [x] **gwctl** — управление и разбор ресурсов Gateway API. *(`go` / `release`)* —
+      [kubernetes-sigs/gwctl](https://github.com/kubernetes-sigs/gwctl) —
+      добавлен в роль `kubernetes` (`gwctl_Linux_x86_64.tar.gz`).
+- [x] **kbu** — однопанельный TUI Kubernetes (навигация Tab/Space/Enter/Esc).
+      *(`release` / `go`)* — [vulcanshen/kbu](https://github.com/vulcanshen/kbu) —
+      добавлен в роль `kubernetes` (`kbu_{version}_linux_amd64.tar.gz`).
 
 ### Alert and Monitoring
 
@@ -512,6 +563,28 @@
       добавлен в роль `kubernetes` (kube-job_v{version}_linux_amd64.zip).
 - [ ] **Scaphandre** — агент метрик энергопотребления. *(`cargo` / `apt`)* —
       [hubblo-org/scaphandre](https://github.com/hubblo-org/scaphandre)
+
+### Отброшено в волне 2026-10-22
+
+| Кандидат | GitHub | Что это | Почему отброшен | Где подробности |
+| --- | --- | --- | --- | --- |
+| kubectl-ports-rs | [widnyana/kubectl-ports-rs](https://github.com/widnyana/kubectl-ports-rs) | krew-плагин `kubectl ports`: список открытых портов подов и сервисов | нет релизных бинарников — только krew/cargo | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| kubectl-snapshot | [fbrubbo/kubectl-snapshot](https://github.com/fbrubbo/kubectl-snapshot) | `kubectl resource-snapshot`: снимок потребления CPU/памяти подами, HPA, деплойментами и нодами плюс проверка PDB и probes | в релизе нет ассетов, проект заброшен с 2020 | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| Octant | [vmware-archive/octant](https://github.com/vmware-archive/octant) | веб-панель для визуального просмотра и отладки объектов кластера, с плагинами | архивный проект (2023); дублирует `headlamp`/`radar` | [`not-install.md`](not-install.md) |
+| xlskubectl | [learnk8s/xlskubectl](https://github.com/learnk8s/xlskubectl) | управление кластером из таблицы Google Sheets | нет ни релизов, ни пакета на PyPI | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| Kubefirst | [konstructio/kubefirst](https://github.com/konstructio/kubefirst) | платформа, разворачивающая готовый GitOps-стек (Argo CD, Vault и др.) в кластере | платформа на Argo CD, а Argo CD в плейбуке не используется | [`not-install.md`](not-install.md) |
+| KindScaler | [lobuhi/kindscaler](https://github.com/lobuhi/kindscaler) | управление нодами в KinD-кластерах: добавление и удаление worker-нод | релизов нет, только `go build` | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| Kubexer | — (закрытое ПО, [kubexer.com](https://kubexer.com)) | десктопный Kubernetes IDE: просмотр и отладка ресурсов, поиск по логам, Helm, алерты | закрытый продукт без публичного релиза — версию и артефакт не проверить | [`not-install.md`](not-install.md) |
+| kube-shell | [cloudnativelabs/kube-shell](https://github.com/cloudnativelabs/kube-shell) | интерактивная оболочка для kubectl с автодополнением и подсказками | заброшен с 2017 (0.0.23), современные API не покрывает; интерактивный режим уже даёт `kube-prompt` | [`not-install.md`](not-install.md) |
+| kuttle | [kayrus/kuttle](https://github.com/kayrus/kuttle) | обёртка над `sshuttle`: доступ к сервисам и подам кластера как к локальной сети | релизов нет; имя `kuttle` на PyPI занято другим проектом | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| kubectl-sudo | [postfinance/kubectl-sudo](https://github.com/postfinance/kubectl-sudo) | krew-плагин: выполнение команд с правами другого пользователя (impersonation) | только krew, ассетов в релизе нет | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| Vimkubectl | [rottencandy/vimkubectl](https://github.com/rottencandy/vimkubectl) | плагин Vim: просмотр и управление ресурсами Kubernetes из редактора | плагин Vim, а не отдельная утилита для плейбука | этот файл |
+| Click | [databricks/click](https://github.com/databricks/click) | интерактивный TUI-контроллер для Kubernetes | ставится только через cargo, релизных бинарников нет | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| Finch | [runfinch/finch](https://github.com/runfinch/finch) | CLI для контейнерной разработки (containerd/nerdctl + Lima), аналог Docker Desktop | дублирует Docker с Compose, который уже ставится | [`not-install.md`](not-install.md) |
+| kor | [yonahd/kor](https://github.com/yonahd/kor) | поиск неиспользуемых ресурсов кластера (configmaps, secrets, services, PV и др.) | `releases/latest` ведёт на релиз Helm-чарта, CLI-бинарники под другим тегом — версию без GitHub API не определить | [`not-install.md`](not-install.md) |
+| image-builder | [kubernetes-sigs/image-builder](https://github.com/kubernetes-sigs/image-builder) | Ansible/Packer-скрипты для сборки дисковых образов VM под Kubernetes (в т.ч. для облаков) | набор Ansible/Packer-скриптов для VM-образов, а не локальная CLI | этот файл |
+| kubectl-foreach | [ahmetb/kubectl-foreach](https://github.com/ahmetb/kubectl-foreach) | параллельный запуск kubectl-команд по всем или выбранным контекстам | распространяется только bash-скриптом | [`not-install.md`](not-install.md) |
+| kubecui | [pymag09/kubecui](https://github.com/pymag09/kubecui) | TUI-альтернатива k9s: интерактивный `explain`, скан уязвимостей через Trivy, несколько окружений | нет ни релизов, ни пакета на PyPI | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
 
 ---
 

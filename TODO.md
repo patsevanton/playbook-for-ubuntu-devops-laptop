@@ -61,7 +61,10 @@ Helm-чарты (не на ноутбук) — в
 `groot`, `k2tf`, `kubesec`, `kpt`, `kube-job`, `kubectl-sniff`,
 `static-tcpdump`, `kdash`, `kubetail`, `kubepug`, `kube-prompt`,
 `rbac-lookup`, `kubectl-who-can`, `korb`, `kl`, `kubectl-doctor`,
-`kbom`, `kubectl-modify-secret`.
+`kbom`, `kubectl-modify-secret`, `silver-surfer`, `kubeprompt`,
+`kustomizer`, `buoy`, `k9sight`, `hanoi-cli`, `kzero`, `kubectl-kzero`,
+`ktunnel`, `kubectl-duplicate`, `kubectl-fd`, `kubectl-relay`, `gwctl`,
+`kbu`, `monokle`, `rubick`.
 
 `argocd`, `pulumi` и `kubebuilder` не ставятся: Argo CD не используется, IaC —
 на Terraform, Kubernetes-операторы не создаются

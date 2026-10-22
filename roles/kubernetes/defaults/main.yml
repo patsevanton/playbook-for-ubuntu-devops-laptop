@@ -658,6 +658,123 @@ kubernetes_binaries:
     url: "https://github.com/rajatjindal/kubectl-modify-secret/releases/download/{tag}/kubectl-modify-secret_v{version}_linux_amd64.tar.gz"
     archive: tar
     member: kubectl-modify_secret
+  # silver-surfer — проверка совместимости манифестов с apiVersion целевой
+  # версии кластера: показывает, что сломается при апгрейде, и как мигрировать.
+  # В архиве бинарник называется kubedd (так его зовёт апстрим), на диск
+  # кладём под именем утилиты.
+  - name: silver-surfer
+    source: github
+    repo: devtron-labs/silver-surfer
+    url: "https://github.com/devtron-labs/silver-surfer/releases/download/{tag}/silver-surfer_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kubedd
+  # kubeprompt — контекст и namespace Kubernetes прямо в prompt bash/zsh:
+  # отдельный бинарник, который печатает строку для PS1. Тег без префикса v.
+  - name: kubeprompt
+    source: github
+    repo: jlesquembre/kubeprompt
+    url: "https://github.com/jlesquembre/kubeprompt/releases/download/{tag}/kubeprompt_Linux_x86_64.tar.gz"
+    archive: tar
+    member: kubeprompt
+  # kustomizer — экспериментальный пакетный менеджер Kubernetes-конфигов:
+  # хранит наборы (kustomization + манифесты) как OCI-артефакты и раскатывает
+  # их в кластер (`kustomizer apply`).
+  - name: kustomizer
+    source: github
+    repo: stefanprodan/kustomizer
+    url: "https://github.com/stefanprodan/kustomizer/releases/download/{tag}/kustomizer_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kustomizer
+  # buoy — декларативный дашборд Kubernetes в терминале: виджеты и их
+  # расположение описываются YAML-конфигом.
+  - name: buoy
+    source: github
+    repo: everettraven/buoy
+    url: "https://github.com/everettraven/buoy/releases/download/{tag}/buoy_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: buoy
+  # k9sight — keyboard-driven TUI для отладки workload'ов: быстрый просмотр
+  # ресурсов, логов и событий (альтернатива k9s с упором на диагностику).
+  - name: k9sight
+    source: github
+    repo: doganarif/k9sight
+    url: "https://github.com/doganarif/k9sight/releases/download/{tag}/k9sight_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: k9sight
+  # hanoi-cli — советник по ребалансировке подов: анализирует распределение
+  # нагрузки по нодам и симулирует отказ ноды, предлагая неинвазивные
+  # перемещения (ничего не меняет в кластере).
+  - name: hanoi-cli
+    source: github
+    repo: k-krew/hanoi-cli
+    url: "https://github.com/k-krew/hanoi-cli/releases/download/{tag}/hanoi-cli_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: hanoi-cli
+  # kzero — декларативные down/up/reset кластера по YAML-конфигу: упорядоченно
+  # останавливает и поднимает workload'ы и Helm-релизы (обслуживание bastion).
+  # В том же архиве лежит kubectl-плагин kubectl-kzero — ставим оба бинарника.
+  - name: kzero
+    source: github
+    repo: hrodrig/kzero
+    url: "https://github.com/hrodrig/kzero/releases/download/{tag}/kzero_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kzero
+  - name: kubectl-kzero
+    source: github
+    repo: hrodrig/kzero
+    url: "https://github.com/hrodrig/kzero/releases/download/{tag}/kzero_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kubectl-kzero
+  # ktunnel — туннель в кластер без SSH: публикует локальный порт как Service
+  # в кластере (и наоборот), удобен для отладки внешних интеграций.
+  - name: ktunnel
+    source: github
+    repo: omrikiei/ktunnel
+    url: "https://github.com/omrikiei/ktunnel/releases/download/{tag}/ktunnel_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: ktunnel
+  # kubectl-duplicate (duplik8s) — плагин kubectl: дублирование Pod,
+  # Deployment и StatefulSet (в т.ч. с шеллом и правкой команды) для отладки.
+  # В архиве бинарник duplik8s, на диск кладём как kubectl-duplicate.
+  - name: kubectl-duplicate
+    source: github
+    repo: Telemaco019/duplik8s
+    url: "https://github.com/Telemaco019/duplik8s/releases/download/{tag}/duplik8s_Linux_x86_64.tar.gz"
+    archive: tar
+    member: duplik8s
+  # kubectl-fd — плагин kubectl в духе UNIX find: поиск ресурсов по имени,
+  # меткам, возрасту и действия над найденным (`kubectl fd pods --name api-*`).
+  - name: kubectl-fd
+    source: github
+    repo: alikhil/kubectl-find
+    url: "https://github.com/alikhil/kubectl-find/releases/download/{tag}/kubectl-fd_Linux_x86_64.tar.gz"
+    archive: tar
+    member: kubectl-fd
+  # kubectl-relay (krelay) — замена `kubectl port-forward`: TCP/UDP-доступ к
+  # сервисам по имени и к произвольным IP/хостам внутри кластера, без
+  # port-forward на каждый порт.
+  - name: kubectl-relay
+    source: github
+    repo: knight42/krelay
+    url: "https://github.com/knight42/krelay/releases/download/{tag}/kubectl-relay_v{version}_linux-amd64.tar.gz"
+    archive: tar
+    member: kubectl-relay
+  # gwctl — kubectl-подобный CLI для Gateway API: просмотр Gateway, HTTPRoute,
+  # связанных политик и разбор, почему маршрут не работает.
+  - name: gwctl
+    source: github
+    repo: kubernetes-sigs/gwctl
+    url: "https://github.com/kubernetes-sigs/gwctl/releases/download/{tag}/gwctl_Linux_x86_64.tar.gz"
+    archive: tar
+    member: gwctl
+  # kbu — однопанельный TUI Kubernetes: навигация Tab/Space/Enter/Esc по
+  # ресурсам, логам и YAML без набора команд kubectl.
+  - name: kbu
+    source: github
+    repo: vulcanshen/kbu
+    url: "https://github.com/vulcanshen/kbu/releases/download/{tag}/kbu_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kbu
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и
@@ -676,6 +793,23 @@ radar_deb_dir: "{{ tmp_dir }}/radar"
 headlamp_install: true
 headlamp_repo: kubernetes-sigs/headlamp
 headlamp_deb_dir: "{{ tmp_dir }}/headlamp"
+
+# --- Monokle: desktop-редактор Kubernetes-конфигов (.deb из GitHub-релиза) ---
+# Electron-приложение: авторство и анализ манифестов, валидация по схемам,
+# сравнение с кластером. Имя артефакта Monokle-linux-{version}-amd64.deb
+# (версия без префикса v). Версия берётся из редиректа releases/latest
+# (см. tasks/monokle.yml).
+monokle_install: true
+monokle_repo: kubeshop/monokle
+monokle_deb_dir: "{{ tmp_dir }}/monokle"
+
+# --- Rubick: лёгкий desktop-клиент Kubernetes (.deb из GitHub-релиза) --------
+# Tauri-приложение: ресурсы, логи, YAML, port-forward, RBAC-aware. Имя
+# артефакта Rubick_{version}_amd64.deb (версия без префикса v). Версия
+# берётся из редиректа releases/latest (см. tasks/rubick.yml).
+rubick_install: true
+rubick_repo: Dudude-bit/rubick
+rubick_deb_dir: "{{ tmp_dir }}/rubick"
 
 # kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
 kubectx_ref: master

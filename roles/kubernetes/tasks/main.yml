@@ -31,6 +31,16 @@
     file: radar.yml
   when: radar_install
 
+- name: Установить Monokle (desktop-редактор Kubernetes-конфигов)
+  ansible.builtin.include_tasks:
+    file: monokle.yml
+  when: monokle_install
+
+- name: Установить Rubick (desktop-клиент Kubernetes)
+  ansible.builtin.include_tasks:
+    file: rubick.yml
+  when: rubick_install
+
 - name: Установить kubebox (терминальная и веб-консоль Kubernetes)
   ansible.builtin.include_tasks:
     file: kubebox.yml
