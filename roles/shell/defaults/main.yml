@@ -206,6 +206,14 @@ shell_binaries:
     url: "https://github.com/cube2222/octosql/releases/download/{tag}/octosql_{version}_linux_amd64.tar.gz"
     archive: tar
     member: octosql
+  # lazyjournal — TUI для логов: journald, auditd, Docker/Podman и обычные
+  # файлы в одном интерфейсе (фильтры, поиск, хвост). Релиз содержит готовый
+  # одиночный бинарник lazyjournal-{version}-linux-amd64 (тег без префикса v).
+  - name: lazyjournal
+    source: github
+    repo: Lifailon/lazyjournal
+    url: "https://github.com/Lifailon/lazyjournal/releases/download/{tag}/lazyjournal-{version}-linux-amd64"
+    archive: none
   # --- cheat — собственные шпаргалки команд ------------------------------------
 # Релиз cheat — gzip-сжатый одиночный бинарник cheat-linux-amd64.gz (НЕ тарболл),
 # поэтому роль binaries не подходит (понимает только tar/tarxz/zip/none).

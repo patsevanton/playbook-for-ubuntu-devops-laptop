@@ -26,6 +26,11 @@ network_pipx_apps:
   # PyPI в изолированное окружение pipx.
   - name: ssh-audit
     creates: ssh-audit
+  # httptap — разбор HTTP-запроса по слоям: DNS, TCP connect, TLS-рукопожатие
+  # и TTFB, без внешнего прокси. Удобно, когда непонятно, на каком этапе
+  # запрос тормозит. Ставится из PyPI в изолированное окружение pipx.
+  - name: httptap
+    creates: httptap
 
 # Скачиваемые бинарники сетевой диагностики.
 network_binaries:

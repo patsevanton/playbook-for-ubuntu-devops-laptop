@@ -196,6 +196,14 @@ kubernetes_binaries:
     url: "https://github.com/helm/chart-testing/releases/download/{tag}/chart-testing_{version}_linux_amd64.tar.gz"
     archive: tar
     member: ct
+  # ytt — шаблонизатор YAML: работает со структурой документа (не текстом),
+  # умеет условия, циклы и переиспользуемые фрагменты. Релиз — одиночный
+  # бинарник ytt-linux-amd64 без архива и без версии в имени файла.
+  - name: ytt
+    source: github
+    repo: carvel-dev/ytt
+    url: "https://github.com/carvel-dev/ytt/releases/download/{tag}/ytt-linux-amd64"
+    archive: none
 
 # --- Headlamp: web/desktop UI Kubernetes (.deb из GitHub-релиза) --------------
 # GUI-приложение ~123 МБ (Electron): ставится официальным .deb, появляется в

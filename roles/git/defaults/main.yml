@@ -76,3 +76,12 @@ git_binaries:
     url: "https://github.com/max-sixty/worktrunk/releases/download/{tag}/worktrunk-x86_64-unknown-linux-musl.tar.xz"
     archive: tarxz
     member: worktrunk-x86_64-unknown-linux-musl/wt
+  # changie — автоматизация changelog: фрагменты изменений в отдельных файлах,
+  # сборка релизной секции и подготовка версии. Релиз — тарболл
+  # changie_{version}_linux_amd64.tar.gz, бинарник changie в корне.
+  - name: changie
+    source: github
+    repo: miniscruff/changie
+    url: "https://github.com/miniscruff/changie/releases/download/{tag}/changie_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: changie

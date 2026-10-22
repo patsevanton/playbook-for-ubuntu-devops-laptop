@@ -185,8 +185,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [astefanutti/kubebox](https://github.com/astefanutti/kubebox)
 - [ ] **kubeview** — визуализация ресурсов кластера и связей между ними.
       *(`go` / `make`)* — [benc-uk/kubeview](https://github.com/benc-uk/kubeview)
-- [ ] **ytt** — шаблонизатор YAML, работающий со структурой, а не текстом.
-      *(`go`)* — [carvel-dev/ytt](https://github.com/carvel-dev/ytt)
+- [x] **ytt** — шаблонизатор YAML, работающий со структурой, а не текстом.
+      *(`release`)* — [carvel-dev/ytt](https://github.com/carvel-dev/ytt)
+      — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
+      ytt-linux-amd64 из релиза).
 - [ ] **kbld** — встраивает образы в манифесты (build/resolve/push).
       *(`go`)* — [carvel-dev/kbld](https://github.com/carvel-dev/kbld)
 - [ ] **timoni** — пакетный менеджер Kubernetes на CUE. *(`go`)* —
@@ -264,8 +266,10 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **hl** — быстрый просмотрщик и процессор логов (JSON/logfmt). *(`cargo`)* —
       [pamburus/hl](https://github.com/pamburus/hl)
       — ✅ добавлен в плейбук (роль `shell`, бинарник hl-linux-x86_64-gnu).
-- [ ] **lazyjournal** — TUI для логов journald, auditd, Docker, файлов.
-      *(`deb`)* — [Lifailon/lazyjournal](https://github.com/Lifailon/lazyjournal)
+- [x] **lazyjournal** — TUI для логов journald, auditd, Docker, файлов.
+      *(`release`)* — [Lifailon/lazyjournal](https://github.com/Lifailon/lazyjournal)
+      — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник
+      lazyjournal-<ver>-linux-amd64 из релиза).
 - [ ] **json-log-viewer** — интерактивный просмотр JSON-логов. *(`deb`)* —
       [hedhyw/json-log-viewer](https://github.com/hedhyw/json-log-viewer)
 - [ ] **logdy-core** — realtime веб-просмотр логов (`tail -f` + браузерный UI).
@@ -351,8 +355,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **mkcert** — локально доверенные dev-сертификаты без настройки. *(`go`)* —
       [FiloSottile/mkcert](https://github.com/FiloSottile/mkcert) — ставится ролью
       `nora` (см. `README.md`, раздел «NORA artifact registry»)
-- [ ] **httptap** — разбор HTTP-запроса по слоям: DNS, connect, TLS, TTFB.
+- [x] **httptap** — разбор HTTP-запроса по слоям: DNS, connect, TLS, TTFB.
       *(`pipx`)* — [ozeranskii/httptap](https://github.com/ozeranskii/httptap)
+      — ✅ добавлен в плейбук (роль `network`, через pipx из PyPI).
 - [ ] **asn** — справка по IP/домену: ASN, RPKI, BGP, WHOIS, трейс. *(`git clone`)* —
       [nitefood/asn](https://github.com/nitefood/asn)
 - [x] ⭐ **showcert** — «OpenSSL для людей»: разбор X.509-сертификатов. *(`pipx`)* —
@@ -397,8 +402,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       — ✅ добавлен в плейбук (роль `secrets`, бинарником из тарболла).
 - [ ] **flawz** — TUI-браузер CVE/уязвимостей. *(`cargo`)* —
       [orhun/flawz](https://github.com/orhun/flawz)
-- [ ] **mfa** — терминальный менеджер 2FA/TOTP. *(`deb`)* —
-      [LexSerest/mfa](https://github.com/LexSerest/mfa)
+- [x] **mfa** — терминальный менеджер 2FA/TOTP. *(`release`)* —
+      [LexSerest/mfa](https://github.com/LexSerest/mfa) — ✅ добавлен в плейбук
+      (роль `secrets`, бинарник mfa из тарболла релиза).
 - [ ] **teller** — облачно-независимый менеджер секретов для разработчика.
       *(`cargo`)* — [tellerops/teller](https://github.com/tellerops/teller)
 - [ ] **bank-vaults** — швейцарский нож для Vault: init, unseal, конфигурация.
@@ -455,8 +461,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] **worktrunk** — CLI для git worktree: параллельные ветки без переключения.
       *(`cargo`)* — [max-sixty/worktrunk](https://github.com/max-sixty/worktrunk)
       — ✅ добавлен в плейбук (роль `git`, бинарник `wt` из tar.xz).
-- [ ] **changie** — автоматизация changelog и подготовки релизов. *(`deb`)* —
-      [miniscruff/changie](https://github.com/miniscruff/changie)
+- [x] **changie** — автоматизация changelog и подготовки релизов. *(`release`)* —
+      [miniscruff/changie](https://github.com/miniscruff/changie) — ✅ добавлен
+      в плейбук (роль `git`, бинарник changie из тарболла релиза).
 - [x] ⭐ **reviewdog** — автоматическое code review с любыми линтерами. *(`go`)* —
       [reviewdog/reviewdog](https://github.com/reviewdog/reviewdog)
       — ✅ добавлен в плейбук (роль `git`, бинарник из тарболла).
