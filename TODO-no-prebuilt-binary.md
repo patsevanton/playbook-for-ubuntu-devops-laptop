@@ -34,12 +34,8 @@
 
 | Раздел | Кандидат | Что это | В каком виде поставляется |
 | --- | --- | --- | --- |
-| Kubernetes | [kubernetes-rbac-audit](https://github.com/cyberark/kubernetes-rbac-audit) | Аудит RBAC в кластере, в том числе офлайн по заранее выгруженным JSON ролей | Один скрипт `ExtensiveRoleCheck.py` без упаковки: ни PyPI, ни релизов. Покрывается `kubehound` (роль `kubernetes`) |
-| Диагностика и железо | [linnix](https://github.com/linnix-os/linnix) | eBPF-наблюдаемость с AI-детекцией инцидентов | Исходники и docker-образ; amd64 `.deb` был только в v0.1.0 (`cognitod_0.1.0_amd64.deb`), в v0.1.1 и v0.2.0 ассетов нет |
-| Диагностика и железо | [mcelog](https://github.com/andikleen/mcelog) | userspace-логирование аппаратных ошибок памяти CPU (MCE) | Сборка из исходников (`make`); релизов нет, в репозитории Ubuntu пакета тоже нет |
-| Безопасность | [flawz](https://github.com/orhun/flawz) | TUI-браузер CVE/уязвимостей | В релизе v0.4.1 только macOS/Windows и `flawz-installer.sh`; готового Linux-бинарника нет (`cargo build`) |
-| Контейнеры и реестры | [registry-cli](https://github.com/andrey-pohilko/registry-cli) | Манипуляции с docker-registry из командной строки | Одиночный `registry.py` плюс `pip install -r requirements-*.txt`; ни пакета на PyPI, ни релизных артефактов. Альтернатива — готовый docker-образ `anoxis/registry-cli` |
-| Контейнеры и реестры | [gitlab-registry-images-cleaner](https://github.com/n0madic/gitlab-registry-images-cleaner) | Чистка старых образов в GitLab registry | Одиночный python-скрипт с `requirements.txt`; пакета на PyPI и релизных ассетов нет |
+| Диагностика и железо | [linnix](https://github.com/linnix-os/linnix) | eBPF-наблюдаемость с AI-детекцией инцидентов | Исходники и docker-образ; amd64 `.deb` был только в v0.1.0 (`cognitod_0.1.0_amd64.deb`), в v0.1.1 и v0.2.0 ассетов нет. Запрошено в [#124](https://github.com/linnix-os/linnix/issues/124) |
+| Безопасность | [flawz](https://github.com/orhun/flawz) | TUI-браузер CVE/уязвимостей | В релизе v0.4.1 только macOS/Windows и `flawz-installer.sh`; готового Linux-бинарника нет (`cargo build`). Запрошено в [#113](https://github.com/orhun/flawz/issues/113) |
 
 ---
 
@@ -64,3 +60,17 @@
   есть `stew-v0.6.0-linux-amd64.tar.gz` и `stew_0.6.0_linux_amd64.deb`.
   В файле стояла ссылка на [alxrem/stew](https://github.com/alxrem/stew) —
   это форк без собственных релизов.
+- **mcelog** — не нужен: MCE читаются через `dmesg` и `journalctl -k`,
+  отдельный демон на ноутбуке не требуется. См. [`not-install.md`](not-install.md).
+- **kubernetes-rbac-audit** — не нужен: есть аналоги с готовыми бинарниками
+  (`kubectl-who-can`, `kubeaudit`, `rbac-tool`, `kubehound`). См.
+  [`not-install.md`](not-install.md).
+- **registry-cli** — не нужен: заменяет `regctl` из
+  [regclient/regclient](https://github.com/regclient/regclient) (одиночный
+  `regctl-linux-amd64` в релизах). Docker-образ `anoxis/registry-cli` не
+  нужен. См. [`not-install.md`](not-install.md).
+- **gitlab-registry-images-cleaner** — не нужен: есть штатная GitLab cleanup
+  policy и CLI
+  [gitlab-container-registry-cleaner](https://github.com/gitlab-container-registry-cleaner/gitlab-container-registry-cleaner)
+  (npm). Разовые операции — через `glab api`. См.
+  [`not-install.md`](not-install.md).

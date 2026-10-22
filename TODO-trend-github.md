@@ -196,10 +196,11 @@ Linux-пользователя. Прежний общий список канд�
 `certificate-ripper`, `showcert`, `gossl`, `ssh-audit`, `httptap`, `sshx`,
 `EternalTerminal`, `gotty`, `websocat`, `assh`.
 
-Часть из них после разбора вынесена в отдельные трекеры: `flawz`, `stew`,
-`mcelog`, `wondershaper`, `EternalTerminal` — в
+Часть из них после разбора вынесена в отдельные трекеры: `flawz` — в
 [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md), `dog`, `teller` —
-в [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
+в [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md),
+`mcelog` — в [`not-install.md`](not-install.md). `stew`, `wondershaper` и
+`EternalTerminal` разобраны в конце `TODO-no-prebuilt-binary.md`.
 `LACT` добавлен в плейбук (роль `hardware`) после появления сборки под
 Ubuntu 26.04 в релизе v0.10.1.
 

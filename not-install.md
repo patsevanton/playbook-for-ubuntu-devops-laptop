@@ -11,6 +11,10 @@
 | pitwall | сетевой файрвол (GUI/TUI) | не работает ввод русских букв | [quanticstudios/pitwall#127](https://github.com/quanticstudios/pitwall/issues/127) |
 | victoria-metrics | single-node TSDB (локальный скрейп метрик + Web UI) | не нужна без приёмки/скрейпа метрик в локальную VM; от релизов VM оставлен только `vmalert-tool` | — |
 | auto-cpufreq | авто-оптимизация частоты CPU и энергопотребления | не нужен: хватает того, что в Ubuntu есть из коробки (`power-profiles-daemon` + `amd-pstate`/`intel_pstate`) | — |
+| mcelog | userspace-логирование аппаратных ошибок памяти и CPU (MCE) | не нужен: MCE видны в `dmesg` и `journalctl -k`, отдельный демон на ноутбуке не требуется | — |
+| kubernetes-rbac-audit | аудит RBAC в кластере, в том числе офлайн по заранее выгруженным JSON ролей | не нужен: есть аналоги с готовыми бинарниками — `kubectl-who-can`, `kubeaudit`, `rbac-tool`, `kubehound` | — |
+| registry-cli | манипуляции с docker-registry из командной строки | не нужен: заменяет `regctl` из `regclient/regclient` — одиночный бинарник `regctl-linux-amd64` | — |
+| gitlab-registry-images-cleaner | чистка старых образов в GitLab registry | не нужен: штатная GitLab cleanup policy плюс `gitlab-container-registry-cleaner` (npm) или `glab api` | — |
 | argocd (Argo CD CLI) | CLI для GitOps-деплоя в Argo CD | Argo CD не используется: сервер не разворачивается, локальный CLI без него не нужен | — |
 | pulumi | IaC на языках программирования (альтернатива Terraform) | не используется: стек IaC на Terraform (`tfenv`/`tgenv`) | — |
 | knee | интерактивный CLI над Ansible: спрашивает окружение и стек, генерирует inventory/group_vars и запускает один из 13 готовых плейбуков (postgres/mysql/mongodb/redis, python/ruby/node/golang webserver) | не нужен: инфраструктура поднимается своими Ansible-плейбуками, а knee — обёртка над чужими плейбуками из своего репозитория | — |
