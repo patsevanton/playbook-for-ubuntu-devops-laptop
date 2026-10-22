@@ -38,3 +38,37 @@ monitoring_binaries:
     repo: slok/sloth
     url: "https://github.com/slok/sloth/releases/download/{tag}/sloth-linux-amd64"
     archive: none
+  # cloudprober — активный мониторинг: сам шлёт HTTP/PING/TCP/DNS/UDP-пробы по
+  # расписанию и строит метрики (Prometheus-совместимые) — видит проблему до
+  # того, как её заметят пользователи (в отличие от мониторинга по трафику).
+  # Релиз — cloudprober-v{version}-linux-x86_64.tar.gz, бинарник лежит в
+  # каталоге cloudprober-v{version}-linux-x86_64/.
+  - name: cloudprober
+    source: github
+    repo: cloudprober/cloudprober
+    url: "https://github.com/cloudprober/cloudprober/releases/download/{tag}/cloudprober-v{version}-linux-x86_64.tar.gz"
+    archive: tar
+    member: cloudprober-v{version}-linux-x86_64/cloudprober
+
+# Go-приложения без релизных бинарников — собираются ролью go_apps.
+monitoring_go_apps:
+  # gatus — health-dashboard и status page из YAML: проверки HTTP/ICMP/TCP/DNS/SSH
+  # и TLS-сертификатов с условиями по коду, телу и времени ответа, алерты в
+  # Slack/Telegram/PagerDuty, веб-UI на :8080. Ставится `go install` (prebuilt
+  # бинарников апстрим не публикует — см. README, «Installing as binary»).
+  - name: gatus
+    package: github.com/TwiN/gatus/v5
+
+# --- krr: рекомендации requests/limits для Kubernetes -------------------------
+# krr (Robusta KRR) собирает фактическое потребление подов (Prometheus или
+# metrics-server) и предлагает requests/limits с запасом — дополняет
+# kube-capacity (тот показывает, что есть, а krr — что поставить).
+# Релиз — zip krr-ubuntu-latest-v<ver>.zip с PyInstaller-сборкой: каталог krr/
+# из бинарника и _internal (общие библиотеки, ~300 МБ после распаковки).
+# Распаковываем в /opt/krr, в bin_dir кладём обёртку: onedir-сборке нужен
+# каталог _internal рядом с исполняемым файлом, поэтому симлинк не подходит.
+krr_install: true
+krr_repo: robusta-dev/krr
+krr_dir: /opt/krr
+krr_bin: "{{ bin_dir }}/krr"
+krr_zip_dir: "{{ tmp_dir }}/krr"

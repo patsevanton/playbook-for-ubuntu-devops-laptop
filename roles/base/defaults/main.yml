@@ -36,6 +36,17 @@ base_binaries:
     url: "https://github.com/zyedidia/eget/releases/download/{tag}/eget-{version}-linux_amd64.tar.gz"
     archive: tar
     member: eget-{version}-linux_amd64/eget
+  # dra — скачивание релизных ассетов GitHub по имени репозитория (dra download
+  # owner/repo; можно выбрать ассет, распаковать и поставить права). Дополняет
+  # eget: eget ставит бинарник «как есть», dra — забирает конкретные файлы
+  # релиза. Тег релиза без префикса v (0.10.3), поэтому {tag} == {version};
+  # бинарник лежит в каталоге dra-{version}-x86_64-unknown-linux-gnu.
+  - name: dra
+    source: github
+    repo: devmatteini/dra
+    url: "https://github.com/devmatteini/dra/releases/download/{tag}/dra-{version}-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: dra-{version}-x86_64-unknown-linux-gnu/dra
 
 # molecule — фреймворк тестирования Ansible-ролей и плейбуков (прогон ролей
 # в контейнерах/VM). Пакета в apt и релизных бинарников нет — ставится из PyPI

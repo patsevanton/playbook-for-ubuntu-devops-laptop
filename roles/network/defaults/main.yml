@@ -40,6 +40,12 @@ network_pipx_apps:
   # запрос тормозит. Ставится из PyPI в изолированное окружение pipx.
   - name: httptap
     creates: httptap
+  # dns-lexicon (команда lexicon) — единый способ управлять DNS-записями у
+  # разных провайдеров (Cloudflare, Route53, DigitalOcean, Yandex и десятков
+  # других): list/create/update/delete из CLI и из Ansible. Пакет на PyPI
+  # называется dns-lexicon (пакет `lexicon` — это другая библиотека).
+  - name: dns-lexicon
+    creates: lexicon
 
 # Скачиваемые бинарники сетевой диагностики.
 network_binaries:

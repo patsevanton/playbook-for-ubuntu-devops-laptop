@@ -78,3 +78,14 @@ docker_binaries:
     url: "https://github.com/s0rg/decompose/releases/download/{tag}/decompose_v{version}_linux_x86_64.tar.gz"
     archive: tar
     member: decompose
+  # copa (copacetic) — патчинг уязвимостей прямо в контейнерных образах: берёт
+  # отчёт grype/trivy и собирает исправленный образ (docker build поверх
+  # базового), не дожидаясь апстрима. Пара к уже установленному grype:
+  # grype находит CVE, copa их закрывает. Бинарник copa в корне тарболла
+  # copa_{version}_linux_amd64.tar.gz.
+  - name: copa
+    source: github
+    repo: project-copacetic/copacetic
+    url: "https://github.com/project-copacetic/copacetic/releases/download/{tag}/copa_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: copa

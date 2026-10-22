@@ -15,6 +15,11 @@
     file: headlamp.yml
   when: headlamp_install
 
+- name: Установить Radar (Kubernetes UI со встроенным MCP-сервером)
+  ansible.builtin.include_tasks:
+    file: radar.yml
+  when: radar_install
+
 - name: Проверить наличие kubectx
   ansible.builtin.stat:
     path: "{{ bin_dir }}/kubectx"

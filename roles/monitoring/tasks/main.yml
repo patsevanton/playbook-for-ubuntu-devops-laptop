@@ -8,3 +8,14 @@
     name: binaries
   vars:
     binaries_to_install: "{{ monitoring_binaries }}"
+
+- name: Установить Go-приложения мониторинга (gatus)
+  ansible.builtin.include_role:
+    name: go_apps
+  vars:
+    go_apps: "{{ monitoring_go_apps }}"
+
+- name: Установить krr (рекомендации requests/limits)
+  ansible.builtin.include_tasks:
+    file: krr.yml
+  when: krr_install

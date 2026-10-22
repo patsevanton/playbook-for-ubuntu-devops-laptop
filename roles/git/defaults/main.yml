@@ -85,3 +85,19 @@ git_binaries:
     url: "https://github.com/miniscruff/changie/releases/download/{tag}/changie_{version}_linux_amd64.tar.gz"
     archive: tar
     member: changie
+  # ghgrab — TUI-браузер файлов репозиториев GitHub/GitLab/Gitea: заходить в
+  # репозиторий и качать отдельные файлы без клонирования (и без веб-интерфейса).
+  # Одиночный бинарник ghgrab-linux без версии в имени.
+  - name: ghgrab
+    source: github
+    repo: abhixdd/ghgrab
+    url: "https://github.com/abhixdd/ghgrab/releases/download/{tag}/ghgrab-linux"
+    archive: none
+
+# Python-приложения для работы с GitLab (нет релизных бинарников — PyPI/pipx).
+git_pipx_apps:
+  # gitlabform — GitLab как код: описываешь группы, проекты, настройки, участников
+  # и защищённые ветки в YAML, а gitlabform приводит инстанс к этому состоянию.
+  # Дополняет glab (разовые команды) и glci (локальный CI).
+  - name: gitlabform
+    creates: gitlabform

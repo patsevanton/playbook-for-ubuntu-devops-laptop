@@ -242,6 +242,26 @@ shell_binaries:
     repo: koenbollen/jl
     url: "https://github.com/koenbollen/jl/releases/download/{tag}/jl_linux_amd64"
     archive: none
+  # logdy — реального времени просмотр логов в браузере: запускаешь
+  # `tail -f app.log | logdy` (или `logdy follow`), получаешь веб-UI с поиском,
+  # фильтрами, JSON-структурированием и подсветкой — удобно делиться с командой
+  # вместо пересылки файлов. Одиночный бинарник logdy_linux_amd64 без версии
+  # в имени; на диск кладём под именем logdy (как называется команда).
+  - name: logdy
+    source: github
+    repo: logdyhq/logdy-core
+    url: "https://github.com/logdyhq/logdy-core/releases/download/{tag}/logdy_linux_amd64"
+    archive: none
+  # spacer — вставляет разделитель с меткой времени и длительностью между
+  # выводами команд длинного пайплайна (`cmd1; spacer; cmd2`), чтобы в общем
+  # потоке было видно, где что началось и сколько заняло. Бинарник spacer в
+  # корне тарболла spacer-x86_64-unknown-linux-musl.tar.gz.
+  - name: spacer
+    source: github
+    repo: samwho/spacer
+    url: "https://github.com/samwho/spacer/releases/download/{tag}/spacer-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: spacer
   # --- cheat — собственные шпаргалки команд ------------------------------------
 # Релиз cheat — gzip-сжатый одиночный бинарник cheat-linux-amd64.gz (НЕ тарболл),
 # поэтому роль binaries не подходит (понимает только tar/tarxz/zip/none).

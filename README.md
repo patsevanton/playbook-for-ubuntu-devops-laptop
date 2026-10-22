@@ -71,27 +71,32 @@ ansible-lint                                   # проверка стиля (pr
 │   └── all.yml                 # общие переменные проекта
 ├── roles/
 │   ├── base/                   # проверки, каталоги, базовые пакеты (в т.ч. pipx),
-│   │                           #   yq, ansible-lint, molecule
+│   │                           #   yq, eget, dra, ansible-lint, molecule
 │   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan,
-│   │                           #   lazygit, wt (worktrunk), changie
+│   │                           #   lazygit, wt (worktrunk), changie, ghgrab,
+│   │                           #   gitlabform (pipx)
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2,
-│   │                           #   dive, lazydocker, ctop, oras, dry, decompose
+│   │                           #   dive, lazydocker, ctop, oras, dry, decompose,
+│   │                           #   copa (copacetic)
 │   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
 │   │                           #   stern, flate, flux-tools, cty, diffyml,
 │   │                           #   kubectl-k8i, kubespy, kubecolor, kube-capacity,
 │   │                           #   ktop, kubefetch, krew, view-secret, df-pv,
 │   │                           #   browse-pvc, pluto, pv-migrate, marvin,
 │   │                           #   kftui, ct (chart-testing), ytt, kbld,
-│   │                           #   chartsnap, kubewall
+│   │                           #   chartsnap, kubewall, kubevpn, netfetch,
+│   │                           #   headlamp и radar (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
-│   │                           #   s5cmd, tpm, tfvar, config-lint, tfenv, tgenv
+│   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
+│   │                           #   tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype, osquery, mfa,
-│   │                           #   medusa
+│   │                           #   medusa, entropy (go install)
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
 │   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
 │   │                           #   jnv, octosql, lazyjournal, gonzo, otel-tui, jl,
+│   │                           #   logdy, spacer,
 │   │                           #   lf, gomplate, yamlfmt, gum, fastfetch, procs,
 │   │                           #   cheat, tldr,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
@@ -100,6 +105,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
 │   │                           #   tcping, doggo, gotty, sshx, txeh, assh, asn,
 │   │                           #   rkn-block-checker (pipx), ssh-audit и httptap (pipx),
+│   │                           #   lexicon (pipx),
 │   │                           #   ecapture, termshark, websocat, sniffnet
 │   ├── ebpf/                   # eBPF-наблюдаемость: pwru, bpftop, oryx,
 │   │                           #   pktstat-bpf, tracee
@@ -109,8 +115,11 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
 │   ├── nora/                   # NORA artifact registry + mkcert TLS + CA клиентам,
 │   │                           #   Caddy как TLS-терминатор
-│   ├── monitoring/             # vmalert-tool (проверка алерт-правил), sloth (SLO)
-│   └── binaries/               # общий движок установки бинарников (вызывается ролями)
+│   ├── monitoring/             # vmalert-tool (проверка алерт-правил), sloth (SLO),
+│   │                           #   cloudprober, gatus (go install), krr
+│   ├── binaries/               # общий движок установки бинарников (вызывается ролями)
+│   ├── pipx_apps/              # общий движок установки приложений из PyPI (pipx)
+│   └── go_apps/                # общий движок сборки Go-приложений (go install)
 ├── .ansible-lint
 └── README.md
 ```
@@ -118,7 +127,9 @@ ansible-lint                                   # проверка стиля (pr
 Роль `binaries` не тянет инструменты сама: её вызывают роли `base`, `git`,
 `kubernetes`, `iac`, `postgres`, `secrets`, `shell`, `network`, `opencode`,
 передавая список того, что нужно поставить. Каждая роль хранит свой список в
-`roles/<роль>/defaults/main.yml`.
+`roles/<роль>/defaults/main.yml`. Так же устроены `pipx_apps` (приложения из
+PyPI через pipx: `git`, `iac`) и `go_apps` (сборка из исходников:
+`secrets`, `monitoring`).
 
 Имя `playbook.yml` выбрано осознанно; в чужих проектах точку входа часто называют
 `site.yml` — переименование ничего не ломает.
@@ -130,17 +141,20 @@ ansible-lint                                   # проверка стиля (pr
 1. Проверяет, что ОС — Ubuntu, архитектура — x86_64, и создаёт служебные каталоги.
 2. Ставит пакеты из репозитория Ubuntu (актуальные версии, без пинов),
    включая `pipx`, `ansible-lint` (проверка стиля плейбуков), `molecule`
-   (тестирование Ansible-ролей в контейнерах, ставится через pipx) и `eget`
-   (установщик бинарников из GitHub-релизов).
+   (тестирование Ansible-ролей в контейнерах, ставится через pipx), `eget`
+   (установщик бинарников из GitHub-релизов) и `dra` (скачивание отдельных
+   ассетов GitHub-релиза).
 3. Ставит клиенты GitHub и GitLab: `gh`, `glab`, `gitlabcloner`, а также `glci`
    (локальный запуск GitLab CI), `pre-commit`, `reposcan`, `lazygit`
-   (TUI для git), `wt` (worktrunk — параллельные ветки через git worktree)
-   и `changie` (фрагменты changelog и подготовка релизов).
+   (TUI для git), `wt` (worktrunk — параллельные ветки через git worktree),
+   `changie` (фрагменты changelog и подготовка релизов), `ghgrab` (TUI-браузер
+   файлов GitHub/GitLab/Gitea) и `gitlabform` (GitLab как код, через pipx).
 4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2,
    а также `dive` (анализ слоёв образа), `lazydocker` (TUI-менеджер контейнеров),
     `ctop` (`top` для метрик контейнеров), `oras` (клиент OCI-реестров),
-    `dry` (терминальный менеджер Docker) и `decompose` (карта образов, сетей
-    и томов существующего docker-окружения).
+    `dry` (терминальный менеджер Docker), `decompose` (карта образов, сетей
+    и томов существующего docker-окружения) и `copa` (copacetic — патчинг
+    CVE прямо в образах по отчёту grype/trivy).
 5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
    stern, flate, flux-tools (офлайн-рендер и дифф Flux GitOps), cty (sample-YAML
    из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод),
@@ -153,19 +167,23 @@ ansible-lint                                   # проверка стиля (pr
    CEL-выражениями), kftui (TUI-менеджер port-forward), ct (линтинг и
    тестирование Helm-чартов), ytt (структурный шаблонизатор YAML), kbld
    (фиксация образов в манифестах), chartsnap (snapshot-тесты Helm-чартов),
-   kubewall (дашборд на несколько кластеров) и headlamp (web/desktop UI
-   Kubernetes).
+   kubewall (дашборд на несколько кластеров), kubevpn (VPN в кластер для
+   локальной разработки), netfetch (поиск ворклоадов без NetworkPolicy),
+   headlamp (web/desktop UI Kubernetes) и radar (UI Kubernetes со встроенным
+   MCP-сервером для AI-агентов, .deb).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), s5cmd (быстрый параллельный клиент S3),
    tpm (менеджер провайдеров Terraform/OpenTofu), tfvar (генерация
    `variables.tf`), config-lint (валидация HCL/JSON/YAML по правилам),
+   tftui (TUI для работы с Terraform-стейтом, через pipx),
    плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
 9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git), grype
    (сканер уязвимостей образов и ФС), osquery (SQL-подобная инструментация ОС),
-   mfa (терминальный менеджер 2FA/TOTP) и medusa (импорт/экспорт секретов
-   Vault).
+   mfa (терминальный менеджер 2FA/TOTP), medusa (импорт/экспорт секретов
+   Vault) и entropy (поиск строк с высокой энтропией — ключей и токенов —
+   по признаку случайности, а не по шаблону; `go install`).
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
     M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
@@ -179,6 +197,8 @@ ansible-lint                                   # проверка стиля (pr
     lazyjournal (TUI для journald, auditd, Docker и файлов), gonzo
     (TUI-анализ логов с графиками по столбцам), otel-tui (просмотр
     OpenTelemetry-трейсов/логов/метрик), jl (раскраска JSON-логов),
+    logdy (просмотр логов в браузере в реальном времени), spacer
+    (разделители с таймингом между шагами пайплайна),
     mcfly (умная история команд по Ctrl-R), lf (терминальный файловый
     менеджер), gomplate (шаблонизатор конфигов), yamlfmt (форматтер YAML),
     gum (примитивы для «красивых» shell-скриптов), fastfetch (информация о
@@ -202,7 +222,8 @@ ansible-lint                                   # проверка стиля (pr
     `rkn-block-checker` (через pipx), `kyanos` (eBPF-анализ сетевых запросов),
     `showcert` (разбор X.509-сертификатов, через pipx), `ssh-audit`
     (аудит конфигурации SSH-серверов и клиентов, через pipx) и `httptap`
-    (разбор HTTP-запроса по слоям: DNS, connect, TLS, TTFB, через pipx).
+    (разбор HTTP-запроса по слоям: DNS, connect, TLS, TTFB, через pipx),
+    `lexicon` (управление DNS-записями у разных провайдеров, через pipx).
 14. Ставит eBPF-наблюдаемость: `pwru` (eBPF-отладчик сетевого стека), `bpftop`
     (обзор запущенных eBPF-программ), `oryx` (TUI-сниффер трафика), `pktstat-bpf`
     (монитор трафика по процессам) и `tracee` (runtime-security и форензика).
@@ -214,8 +235,10 @@ ansible-lint                                   # проверка стиля (pr
     mkcert, автодоверие CA у клиентов (системный store, Docker, npm, pip, Java)
     и Caddy как TLS-терминатор.
 19. Ставит `vmalert-tool` (офлайн-проверка и unit-тесты алерт-правил
-    Prometheus-совместимых систем) и `sloth` (генерация SLO/алертов из
-    описания) в роли `monitoring`, а также `reviewdog`
+    Prometheus-совместимых систем), `sloth` (генерация SLO/алертов из
+    описания), `cloudprober` (активные пробы), `krr` (рекомендации
+    requests/limits по фактическому потреблению) и `gatus` (health-dashboard
+    и status page из YAML) в роли `monitoring`, а также `reviewdog`
     (автоматическое code review) в роли `git` и `grex` (генерация regex из
     примеров) в роли `shell`.
 20. В конце проверяет установку и печатает версии всех утилит.
@@ -237,8 +260,8 @@ ansible-lint                                   # проверка стиля (pr
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
 | nora | mkcert, libnss3-tools, caddy, apache2-utils | mkcert (локальный CA), Caddy (TLS-терминатор), htpasswd (авторизация) |
 
-Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`) и
-`HushMic` (роль `audio`).
+Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`),
+`HushMic` (роль `audio`), `headlamp` и `radar` (роль `kubernetes`).
 
 ### Скачиваемые бинарники в `/usr/local/bin`
 
@@ -361,15 +384,28 @@ ansible-lint                                   # проверка стиля (pr
 | decompose | github.com/s0rg/decompose |
 | medusa | github.com/jonasvinther/medusa |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
+| dra | github.com/devmatteini/dra |
+| ghgrab | github.com/abhixdd/ghgrab |
+| kubevpn | github.com/kubenetworks/kubevpn |
+| netfetch | github.com/deggja/netfetch |
+| copa | github.com/project-copacetic/copacetic |
+| logdy | github.com/logdyhq/logdy-core |
+| spacer | github.com/samwho/spacer |
+| cloudprober | github.com/cloudprober/cloudprober |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`) и
 коллекциями `community.docker`/`ansible.posix`, `rkn-block-checker`, `showcert`,
-`ssh-audit` и `httptap` — из PyPI через pipx в `~/.local/bin` (роль `network`),
+`ssh-audit`, `httptap` и `lexicon` — из PyPI через pipx в `~/.local/bin` (роль
+`network`), `gitlabform` и `tftui` — из PyPI через pipx (общая роль
+`pipx_apps`, вызывается из `git` и `iac`), `gatus` и `entropy` — сборкой из
+исходников через `go install` (общая роль `go_apps`, вызывается из `monitoring`
+и `secrets`), `krr` — распаковкой PyInstaller-сборки в `/opt/krr` с обёрткой в
+`/usr/local/bin` (роль `monitoring`),
 `sshx` — из тарболла S3 (без релиз-ассетов GitHub, роль `network`),
 `asn` — bash-скриптом из ветки master (без релизных артефактов, роль
-`network`), `headlamp` — из
-`.deb`-пакета GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
+`network`), `headlamp` и `radar` — из
+`.deb`-пакетов GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
 `sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из
 gzip-сжатого одиночного бинарника релиза (роль `shell`), `osquery` — из

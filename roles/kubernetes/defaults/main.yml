@@ -233,6 +233,37 @@ kubernetes_binaries:
     url: "https://github.com/kubewall/kubewall/releases/download/{tag}/kubewall_Linux_x86_64.tar.gz"
     archive: tar
     member: kubewall
+  # kubevpn — VPN в Kubernetes: поднимает локальный tun-интерфейс, через который
+  # поды кластера (и сервисы, и headless-сервисы) видны как соседи в локальной
+  # сети — без port-forward на каждый порт. Для локальной разработки против
+  # удалённого кластера. Релиз — zip kubevpn_v{version}_linux_amd64.zip,
+  # бинарник внутри bin/kubevpn.
+  - name: kubevpn
+    source: github
+    repo: kubenetworks/kubevpn
+    url: "https://github.com/kubenetworks/kubevpn/releases/download/{tag}/kubevpn_v{version}_linux_amd64.zip"
+    archive: zip
+    member: bin/kubevpn
+  # netfetch — сканирует кластер и находит ворклоады, не покрытые NetworkPolicy
+  # (открытые настежь поды и сервисы), с разбивкой по namespace. Релиз —
+  # netfetch_{version}_linux_amd64.tar.gz, бинарник лежит в каталоге
+  # netfetch_{version}_linux_amd64/.
+  - name: netfetch
+    source: github
+    repo: deggja/netfetch
+    url: "https://github.com/deggja/netfetch/releases/download/{tag}/netfetch_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: netfetch_{version}_linux_amd64/netfetch
+
+# --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
+# Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и
+# встроенный MCP-сервер — тем же интерфейсом может пользоваться AI-агент
+# (opencode, Claude и др.). Дополняет headlamp, но с уклоном в MCP.
+# Имя артефакта radar-desktop_v{version}_linux_amd64.deb (версия без v).
+# Версия берётся из редиректа releases/latest (см. tasks/radar.yml).
+radar_install: true
+radar_repo: skyhook-io/radar
+radar_deb_dir: "{{ tmp_dir }}/radar"
 
 # --- Headlamp: web/desktop UI Kubernetes (.deb из GitHub-релиза) --------------
 # GUI-приложение ~123 МБ (Electron): ставится официальным .deb, появляется в

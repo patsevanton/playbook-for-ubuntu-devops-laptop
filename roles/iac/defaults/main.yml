@@ -79,6 +79,14 @@ iac_binaries:
     archive: tar
     member: config-lint
 
+# Python-приложения IaC (нет релизных бинарников — PyPI/pipx).
+iac_pipx_apps:
+  # tftui (terraform-tui) — TUI для работы с Terraform-стейтом: дерево ресурсов,
+  # просмотр атрибутов, taint/untaint и удаление из стейта без ручного
+  # `terraform state` и разбора JSON. Команда — tftui.
+  - name: tftui
+    creates: tftui
+
 tfenv_repo: https://github.com/tfutils/tfenv.git
 tfenv_dir: "{{ home_dir }}/.tfenv"
 tgenv_repo: https://github.com/tgenv/tgenv.git

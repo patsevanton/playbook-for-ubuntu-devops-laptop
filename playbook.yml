@@ -185,13 +185,26 @@
         - "{{ bin_dir }}/tpm --version"
         - "{{ bin_dir }}/tfvar --version"
         - "{{ bin_dir }}/config-lint --version"
+        - "{{ pipx_bin_dir }}/tftui --version"
         - "{{ bin_dir }}/txeh version"
         - "{{ bin_dir }}/assh --version"
         - "{{ bin_dir }}/asn -h"
+        - "{{ pipx_bin_dir }}/lexicon --version"
         - "{{ bin_dir }}/decompose --version"
+        - "{{ bin_dir }}/copa --version"
         - "{{ bin_dir }}/medusa version"
+        - "{{ bin_dir }}/entropy --help"
         - "{{ bin_dir }}/sops --version"
         - "{{ bin_dir }}/grype version"
+        - "{{ bin_dir }}/kubevpn version"
+        - "{{ bin_dir }}/netfetch --help"
+        - "{{ bin_dir }}/logdy --version"
+        - "{{ bin_dir }}/spacer --version"
+        - "{{ bin_dir }}/ghgrab --version"
+        - "{{ pipx_bin_dir }}/gitlabform --version"
+        - "{{ bin_dir }}/cloudprober --version"
+        - "{{ bin_dir }}/krr --help"
+        - "{{ bin_dir }}/dra --version"
         - "ansible-lint --version"
         - "{{ pipx_bin_dir }}/molecule --version"
         - "mcommander --version"
@@ -202,7 +215,7 @@
       loop_control:
         label: "{{ item }}"
 
-    - name: Проверить наличие kubectx, gitlabcloner, rkn-check, showcert, headlamp и hushmic
+    - name: Проверить наличие kubectx, gitlabcloner, rkn-check, showcert, headlamp, gatus и hushmic
       ansible.builtin.stat:
         path: "{{ item }}"
       register: extra_binaries_check
@@ -213,6 +226,8 @@
         - "{{ pipx_bin_dir }}/rkn-check"
         - "{{ pipx_bin_dir }}/showcert"
         - /opt/Headlamp/headlamp
+        - /usr/bin/radar-desktop
+        - "{{ bin_dir }}/gatus"
         - /usr/bin/hushmic
       loop_control:
         label: "{{ item }}"

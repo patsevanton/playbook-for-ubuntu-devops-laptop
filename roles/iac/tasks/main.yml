@@ -9,6 +9,12 @@
   vars:
     binaries_to_install: "{{ iac_binaries }}"
 
+- name: Установить Python-приложения IaC (tftui)
+  ansible.builtin.include_role:
+    name: pipx_apps
+  vars:
+    pipx_apps: "{{ iac_pipx_apps }}"
+
 # tfenv/tgenv ставятся в домашний каталог пользователя, поэтому без become.
 # Идемпотентность по наличию файла: нет бинарника — клонируем репозиторий.
 - name: Проверить наличие tfenv
