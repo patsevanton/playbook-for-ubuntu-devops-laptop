@@ -13,6 +13,9 @@ shell_packages:
   - fontconfig
   # shellcheck — статический анализ shell-скриптов на ошибки и баги.
   - shellcheck
+  # duf — `df` «для людей»: таблица дисков и точек монтирования с занятым и
+  # свободным местом, цветной вывод, фильтры по типу ФС.
+  - duf
 
 shell_binaries:
   - name: starship
@@ -371,6 +374,25 @@ shell_binaries:
     url: "https://github.com/duckdb/duckdb/releases/download/{tag}/duckdb-cli-linux-amd64.tar.gz"
     archive: tar
     member: duckdb
+  # television (tv) — универсальный fuzzy-finder с каналами поиска: файлы,
+  # git-ветки/коммиты, переменные окружения, история shell и свои каналы.
+  # Дополняет fzf: тот универсальный примитив, tv — готовые сценарии поиска.
+  # Тег без префикса v (0.15.9); бинарник tv лежит в каталоге
+  # tv-{version}-x86_64-unknown-linux-gnu тарболла.
+  - name: tv
+    source: github
+    repo: alexpasmantier/television
+    url: "https://github.com/alexpasmantier/television/releases/download/{tag}/tv-{version}-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: tv-{version}-x86_64-unknown-linux-gnu/tv
+  # witr — трассировка «почему это запущено и кто это держит»: дерево
+  # процессов с причиной запуска, владелец порта, файла или сокета.
+  # Одиночный бинарник witr-linux-amd64 без версии в имени.
+  - name: witr
+    source: github
+    repo: pranshuparmar/witr
+    url: "https://github.com/pranshuparmar/witr/releases/download/{tag}/witr-linux-amd64"
+    archive: none
 
 # Python-приложения роли shell — ставятся через pipx в изолированное окружение.
 shell_pipx_apps:

@@ -109,6 +109,27 @@ iac_binaries:
     url: "https://github.com/cycloidio/inframap/releases/download/{tag}/inframap-linux-amd64.tar.gz"
     archive: tar
     member: inframap-linux-amd64
+  # terramate — оркестрация стэков IaC поверх Terraform/Terragrunt/OpenTofu:
+  # change detection (трогаем только изменившиеся стеки), генерация кода и
+  # GitOps-сценарии. Ставится бинарником terramate из тарболла
+  # terramate_{version}_linux_x86_64.tar.gz (рядом лежит terramate-ls — LSP,
+  # его не берём). Дополняет tfenv/tgenv: те про версии, terramate — про
+  # запуск набора стеков.
+  - name: terramate
+    source: github
+    repo: terramate-io/terramate
+    url: "https://github.com/terramate-io/terramate/releases/download/{tag}/terramate_{version}_linux_x86_64.tar.gz"
+    archive: tar
+    member: terramate
+  # infracost — оценка стоимости изменений по `terraform plan`: считает
+  # ежемесячную дельту по ценам провайдеров и умеет комментировать PR.
+  # В тарболле infracost-linux-amd64.tar.gz лежит одноимённый бинарник.
+  - name: infracost
+    source: github
+    repo: infracost/infracost
+    url: "https://github.com/infracost/infracost/releases/download/{tag}/infracost-linux-amd64.tar.gz"
+    archive: tar
+    member: infracost-linux-amd64
   # rover — интерактивный визуализатор Terraform: читает state или JSON плана
   # и поднимает веб-UI с картой ресурсов, связями и графом; `-standalone`
   # собирает статический HTML без сервера, `-genImage` — одну svg. В архиве

@@ -10,6 +10,11 @@
   vars:
     binaries_to_install: "{{ kubernetes_binaries }}"
 
+- name: Установить плагин helm-diff (helm diff)
+  ansible.builtin.include_tasks:
+    file: helm-diff.yml
+  when: helm_diff_install
+
 - name: Установить kube-hunter (поиск уязвимостей кластера, pipx)
   ansible.builtin.include_role:
     name: pipx_apps

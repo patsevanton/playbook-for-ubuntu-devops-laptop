@@ -117,22 +117,26 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   alterant, crashd, kubescout, k8s-insider,
 │   │                           #   patchloom, klustr (.deb), kubectl-fields,
 │   │                           #   kosko (npm), headlamp, radar,
+│   │                           #   k8sgpt, kubescape, popeye, vcluster,
+│   │                           #   skaffold, kubeshark, helm-diff (плагин helm),
 │   │                           #   monokle и rubick (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
 │   │                           #   tf-mirror, gitlab-terraform-manager,
 │   │                           #   inframap, rover (схемы из state/плана),
-│   │                           #   graphviz (apt),
+│   │                           #   terramate, infracost, graphviz (apt),
 │   │                           #   checkov (pipx), tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
-│   ├── secrets/                # direnv, vault, gitleaks, sops, grype, osquery, mfa,
+│   ├── secrets/                # direnv, vault, gitleaks, sops, grype, trivy,
+│   │                           #   age, lynis, osquery, mfa,
 │   │                           #   medusa, bank-vaults, horusec,
 │   │                           #   trufflehog, syft, cosign,
 │   │                           #   dependency-check (/opt + обёртка),
 │   │                           #   entropy (go install), ochrona (pipx)
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
 │   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
+│   │                           #   duf, tv (television), witr,
 │   │                           #   jnv, octosql, lazyjournal, gonzo, otel-tui, jl,
 │   │                           #   logdy, jlv, spacer,
 │   │                           #   lf, gomplate, yamlfmt, yamlfixer (pipx), gum,
@@ -284,6 +288,12 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    и patchloom (структурная правка конфигов для AI-агентов).
    Последняя волна: kubectl-fields (иерархия полей ресурса) и kosko
    (манифесты на TypeScript, через npm).
+   Добавлены k8sgpt (объяснение проблем кластера через LLM), kubescape
+   (профили безопасности NSA/CIS), popeye (мёртвые и неиспользуемые
+   ресурсы кластера), vcluster (виртуальные кластеры внутри namespace),
+   skaffold (цикл сборка→деплой→проверка с hot-reload), kubeshark (разбор
+   трафика подов на L7 через eBPF) и плагин `helm-diff` (`helm diff upgrade`
+   — что изменится до применения чарта; ставится отдельной задачей).
    Desktop-клиенты `monokle`, `rubick` и
    `klustr` ставятся `.deb`-пакетами. Для запуска `kptop` нужен
    `KPTOP_CONNECTION_METHOD`, для `kopilot` — `KOPILOT_TOKEN`; установка
@@ -297,13 +307,18 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    gitlab-terraform-manager (управление GitLab Terraform backend),
    checkov (SAST для IaC: мисконфиги безопасности Terraform, Kubernetes,
    Dockerfile, Helm, через pipx),
-   inframap и rover (схемы из tfstate/плана, см. ниже), graphviz (`dot`
+   inframap и rover (схемы из tfstate/плана, см. ниже), terramate
+   (оркестрация стэков IaC: change detection и генерация кода), infracost
+   (стоимость изменений по `terraform plan`), graphviz (`dot`
    для рендера графов),
    плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
 9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git), grype
-   (сканер уязвимостей образов и ФС), osquery (SQL-подобная инструментация ОС),
+   (сканер уязвимостей образов и ФС), trivy (уязвимости образов, IaC и
+   секреты в одном сканере), age (простое шифрование файлов — бэкенд sops),
+   lynis (аудит безопасности и харденинга Linux), osquery (SQL-подобная
+   инструментация ОС),
    mfa (терминальный менеджер 2FA/TOTP), medusa (импорт/экспорт секретов
    Vault), bank-vaults (init/unseal и конфигурация Vault через YAML),
    horusec (SAST одной командой), dependency-check (OWASP SCA: уязвимые
@@ -321,6 +336,9 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
     (анализатор диска), dust (наглядный du), dasel (запросы к
     JSON/YAML/TOML/XML/CSV), jc (конвертация вывода CLI в JSON), sd
     (интуитивная замена sed), shellcheck (статический анализ shell-скриптов),
+    duf (`df` «для людей» — таблица дисков и точек монтирования), tv
+    (television — fuzzy-finder с готовыми каналами поиска), witr (трассировка
+    «почему процесс запущен и кто занял порт/файл»),
     zellij (терминальный мультиплексор), navi (шпаргалки команд поверх fzf),
     fx (интерактивный просмотр JSON), jnv (интерактивный jq-фильтр JSON),
     octosql (SQL-запросы к JSON/CSV/Parquet), hl (просмотр JSON-логов),
@@ -402,8 +420,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | base | ca-certificates, curl, wget, git, jq, unzip, zip, tar, gzip, xz-utils, bash-completion, lsb-release, ansible-lint, pipx | база для работы, самого плейбука, проверки стиля и установки molecule |
 | runtimes | python3-venv, python3-pip, python3-dev, golang-go, nodejs, npm, openjdk-21-jdk | языковые рантаймы |
 | iac | graphviz | `dot`: рендер графов Terraform/Terragrunt (DOT → svg/png) |
-| secrets | direnv | окружение по каталогам |
-| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck | удобная работа в терминале, статический анализ shell-скриптов |
+| secrets | direnv, age, lynis | окружение по каталогам; шифрование файлов для sops; аудит безопасности и харденинга Linux |
+| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck, duf | удобная работа в терминале, статический анализ shell-скриптов, понятная таблица дисков |
 | network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
 | audio | pipewire, pipewire-bin, pipewire-pulse, wireplumber, hicolor-icon-theme | шумоподавление микрофона (HushMic) |
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
@@ -458,6 +476,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | driftctl | github.com/snyk/driftctl |
 | tgsieve | github.com/imcitius/tgsieve |
 | inframap | github.com/cycloidio/inframap (тег v0.8.0: в v0.8.1 нет бинарников) |
+| terramate | github.com/terramate-io/terramate |
+| infracost | github.com/infracost/infracost |
 | rover | github.com/im2nguyen/rover |
 | s5cmd | github.com/peak/s5cmd |
 | pgcenter | github.com/lesovsky/pgcenter |
@@ -503,6 +523,7 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | ctop | github.com/bcicen/ctop |
 | sops | github.com/getsops/sops |
 | grype | github.com/anchore/grype |
+| trivy | github.com/aquasecurity/trivy |
 | zellij | github.com/zellij-org/zellij |
 | navi | github.com/denisidoro/navi |
 | mcfly | github.com/cantino/mcfly |
@@ -572,6 +593,12 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | hadolint | github.com/hadolint/hadolint |
 | kubeconform | github.com/yannh/kubeconform |
 | kube-linter | github.com/stackrox/kube-linter |
+| k8sgpt | github.com/k8sgpt-ai/k8sgpt |
+| kubescape | github.com/kubescape/kubescape |
+| popeye | github.com/derailed/popeye |
+| vcluster | github.com/loft-sh/vcluster |
+| skaffold | github.com/GoogleContainerTools/skaffold |
+| kubeshark | github.com/kubeshark/kubeshark |
 | helmfile | github.com/helmfile/helmfile |
 | kubebox | registry.npmjs.org/kubebox |
 | mise | github.com/jdx/mise |
@@ -581,6 +608,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | btm (bottom) | github.com/ClementTsang/bottom |
 | hyperfine | github.com/sharkdp/hyperfine |
 | duckdb | github.com/duckdb/duckdb |
+| tv (television) | github.com/alexpasmantier/television |
+| witr | github.com/pranshuparmar/witr |
 | jj (jujutsu) | github.com/jj-vcs/jj |
 | k6 | github.com/grafana/k6 |
 | gping | github.com/orf/gping |
@@ -690,6 +719,8 @@ zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/b
 зафиксированным тегом `v0.1.0` (у апстрима нет релиза с меткой «Latest»,
 роль `docker`), `kubectl-ports` — бинарником из релиза с зафиксированным
 тегом `1.1.0` (в последнем релизе `1.1.1` ассетов нет, роль `kubernetes`),
+`helm-diff` — helm-плагином (`helm plugin install`, каталог
+`~/.local/share/helm/plugins`, роль `kubernetes`),
 `headlamp`, `radar`, `monokle`, `rubick` и `klustr` — из
 `.deb`-пакетов GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),

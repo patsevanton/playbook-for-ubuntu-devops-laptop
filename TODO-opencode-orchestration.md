@@ -88,6 +88,15 @@
 - [ ] **Worktree в opencode 2.** Как устроен `worktree` в конфиге и API:
       отдельная ли директория на сессию, как переключаться, как переносить
       изменения обратно. Есть ли авто-мерж (ожидание: нет).
+- [ ] **Worktrunk (`wt`) как готовая обвязка.** `wt` уже ставится ролью
+      `git` (см. `README.md`). По документации worktrunk v0.81.0 плагин
+      `wt config plugins opencode install` регистрирует в OpenCode 2
+      стратегию worktree: `worktree_create`/`worktree_remove` идут через
+      `wt switch --create`/`wt remove`, ветка называется по имени worktree,
+      путь берётся из `worktree-path`, а `worktree.directory` в
+      `opencode.json` игнорируется. Проверить на v2.1.2: совпадают ли пути,
+      что происходит с уже существующими worktree, удаляется ли занятый
+      worktree, появляются ли маркеры 🤖/💬 в `wt list`.
 - [ ] **`cwd` и `session move`.** Наследуют ли сабагенты рабочую директорию
       родителя? Что будет, если родитель переехал в другой worktree.
 - [ ] **Правила репозитория.** Действуют ли на сабагентов глобальный
@@ -281,6 +290,9 @@ pitwall даёт то же плюс worktree на задачу, PR/CI в стр�
 - [ ] `~/.config/opencode/agents/worker.md` — пишет только в своём worktree,
       без push/commit.
 - [ ] Решение: нативные сабагенты, внешний скрипт, плагин или pitwall.
+- [ ] Решение по worktree: нативный механизм OpenCode 2 или Worktrunk (`wt`)
+      как стратегия. Если Worktrunk — добавить установку плагина в роль
+      `opencode`/`ai_tools` и строку в `README.md`.
 - [ ] Решение по herdr (§5): оставить в плейбуке, убрать или оставить только
       как мультиплексор, не полагаясь на него в оркестрации.
 - [ ] Если конфиги едут в плейбук — задача в роль `opencode` и строка в
@@ -297,6 +309,8 @@ pitwall даёт то же плюс worktree на задачу, PR/CI в стр�
 - pitwall issue #127: <https://github.com/quanticstudios/pitwall/issues/127>
 - pitwall PR #128: <https://github.com/quanticstudios/pitwall/pull/128>
 - pitwall releases: <https://github.com/quanticstudios/pitwall/releases>
+- Worktrunk, интеграция с агентами (OpenCode 2): <https://worktrunk.dev/claude-code/>
+- Worktrunk, конфиг и `worktree-path`: <https://worktrunk.dev/config/>
 - herdr, агенты и состояния: <https://herdr.dev/docs/agents/>
 - herdr, автоматизация через CLI/socket: <https://herdr.dev/docs/agent-automation/>
 - herdr, интеграция с opencode: <https://herdr.dev/docs/integrations/>

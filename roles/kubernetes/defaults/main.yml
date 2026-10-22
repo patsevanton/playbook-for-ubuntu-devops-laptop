@@ -1007,6 +1007,57 @@ kubernetes_binaries:
     url: "https://github.com/patchloom/patchloom/releases/download/{tag}/patchloom-x86_64-unknown-linux-gnu.tar.xz"
     archive: tarxz
     member: patchloom-x86_64-unknown-linux-gnu/patchloom
+  # k8sgpt — сканирует кластер и объясняет проблемы человеческим языком через
+  # LLM: находит сломанные поды/сервисы и предлагает причину. Требует
+  # настроенного бэкенда (OpenAI/Azure/локальная модель) — установка от этого
+  # не зависит. Бинарник k8sgpt в корне тарболла k8sgpt_Linux_x86_64.tar.gz.
+  - name: k8sgpt
+    source: github
+    repo: k8sgpt-ai/k8sgpt
+    url: "https://github.com/k8sgpt-ai/k8sgpt/releases/download/{tag}/k8sgpt_Linux_x86_64.tar.gz"
+    archive: tar
+    member: k8sgpt
+  # kubescape — проверка кластера и манифестов по профилям NSA/CIS: риски
+  # безопасности, мисконфиги, соответствие политикам. Одиночный бинарник
+  # kubescape_{version}_linux_amd64 (версия в имени файла).
+  - name: kubescape
+    source: github
+    repo: kubescape/kubescape
+    url: "https://github.com/kubescape/kubescape/releases/download/{tag}/kubescape_{version}_linux_amd64"
+    archive: none
+  # popeye — «spinach» для кластера: находит мёртвые и неиспользуемые ресурсы,
+  # битые конфиги и ошибки в объектах. Бинарник popeye в корне тарболла
+  # popeye_linux_amd64.tar.gz.
+  - name: popeye
+    source: github
+    repo: derailed/popeye
+    url: "https://github.com/derailed/popeye/releases/download/{tag}/popeye_linux_amd64.tar.gz"
+    archive: tar
+    member: popeye
+  # vcluster — виртуальные Kubernetes-кластеры внутри namespace: изоляция для
+  # тестов без отдельного реального кластера. Одиночный бинарник
+  # vcluster-linux-amd64 без версии в имени (standalone-вариант не берём).
+  - name: vcluster
+    source: github
+    repo: loft-sh/vcluster
+    url: "https://github.com/loft-sh/vcluster/releases/download/{tag}/vcluster-linux-amd64"
+    archive: none
+  # skaffold — цикл «сборка → деплой → проверка» для Kubernetes с hot-reload:
+  # пересобирает образ и обновляет под при изменении файлов. Одиночный
+  # бинарник skaffold-linux-amd64 без версии в имени.
+  - name: skaffold
+    source: github
+    repo: GoogleContainerTools/skaffold
+    url: "https://github.com/GoogleContainerTools/skaffold/releases/download/{tag}/skaffold-linux-amd64"
+    archive: none
+  # kubeshark — Wireshark для Kubernetes: собирает и разбирает трафик подов на
+  # уровне L7 через eBPF. Одиночный бинарник kubeshark_linux_amd64; при запуске
+  # разворачивает агенты в кластере.
+  - name: kubeshark
+    source: github
+    repo: kubeshark/kubeshark
+    url: "https://github.com/kubeshark/kubeshark/releases/download/{tag}/kubeshark_linux_amd64"
+    archive: none
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и
@@ -1056,6 +1107,16 @@ kubectx_ref: master
 kubectx_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/kubectx"
 kubectx_completion_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/completion/kubectx.bash"
 kubectx_completion_path: /etc/bash_completion.d/kubectx
+
+# --- helm-diff: плагин `helm diff` (что изменится до применения) -------------
+# Ставится не ролью binaries: это helm-плагин, а не бинарник в bin_dir.
+# Версия берётся из редиректа releases/latest (без GitHub API), установка —
+# `helm plugin install ... --version`. Каталог плагинов по умолчанию —
+# ~/.local/share/helm/plugins; есть каталог плагина — уже установлен.
+helm_diff_install: true
+helm_diff_repo: databus23/helm-diff
+helm_diff_plugins_dir: "{{ home_dir }}/.local/share/helm/plugins"
+helm_diff_plugin_dir: "{{ helm_diff_plugins_dir }}/helm-diff"
 
 # --- kube-hunter: поиск уязвимостей кластера (pipx) --------------------------
 # Linux-бинарников в релизах нет — ставится из PyPI в изолированное окружение.
