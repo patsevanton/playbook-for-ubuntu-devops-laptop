@@ -41,6 +41,11 @@
     file: rubick.yml
   when: rubick_install
 
+- name: Установить Klustr (desktop-клиент Kubernetes)
+  ansible.builtin.include_tasks:
+    file: klustr.yml
+  when: klustr_install
+
 - name: Установить kubebox (терминальная и веб-консоль Kubernetes)
   ansible.builtin.include_tasks:
     file: kubebox.yml

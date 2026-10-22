@@ -284,8 +284,20 @@
         - "{{ bin_dir }}/kubectl-relay --version"
         - "{{ bin_dir }}/gwctl version"
         - "{{ bin_dir }}/kbu --version"
+        - "{{ bin_dir }}/kurt version"
+        - "{{ bin_dir }}/kubediff --version"
+        - "{{ bin_dir }}/kubetrim --help"
+        - "{{ bin_dir }}/kubevious --version"
+        - "{{ bin_dir }}/k8shark --help"
+        - "{{ bin_dir }}/node-gizmo --help"
+        - "{{ bin_dir }}/burn --help"
+        - "{{ bin_dir }}/tk --version"
+        - "{{ bin_dir }}/audit2rbac --help"
+        - "{{ bin_dir }}/pumba --version"
+        - "{{ bin_dir }}/kubectl-outagedeck --version"
         - "{{ bin_dir }}/cdk8s --version"
         - "{{ pipx_bin_dir }}/kube-hunter --version"
+        - "{{ pipx_bin_dir }}/knetvis --help"
         - "{{ pipx_bin_dir }}/checkov --version"
         - "{{ pipx_bin_dir }}/yamlfixer --version"
         - "{{ bin_dir }}/tf-mirror --version"
@@ -337,6 +349,9 @@
         - "{{ bin_dir }}/kubebox"
         - "{{ bin_dir }}/gitlab-terraform-manager"
         - /opt/dependency-check/bin/dependency-check.sh
+        - "{{ bin_dir }}/kopilot"
+        - "{{ pipx_bin_dir }}/kptop"
+        - /usr/bin/klustr
       loop_control:
         label: "{{ item }}"
 

@@ -106,8 +106,13 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   kubeprompt, kustomizer, buoy, k9sight,
 │   │                           #   hanoi-cli, kzero/kubectl-kzero, ktunnel,
 │   │                           #   kubectl-duplicate, kubectl-fd,
-│   │                           #   kubectl-relay, gwctl, kbu,
-│   │                           #   headlamp, radar, monokle и rubick (UI, .deb)
+│   │                           #   kubectl-relay, gwctl, kbu, kurt,
+│   │                           #   kubediff, kubetrim, kubevious, k8shark,
+│   │                           #   node-gizmo, burn, tk, audit2rbac,
+│   │                           #   knetvis (pipx), pumba, kopilot,
+│   │                           #   kubectl-outagedeck, kptop (pipx),
+│   │                           #   klustr (.deb), headlamp, radar, monokle
+│   │                           #   и rubick (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
 │   │                           #   tf-mirror, gitlab-terraform-manager,
@@ -251,8 +256,16 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    кластера), ktunnel (туннель в кластер без SSH), kubectl-duplicate
    (дублирование ресурсов), kubectl-fd (поиск ресурсов в духе find),
    kubectl-relay (замена port-forward), gwctl (разбор Gateway API) и kbu
-   (однопанельный TUI). Desktop-клиенты `monokle` и `rubick` ставятся
-   `.deb`-пакетами.
+   (однопанельный TUI). Новая волна kubetools: kurt (перезапуски подов),
+   kubediff (дифф исходников и кластера), kubetrim (чистка kubeconfig),
+   kubevious (проверка конфигов), k8shark (снимок и replay), node-gizmo
+   (ноды), burn (стоимость), tk (Grafana Tanka), audit2rbac (RBAC из
+   audit-логов), knetvis (NetworkPolicy, pipx), pumba (chaos), kopilot
+   (AI-ассистент) и kubectl-outagedeck (статус облаков). Ещё через pipx —
+   kptop (Prometheus-метрики). Desktop-клиенты `monokle`, `rubick` и
+   `klustr` ставятся `.deb`-пакетами. Для запуска `kptop` нужен
+   `KPTOP_CONNECTION_METHOD`, для `kopilot` — `KOPILOT_TOKEN`; установка
+   от этих переменных не зависит.
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), s5cmd (быстрый параллельный клиент S3),
    tpm (менеджер провайдеров Terraform/OpenTofu), tfvar (генерация
@@ -373,7 +386,7 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 
 Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`),
 `HushMic` (роль `audio`), `LACT` (роль `hardware`), `headlamp`, `radar`,
-`monokle` и `rubick` (роль `kubernetes`).
+`monokle`, `rubick` и `klustr` (роль `kubernetes`).
 
 ### Скачиваемые бинарники в `/usr/local/bin`
 
@@ -586,6 +599,18 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | kubectl-relay | github.com/knight42/krelay |
 | gwctl | github.com/kubernetes-sigs/gwctl |
 | kbu | github.com/vulcanshen/kbu |
+| kurt | github.com/soraro/kurt |
+| kubediff | github.com/Ramilito/kubediff |
+| kubetrim | github.com/alexellis/kubetrim |
+| kubevious | github.com/kubevious/cli |
+| k8shark | github.com/phenixblue/k8shark (бинарник `kshrk`) |
+| node-gizmo | github.com/Kavinraja-G/node-gizmo (бинарник `nodegizmo`) |
+| burn | github.com/tanrikuluozlem/burn |
+| tk (Grafana Tanka) | github.com/grafana/tanka |
+| audit2rbac | github.com/liggitt/audit2rbac |
+| pumba | github.com/alexei-led/pumba |
+| kopilot | github.com/knight42/kopilot |
+| kubectl-outagedeck | github.com/outagedeck/kubectl-outagedeck |
 | kubectl-sniff, static-tcpdump | github.com/eldadru/ksniff |
 | kdash | github.com/kdash-rs/kdash |
 | kubetail | github.com/kubetail-org/kubetail |
@@ -605,11 +630,11 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 `ssh-audit`, `httptap`, `lexicon` и `netutils-linux` — из PyPI через pipx в
 `~/.local/bin` (роль `network`), `yamlfixer` — из PyPI через pipx (роль
 `shell`), `ochrona` — из PyPI через pipx (роль `secrets`), `checkov` — из
-PyPI через pipx (роль `iac`), `kube-hunter` — из PyPI через pipx
-(роль `kubernetes`), `gitlabform` и
+PyPI через pipx (роль `iac`), `kube-hunter`, `knetvis` и `kptop` — из PyPI
+через pipx (роль `kubernetes`), `gitlabform` и
 `tftui` — из PyPI через pipx (общая роль
-`pipx_apps`, вызывается из `git`, `iac`, `secrets`, `shell` и `network`),
-`entropy` (роль `secrets`) и `reachable` (роль `network`) — сборкой из
+`pipx_apps`, вызывается из `git`, `iac`, `secrets`, `shell`, `network` и
+`kubernetes`), `entropy` (роль `secrets`) и `reachable` (роль `network`) — сборкой из
 исходников через `go install` (общая роль `go_apps`, вызывается из
 `secrets` и `network`), `krr` — распаковкой PyInstaller-сборки в `/opt/krr` с обёрткой в
 `/usr/local/bin` (роль `monitoring`), `dependency-check` — распаковкой
@@ -619,7 +644,7 @@ zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/b
 `docker-image-layer-explorer` — одиночным релизным python-скриптом с
 зафиксированным тегом `v0.1.0` (у апстрима нет релиза с меткой «Latest»,
 роль `docker`),
-`headlamp` и `radar` — из
+`headlamp`, `radar`, `monokle`, `rubick` и `klustr` — из
 `.deb`-пакетов GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
 `sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из

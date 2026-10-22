@@ -65,7 +65,13 @@ Helm-чарты (не на ноутбук) — в
 `kbom`, `kubectl-modify-secret`, `silver-surfer`, `kubeprompt`,
 `kustomizer`, `buoy`, `k9sight`, `hanoi-cli`, `kzero`, `kubectl-kzero`,
 `ktunnel`, `kubectl-duplicate`, `kubectl-fd`, `kubectl-relay`, `gwctl`,
-`kbu`, `monokle`, `rubick`.
+`kbu`, `kurt`, `kubediff`, `kubetrim`, `kubevious`, `k8shark`,
+`node-gizmo`, `burn`, `tk`, `audit2rbac`, `knetvis`, `pumba`, `kopilot`,
+`kubectl-outagedeck`, `kptop`, `monokle`, `rubick`, `klustr`.
+
+`HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
+26.04 системный Python 3.14 — см. [`not-install.md`](not-install.md) и
+[issue #2649](https://github.com/HolmesGPT/holmesgpt/issues/2649).
 
 `argocd`, `pulumi` и `kubebuilder` не ставятся: Argo CD не используется, IaC —
 на Terraform, Kubernetes-операторы не создаются

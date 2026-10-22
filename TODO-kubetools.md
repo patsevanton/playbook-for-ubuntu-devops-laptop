@@ -207,17 +207,26 @@
 - [x] **Ksniff** — плагин kubectl: сниффинг трафика подов через tcpdump/wireshark.
       *(`krew`)* — [eldadru/ksniff](https://github.com/eldadru/ksniff) —
       добавлен в роль `kubernetes` (ksniff.zip: kubectl-sniff и static-tcpdump).
-- [ ] **kptop** — мониторинг нод, подов, контейнеров и PVC через метрики
-      Prometheus в терминале. *(`release`)* — [eslam-gomaa/kptop](https://github.com/eslam-gomaa/kptop)
-- [ ] **kurt** — плагин kubectl: контекст «что перезапускается» в кластере.
-      *(`release`)* — [soraro/kurt](https://github.com/soraro/kurt)
-- [ ] **HolmesGPT** — on-call ассистент для алертов Prometheus (AI-расследование).
-      *(`pipx`)* — [robusta-dev/holmesgpt](https://github.com/robusta-dev/holmesgpt)
-- [ ] **kcmsu** — использование ConfigMaps и Secrets в кластере. *(`release` / `go`)* —
-      [cristian98149/kcmsu](https://github.com/cristian98149/kcmsu)
-- [ ] **kubectl-outagedeck** — плагин kubectl: статус облачных провайдеров по
+- [x] **kptop** — мониторинг нод, подов, контейнеров и PVC через метрики
+      Prometheus в терминале. *(`pipx`)* — [eslam-gomaa/kptop](https://github.com/eslam-gomaa/kptop) —
+      добавлен в роль `kubernetes` через pipx; standalone-бинарники запрошены
+      в [#85](https://github.com/eslam-gomaa/kptop/issues/85).
+- [x] **kurt** — плагин kubectl: контекст «что перезапускается» в кластере.
+      *(`release`)* — [soraro/kurt](https://github.com/soraro/kurt) —
+      добавлен в роль `kubernetes` (kurt_linux_amd64.tar.gz).
+- [x] **HolmesGPT** — on-call ассистент для алертов Prometheus (AI-расследование).
+      *(`pipx`)* — [robusta-dev/holmesgpt](https://github.com/robusta-dev/holmesgpt) —
+      не ставим: последний релиз `0.45.0` требует Python `<3.14`, а в Ubuntu
+      26.04 системный Python 3.14; issue
+      [#2649](https://github.com/HolmesGPT/holmesgpt/issues/2649).
+- [x] **kcmsu** — использование ConfigMaps и Secrets в кластере. *(`release` / `go`)* —
+      [cristian98149/kcmsu](https://github.com/cristian98149/kcmsu) —
+      не ставим: устанавливает компонент в кластер, а не локальную утилиту.
+- [x] **kubectl-outagedeck** — плагин kubectl: статус облачных провайдеров по
       аннотациям workload'ов. *(`krew` / `release`)* —
-      [outagedeck/kubectl-outagedeck](https://github.com/outagedeck/kubectl-outagedeck)
+      [outagedeck/kubectl-outagedeck](https://github.com/outagedeck/kubectl-outagedeck) —
+      добавлен в роль `kubernetes`
+      (kubectl-outagedeck_linux_amd64.tar.gz).
 
 ### Logging and Tracing
 
@@ -250,10 +259,13 @@
       [inspektor-gadget/inspektor-gadget](https://github.com/inspektor-gadget/inspektor-gadget)
 - [ ] **kuttl** — декларативное тестирование Kubernetes-операторов. *(`release`)* —
       [kudobuilder/kuttl](https://github.com/kudobuilder/kuttl)
-- [ ] **kubediff** — сравнение исходников и задеплоенного (что изменилось между
-      окружениями). *(`go`)* — [Ramilito/kubediff](https://github.com/Ramilito/kubediff)
-- [ ] **k8shark** — снимок состояния кластера в архив + replay через mock API
-      server. *(`release`)* — [phenixblue/k8shark](https://github.com/phenixblue/k8shark)
+- [x] **kubediff** — сравнение исходников и задеплоенного (что изменилось между
+      окружениями). *(`release`)* — [Ramilito/kubediff](https://github.com/Ramilito/kubediff) —
+      добавлен в роль `kubernetes` (kubediff_x86_64-unknown-linux-gnu.tar.gz).
+- [x] **k8shark** — снимок состояния кластера в архив + replay через mock API
+      server. *(`release`)* — [phenixblue/k8shark](https://github.com/phenixblue/k8shark) —
+      добавлен в роль `kubernetes` (бинарник `kshrk` из
+      k8shark_{version}_linux_amd64.tar.gz, на диск кладётся как `k8shark`).
 - [x] **groot** — read-only диагностика: логи подов, события и контекст API в один
       `.tar.gz` для RCA. *(`release`)* — [hrodrig/groot](https://github.com/hrodrig/groot) —
       добавлен в роль `kubernetes` (groot_v{version}_linux_amd64.tar.gz).
@@ -268,9 +280,9 @@
       [cloud66-oss/copper](https://github.com/cloud66-oss/copper)
 - [x] **ko** — сборка и деплой Go-приложений в Kubernetes. *(`go`)* —
       [google/ko](https://github.com/google/ko) — добавлен в роль `kubernetes`.
-- [ ] **Lens IDE** — мощный desktop-клиент для нескольких кластеров (сейчас
+- [x] **Lens IDE** — мощный desktop-клиент для нескольких кластеров (сейчас
       Mirror.xyz, есть Linux). *(`deb` / `AppImage`)* —
-      [k8slens.dev](https://k8slens.dev/)
+      [k8slens.dev](https://k8slens.dev/) — не ставим: платный продукт.
 - [ ] **Kosko** — организация k8s-манифестов на JavaScript. *(`npm`)* —
       [kosko.dev](https://kosko.dev/)
 - [ ] **KuberEz** — графическое моделирование k8s-манифестов. *(`release`)* —
@@ -305,8 +317,9 @@
 - [x] **KDash** — простой и быстрый дашборд Kubernetes на Rust. *(`cargo` / `release`)* —
       [kdash-rs/kdash](https://github.com/kdash-rs/kdash) —
       добавлен в роль `kubernetes` (kdash-linux.tar.gz).
-- [ ] **K8Studio** — кроссплатформенный IDE-клиент для кластеров Kubernetes.
-      *(`deb` / `AppImage`)* — [guiqui/k8Studio](https://github.com/guiqui/k8Studio)
+- [x] **K8Studio** — кроссплатформенный IDE-клиент для кластеров Kubernetes.
+      *(`deb` / `AppImage`)* — [guiqui/k8Studio](https://github.com/guiqui/k8Studio) —
+      не ставим: платный продукт.
 - [ ] **Radius** — портативная cloud-native платформа приложений. *(`script`)* —
       [radius-project/radius](https://github.com/radius-project/radius)
 - [ ] **k'exp** — визуальное понимание Kubernetes (учебный web-UI, локально).
@@ -320,8 +333,11 @@
       *(`release`)* — [FairwindsOps/reckoner](https://github.com/FairwindsOps/reckoner)
 - [ ] **Katenary** — конвертация docker-compose в настраиваемый Helm-чарт.
       *(`pipx`)* — [metal3d/katenary](https://github.com/metal3d/katenary)
-- [ ] **node-gizmo** — CLI-утилита по нодам Kubernetes. *(`release`)* —
-      [Kavinraja-G/node-gizmo](https://github.com/Kavinraja-G/node-gizmo)
+- [x] **node-gizmo** — CLI-утилита по нодам Kubernetes. *(`release`)* —
+      [Kavinraja-G/node-gizmo](https://github.com/Kavinraja-G/node-gizmo) —
+      добавлен в роль `kubernetes` (бинарник `nodegizmo` из
+      nodegizmo_v{version}_linux_amd64.tar.gz, на диск кладётся как
+      `node-gizmo`).
 - [ ] **kubectl-fields** — плагин kubectl: разбор иерархии ресурсов. *(`krew`)* —
       [rewanthtammana/kubectl-fields](https://github.com/rewanthtammana/kubectl-fields)
 - [ ] **scaf** — каркас нового проекта на Kubernetes. *(`pipx`)* —
@@ -334,10 +350,12 @@
       добавлен в роль `kubernetes` (бинарник kubectl-slice из релиза).
 - [ ] **KubeDiagrams** — генерация диаграмм архитектуры из манифестов, kustomize,
       Helm и состояния кластера. *(`pipx`)* — [philippemerle/KubeDiagrams](https://github.com/philippemerle/KubeDiagrams)
-- [ ] **Grafana-Tanka** — гибкая и переиспользуемая конфигурация Kubernetes
-      (Jsonnet). *(`go` / `release`)* — [grafana/tanka](https://github.com/grafana/tanka)
-- [ ] **Klustr** — нативный cross-platform desktop-клиент по kubeconfig (без
-      установки в кластер). *(`deb`)* — [SametKUM/klustr](https://github.com/SametKUM/klustr)
+- [x] **Grafana-Tanka** — гибкая и переиспользуемая конфигурация Kubernetes
+      (Jsonnet). *(`release`)* — [grafana/tanka](https://github.com/grafana/tanka) —
+      добавлен в роль `kubernetes` (бинарник `tk` из tk-linux-amd64).
+- [x] **Klustr** — нативный cross-platform desktop-клиент по kubeconfig (без
+      установки в кластер). *(`deb`)* — [SametKUM/klustr](https://github.com/SametKUM/klustr) —
+      добавлен в роль `kubernetes` (.deb из GitHub-релиза).
 
 ### Alternative Tools for Development
 
@@ -378,9 +396,10 @@
 
 ### Security Tools
 
-- [ ] **Kubevious CLI** — предотвращение cross-manifest ошибок и нарушений best
-      practices в YAML/Helm/кластере. *(`npm` / `script`)* —
-      [kubevious/cli](https://github.com/kubevious/cli)
+- [x] **Kubevious CLI** — предотвращение cross-manifest ошибок и нарушений best
+      practices в YAML/Helm/кластере. *(`release`)* —
+      [kubevious/cli](https://github.com/kubevious/cli) —
+      добавлен в роль `kubernetes` (бинарник kubevious-linux-x64).
 - [ ] **klum** — «Kubernetes Lazy User Manager». *(`go`)* —
       [ibuildthecloud/klum](https://github.com/ibuildthecloud/klum)
 - [x] **kube-bench** — проверки кластера по CIS Kubernetes Benchmark. *(`release`)* —
@@ -398,12 +417,14 @@
 - [x] **kubeaudit** — аудит кластера против типовых security-контролей.
       *(`release` / `go`)* — [Shopify/kubeaudit](https://github.com/Shopify/kubeaudit) —
       добавлен в роль `kubernetes` (kubeaudit_{version}_linux_amd64.tar.gz).
-- [ ] **audit2rbac** — автогенерация RBAC-политик из audit-логов. *(`go`)* —
-      [liggitt/audit2rbac](https://github.com/liggitt/audit2rbac)
+- [x] **audit2rbac** — автогенерация RBAC-политик из audit-логов. *(`release`)* —
+      [liggitt/audit2rbac](https://github.com/liggitt/audit2rbac) —
+      добавлен в роль `kubernetes` (audit2rbac-linux-amd64.tar.gz).
 - [ ] **Chartsec** — сканер безопасности Helm-чартов. *(`release`)* —
       [banzaicloud/chartsec](https://github.com/banzaicloud/chartsec)
-- [ ] **Datree** — CLI против k8s-мисконфигураций по best practices и политикам.
-      *(`script`)* — [datreeio/datree](https://github.com/datreeio/datree)
+- [x] **Datree** — CLI против k8s-мисконфигураций по best practices и политикам.
+      *(`script`)* — [datreeio/datree](https://github.com/datreeio/datree) —
+      не ставим: проект в архиве.
 - [ ] **Krane** — статический анализ и визуализация RBAC. *(`release`)* —
       [appvia/krane](https://github.com/appvia/krane)
 - [x] **kubesec** — анализ рисков безопасности k8s-ресурсов. *(`release`)* —
@@ -439,8 +460,11 @@
 
 - [ ] **k8s-tun** — доступ к pod IP / service IP кластера. *(`script`)* —
       [yzxiu/k8s-tun](https://github.com/yzxiu/k8s-tun)
-- [ ] **knetvis** — CLI: визуализация и тестирование NetworkPolicy. *(`release` / `go`)* —
-      [samuelarogbonlo/knetvis](https://github.com/samuelarogbonlo/knetvis)
+- [x] **knetvis** — CLI: визуализация и тестирование NetworkPolicy. *(`pipx`)* —
+      [samuelarogbonlo/knetvis](https://github.com/samuelarogbonlo/knetvis) —
+      добавлен в роль `kubernetes` через pipx: релизных ассетов нет,
+      PyPI-пакет `knetvis 0.1.1`; публикация `0.1.2` запрошена в
+      [#10](https://github.com/samuelarogbonlo/knetvis/issues/10).
 
 ### Testing Tools
 
@@ -468,8 +492,9 @@
 - [x] **kubectl-tree** — плагин kubectl: иерархия объектов по ownerReferences.
       *(`krew`)* — [ahmetb/kubectl-tree](https://github.com/ahmetb/kubectl-tree) —
       добавлен в роль `kubernetes`.
-- [ ] **Pumba** — chaos-тестирование, эмуляция сети и стресс для контейнеров.
-      *(`release`)* — [alexei-led/pumba](https://github.com/alexei-led/pumba)
+- [x] **Pumba** — chaos-тестирование, эмуляция сети и стресс для контейнеров.
+      *(`release`)* — [alexei-led/pumba](https://github.com/alexei-led/pumba) —
+      добавлен в роль `kubernetes` (одиночный pumba_linux_amd64).
 
 ### Kubernetes Tools for Specific Cloud
 
@@ -505,15 +530,17 @@
 - [x] **KBOM** — Kubernetes Bill of Materials. *(`release` / `go`)* —
       [rad-security/kbom](https://github.com/rad-security/kbom) —
       добавлен в роль `kubernetes` (kbom_{version}_linux_amd64.tar.gz).
-- [ ] **Burn** — CLI: анализ стоимости k8s по namespace, реальные цены облака,
-      AI-рекомендации. *(`release`)* — [tanrikuluozlem/burn](https://github.com/tanrikuluozlem/burn)
+- [x] **Burn** — CLI: анализ стоимости k8s по namespace, реальные цены облака,
+      AI-рекомендации. *(`release`)* — [tanrikuluozlem/burn](https://github.com/tanrikuluozlem/burn) —
+      добавлен в роль `kubernetes` (burn_{version}_linux_amd64.tar.gz).
 - [ ] **Patchloom** — agent-friendly поиск и правка структурированного кода/конфигов.
       *(`release`)* — [patchloom/patchloom](https://github.com/patchloom/patchloom)
 
 ### Artificial Intelligence
 
-- [ ] **kopilot** — AI-ассистент Kubernetes. *(`release` / `go`)* —
-      [knight42/kopilot](https://github.com/knight42/kopilot)
+- [x] **kopilot** — AI-ассистент Kubernetes. *(`release`)* —
+      [knight42/kopilot](https://github.com/knight42/kopilot) —
+      добавлен в роль `kubernetes` (kopilot_v{version}_linux_amd64.tar.gz).
 - [ ] **kopylot** — AI-ассистент для разработчиков Kubernetes. *(`pipx`)* —
       [avsthiago/kopylot](https://github.com/avsthiago/kopylot)
 - [x] **aiac** — генератор k8s-манифестов и пакетов через AI. *(`go` / `release`)* —
@@ -544,8 +571,9 @@
 - [x] **CRI-Purge** — очистка кэшированных CRI-образов Kubernetes.
       *(`script`)* — [reefland/cri-purge](https://github.com/reefland/cri-purge) —
       не нужен: bash-скрипт (см. `not-install.md`).
-- [ ] **Kubetrim** — CLI: автоочистка `KUBECONFIG`. *(`release` / `go`)* —
-      [alexellis/kubetrim](https://github.com/alexellis/kubetrim)
+- [x] **Kubetrim** — CLI: автоочистка `KUBECONFIG`. *(`release`)* —
+      [alexellis/kubetrim](https://github.com/alexellis/kubetrim) —
+      добавлен в роль `kubernetes` (kubetrim.tgz).
 
 ### Non-Categorize
 

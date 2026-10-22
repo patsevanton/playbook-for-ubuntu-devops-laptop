@@ -776,6 +776,101 @@ kubernetes_binaries:
     archive: tar
     member: kbu
 
+  # --- Волна kubetools 2026-10-22 (TODO-kubetools.md) -----------------------
+  # kurt — KUbernetes Restart Tracker: группирует перезапуски подов по
+  # namespace, нодам и меткам. Релиз — kurt_linux_amd64.tar.gz.
+  - name: kurt
+    source: github
+    repo: soraro/kurt
+    url: "https://github.com/soraro/kurt/releases/download/{tag}/kurt_linux_amd64.tar.gz"
+    archive: tar
+    member: kurt
+  # kubediff — структурное сравнение исходников и задеплоенного состояния.
+  # Релиз — kubediff_x86_64-unknown-linux-gnu.tar.gz.
+  - name: kubediff
+    source: github
+    repo: Ramilito/kubediff
+    url: "https://github.com/Ramilito/kubediff/releases/download/{tag}/kubediff_x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: kubediff
+  # kubetrim — удаляет из kubeconfig недоступные контексты и кластеры.
+  # Релиз — kubetrim.tgz (gzip-тарбол), внутри бинарник kubetrim.
+  - name: kubetrim
+    source: github
+    repo: alexellis/kubetrim
+    url: "https://github.com/alexellis/kubetrim/releases/download/{tag}/kubetrim.tgz"
+    archive: tar
+    member: kubetrim
+  # kubevious — CLI проверки Kubernetes-конфигов: cross-manifest ошибки и
+  # нарушения best practices. Одиночный бинарник kubevious-linux-x64.
+  - name: kubevious
+    source: github
+    repo: kubevious/cli
+    url: "https://github.com/kubevious/cli/releases/download/{tag}/kubevious-linux-x64"
+    archive: none
+  # k8shark — снимок состояния кластера в архив .kshrk и replay через mock
+  # API server. В архиве бинарник kshrk, на диск кладём как k8shark.
+  - name: k8shark
+    source: github
+    repo: phenixblue/k8shark
+    url: "https://github.com/phenixblue/k8shark/releases/download/{tag}/k8shark_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kshrk
+  # node-gizmo — CLI по нодам Kubernetes. В архиве бинарник nodegizmo,
+  # на диск кладём как node-gizmo.
+  - name: node-gizmo
+    source: github
+    repo: Kavinraja-G/node-gizmo
+    url: "https://github.com/Kavinraja-G/node-gizmo/releases/download/{tag}/nodegizmo_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: nodegizmo
+  # burn — анализ стоимости Kubernetes по namespace с реальными ценами
+  # облака. Релиз — burn_{version}_linux_amd64.tar.gz.
+  - name: burn
+    source: github
+    repo: tanrikuluozlem/burn
+    url: "https://github.com/tanrikuluozlem/burn/releases/download/{tag}/burn_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: burn
+  # tk (Grafana Tanka) — Jsonnet-конфигурация Kubernetes с переиспользованием.
+  # Одиночный бинарник tk-linux-amd64.
+  - name: tk
+    source: github
+    repo: grafana/tanka
+    url: "https://github.com/grafana/tanka/releases/download/{tag}/tk-linux-amd64"
+    archive: none
+  # audit2rbac — генерация RBAC-политик из Kubernetes audit-логов.
+  # Релиз — audit2rbac-linux-amd64.tar.gz.
+  - name: audit2rbac
+    source: github
+    repo: liggitt/audit2rbac
+    url: "https://github.com/liggitt/audit2rbac/releases/download/{tag}/audit2rbac-linux-amd64.tar.gz"
+    archive: tar
+    member: audit2rbac
+  # pumba — chaos-тестирование контейнеров: пауза, kill, остановка, сетевые
+  # задержки. Одиночный бинарник pumba_linux_amd64.
+  - name: pumba
+    source: github
+    repo: alexei-led/pumba
+    url: "https://github.com/alexei-led/pumba/releases/download/{tag}/pumba_linux_amd64"
+    archive: none
+  # kopilot — AI-ассистент Kubernetes: диагностика и объяснение ресурсов.
+  # Релиз — kopilot_v{version}_linux_amd64.tar.gz.
+  - name: kopilot
+    source: github
+    repo: knight42/kopilot
+    url: "https://github.com/knight42/kopilot/releases/download/{tag}/kopilot_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kopilot
+  # kubectl-outagedeck — плагин kubectl: статус облачных провайдеров по
+  # аннотациям workload'ов. Имя с префиксом даёт `kubectl outagedeck`.
+  - name: kubectl-outagedeck
+    source: github
+    repo: outagedeck/kubectl-outagedeck
+    url: "https://github.com/outagedeck/kubectl-outagedeck/releases/download/{tag}/kubectl-outagedeck_linux_amd64.tar.gz"
+    archive: tar
+    member: kubectl-outagedeck
+
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и
 # встроенный MCP-сервер — тем же интерфейсом может пользоваться AI-агент
@@ -811,6 +906,14 @@ rubick_install: true
 rubick_repo: Dudude-bit/rubick
 rubick_deb_dir: "{{ tmp_dir }}/rubick"
 
+# --- Klustr: desktop-клиент Kubernetes (.deb из GitHub-релиза) ---------------
+# Tauri-приложение: работает по kubeconfig, ничего не ставит в кластер.
+# Имя артефакта klustr_<ver>_amd64.deb (версия без v). Версия берётся из
+# редиректа releases/latest (см. tasks/klustr.yml).
+klustr_install: true
+klustr_repo: SametKUM/klustr
+klustr_deb_dir: "{{ tmp_dir }}/klustr"
+
 # kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
 kubectx_ref: master
 kubectx_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/kubectx"
@@ -823,6 +926,15 @@ kubectx_completion_path: /etc/bash_completion.d/kubectx
 kubernetes_pipx_apps:
   - name: kube-hunter
     creates: kube-hunter
+  # knetvis — визуализация и тестирование NetworkPolicy. Релизных ассетов
+  # нет, ставится из PyPI.
+  - name: knetvis
+    creates: knetvis
+  # kptop — TUI-мониторинг нод, подов и PVC через Prometheus. Standalone-
+  # бинарников в релизах нет, ставится из PyPI. На запуске нужен
+  # KPTOP_CONNECTION_METHOD (см. README проекта).
+  - name: kptop
+    creates: kptop
 
 # --- cdk8s: Kubernetes-манифесты кодом (npm) --------------------------------
 # CLI ставится глобально из npm-пакета cdk8s-cli, команда — cdk8s.
