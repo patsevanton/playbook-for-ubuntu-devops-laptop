@@ -91,6 +91,10 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   timoni, kubeview, kubehound, charts-syncer,
 │   │                           #   netobserv, capacitor, kubebox (npm),
 │   │                           #   kubeconform, kube-linter, helmfile, kind,
+│   │                           #   kops, devpod, kompose, ko,
+│   │                           #   kubie, kubefwd, kubectl-tree, conftest,
+│   │                           #   kube-bench, kube-hunter (pipx),
+│   │                           #   cdk8s (npm), kubernetes-mcp-server,
 │   │                           #   headlamp и radar (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
@@ -112,12 +116,11 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   fastfetch, procs, dusage,
 │   │                           #   mise, just, yazi, glow, btm (bottom),
 │   │                           #   hyperfine, duckdb,
-│   │                           #   shellclear, nxs-backup, cheat, tldr, 3mux (go install),
+│   │                           #   shellclear, nxs-backup, cheat, tldr,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
-│   │                           #   whois, mtr-tiny, ipcalc,
 │   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
-│   │                           #   tcping, doggo, gotty, sshx, txeh, assh, asn,
+│   │                           #   tcping, doggo, gotty, sshx, txeh, assh,
 │   │                           #   k6, gping,
 │   │                           #   rkn-block-checker (pipx), ssh-audit и httptap (pipx),
 │   │                           #   lexicon (pipx), gossl, crip (certificate-ripper),
@@ -133,8 +136,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── nora/                   # NORA artifact registry + mkcert TLS + CA клиентам,
 │   │                           #   Caddy как TLS-терминатор
 │   ├── monitoring/             # vmalert-tool (проверка алерт-правил), sloth (SLO),
-│   │                           #   cloudprober, canary-checker, coroot,
-│   │                           #   gatus (go install), krr
+│   │                           #   cloudprober, canary-checker, coroot, krr
 │   ├── binaries/               # общий движок установки бинарников (вызывается ролями)
 │   ├── pipx_apps/              # общий движок установки приложений из PyPI (pipx)
 │   └── go_apps/                # общий движок сборки Go-приложений (go install)
@@ -147,7 +149,7 @@ ansible-lint                                   # проверка стиля (pr
 передавая список того, что нужно поставить. Каждая роль хранит свой список в
 `roles/<роль>/defaults/main.yml`. Так же устроены `pipx_apps` (приложения из
 PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборка из
-исходников: `secrets`, `shell`, `network`, `monitoring`).
+исходников: `secrets`, `network`).
 
 Имя `playbook.yml` выбрано осознанно; в чужих проектах точку входа часто называют
 `site.yml` — переименование ничего не ломает.
@@ -206,7 +208,16 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    Docker), kubebox (терминальная и веб
    консоль Kubernetes, npm),
    headlamp (web/desktop UI Kubernetes) и radar (UI Kubernetes со встроенным
-   MCP-сервером для AI-агентов, .deb).
+   MCP-сервером для AI-агентов, .deb), а также kops (жизненный цикл
+   production-кластеров), devpod (dev-окружения по `devcontainer.json`),
+   kompose (docker-compose → Kubernetes),
+   ko (сборка Go-образов и деплой в кластер), kubie (изолированные
+   kubeconfig по shell/каталогу), kubefwd (массовый port-forward с записями
+   в `/etc/hosts`), kubectl-tree (дерево объектов по ownerReferences),
+   conftest (политики Rego/OPA для конфигов), kube-bench (CIS Kubernetes
+   Benchmark), kube-hunter (поиск уязвимостей кластера, через pipx),
+   cdk8s (манифесты кодом, через npm) и kubernetes-mcp-server (MCP-сервер
+   для AI-агентов).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), s5cmd (быстрый параллельный клиент S3),
    tpm (менеджер провайдеров Terraform/OpenTofu), tfvar (генерация
@@ -259,8 +270,7 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
     графиками), hyperfine (бенчмарк команд), duckdb (SQL по
     Parquet/CSV/JSON), shellclear (секреты и опасные
     команды в истории shell), nxs-backup (бэкапы по YAML-описанию),
-    cheat (собственные шпаргалки команд), tldr (краткие примеры команд) и
-    3mux (мультиплексор с тайлингом в стиле i3; `go install`).
+    cheat (собственные шпаргалки команд) и tldr (краткие примеры команд).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`).
 12. Ставит глобальные skills для opencode (CLI `skills`, каталог
     `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
@@ -271,8 +281,7 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
     из plain-text `.hurl`-файлов), `trippy` (TUI traceroute со статистикой),
     `tcping` (`ping` поверх TCP-портов), `gotty` (терминал как веб-приложение),
     `sshx` (совместный терминал в браузере), `txeh` (управление `/etc/hosts`),
-    `assh` (генерация SSH-конфигов, jump-хосты и прокси), `asn` (справка по
-    IP/домену: ASN, RPKI, BGP, WHOIS, трейс),
+    `assh` (генерация SSH-конфигов, jump-хосты и прокси),
     `ecapture` (eBPF-захват TLS/SSL plaintext), `termshark` (TUI к
     Wireshark/tshark), `websocat` (netcat для WebSockets) и `sniffnet`
     (графический TUI-мониторинг трафика, .deb), а также
@@ -304,9 +313,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
     Prometheus-совместимых систем), `sloth` (генерация SLO/алертов из
     описания), `cloudprober` (активные пробы), `canary-checker` (health-check
     платформа с проверками из YAML), `coroot` (observability/APM с root-cause
-    анализом), `krr` (рекомендации
-    requests/limits по фактическому потреблению) и `gatus` (health-dashboard
-    и status page из YAML) в роли `monitoring`, а также `reviewdog`
+    анализом) и `krr` (рекомендации
+    requests/limits по фактическому потреблению) в роли `monitoring`, а также `reviewdog`
     (автоматическое code review) в роли `git` и `grex` (генерация regex из
     примеров) в роли `shell`.
 20. В конце проверяет установку и печатает версии всех утилит.
@@ -323,7 +331,7 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | runtimes | python3-venv, python3-pip, python3-dev, golang-go, nodejs, npm, openjdk-21-jdk | языковые рантаймы |
 | secrets | direnv | окружение по каталогам |
 | shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck | удобная работа в терминале, статический анализ shell-скриптов |
-| network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet, whois, mtr-tiny, ipcalc | сеть и диагностика (whois/mtr/ipcalc — зависимости `asn`) |
+| network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
 | audio | pipewire, pipewire-bin, pipewire-pulse, wireplumber, hicolor-icon-theme | шумоподавление микрофона (HushMic) |
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
 | nora | mkcert, libnss3-tools, caddy, apache2-utils | mkcert (локальный CA), Caddy (TLS-терминатор), htpasswd (авторизация) |
@@ -505,6 +513,16 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | syft | github.com/anchore/syft |
 | cosign | github.com/sigstore/cosign |
 | kind | github.com/kubernetes-sigs/kind |
+| kops | github.com/kubernetes/kops |
+| devpod | github.com/loft-sh/devpod |
+| kompose | github.com/kubernetes/kompose |
+| ko | github.com/google/ko |
+| kubie | github.com/sbstp/kubie |
+| kubefwd | github.com/txn2/kubefwd |
+| kubectl-tree | github.com/ahmetb/kubectl-tree |
+| conftest | github.com/open-policy-agent/conftest |
+| kube-bench | github.com/aquasecurity/kube-bench |
+| kubernetes-mcp-server | github.com/containers/kubernetes-mcp-server |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`),
@@ -512,13 +530,13 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 `ssh-audit`, `httptap`, `lexicon` и `netutils-linux` — из PyPI через pipx в
 `~/.local/bin` (роль `network`), `yamlfixer` — из PyPI через pipx (роль
 `shell`), `ochrona` — из PyPI через pipx (роль `secrets`), `checkov` — из
-PyPI через pipx (роль `iac`), `gitlabform` и
+PyPI через pipx (роль `iac`), `kube-hunter` — из PyPI через pipx
+(роль `kubernetes`), `gitlabform` и
 `tftui` — из PyPI через pipx (общая роль
 `pipx_apps`, вызывается из `git`, `iac`, `secrets`, `shell` и `network`),
-`gatus`, `entropy`, `rbac-wizard`, `3mux` (роль `shell`) и `reachable` (роль
-`network`) — сборкой из
-исходников через `go install` (общая роль `go_apps`, вызывается из
-`secrets`, `shell`, `network` и `monitoring`), `krr` — распаковкой PyInstaller-сборки в `/opt/krr` с обёрткой в
+`entropy` и `rbac-wizard` (роль `secrets`) и `reachable` (роль `network`) —
+сборкой из исходников через `go install` (общая роль `go_apps`, вызывается из
+`secrets` и `network`), `krr` — распаковкой PyInstaller-сборки в `/opt/krr` с обёрткой в
 `/usr/local/bin` (роль `monitoring`), `dependency-check` — распаковкой
 zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/bin` (роль
 `secrets`; база NVD кэшируется в `~/.cache/dependency-check`),
@@ -526,14 +544,13 @@ zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/b
 `docker-image-layer-explorer` — одиночным релизным python-скриптом с
 зафиксированным тегом `v0.1.0` (у апстрима нет релиза с меткой «Latest»,
 роль `docker`),
-`asn` — bash-скриптом из ветки master (без релизных артефактов, роль
-`network`), `headlamp` и `radar` — из
+`headlamp` и `radar` — из
 `.deb`-пакетов GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
 `sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из
 gzip-сжатого одиночного бинарника релиза (роль `shell`), `osquery` — из
-`.deb`-пакета GitHub-релиза (роль `secrets`), `tldr` и `kubebox` — через
-`npm install -g` (роли `shell` и `kubernetes`), `tshark` — пакетом
+`.deb`-пакета GitHub-релиза (роль `secrets`), `tldr`, `kubebox` и `cdk8s` —
+через `npm install -g` (роли `shell` и `kubernetes`), `tshark` — пакетом
 Ubuntu как зависимость `termshark` (роль `network`), `tracee` — из тарболла
 GitHub-релиза вместе с сигнатурами безопасности в `/opt/tracee` + симлинк в
 `/usr/local/bin` (роль `ebpf`),

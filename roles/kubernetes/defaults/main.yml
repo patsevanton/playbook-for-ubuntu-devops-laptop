@@ -2,8 +2,9 @@
 # ============================================================================
 # Роль kubernetes: клиентские утилиты Kubernetes.
 # Версии определяются на момент запуска (source=text / source=github).
-# Новые kubectl-плагины не добавляем: ktop и kubecolor ставятся как
-# самостоятельные бинарники (kubectl-ktop из релиза не берём).
+# kubectl-плагины ставим только готовыми бинарниками (kubectl-k8i,
+# kubectl-tree), без установки через krew. ktop и kubecolor — самостоятельные
+# бинарники (kubectl-ktop из релиза не берём).
 # ============================================================================
 kubernetes_binaries:
   - name: kubectl
@@ -348,6 +349,81 @@ kubernetes_binaries:
     url: "https://github.com/kubernetes-sigs/kind/releases/download/{tag}/kind-linux-amd64"
     archive: none
 
+  # --- Из подборки collabnix/kubetools (TODO-kubetools.md) ------------------
+  # kops — установка, обновление и управление production-кластерами Kubernetes
+  # (AWS, GCE, OpenStack и др.). Одиночный бинарник kops-linux-amd64.
+  - name: kops
+    source: github
+    repo: kubernetes/kops
+    url: "https://github.com/kubernetes/kops/releases/download/{tag}/kops-linux-amd64"
+    archive: none
+  # devpod — client-only окружения разработки по devcontainer.json на любом
+  # бэкенде (локальный Docker, SSH, Kubernetes). Одиночный бинарник.
+  - name: devpod
+    source: github
+    repo: loft-sh/devpod
+    url: "https://github.com/loft-sh/devpod/releases/download/{tag}/devpod-linux-amd64"
+    archive: none
+  # kompose — конвертация docker-compose.yml в манифесты Kubernetes/OpenShift.
+  - name: kompose
+    source: github
+    repo: kubernetes/kompose
+    url: "https://github.com/kubernetes/kompose/releases/download/{tag}/kompose-linux-amd64"
+    archive: none
+  # ko — сборка Go-образов без Docker и деплой в Kubernetes с резолвом в digest.
+  - name: ko
+    source: github
+    repo: google/ko
+    url: "https://github.com/google/ko/releases/download/{tag}/ko_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: ko
+  # kubie — изолированные kubeconfig по shell/каталогу, рекурсивное чтение
+  # контекстов и запуск команд в нужном кластере. Одиночный бинарник.
+  - name: kubie
+    source: github
+    repo: sbstp/kubie
+    url: "https://github.com/sbstp/kubie/releases/download/{tag}/kubie-linux-amd64"
+    archive: none
+  # kubefwd — массовый port-forward сервисов namespace с выдачей IP и записей
+  # в /etc/hosts. В архиве бинарник kubefwd в корне.
+  - name: kubefwd
+    source: github
+    repo: txn2/kubefwd
+    url: "https://github.com/txn2/kubefwd/releases/download/{tag}/kubefwd_Linux_x86_64.tar.gz"
+    archive: tar
+    member: kubefwd
+  # kubectl-tree — плагин kubectl: дерево объектов по ownerReferences
+  # (Deployment → ReplicaSet → Pod). Имя с префиксом даёт `kubectl tree`.
+  # В имени артефакта версия с префиксом v (kubectl-tree_v0.6.0_...), поэтому
+  # в URL подставляем {tag}, а не {version}.
+  - name: kubectl-tree
+    source: github
+    repo: ahmetb/kubectl-tree
+    url: "https://github.com/ahmetb/kubectl-tree/releases/download/{tag}/kubectl-tree_{tag}_linux_amd64.tar.gz"
+    archive: tar
+    member: kubectl-tree
+  # conftest — тесты конфигов (YAML/JSON/HCL/Dockerfile) политиками Rego/OPA.
+  - name: conftest
+    source: github
+    repo: open-policy-agent/conftest
+    url: "https://github.com/open-policy-agent/conftest/releases/download/{tag}/conftest_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: conftest
+  # kube-bench — проверка кластера по CIS Kubernetes Benchmark.
+  - name: kube-bench
+    source: github
+    repo: aquasecurity/kube-bench
+    url: "https://github.com/aquasecurity/kube-bench/releases/download/{tag}/kube-bench_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kube-bench
+  # kubernetes-mcp-server — MCP-сервер для Kubernetes/OpenShift: AI-клиенты
+  # (opencode, Claude и др.) получают инструменты для работы с кластером.
+  - name: kubernetes-mcp-server
+    source: github
+    repo: containers/kubernetes-mcp-server
+    url: "https://github.com/containers/kubernetes-mcp-server/releases/download/{tag}/kubernetes-mcp-server-linux-amd64"
+    archive: none
+
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и
 # встроенный MCP-сервер — тем же интерфейсом может пользоваться AI-агент
@@ -371,6 +447,19 @@ kubectx_ref: master
 kubectx_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/kubectx"
 kubectx_completion_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/completion/kubectx.bash"
 kubectx_completion_path: /etc/bash_completion.d/kubectx
+
+# --- kube-hunter: поиск уязвимостей кластера (pipx) --------------------------
+# Linux-бинарников в релизах нет — ставится из PyPI в изолированное окружение.
+# Команда — kube-hunter.
+kubernetes_pipx_apps:
+  - name: kube-hunter
+    creates: kube-hunter
+
+# --- cdk8s: Kubernetes-манифесты кодом (npm) --------------------------------
+# CLI ставится глобально из npm-пакета cdk8s-cli, команда — cdk8s.
+cdk8s_install: true
+cdk8s_package: cdk8s-cli
+cdk8s_bin: "{{ bin_dir }}/cdk8s"
 
 # --- kubebox: терминальная и веб-консоль Kubernetes --------------------------
 # Терминальный dashboard (pod, logs, exec, YAML) с запуском по SSH без

@@ -68,15 +68,6 @@ monitoring_binaries:
     url: "https://github.com/coroot/coroot/releases/download/{tag}/coroot-amd64"
     archive: none
 
-# Go-приложения без релизных бинарников — собираются ролью go_apps.
-monitoring_go_apps:
-  # gatus — health-dashboard и status page из YAML: проверки HTTP/ICMP/TCP/DNS/SSH
-  # и TLS-сертификатов с условиями по коду, телу и времени ответа, алерты в
-  # Slack/Telegram/PagerDuty, веб-UI на :8080. Ставится `go install` (prebuilt
-  # бинарников апстрим не публикует — см. README, «Installing as binary»).
-  - name: gatus
-    package: github.com/TwiN/gatus/v5
-
 # --- krr: рекомендации requests/limits для Kubernetes -------------------------
 # krr (Robusta KRR) собирает фактическое потребление подов (Prometheus или
 # metrics-server) и предлагает requests/limits с запасом — дополняет

@@ -189,10 +189,10 @@ Linux-пользователя. Прежний общий список канд�
 `tfvar`, `prettyplan`, `terraform-tui`, `tpm`, `sops`, `grype`, `flawz`, `mfa`,
 `eget`, `binup`, `stew`, `dra`, `zellij`, `mcfly`, `navi`, `cheat`,
 `tldr`, `gum`, `shellcheck`, `hstr`, `worktrunk`, `spacer`, `shellclear`,
-`3mux`, `dusage`, `gdu`, `lf`, `fastfetch`, `procs`, `auto-cpufreq`,
+`dusage`, `gdu`, `lf`, `fastfetch`, `procs`, `auto-cpufreq`,
 `mcelog`, `wondershaper`, `sysinfo`, `lazygit`, `lumen`, `opencommit`,
 `gptcommit`, `CodeGPT`, `ghgrab`, `glaball`, `bandwhich`, `sniffnet`, `trippy`,
-`q`, `dog`, `tcping`, `termshark`, `kyanos`, `oryx`, `pktstat-bpf`, `asn`,
+`q`, `dog`, `tcping`, `termshark`, `kyanos`, `oryx`, `pktstat-bpf`,
 `certificate-ripper`, `showcert`, `gossl`, `ssh-audit`, `httptap`, `sshx`,
 `EternalTerminal`, `gotty`, `websocat`, `assh`.
 

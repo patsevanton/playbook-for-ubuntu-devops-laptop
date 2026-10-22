@@ -10,6 +10,17 @@
   vars:
     binaries_to_install: "{{ kubernetes_binaries }}"
 
+- name: Установить kube-hunter (поиск уязвимостей кластера, pipx)
+  ansible.builtin.include_role:
+    name: pipx_apps
+  vars:
+    pipx_apps: "{{ kubernetes_pipx_apps }}"
+
+- name: Установить cdk8s (манифесты Kubernetes кодом)
+  ansible.builtin.include_tasks:
+    file: cdk8s.yml
+  when: cdk8s_install
+
 - name: Установить Headlamp (web/desktop UI Kubernetes)
   ansible.builtin.include_tasks:
     file: headlamp.yml

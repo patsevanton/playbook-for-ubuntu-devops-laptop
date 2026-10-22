@@ -54,6 +54,11 @@
       [henrygd/beszel](https://github.com/henrygd/beszel)
 - [ ] **uptime-kuma** — проверки доступности и статус-страница. *(`сервис`)* —
       [louislam/uptime-kuma](https://github.com/louislam/uptime-kuma)
+- [ ] **gatus** — health-dashboard и status page из YAML: проверки
+      HTTP/ICMP/TCP/DNS/SSH и TLS-сертификатов, алерты, веб-UI. *(`сервис`)* —
+      [TwiN/gatus](https://github.com/TwiN/gatus)
+      — долгоживущий веб-сервис с портом и историей проверок; на ноутбуке
+      разовые проверки закрывают `xh`/`curl`, `tcping`, `doggo` и `cloudprober`.
 - [ ] **changedetection.io** — отслеживание изменений на страницах.
       *(`сервис`)* —
       [dgtlmoon/changedetection.io](https://github.com/dgtlmoon/changedetection.io)

@@ -47,8 +47,9 @@
 - [ ] **Monokle** — desktop-инструмент для авторства, анализа и деплоя
       Kubernetes-конфигов. *(`deb` / `AppImage`)* —
       [kubeshop/monokle](https://github.com/kubeshop/monokle)
-- [ ] **kops** — установка, апгрейд и управление production-кластерами K8s.
-      *(`release`)* — [kubernetes/kops](https://github.com/kubernetes/kops)
+- [x] **kops** — установка, апгрейд и управление production-кластерами K8s.
+      *(`release`)* — [kubernetes/kops](https://github.com/kubernetes/kops) —
+      добавлен в роль `kubernetes`.
 - [ ] **silver-surfer** — проверка совместимости `apiVersion` и путь миграции
       при апгрейде кластера. *(`release` / `go`)* —
       [devtron-labs/silver-surfer](https://github.com/devtron-labs/silver-surfer)
@@ -100,14 +101,16 @@
       *(`script`)* — [kubermatic/fubectl](https://github.com/kubermatic/fubectl)
 - [ ] **kube-ps1** — prompt с текущим контекстом/namespace Kubernetes.
       *(`script`)* — [jonmosco/kube-ps1](https://github.com/jonmosco/kube-ps1)
-- [ ] **Conftest** — тесты структурированных конфигов на языке Rego (OPA).
-      *(`deb` / `release`)* — [open-policy-agent/conftest](https://github.com/open-policy-agent/conftest)
+- [x] **Conftest** — тесты структурированных конфигов на языке Rego (OPA).
+      *(`deb` / `release`)* — [open-policy-agent/conftest](https://github.com/open-policy-agent/conftest) —
+      добавлен в роль `kubernetes`.
 - [ ] **Kube-prompt** — интерактивный kubectl-клиент с автодополнением.
       *(`release` / `go`)* — [c-bata/kube-prompt](https://github.com/c-bata/kube-prompt)
 - [ ] **Click** — интерактивный CLI-контроллер для Kubernetes. *(`pipx`)* —
       [databricks/click](https://github.com/databricks/click)
-- [ ] **Kubie** — более мощная альтернатива `kubectx`/`kubens` (изолированные
-      kubeconfig по shell). *(`cargo` / `release`)* — [sbstp/kubie](https://github.com/sbstp/kubie)
+- [x] **Kubie** — более мощная альтернатива `kubectx`/`kubens` (изолированные
+      kubeconfig по shell). *(`cargo` / `release`)* — [sbstp/kubie](https://github.com/sbstp/kubie) —
+      добавлен в роль `kubernetes`.
 - [ ] **Finch** — CLI-клиент контейнерной разработки (обёртка над Lima/ncrun).
       *(`deb`)* — [runfinch/finch](https://github.com/runfinch/finch)
 - [ ] **kor** — поиск неиспользуемых ресурсов Kubernetes. *(`release` / `go`)* —
@@ -126,8 +129,9 @@
       *(`script`)* — [ildar-shaimordanov/q-as-kubectl](https://github.com/ildar-shaimordanov/q-as-kubectl)
 - [ ] **kubectl-find** — UNIX-find-подобный плагин kubectl: поиск и действия над
       ресурсами. *(`krew`)* — [alikhil/kubectl-find](https://github.com/alikhil/kubectl-find)
-- [ ] **kubefwd** — массовый port-forward сервисов с уникальными IP и записями в
-      `/etc/hosts`. *(`release` / `go`)* — [txn2/kubefwd](https://github.com/txn2/kubefwd)
+- [x] **kubefwd** — массовый port-forward сервисов с уникальными IP и записями в
+      `/etc/hosts`. *(`release` / `go`)* — [txn2/kubefwd](https://github.com/txn2/kubefwd) —
+      добавлен в роль `kubernetes`.
 - [ ] **kubecm** — удобное управление `kubeconfig`. *(`release` / `go`)* —
       [sunny0826/kubecm](https://github.com/sunny0826/kubecm)
 - [ ] **krelay** — альтернатива `kubectl port-forward`: TCP/UDP до IP/хоста внутри
@@ -197,8 +201,8 @@
       *(`release`)* — [garden-io/garden](https://github.com/garden-io/garden)
 - [ ] **Copper** — валидатор конфигов Kubernetes. *(`release`)* —
       [cloud66-oss/copper](https://github.com/cloud66-oss/copper)
-- [ ] **ko** — сборка и деплой Go-приложений в Kubernetes. *(`go`)* —
-      [google/ko](https://github.com/google/ko)
+- [x] **ko** — сборка и деплой Go-приложений в Kubernetes. *(`go`)* —
+      [google/ko](https://github.com/google/ko) — добавлен в роль `kubernetes`.
 - [ ] **Lens IDE** — мощный desktop-клиент для нескольких кластеров (сейчас
       Mirror.xyz, есть Linux). *(`deb` / `AppImage`)* —
       [k8slens.dev](https://k8slens.dev/)
@@ -208,18 +212,21 @@
       [uengine-oss/kuber-ez](https://github.com/uengine-oss/kuber-ez)
 - [ ] **Kubes** — деплой-инструмент: сборка образа, компиляция YAML, apply.
       *(`gem`)* — [boltops-tools/kubes](https://github.com/boltops-tools/kubes)
-- [ ] **Kubebuilder** — SDK для построения Kubernetes API на CRD. *(`release`)* —
-      [kubernetes-sigs/kubebuilder](https://github.com/kubernetes-sigs/kubebuilder)
+- [x] **Kubebuilder** — SDK для построения Kubernetes API на CRD. *(`release`)* —
+      [kubernetes-sigs/kubebuilder](https://github.com/kubernetes-sigs/kubebuilder) —
+      не используется: Kubernetes-операторы не создаются, см. [`not-install.md`](not-install.md).
 - [ ] **Operator-sdk** — SDK для операторов Kubernetes. *(`release`)* —
       [operator-framework/operator-sdk](https://github.com/operator-framework/operator-sdk)
-- [ ] **cdk8s** — k8s-приложения и абстракции на языках программирования.
-      *(`npm`)* — [cdk8s-team/cdk8s](https://github.com/cdk8s-team/cdk8s)
+- [x] **cdk8s** — k8s-приложения и абстракции на языках программирования.
+      *(`npm`)* — [cdk8s-team/cdk8s](https://github.com/cdk8s-team/cdk8s) —
+      добавлен в роль `kubernetes` (npm-пакет `cdk8s-cli`).
 - [ ] **Arkade** — «магазин» готовых установок (в т.ч. k8s-утилит) одной командой.
       *(`script`)* — [alexellis/arkade](https://github.com/alexellis/arkade)
 - [ ] **k2tf** — конвертер Kubernetes YAML → Terraform HCL. *(`release`)* —
       [sl1pm4t/k2tf](https://github.com/sl1pm4t/k2tf)
-- [ ] **Kompose** — конвертация docker-compose в ресурсы Kubernetes. *(`release`)* —
-      [kubernetes/kompose](https://github.com/kubernetes/kompose)
+- [x] **Kompose** — конвертация docker-compose в ресурсы Kubernetes. *(`release`)* —
+      [kubernetes/kompose](https://github.com/kubernetes/kompose) —
+      добавлен в роль `kubernetes`.
 - [ ] **Gefyra** — быстрая локальная разработка приложений с Kubernetes.
       *(`script`)* — [gefyrahq/gefyra](https://github.com/gefyrahq/gefyra)
 - [ ] **odo** — CLI для быстрой итеративной разработки на k8s и Podman.
@@ -270,9 +277,10 @@
 
 - [ ] **werf** — GitOps-доставка приложений в k8s с интеграцией GitLab/CI.
       *(`deb` / `release`)* — [werf/werf](https://github.com/werf/werf)
-- [ ] **Argo CD CLI** (`argocd`) — CLI для declarative continuous deployment (сам
+- [x] **Argo CD CLI** (`argocd`) — CLI для declarative continuous deployment (сам
       сервер Argo CD отнесён к платформенным в [`TODO.md`](TODO.md); здесь именно
-      локальный CLI). *(`release`)* — [argoproj/argo-cd](https://github.com/argoproj/argo-cd)
+      локальный CLI). *(`release`)* — [argoproj/argo-cd](https://github.com/argoproj/argo-cd) —
+      не используется: Argo CD не применяется, см. [`not-install.md`](not-install.md).
 - [ ] **Jenkins X** (`jx`) — CI+CD для Kubernetes с preview-окружениями на PR.
       *(`release`)* — [jenkins-x/jx](https://github.com/jenkins-x/jx)
 - [ ] **Helmwave** — helm3-native деплой чартов. *(`release`)* —
@@ -297,10 +305,12 @@
       [kubevious/cli](https://github.com/kubevious/cli)
 - [ ] **klum** — «Kubernetes Lazy User Manager». *(`go`)* —
       [ibuildthecloud/klum](https://github.com/ibuildthecloud/klum)
-- [ ] **kube-bench** — проверки кластера по CIS Kubernetes Benchmark. *(`release`)* —
-      [aquasecurity/kube-bench](https://github.com/aquasecurity/kube-bench)
-- [ ] **kube-hunter** — пентест: поиск слабых мест кластера. *(`pipx`)* —
-      [aquasecurity/kube-hunter](https://github.com/aquasecurity/kube-hunter)
+- [x] **kube-bench** — проверки кластера по CIS Kubernetes Benchmark. *(`release`)* —
+      [aquasecurity/kube-bench](https://github.com/aquasecurity/kube-bench) —
+      добавлен в роль `kubernetes`.
+- [x] **kube-hunter** — пентест: поиск слабых мест кластера. *(`pipx`)* —
+      [aquasecurity/kube-hunter](https://github.com/aquasecurity/kube-hunter) —
+      добавлен в роль `kubernetes` (pipx).
 - [ ] **kubectl-who-can** — плагин kubectl: кто имеет RBAC-права на действия.
       *(`krew`)* — [aquasecurity/kubectl-who-can](https://github.com/aquasecurity/kubectl-who-can)
 - [ ] **rbac-lookup** — поиск ролей/clusterRole у пользователей, SA и групп.
@@ -363,8 +373,9 @@
 
 - [ ] **cri-tools** (`crictl`) — CLI и валидация для CRI Kubelet. *(`release`)* —
       [kubernetes-sigs/cri-tools](https://github.com/kubernetes-sigs/cri-tools)
-- [ ] **kubectl-tree** — плагин kubectl: иерархия объектов по ownerReferences.
-      *(`krew`)* — [ahmetb/kubectl-tree](https://github.com/ahmetb/kubectl-tree)
+- [x] **kubectl-tree** — плагин kubectl: иерархия объектов по ownerReferences.
+      *(`krew`)* — [ahmetb/kubectl-tree](https://github.com/ahmetb/kubectl-tree) —
+      добавлен в роль `kubernetes`.
 - [ ] **Pumba** — chaos-тестирование, эмуляция сети и стресс для контейнеров.
       *(`release`)* — [alexei-led/pumba](https://github.com/alexei-led/pumba)
 
@@ -386,8 +397,9 @@
 
 ### Multiple Tools Repo
 
-- [ ] **Pulumi** — IaC на любом языке и любом облаке. *(`script`)* —
-      [pulumi/pulumi](https://github.com/pulumi/pulumi)
+- [x] **Pulumi** — IaC на любом языке и любом облаке. *(`script`)* —
+      [pulumi/pulumi](https://github.com/pulumi/pulumi) —
+      не используется: стек IaC на Terraform, см. [`not-install.md`](not-install.md).
 - [ ] **Colima** — контейнерные рантаймы на macOS (и Linux) с минимальной
       настройкой. *(`release`)* — [abiosoft/colima](https://github.com/abiosoft/colima)
 - [ ] **korb** — перенос PVC между StorageClass и namespace. *(`release`)* —
@@ -414,8 +426,9 @@
       [tahtaciburak/mico](https://github.com/tahtaciburak/mico)
 - [ ] **kubectl-assistant** — генерация kubectl-команд через GPT3 API. *(`pipx`)* —
       [dkoshkin/kubectl-assistant](https://github.com/dkoshkin/kubectl-assistant)
-- [ ] **kubernetes-mcp-server** — MCP-сервер для Kubernetes/OpenShift.
-      *(`release`)* — [containers/kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server)
+- [x] **kubernetes-mcp-server** — MCP-сервер для Kubernetes/OpenShift.
+      *(`release`)* — [containers/kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) —
+      добавлен в роль `kubernetes`.
 - [ ] **kubectl-mcp-server** — MCP-сервер Kubernetes для AI-инструментов.
       *(`npm`)* — [rohitg00/kubectl-mcp-server](https://github.com/rohitg00/kubectl-mcp-server)
 - [ ] **k8s-mcp-server** — MCP-сервер: безопасный запуск kubectl/helm/istioctl/argocd.
@@ -423,9 +436,10 @@
 
 ### Clients
 
-- [ ] **DevPod** — client-only инструмент: воспроизводимые dev-окружения по
+- [x] **DevPod** — client-only инструмент: воспроизводимые dev-окружения по
       `devcontainer.json` на любом бэкенде. *(`release`)* —
-      [loft-sh/devpod](https://github.com/loft-sh/devpod)
+      [loft-sh/devpod](https://github.com/loft-sh/devpod) —
+      добавлен в роль `kubernetes`.
 
 ### Cleanup
 

@@ -53,7 +53,13 @@ Helm-чарты (не на ноутбук) — в
 `gitleaks`, `starship`, `bat`, `eza`, `zoxide`, `fzf`, `ripgrep`, `fd-find`,
 `direnv`, `uv`, `yq`, `nmap`, `tcpdump`, `httpie`, `opencode`,
 `herdr`, `rtk`, `mcommander`, `HushMic`, `LACT`, `rkn-block-checker`, `gai`, `dnsglobe`,
-`docker`, `guardrails-llm-filter`.
+`docker`, `guardrails-llm-filter`, `kops`, `devpod`, `kompose`,
+`ko`, `kubie`, `kubefwd`, `kubectl-tree`, `conftest`, `kube-bench`,
+`kube-hunter`, `cdk8s`, `kubernetes-mcp-server`.
+
+`argocd`, `pulumi` и `kubebuilder` не ставятся: Argo CD не используется, IaC —
+на Terraform, Kubernetes-операторы не создаются
+(см. [`not-install.md`](not-install.md)).
 
 `ansible-core` ставится один раз вручную при bootstrap (см. `README.md`).
 

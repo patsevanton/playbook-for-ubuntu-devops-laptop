@@ -191,7 +191,6 @@
         - "{{ pipx_bin_dir }}/tftui --version"
         - "{{ bin_dir }}/txeh version"
         - "{{ bin_dir }}/assh --version"
-        - "{{ bin_dir }}/asn -h"
         - "{{ pipx_bin_dir }}/lexicon --version"
         - "{{ bin_dir }}/decompose --version"
         - "{{ bin_dir }}/copa --version"
@@ -235,6 +234,17 @@
         - "{{ bin_dir }}/syft version"
         - "{{ bin_dir }}/cosign version"
         - "{{ bin_dir }}/kind --version"
+        - "{{ bin_dir }}/kops version"
+        - "{{ bin_dir }}/devpod version"
+        - "{{ bin_dir }}/kompose version"
+        - "{{ bin_dir }}/ko version"
+        - "{{ bin_dir }}/kubie --version"
+        - "{{ bin_dir }}/kubectl-tree --version"
+        - "{{ bin_dir }}/conftest --version"
+        - "{{ bin_dir }}/kube-bench version"
+        - "{{ bin_dir }}/kubernetes-mcp-server --version"
+        - "{{ bin_dir }}/cdk8s --version"
+        - "{{ pipx_bin_dir }}/kube-hunter --version"
         - "{{ pipx_bin_dir }}/checkov --version"
         - "{{ bin_dir }}/rbac-wizard version"
         - "{{ pipx_bin_dir }}/yamlfixer --version"
@@ -253,7 +263,6 @@
         - "{{ bin_dir }}/kubeconform -v"
         - "{{ bin_dir }}/kube-linter version"
         - "{{ bin_dir }}/helmfile --version"
-        - "{{ bin_dir }}/3mux --help"
         - "{{ bin_dir }}/reachable --help"
         - "{{ pipx_bin_dir }}/network-top --help"
         - "{{ pipx_bin_dir }}/ochrona --help"
@@ -274,12 +283,12 @@
       failed_when: not extra_binaries_check.stat.exists
       loop:
         - "{{ bin_dir }}/kubectx"
+        - "{{ bin_dir }}/kubefwd"
         - "{{ bin_dir }}/gitlabcloner"
         - "{{ pipx_bin_dir }}/rkn-check"
         - "{{ pipx_bin_dir }}/showcert"
         - /opt/Headlamp/headlamp
         - /usr/bin/radar-desktop
-        - "{{ bin_dir }}/gatus"
         - /usr/bin/hushmic
         - "{{ bin_dir }}/kubeview"
         - "{{ bin_dir }}/capacitor"

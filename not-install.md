@@ -11,6 +11,11 @@
 | pitwall | сетевой файрвол (GUI/TUI) | не работает ввод русских букв | [quanticstudios/pitwall#127](https://github.com/quanticstudios/pitwall/issues/127) |
 | victoria-metrics | single-node TSDB (локальный скрейп метрик + Web UI) | не нужна без приёмки/скрейпа метрик в локальную VM; от релизов VM оставлен только `vmalert-tool` | — |
 | auto-cpufreq | авто-оптимизация частоты CPU и энергопотребления | не нужен: хватает того, что в Ubuntu есть из коробки (`power-profiles-daemon` + `amd-pstate`/`intel_pstate`) | — |
+| argocd (Argo CD CLI) | CLI для GitOps-деплоя в Argo CD | Argo CD не используется: сервер не разворачивается, локальный CLI без него не нужен | — |
+| pulumi | IaC на языках программирования (альтернатива Terraform) | не используется: стек IaC на Terraform (`tfenv`/`tgenv`) | — |
+| 3mux | терминальный мультиплексор с тайлингом в стиле i3 | не нужен: используется стандартное окружение Ubuntu, а мультиплексор уже закрывает `zellij` | — |
+| asn | справка по IP/домену: ASN, RPKI, BGP, WHOIS, трейс | не нужен: распространяется только bash-скриптом, без релизных артефактов | — |
+| kubebuilder | SDK и скаффолдинг Kubernetes-операторов и CRD на Go | не используется: Kubernetes-операторы не создаются | — |
 
 ---
 
@@ -43,3 +48,15 @@ OSC-терминатором `\e\\` (одиночный `\` на конце), и
 
 См. отдельный файл [`TODO-pitwall.md`](TODO-pitwall.md):
 не работает ввод русских букв — [quanticstudios/pitwall#127](https://github.com/quanticstudios/pitwall/issues/127).
+
+## Argo CD, Pulumi и Kubebuilder — не используются
+
+Argo CD не применяется ни как сервер, ни как локальный CLI `argocd` —
+GitOps закрывают Flux (`flux`, `flux9s`, `flate`, `flux-tools`) и `helmfile`.
+
+Pulumi не ставится, потому что IaC-стек уже на Terraform: `tfenv`/`tgenv`,
+`tflint`, `terraform-docs`, `tftui` и остальные инструменты роли `iac`.
+
+Kubebuilder не ставится, потому что Kubernetes-операторы не создаются.
+Если понадобится писать оператор/CRD на Go — вернуть в
+`roles/kubernetes/defaults/main.yml` одной записью.

@@ -43,12 +43,6 @@
   vars:
     pipx_apps: "{{ shell_pipx_apps }}"
 
-- name: Установить Go-приложения для терминала (3mux)
-  ansible.builtin.include_role:
-    name: go_apps
-  vars:
-    go_apps: "{{ shell_go_apps }}"
-
 - name: Создать каталог ~/.config
   ansible.builtin.file:
     path: "{{ home_dir }}/.config"
