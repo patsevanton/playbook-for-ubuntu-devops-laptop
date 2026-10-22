@@ -12,6 +12,8 @@ eBPF-агенты, кэш образов и т.п. На ноутбуке они 
   linux-amd64 бинарника (вопрос релиза);
 - [`TODO-kubetools.md`](TODO-kubetools.md), раздел 2 — кластерные сервисы и
   операторы, которые живут как Deployment;
+- [`TODO-server-apps.md`](TODO-server-apps.md) — серверные приложения, сервисы
+  и Helm-чарты (не на ноутбук);
 - [`not-install.md`](not-install.md) — осознанный отказ из-за бага/issue.
 
 Здесь — именно нодовые агенты, независимо от того, публикует проект бинарник
@@ -132,9 +134,8 @@ Cilium, Longhorn, OpenEBS, MetalLB и т.п.) здесь не дублируют
 Эти утилиты тоже не ставятся на ноутбук, но живут как Deployment/Job в
 кластере, а не агентом на ноде, поэтому остаются в других трекерах:
 
-- **opencost**, **Kubecost** — стоимость ворклоадов; в
-  [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) (opencost) и
-  [`TODO-kubetools.md`](TODO-kubetools.md) (Kubecost).
+- **opencost**, **Kubecost** — стоимость ворклоадов; оба в
+  [`TODO-server-apps.md`](TODO-server-apps.md).
 - **kube-state-metrics** — метрики состояния кластера; в
   [`TODO-kubetools.md`](TODO-kubetools.md). **metrics-server** и
   **prometheus-adapter** — серверы метрик для API/HPA; в трекерах пока не
@@ -147,7 +148,9 @@ Cilium, Longhorn, OpenEBS, MetalLB и т.п.) здесь не дублируют
 
 Локальный CLI к кластерному OpenCost — **`kubectl-cost`**
 ([opencost/kubectl-cost](https://github.com/opencost/kubectl-cost)) — наоборот,
-уместен на ноутбуке как плагин kubectl; в трекерах пока не описан.
+уместен на ноутбуке как плагин kubectl; упомянут в
+[`TODO-server-apps.md`](TODO-server-apps.md) как локальная альтернатива
+серверу.
 
 ## 7. Что дальше
 
@@ -161,5 +164,7 @@ Cilium, Longhorn, OpenEBS, MetalLB и т.п.) здесь не дублируют
 
 Связанное: [`TODO.md`](TODO.md) — что ставится и что серверное;
 [`TODO-kubetools.md`](TODO-kubetools.md) — кластерные сервисы;
+[`TODO-server-apps.md`](TODO-server-apps.md) — серверные приложения и
+Helm-чарты;
 [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) — нет бинарника;
 [`not-install.md`](not-install.md) — отказы из-за багов.

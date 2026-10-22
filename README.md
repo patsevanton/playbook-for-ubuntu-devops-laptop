@@ -1212,7 +1212,10 @@ pitwall в плейбук не ставится. См. issue о невозмож
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
 Утилиты, которые работают агентом на нодах Kubernetes (DaemonSet/static Pod и
 не ставятся на ноутбук), собраны в
-[`TODO-node-tools.md`](TODO-node-tools.md). Из Ansible Galaxy плейбук не ставит
+[`TODO-node-tools.md`](TODO-node-tools.md). Серверные приложения, сервисы и
+Helm-чарты (grafana, prometheus, gitea, Jenkins и т.п.), которые плейбук не
+ставит, — в [`TODO-server-apps.md`](TODO-server-apps.md). Из Ansible Galaxy
+плейбук не ставит
 ничего — ни ролей, ни коллекций, ни готовых playbook'ов (почему и как поставить
 в конкретном проекте) — в
 [`TODO-ansible-galaxy-not-install.md`](TODO-ansible-galaxy-not-install.md).

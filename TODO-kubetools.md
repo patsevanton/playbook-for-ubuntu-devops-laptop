@@ -754,7 +754,6 @@
 
 **Cost Optimisation**
 
-- Kubecost — Cross-cloud cost allocation models for workloads running on Kubernetes. — [github.com/kubecost/cost-model](https://github.com/kubecost/cost-model)
 - PerfectScale — Reduce Kubernetes costs while improving performance and resilience with data-driven intelligence built for continuous optimization. — [https://www.perfectscale.io](https://www.perfectscale.io)
 - kube-green — kube-green is a simple k8s addon that automatically shuts down (some of) your resources when you don't need them. — [github.com/kube-green/kube-green](https://github.com/kube-green/kube-green)
 - StormForge — Autonomous Rightsizing for Kubernetes Workloads. — [https://stormforge.io](https://stormforge.io)
@@ -831,16 +830,17 @@
   `kubectl-browse-pvc`, `goldpinger`, `netfetch`, `kbld`, `kubestriker`,
   `KubeHound`, `kondense`, `radar`, `krew`, `opencost`. Из них `goldpinger`
   вынесен в [`TODO-node-tools.md`](TODO-node-tools.md) (агент на нодах),
-  `kondense` и `opencost` — в
-  [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) (нет готового
-  бинарника).
+  `kondense` — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)
+  (нет готового бинарника), `opencost` — в
+  [`TODO-server-apps.md`](TODO-server-apps.md) (серверный сервис).
 - **Уже есть в [`TODO-trend-github.md`](TODO-trend-github.md) — 23:**
   `k8sgpt`, `kubectl-ai`, `kind`, `vcluster`, `glasskube`, `kubeshark`, `tilt`,
   `skaffold`, `terrascan`, `trivy`, `kube-linter`, `kubescape`, `kube-score`,
   `popeye`, `kubent`, `mirrord`, `telepresence`, `terraform(er)`, `helmfile`,
   `devspace`, `k3d`, `k6`, `kubeval` (сам kubeval архивирован — актуален
   `kubeconform` из этого же файла).
-- **Уже отнесено к серверным/платформенным в [`TODO.md`](TODO.md) — 12:**
+- **Уже отнесено к серверным/платформенным в
+  [`TODO-server-apps.md`](TODO-server-apps.md) — 12:**
   `prometheus`, `grafana`, `cilium`, `argo-cd` (сам сервер; локальный CLI —
   в разделе 1 выше), `apisix`, `kong`, `kubesphere`, `meshery`, `kubewatch`,
   `kuberhealthy`, `pixie`, `odigos`.

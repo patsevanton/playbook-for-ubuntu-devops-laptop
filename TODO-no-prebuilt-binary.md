@@ -19,6 +19,10 @@
 Как читать: `- [ ]` — ждёт релизного бинарника; в заметке — что именно
 отсутствует.
 
+Серверные приложения и Helm-чарты (opencost, dagda, scantron, terrapod,
+k3s-ansible и т.п.) сюда не входят: они не устанавливаются на ноутбук по
+другой причине — см. [`TODO-server-apps.md`](TODO-server-apps.md).
+
 ---
 
 ## IaC и инфраструктура
@@ -29,16 +33,6 @@
       — пакета на PyPI нет: установка из клона (`pip install -r
       requirements.txt` с пинами ansible-lint 6.22.2 и typer 0.9.0), в релизе
       v0.0.1 ассетов нет. Пересмотреть, если появится пакет или бинарник.
-- [ ] **terrapod** — self-hosted замена Terraform Enterprise (если понадобится
-      свой backend/runner). *(`make`)* —
-      [mattrobinsonsre/terrapod](https://github.com/mattrobinsonsre/terrapod)
-      — нет бинарника самого terrapod: в релизах только Terraform-провайдер
-      `terraform-provider-terrapod`. Серверное приложение — собирается из
-      исходников.
-- [ ] **k3s-ansible** — готовый плейбук HA-кластера k3s (kube-vip, MetalLB).
-      *(`git clone`)* —
-      [timothystewart6/k3s-ansible](https://github.com/timothystewart6/k3s-ansible)
-      — релизов нет вообще: это набор Ansible-плейбуков, а не бинарник.
 
 ## Kubernetes
 
@@ -49,9 +43,6 @@
 - [ ] **kondense** — автоматический подбор requests/limits для контейнеров.
       *(`go`)* — [unagex/kondense](https://github.com/unagex/kondense)
       — в релизах нет ассетов, только исходники (`go build`).
-- [ ] **opencost** — мониторинг стоимости ворклоадов Kubernetes и облака.
-      *(`go`)* — [opencost/opencost](https://github.com/opencost/opencost)
-      — в релизах только SBOM-файлы; распространяется контейнерным образом.
 
 - [ ] **kubernetes-rbac-audit** — аудит RBAC в кластере. *(`pipx`)* —
       [cyberark/kubernetes-rbac-audit](https://github.com/cyberark/kubernetes-rbac-audit)
@@ -88,17 +79,6 @@
       — релизов нет: набор shell-скриптов, запускается из клона.
 
 ## Безопасность
-
-- [ ] **scantron** — распределённый фреймворк nmap/masscan с расписанием и API
-      (Ansible-разворачивание). *(`pipx` / `make`)* —
-      [rackerlabs/scantron](https://github.com/rackerlabs/scantron)
-      — релизов нет: набор Ansible-плейбуков с Django-сервером, очередью
-      сканов и БД. Это сервис, а не утилита для ноутбука.
-- [ ] **dagda** — статический анализ образов/контейнеров на malware и
-      уязвимости. *(`pipx`)* —
-      [eliasgranderubio/dagda](https://github.com/eliasgranderubio/dagda)
-      — это сервер (Django + MongoDB + docker-образ), а не CLI: запускается
-      как сервис, бинарников в релизах нет. Покрывается `grype` + `copa`.
 
 - [ ] **flawz** — TUI-браузер CVE/уязвимостей. *(`cargo`)* —
       [orhun/flawz](https://github.com/orhun/flawz)
