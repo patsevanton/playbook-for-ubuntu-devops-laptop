@@ -21,6 +21,11 @@ network_pipx_apps:
     creates: rkn-check
   - name: showcert
     creates: showcert
+  # ssh-audit — аудит конфигурации SSH-серверов и клиентов: алгоритмы
+  # key exchange/cipher/MAC, известные проблемы, рекомендации. Ставится из
+  # PyPI в изолированное окружение pipx.
+  - name: ssh-audit
+    creates: ssh-audit
 
 # Скачиваемые бинарники сетевой диагностики.
 network_binaries:

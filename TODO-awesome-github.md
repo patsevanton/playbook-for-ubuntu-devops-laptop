@@ -208,8 +208,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **dive** — анализ слоёв docker-образа, размер и мусор. *(`deb`)* —
       [wagoodman/dive](https://github.com/wagoodman/dive)
       — ✅ добавлен в плейбук (роль `docker`, бинарником из тарболла).
-- [ ] **dry** — терминальный менеджер Docker-контейнеров, образов, сетей.
+- [x] **dry** — терминальный менеджер Docker-контейнеров, образов, сетей.
       *(`go` / `release`)* — [moncho/dry](https://github.com/moncho/dry)
+      — ✅ добавлен в плейбук (роль `docker`, бинарник из тарболла).
 - [x] ⭐ **ctop** — `top` для метрик контейнеров. *(`go` / `release`; ⭐ 17.8k)* —
       [bcicen/ctop](https://github.com/bcicen/ctop)
       — ✅ добавлен в плейбук (роль `docker`, одиночный бинарник ctop-<ver>-linux-amd64).
@@ -248,10 +249,13 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
 - [x] ⭐ **fx** — интерактивный просмотрщик и обработчик JSON. *(`npm`)* —
       [antonmedv/fx](https://github.com/antonmedv/fx)
       — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник fx_linux_amd64).
-- [ ] **jnv** — интерактивный фильтр JSON (jq + fzf). *(`cargo`, нужен `jq`)* —
+- [x] **jnv** — интерактивный фильтр JSON (jq + fzf). *(`cargo`, нужен `jq`)* —
       [ynqa/jnv](https://github.com/ynqa/jnv)
-- [ ] **octosql** — SQL-запросы к JSON/CSV/Parquet-файлам. *(`go`)* —
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из tar.xz; `jq` уже
+      в `base`).
+- [x] **octosql** — SQL-запросы к JSON/CSV/Parquet-файлам. *(`go`)* —
       [cube2222/octosql](https://github.com/cube2222/octosql)
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла).
 - [x] **gomplate** — шаблонизатор конфигов из разных источников (env, файлы, API).
       *(`go`)* — [hairyhenderson/gomplate](https://github.com/hairyhenderson/gomplate)
       — ✅ добавлен в плейбук (роль `shell`, одиночный бинарник).
@@ -359,8 +363,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [Hakky54/certificate-ripper](https://github.com/Hakky54/certificate-ripper)
 - [ ] **gossl** — CLI-проверка SSL-сертификатов. *(`go`)* —
       [vvrnv/gossl](https://github.com/vvrnv/gossl)
-- [ ] **ssh-audit** — аудит конфигурации SSH-серверов и клиентов. *(`pipx`)* —
+- [x] **ssh-audit** — аудит конфигурации SSH-серверов и клиентов. *(`pipx`)* —
       [jtesta/ssh-audit](https://github.com/jtesta/ssh-audit)
+      — ✅ добавлен в плейбук (роль `network`, через pipx из PyPI).
 - [ ] **lexicon** — единый способ управления DNS-записями у разных провайдеров.
       *(`pipx`)* — [AnalogJ/lexicon](https://github.com/AnalogJ/lexicon)
 - [ ] **netutils-linux** — набор утилит для тюнинга и диагностики сетевого стека
@@ -447,8 +452,9 @@ Ubuntu 26.04 / x86_64 рядом с плейбуком. Источник — в�
       [flant/glaball](https://github.com/flant/glaball)
 - [ ] **gitlabform** — configuration-as-code для GitLab (группы, проекты,
       настройки). *(`pipx`)* — [gitlabform/gitlabform](https://github.com/gitlabform/gitlabform)
-- [ ] **worktrunk** — CLI для git worktree: параллельные ветки без переключения.
+- [x] **worktrunk** — CLI для git worktree: параллельные ветки без переключения.
       *(`cargo`)* — [max-sixty/worktrunk](https://github.com/max-sixty/worktrunk)
+      — ✅ добавлен в плейбук (роль `git`, бинарник `wt` из tar.xz).
 - [ ] **changie** — автоматизация changelog и подготовки релизов. *(`deb`)* —
       [miniscruff/changie](https://github.com/miniscruff/changie)
 - [x] ⭐ **reviewdog** — автоматическое code review с любыми линтерами. *(`go`)* —

@@ -59,3 +59,12 @@ docker_binaries:
     url: "https://github.com/oras-project/oras/releases/download/{tag}/oras_{version}_linux_amd64.tar.gz"
     archive: tar
     member: oras
+  # dry — терминальный менеджер Docker: контейнеры, образы, сети, тома и
+  # мониторинг в одном TUI, плюс работа с несколькими хостами. Одиночный
+  # бинарник dry в корне тарболла dry-linux-amd64.tar.gz.
+  - name: dry
+    source: github
+    repo: moncho/dry
+    url: "https://github.com/moncho/dry/releases/download/{tag}/dry-linux-amd64.tar.gz"
+    archive: tar
+    member: dry

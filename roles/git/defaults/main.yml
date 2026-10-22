@@ -67,3 +67,12 @@ git_binaries:
     url: "https://github.com/reviewdog/reviewdog/releases/download/{tag}/reviewdog_{version}_Linux_x86_64.tar.gz"
     archive: tar
     member: reviewdog
+  # worktrunk — CLI для git worktree: параллельные ветки в отдельных каталогах
+  # без постоянных переключений (команда `wt`). В тарболле бинарник лежит по
+  # пути worktrunk-x86_64-unknown-linux-musl/wt, поэтому ставим его как `wt`.
+  - name: wt
+    source: github
+    repo: max-sixty/worktrunk
+    url: "https://github.com/max-sixty/worktrunk/releases/download/{tag}/worktrunk-x86_64-unknown-linux-musl.tar.xz"
+    archive: tarxz
+    member: worktrunk-x86_64-unknown-linux-musl/wt

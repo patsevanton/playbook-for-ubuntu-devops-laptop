@@ -73,9 +73,9 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── base/                   # проверки, каталоги, базовые пакеты (в т.ч. pipx),
 │   │                           #   yq, ansible-lint, molecule
 │   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan,
-│   │                           #   lazygit
+│   │                           #   lazygit, wt (worktrunk)
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2,
-│   │                           #   dive, lazydocker, ctop, oras
+│   │                           #   dive, lazydocker, ctop, oras, dry
 │   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
 │   │                           #   stern, flate, flux-tools, cty, diffyml,
 │   │                           #   kubectl-k8i, kubespy, kubecolor, kube-capacity,
@@ -89,12 +89,14 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype, osquery
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
 │   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
+│   │                           #   jnv, octosql,
 │   │                           #   lf, gomplate, yamlfmt, gum, fastfetch, procs,
 │   │                           #   cheat, tldr,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
 │   │                           #   tcping, doggo, gotty, sshx, rkn-block-checker (pipx),
+│   │                           #   ssh-audit (pipx),
 │   │                           #   ecapture, termshark, websocat, sniffnet
 │   ├── ebpf/                   # eBPF-наблюдаемость: pwru, bpftop, oryx,
 │   │                           #   pktstat-bpf, tracee
@@ -128,11 +130,12 @@ ansible-lint                                   # проверка стиля (pr
    (тестирование Ansible-ролей в контейнерах, ставится через pipx) и `eget`
    (установщик бинарников из GitHub-релизов).
 3. Ставит клиенты GitHub и GitLab: `gh`, `glab`, `gitlabcloner`, а также `glci`
-   (локальный запуск GitLab CI), `pre-commit`, `reposcan` и `lazygit`
-   (TUI для git).
+   (локальный запуск GitLab CI), `pre-commit`, `reposcan`, `lazygit`
+   (TUI для git) и `wt` (worktrunk — параллельные ветки через git worktree).
 4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2,
    а также `dive` (анализ слоёв образа), `lazydocker` (TUI-менеджер контейнеров),
-    `ctop` (`top` для метрик контейнеров) и `oras` (клиент OCI-реестров).
+    `ctop` (`top` для метрик контейнеров), `oras` (клиент OCI-реестров)
+    и `dry` (терминальный менеджер Docker).
 5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
    stern, flate, flux-tools (офлайн-рендер и дифф Flux GitOps), cty (sample-YAML
    из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод),
@@ -159,7 +162,8 @@ ansible-lint                                   # проверка стиля (pr
     JSON/YAML/TOML/XML/CSV), jc (конвертация вывода CLI в JSON), sd
     (интуитивная замена sed), shellcheck (статический анализ shell-скриптов),
     zellij (терминальный мультиплексор), navi (шпаргалки команд поверх fzf),
-    fx (интерактивный просмотр JSON), hl (просмотр JSON-логов), mcfly
+    fx (интерактивный просмотр JSON), jnv (интерактивный jq-фильтр JSON),
+    octosql (SQL-запросы к JSON/CSV/Parquet), hl (просмотр JSON-логов), mcfly
     (умная история команд по Ctrl-R), lf (терминальный файловый менеджер),
     gomplate (шаблонизатор конфигов), yamlfmt (форматтер YAML), gum
     (примитивы для «красивых» shell-скриптов), fastfetch (информация о
@@ -178,8 +182,9 @@ ansible-lint                                   # проверка стиля (pr
     `ecapture` (eBPF-захват TLS/SSL plaintext), `termshark` (TUI к
     Wireshark/tshark), `websocat` (netcat для WebSockets) и `sniffnet`
     (графический TUI-мониторинг трафика, .deb), а также
-    `rkn-block-checker` (через pipx), `kyanos` (eBPF-анализ сетевых запросов)
-    и `showcert` (разбор X.509-сертификатов, через pipx).
+    `rkn-block-checker` (через pipx), `kyanos` (eBPF-анализ сетевых запросов),
+    `showcert` (разбор X.509-сертификатов, через pipx) и `ssh-audit`
+    (аудит конфигурации SSH-серверов и клиентов, через pipx).
 14. Ставит eBPF-наблюдаемость: `pwru` (eBPF-отладчик сетевого стека), `bpftop`
     (обзор запущенных eBPF-программ), `oryx` (TUI-сниффер трафика), `pktstat-bpf`
     (монитор трафика по процессам) и `tracee` (runtime-security и форензика).
@@ -312,15 +317,20 @@ ansible-lint                                   # проверка стиля (pr
 | starship | github.com/starship/starship |
 | bat | github.com/sharkdp/bat |
 | reviewdog | github.com/reviewdog/reviewdog |
+| wt (worktrunk) | github.com/max-sixty/worktrunk |
 | grex | github.com/pemistahl/grex |
+| jnv | github.com/ynqa/jnv |
+| octosql | github.com/cube2222/octosql |
+| dry | github.com/moncho/dry |
 | vmalert-tool | github.com/VictoriaMetrics/VictoriaMetrics |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`) и
-коллекциями `community.docker`/`ansible.posix`, `rkn-block-checker` и `showcert`
-— из PyPI через pipx в `~/.local/bin` (роль `network`), `sshx` — из тарболла
-S3 (без релиз-ассетов GitHub, роль `network`), `headlamp` — из
+коллекциями `community.docker`/`ansible.posix`, `rkn-block-checker`, `showcert`
+и `ssh-audit` — из PyPI через pipx в `~/.local/bin` (роль `network`),
+`sshx` — из тарболла S3 (без релиз-ассетов GitHub, роль `network`),
+`headlamp` — из
 `.deb`-пакета GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
 `sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из
@@ -426,6 +436,15 @@ services:
 ```
 
 Проверка: `docker compose version`.
+
+Для повседневной работы роль `docker` дополнительно ставит **dry**
+(`moncho/dry`) — терминальный менеджер контейнеров, образов, сетей и томов с
+мониторингом и поддержкой нескольких Docker-хостов:
+
+```bash
+dry                         # интерактивный TUI текущего Docker-хоста
+dry -H ssh://user@host      # подключиться к удалённому Docker
+```
 
 ---
 
@@ -598,11 +617,16 @@ mkcert сам серты не продлевает. Серт выписывае�
   `/usr/local/bin/pre-commit`, без pip и virtualenv.
 - **reposcan** (`mabd-dev/reposcan`) — быстрый поиск git-репозиториев с
   незакоммиченными/незапушенными изменениями по файловой системе.
+- **wt** (worktrunk, `max-sixty/worktrunk`) — параллельные ветки в отдельных
+  каталогах через git worktree: переключение без пересборки рабочего дерева,
+  список worktree, удаление отработанных.
 
 ```bash
 pre-commit install          # включить хуки в текущем репозитории
 reposcan ~/src              # показать «грязные» репозитории
 glci run                    # прогнать пайплайн локально
+wt switch --create feature  # новая ветка в отдельном worktree
+wt list                     # все worktree и их состояние
 ```
 
 ---
@@ -833,6 +857,22 @@ CAP_BPF/CAP_PERFMON/CAP_SYS_ADMIN), поэтому `setcap` на бинарни�
 tldr tar                                   # краткие примеры по утилите
 cheat tar                                  # свои шпаргалки по утилите
 navi                                       # интерактивный поиск шпаргалки
+```
+
+---
+
+## JSON и табличные данные: jnv, octosql
+
+Две утилиты роли `shell` для работы с данными без поднятия БД:
+
+- **jnv** (`ynqa/jnv`) — интерактивный фильтр JSON: набираете jq-выражение и
+  сразу видите результат (jq уже ставится ролью `base`).
+- **octosql** (`cube2222/octosql`) — SQL-запросы прямо к JSON/CSV/Parquet:
+  `SELECT`, `WHERE`, `JOIN` и агрегаты по файлам.
+
+```bash
+curl -s https://api.github.com/repos/ynqa/jnv | jnv '.stargazers_count'
+octosql 'select name, stars from "repos.json" where stars > 1000'
 ```
 
 ---
@@ -1082,6 +1122,20 @@ gai doctor testhost.local       # разобрать путь разрешени
 gai explain example.com         # только путь разрешения, без вердикта
 dnsglobe example.com            # проверка распространения A-записи
 dnsglobe example.com A --once   # один прогон текстом (без TTY)
+```
+
+---
+
+## Аудит SSH: ssh-audit
+
+**ssh-audit** (`jtesta/ssh-audit`, роль `network`, через pipx) проверяет
+конфигурацию SSH-сервера или клиента: версии протокола, key exchange, шифры,
+MAC, известные уязвимости и рекомендации по усилению.
+
+```bash
+ssh-audit example.com           # аудит SSH-сервера
+ssh-audit -c                    # аудит локального клиента (~/.ssh/config)
+ssh-audit -j example.com        # JSON-вывод для автоматизации
 ```
 
 ---

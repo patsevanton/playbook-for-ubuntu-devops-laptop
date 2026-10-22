@@ -188,6 +188,24 @@ shell_binaries:
     url: "https://github.com/pemistahl/grex/releases/download/{tag}/grex-v{version}-x86_64-unknown-linux-musl.tar.gz"
     archive: tar
     member: grex
+  # jnv — интерактивный фильтр JSON: набираешь jq-выражение и сразу видишь
+  # результат (fzf-подобный TUI). Требует jq в рантайме — он ставится ролью
+  # base. В тарболле бинарник лежит по пути jnv-x86_64-unknown-linux-musl/jnv.
+  - name: jnv
+    source: github
+    repo: ynqa/jnv
+    url: "https://github.com/ynqa/jnv/releases/download/{tag}/jnv-x86_64-unknown-linux-musl.tar.xz"
+    archive: tarxz
+    member: jnv-x86_64-unknown-linux-musl/jnv
+  # octosql — SQL-запросы к JSON/CSV/Parquet-файлам без загрузки в БД:
+  # SELECT ... FROM "file.json" с фильтрами, join и агрегатами. Бинарник
+  # octosql лежит в корне тарболла octosql_{version}_linux_amd64.tar.gz.
+  - name: octosql
+    source: github
+    repo: cube2222/octosql
+    url: "https://github.com/cube2222/octosql/releases/download/{tag}/octosql_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: octosql
   # --- cheat — собственные шпаргалки команд ------------------------------------
 # Релиз cheat — gzip-сжатый одиночный бинарник cheat-linux-amd64.gz (НЕ тарболл),
 # поэтому роль binaries не подходит (понимает только tar/tarxz/zip/none).
