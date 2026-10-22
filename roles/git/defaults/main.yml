@@ -162,6 +162,16 @@ git_binaries:
     url: "https://github.com/jj-vcs/jj/releases/download/{tag}/jj-v{version}-x86_64-unknown-linux-musl.tar.gz"
     archive: tar
     member: jj
+  # gitui — быстрый TUI для git на Rust: статус, staging по хункам, коммиты,
+  # ветки, rebase, конфликты и лог в одном окне. Дополняет lazygit (тот на Go,
+  # с другим набором панелей и мышиной навигацией). Релиз —
+  # gitui-linux-x86_64.tar.gz, бинарник gitui в корне архива.
+  - name: gitui
+    source: github
+    repo: extrawurst/gitui
+    url: "https://github.com/extrawurst/gitui/releases/download/{tag}/gitui-linux-x86_64.tar.gz"
+    archive: tar
+    member: gitui
 
 # Python-приложения для работы с GitLab (нет релизных бинарников — PyPI/pipx).
 git_pipx_apps:

@@ -16,6 +16,10 @@ shell_packages:
   # duf — `df` «для людей»: таблица дисков и точек монтирования с занятым и
   # свободным местом, цветной вывод, фильтры по типу ФС.
   - duf
+  # ttyd — веб-терминал, через который vhs запускает запись; ffmpeg —
+  # кодировщик, в который vhs отдаёт кадры (без него vhs не соберёт видео).
+  - ttyd
+  - ffmpeg
 
 shell_binaries:
   - name: starship
@@ -393,6 +397,16 @@ shell_binaries:
     repo: pranshuparmar/witr
     url: "https://github.com/pranshuparmar/witr/releases/download/{tag}/witr-linux-amd64"
     archive: none
+  # vhs — запись терминальных GIF/MP4/WebM из сценария на .tape: набирает
+  # команды, ждёт, снимает кадры, а ffmpeg (пакет apt выше) собирает видео.
+  # Удобно для демо и документации вместо ручной записи экрана. Бинарник vhs
+  # лежит в каталоге vhs_{version}_Linux_x86_64 тарболла.
+  - name: vhs
+    source: github
+    repo: charmbracelet/vhs
+    url: "https://github.com/charmbracelet/vhs/releases/download/{tag}/vhs_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: vhs_{version}_Linux_x86_64/vhs
 
 # Python-приложения роли shell — ставятся через pipx в изолированное окружение.
 shell_pipx_apps:
@@ -401,6 +415,12 @@ shell_pipx_apps:
   # На PyPI пакет называется yamlfixer-opt-nc, команда — yamlfixer.
   - name: yamlfixer-opt-nc
     creates: yamlfixer
+  # harlequin — SQL-IDE в терминале: несколько подключений (DuckDB, PostgreSQL,
+  # MySQL, SQLite, BigQuery, Snowflake) в одном TUI, автодополнение, история,
+  # экспорт результата. Ставится из PyPI; драйверы конкретных БД —
+  # extras-пакетами (`pipx inject harlequin psycopg[binary]` и т. п.).
+  - name: harlequin
+    creates: harlequin
 
 # --- cheat — собственные шпаргалки команд ------------------------------------
 # Релиз cheat — gzip-сжатый одиночный бинарник cheat-linux-amd64.gz (НЕ тарболл),

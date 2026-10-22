@@ -9,7 +9,51 @@ runtimes_packages:
   - nodejs
   - npm
   - openjdk-21-jdk
+  # qemu-system-x86 и qemu-utils нужны Lima: на Linux она запускает VM через
+  # QEMU (qemu-system-x86_64 и qemu-img). Без них limactl стартует, но VM не
+  # поднимается.
+  - qemu-system-x86
+  - qemu-utils
 
 # uv ставится официальным installer'ом Astral (в apt его нет).
 # URL без версии -> всегда актуальная версия.
 uv_install_url: https://astral.sh/uv/install.sh
+
+# --- Инструменты сборки и dev-окружений (бинарники из GitHub-релизов) --------
+runtimes_binaries:
+  # dagger — CI-пайплайны как код: шаги описываются на Go/Python/TypeScript
+  # (SDK) и исполняются в контейнерах локально или в любом CI, без YAML и
+  # отдельного раннера. Релиз — dagger_v{version}_linux_amd64.tar.gz,
+  # бинарник dagger в корне. Для запуска нужен Docker (уже ставится ролью
+  # docker).
+  - name: dagger
+    source: github
+    repo: dagger/dagger
+    url: "https://github.com/dagger/dagger/releases/download/{tag}/dagger_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: dagger
+  # devbox — изолированные dev-окружения из Nix-пакетов без изучения Nix:
+  # `devbox init`, `devbox add python@3.12`, `devbox shell` — версии и
+  # зависимости фиксируются в devbox.json и не трогают систему. Дополняет
+  # mise (тот про менеджмент версий, devbox — про пакеты и окружение целиком).
+  # Релиз — devbox_{version}_linux_amd64.tar.gz, бинарник devbox в корне.
+  - name: devbox
+    source: github
+    repo: jetify-com/devbox
+    url: "https://github.com/jetify-com/devbox/releases/download/{tag}/devbox_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: devbox
+
+# --- Lima: Linux-VM поверх Linux ---------------------------------------------
+# Запускает изолированные Linux-VM (containerd, Docker, k3s внутри) без
+# Docker Desktop: `limactl start` поднимает VM по YAML-шаблону, `lima` —
+# вход в неё. В архиве релиза лежат не только бинарники (bin/limactl,
+# bin/lima, …), но и шаблоны и вспомогательные скрипты (share/lima,
+# libexec/lima), поэтому распаковываем весь архив в /opt/lima, а в /usr/local/bin
+# кладём симлинки. Официальная инструкция тоже распаковывает архив целиком.
+runtimes_lima_install: true
+runtimes_lima_repo: lima-vm/lima
+runtimes_lima_dir: /opt/lima
+runtimes_lima_binaries:
+  - limactl
+  - lima

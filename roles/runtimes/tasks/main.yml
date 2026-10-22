@@ -33,3 +33,14 @@
     UV_NO_MODIFY_PATH: "1"
   when: not uv_stat.stat.exists
   changed_when: true
+
+- name: Установить инструменты сборки и dev-окружений (актуальные версии)
+  ansible.builtin.include_role:
+    name: binaries
+  vars:
+    binaries_to_install: "{{ runtimes_binaries }}"
+
+- name: Установить Lima (Linux-VM поверх Linux)
+  ansible.builtin.include_tasks:
+    file: lima.yml
+  when: runtimes_lima_install

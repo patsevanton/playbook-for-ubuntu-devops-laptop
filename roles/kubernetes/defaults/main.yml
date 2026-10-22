@@ -1058,6 +1058,56 @@ kubernetes_binaries:
     repo: kubeshark/kubeshark
     url: "https://github.com/kubeshark/kubeshark/releases/download/{tag}/kubeshark_linux_amd64"
     archive: none
+  # kubectl-ai — AI-ассистент для Kubernetes: по описанию на естественном языке
+  # генерирует и правит kubectl-команды и манифесты, умеет работать в
+  # интерактивном режиме. Нужен бэкенд LLM (OpenAI/Gemini/Ollama) — установка
+  # от него не зависит. Бинарник kubectl-ai в корне тарболла
+  # kubectl-ai_Linux_x86_64.tar.gz.
+  - name: kubectl-ai
+    source: github
+    repo: GoogleCloudPlatform/kubectl-ai
+    url: "https://github.com/GoogleCloudPlatform/kubectl-ai/releases/download/{tag}/kubectl-ai_Linux_x86_64.tar.gz"
+    archive: tar
+    member: kubectl-ai
+  # k3d — k3s в Docker: локальные кластеры из контейнеров за секунды, с
+  # несколькими нодами и реестром. Дополняет kind (тот на официальных
+  # node-образах) — k3d легче и ближе к k3s. Одиночный бинарник
+  # k3d-linux-amd64 без версии в имени.
+  - name: k3d
+    source: github
+    repo: k3d-io/k3d
+    url: "https://github.com/k3d-io/k3d/releases/download/{tag}/k3d-linux-amd64"
+    archive: none
+  # telepresence — запуск локального сервиса «как будто он в кластере»:
+  # подменяет под прокси-подом, поэтому локальный процесс видит DNS, сервисы и
+  # переменные окружения кластера без сборки образа. Нужен root-демон
+  # (`telepresence daemons install`). Одиночный бинарник
+  # telepresence-linux-amd64 без версии в имени.
+  - name: telepresence
+    source: github
+    repo: telepresenceio/telepresence
+    url: "https://github.com/telepresenceio/telepresence/releases/download/{tag}/telepresence-linux-amd64"
+    archive: none
+  # tilt — live-update мультисервисных приложений в Kubernetes с веб-UI:
+  # следит за файлами, пересобирает образы и показывает статус сервисов.
+  # Дополняет skaffold (тот CLI-ориентирован). Бинарник tilt в корне тарболла
+  # tilt.{version}.linux.x86_64.tar.gz.
+  - name: tilt
+    source: github
+    repo: tilt-dev/tilt
+    url: "https://github.com/tilt-dev/tilt/releases/download/{tag}/tilt.{version}.linux.x86_64.tar.gz"
+    archive: tar
+    member: tilt
+  # mirrord — запускает локальный процесс «внутри кластера»: подменяет сеть,
+  # файловую систему и переменные окружения пода через агент, без сборки
+  # образа и деплоя. В zip-архиве mirrord_linux_x86_64.zip лежит один бинарник
+  # mirrord (слой для инъекции встроен в него).
+  - name: mirrord
+    source: github
+    repo: metalbear-co/mirrord
+    url: "https://github.com/metalbear-co/mirrord/releases/download/{tag}/mirrord_linux_x86_64.zip"
+    archive: zip
+    member: mirrord
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и

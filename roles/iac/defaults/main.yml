@@ -141,6 +141,38 @@ iac_binaries:
     url: "https://github.com/im2nguyen/rover/releases/download/{tag}/rover_{version}_linux_amd64.zip"
     archive: zip
     member: rover_v{version}
+  # terraformer — обратная генерация Terraform-кода из уже существующей
+  # инфраструктуры: читает облако провайдером и раскладывает ресурсы в .tf и
+  # tfstate (удобно, когда инфраструктура заведена руками и её надо
+  # импортировать). Релиз содержит отдельные бинарники под провайдеров;
+  # берём terraformer-all-linux-amd64 — один бинарник со всеми провайдерами.
+  - name: terraformer
+    source: github
+    repo: GoogleCloudPlatform/terraformer
+    url: "https://github.com/GoogleCloudPlatform/terraformer/releases/download/{tag}/terraformer-all-linux-amd64"
+    archive: none
+  # terrascan — сканер IaC на нарушения политик безопасности: Terraform/
+  # OpenTofu, Kubernetes, Helm, Kustomize, Dockerfile, CloudFormation.
+  # Правила — OPA/Rego, есть готовые наборы (CIS, PCI, HIPAA) и свои политики.
+  # Дополняет checkov и tflint: terrascan сильнее в политиках и кастомных
+  # правилах. Релиз — terrascan_{version}_Linux_x86_64.tar.gz, бинарник
+  # terrascan в корне.
+  - name: terrascan
+    source: github
+    repo: tenable/terrascan
+    url: "https://github.com/tenable/terrascan/releases/download/{tag}/terrascan_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: terrascan
+  # steampipe — SQL-запросы к облакам и API без ETL: плагины (aws, azure,
+  # gcp, github, kubernetes, …) отдают ресурсы как таблицы, дальше обычный
+  # `select * from aws_s3_bucket where ...` в TUI, psql или JDBC.
+  # Релиз — steampipe_linux_amd64.tar.gz, бинарник steampipe в корне.
+  - name: steampipe
+    source: github
+    repo: turbot/steampipe
+    url: "https://github.com/turbot/steampipe/releases/download/{tag}/steampipe_linux_amd64.tar.gz"
+    archive: tar
+    member: steampipe
 
 # Пакеты apt для IaC. graphviz даёт `dot` — единственный практичный способ
 # превратить DOT-вывод `terraform graph`, `terragrunt dag graph` и inframap

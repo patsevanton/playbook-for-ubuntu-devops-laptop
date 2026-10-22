@@ -75,6 +75,7 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan,
 │   │                           #   lazygit, wt (worktrunk), changie, ghgrab, glaball,
 │   │                           #   reviewdog, typos, act, jj (jujutsu),
+│   │                           #   gitui (TUI для git),
 │   │                           #   lumen, gptcommit, codegpt (LLM-коммиты),
 │   │                           #   gitlabform (pipx)
 │   ├── docker/                 # репозиторий Docker, Engine, Compose V2,
@@ -119,15 +120,19 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   kosko (npm), headlamp, radar,
 │   │                           #   k8sgpt, kubescape, popeye, vcluster,
 │   │                           #   skaffold, kubeshark, helm-diff (плагин helm),
+│   │                           #   kubectl-ai, k3d, telepresence, tilt, mirrord,
 │   │                           #   monokle и rubick (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
 │   │                           #   tf-mirror, gitlab-terraform-manager,
 │   │                           #   inframap, rover (схемы из state/плана),
 │   │                           #   terramate, infracost, graphviz (apt),
+│   │                           #   terraformer, terrascan, steampipe,
 │   │                           #   checkov (pipx), tfenv, tgenv
-│   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
-│   ├── runtimes/               # Python, uv, Go, Node.js, Java
+│   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL),
+│   │                           #   pgcli (pipx)
+│   ├── runtimes/               # Python, uv, Go, Node.js, Java, dagger, devbox,
+│   │                           #   Lima (Linux-VM, /opt + симлинки)
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype, trivy,
 │   │                           #   age, lynis, osquery, mfa,
 │   │                           #   medusa, bank-vaults, horusec,
@@ -142,7 +147,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   lf, gomplate, yamlfmt, yamlfixer (pipx), gum,
 │   │                           #   fastfetch, procs, dusage,
 │   │                           #   mise, just, yazi, glow, btm (bottom),
-│   │                           #   hyperfine, duckdb,
+│   │                           #   hyperfine, duckdb, vhs, harlequin (pipx),
 │   │                           #   shellclear, nxs-backup, cheat, tldr,
 │   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
@@ -172,11 +177,11 @@ ansible-lint                                   # проверка стиля (pr
 ```
 
 Роль `binaries` не тянет инструменты сама: её вызывают роли `base`, `git`,
-`kubernetes`, `iac`, `postgres`, `secrets`, `shell`, `network`, `opencode`,
-передавая список того, что нужно поставить. Каждая роль хранит свой список в
-`roles/<роль>/defaults/main.yml`. Так же устроены `pipx_apps` (приложения из
-PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборка из
-исходников: `secrets`, `network`).
+`kubernetes`, `iac`, `postgres`, `runtimes`, `secrets`, `shell`, `network`,
+`opencode`, передавая список того, что нужно поставить. Каждая роль хранит
+свой список в `roles/<роль>/defaults/main.yml`. Так же устроены `pipx_apps`
+(приложения из PyPI через pipx: `git`, `iac`, `postgres`, `secrets`, `shell`)
+и `go_apps` (сборка из исходников: `secrets`, `network`).
 
 Имя `playbook.yml` выбрано осознанно; в чужих проектах точку входа часто называют
 `site.yml` — переименование ничего не ломает.
@@ -200,7 +205,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    self-hosted GitLab-инстансах), `gitlabform` (GitLab как код, через pipx),
    `typos` (поиск опечаток в коде и документации с автоисправлением), `act`
    (локальный запуск GitHub Actions в Docker — пара к `glci`), `jj`
-   (jujutsu — VCS поверх обычного git-репозитория), а также CLI для
+   (jujutsu — VCS поверх обычного git-репозитория), `gitui` (быстрый TUI для
+   git на Rust), а также CLI для
    работы с коммитами через LLM: `lumen` (просмотр диффа и сообщение коммита),
    `gptcommit` (git-хук `prepare-commit-msg`) и `codegpt` (сообщения и
    ревью).
@@ -232,8 +238,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    eBPF без агента), capacitor (UI для FluxCD), kubeconform (валидация
    манифестов по схемам), kube-linter (антипаттерны в манифестах), helmfile
    (декларативный набор Helm-релизов), kind (локальный кластер Kubernetes в
-   Docker), kubebox (терминальная и веб
-   консоль Kubernetes, npm),
+   Docker), k3d (k3s в Docker — локальные кластеры из контейнеров),
+   kubebox (терминальная и веб консоль Kubernetes, npm),
    headlamp (web/desktop UI Kubernetes) и radar (UI Kubernetes со встроенным
    MCP-сервером для AI-агентов, .deb), а также kops (жизненный цикл
    production-кластеров), devpod (dev-окружения по `devcontainer.json`),
@@ -292,8 +298,12 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    (профили безопасности NSA/CIS), popeye (мёртвые и неиспользуемые
    ресурсы кластера), vcluster (виртуальные кластеры внутри namespace),
    skaffold (цикл сборка→деплой→проверка с hot-reload), kubeshark (разбор
-   трафика подов на L7 через eBPF) и плагин `helm-diff` (`helm diff upgrade`
-   — что изменится до применения чарта; ставится отдельной задачей).
+   трафика подов на L7 через eBPF), `kubectl-ai` (AI-ассистент: генерирует и
+   правит kubectl-команды и манифесты), `telepresence` (локальный сервис «как
+   будто в кластере»), `tilt` (live-update приложений с веб-UI), `mirrord`
+   (локальный процесс в сети, ФС и окружении пода), а также плагин `helm-diff`
+   (`helm diff upgrade` — что изменится до применения чарта; ставится
+   отдельной задачей).
    Desktop-клиенты `monokle`, `rubick` и
    `klustr` ставятся `.deb`-пакетами. Для запуска `kptop` нужен
    `KPTOP_CONNECTION_METHOD`, для `kopilot` — `KOPILOT_TOKEN`; установка
@@ -309,11 +319,17 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    Dockerfile, Helm, через pipx),
    inframap и rover (схемы из tfstate/плана, см. ниже), terramate
    (оркестрация стэков IaC: change detection и генерация кода), infracost
-   (стоимость изменений по `terraform plan`), graphviz (`dot`
-   для рендера графов),
+   (стоимость изменений по `terraform plan`), terraformer (генерация
+   Terraform-кода из существующей инфраструктуры), terrascan (проверка IaC по
+   политикам OPA/Rego), steampipe (SQL-запросы к облакам и API через плагины),
+   graphviz (`dot` для рендера графов),
    плюс tfenv и tgenv.
-7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
-8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
+7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL, и `pgcli`
+   (psql с автодополнением и подсветкой, через pipx).
+8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21, `dagger`
+   (CI-пайплайны как код), `devbox` (изолированные окружения на Nix) и
+   `limactl`/`lima` (Linux-VM поверх Linux; QEMU — пакетами apt, сам архив
+   распаковывается в `/opt/lima`).
 9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git), grype
    (сканер уязвимостей образов и ФС), trivy (уязвимости образов, IaC и
    секреты в одном сканере), age (простое шифрование файлов — бэкенд sops),
@@ -357,7 +373,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
     раннер вместо Makefile), yazi (быстрый TUI-файловый менеджер), glow
     (рендер Markdown в терминале), btm (монитор процессов и ресурсов с
     графиками), hyperfine (бенчмарк команд), duckdb (SQL по
-    Parquet/CSV/JSON), shellclear (секреты и опасные
+    Parquet/CSV/JSON), vhs (запись терминальных GIF/видео из сценария),
+    harlequin (SQL-IDE в терминале, через pipx), shellclear (секреты и опасные
     команды в истории shell), nxs-backup (бэкапы по YAML-описанию),
     cheat (собственные шпаргалки команд) и tldr (краткие примеры команд).
 11. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и глобальный
@@ -418,10 +435,11 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | Роль | Пакеты | Зачем |
 |---|---|---|
 | base | ca-certificates, curl, wget, git, jq, unzip, zip, tar, gzip, xz-utils, bash-completion, lsb-release, ansible-lint, pipx | база для работы, самого плейбука, проверки стиля и установки molecule |
-| runtimes | python3-venv, python3-pip, python3-dev, golang-go, nodejs, npm, openjdk-21-jdk | языковые рантаймы |
+| runtimes | python3-venv, python3-pip, python3-dev, golang-go, nodejs, npm, openjdk-21-jdk, qemu-system-x86, qemu-utils | языковые рантаймы; QEMU (`qemu-system-x86_64`, `qemu-img`) для VM в Lima |
 | iac | graphviz | `dot`: рендер графов Terraform/Terragrunt (DOT → svg/png) |
+| postgres | libpq5 | клиентская библиотека PostgreSQL (libpq.so) для psycopg/pgcli |
 | secrets | direnv, age, lynis | окружение по каталогам; шифрование файлов для sops; аудит безопасности и харденинга Linux |
-| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck, duf | удобная работа в терминале, статический анализ shell-скриптов, понятная таблица дисков |
+| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck, duf, ttyd, ffmpeg | удобная работа в терминале, статический анализ shell-скриптов, понятная таблица дисков, ttyd и ffmpeg — запись терминальных демо через vhs |
 | network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
 | audio | pipewire, pipewire-bin, pipewire-pulse, wireplumber, hicolor-icon-theme | шумоподавление микрофона (HushMic) |
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
@@ -697,6 +715,18 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | kubescout | github.com/ReallyLiri/kubescout |
 | k8s-insider | github.com/TrueGoric/k8s-insider |
 | patchloom | github.com/patchloom/patchloom |
+| gitui | github.com/extrawurst/gitui |
+| vhs | github.com/charmbracelet/vhs |
+| dagger | github.com/dagger/dagger |
+| devbox | github.com/jetify-com/devbox |
+| terraformer | github.com/GoogleCloudPlatform/terraformer |
+| terrascan | github.com/tenable/terrascan |
+| steampipe | github.com/turbot/steampipe |
+| kubectl-ai | github.com/GoogleCloudPlatform/kubectl-ai |
+| k3d | github.com/k3d-io/k3d |
+| telepresence | github.com/telepresenceio/telepresence |
+| tilt | github.com/tilt-dev/tilt |
+| mirrord | github.com/metalbear-co/mirrord |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`),
@@ -705,10 +735,10 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 `~/.local/bin` (роль `network`), `yamlfixer` — из PyPI через pipx (роль
 `shell`), `ochrona` — из PyPI через pipx (роль `secrets`), `checkov` — из
 PyPI через pipx (роль `iac`), `kube-hunter`, `knetvis` и `kptop` — из PyPI
-через pipx (роль `kubernetes`), `gitlabform` и
-`tftui` — из PyPI через pipx (общая роль
-`pipx_apps`, вызывается из `git`, `iac`, `secrets`, `shell`, `network` и
-`kubernetes`), `entropy` (роль `secrets`) и `reachable` (роль `network`) — сборкой из
+через pipx (роль `kubernetes`), `gitlabform`, `tftui`, `pgcli` и `harlequin`
+— из PyPI через pipx (общая роль
+`pipx_apps`, вызывается из `git`, `iac`, `postgres`, `secrets`, `shell`,
+`network` и `kubernetes`), `entropy` (роль `secrets`) и `reachable` (роль `network`) — сборкой из
 исходников через `go install` (общая роль `go_apps`, вызывается из
 `secrets` и `network`), `krr` — распаковкой PyInstaller-сборки в `/opt/krr` с обёрткой в
 `/usr/local/bin` (роль `monitoring`), `dependency-check` — распаковкой
@@ -730,7 +760,10 @@ gzip-сжатого одиночного бинарника релиза (рол
 `kosko` — через `npm install -g` (роли `shell` и `kubernetes`), `tshark` —
 пакетом Ubuntu как зависимость `termshark` (роль `network`), `tracee` — из
 тарболла GitHub-релиза вместе с сигнатурами безопасности в `/opt/tracee` +
-симлинк в `/usr/local/bin` (роль `ebpf`),
+симлинк в `/usr/local/bin` (роль `ebpf`), `lima` — распаковкой релизного
+архива целиком в `/opt/lima` (bin, share/lima с шаблонами, libexec) и
+симлинками `limactl`/`lima` в `/usr/local/bin`; QEMU для VM — пакетами apt
+(роль `runtimes`),
 глобальные skills для opencode — через `npx skills add` (роль `skills`, см.
 раздел «Глобальные skills для opencode»).
 

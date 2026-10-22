@@ -70,6 +70,13 @@ Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 `kubectl-outagedeck`, `kptop`, `kubectl-fields`, `kosko`,
 `monokle`, `rubick`, `klustr`.
 
+Добавлены 2026-10-22 из [`TODO-trend-github.md`](TODO-trend-github.md) (топ-15
+приложений по звёздам среди оставшихся кандидатов; `dev-sec` — коллекция
+Ansible Galaxy, а не приложение, поэтому вместо неё в набор вошёл следующий по
+звёздам `terrascan`): `gitui`, `vhs`, `dagger`, `devbox`, `limactl`/`lima`,
+`pgcli`, `harlequin`, `terraformer`, `terrascan`, `steampipe`, `kubectl-ai`,
+`k3d`, `telepresence`, `tilt`, `mirrord`.
+
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см. [`not-install.md`](not-install.md) и
 [issue #2649](https://github.com/HolmesGPT/holmesgpt/issues/2649).

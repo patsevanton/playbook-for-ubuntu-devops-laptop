@@ -2,6 +2,13 @@
 # ============================================================================
 # Роль postgres: клиентские инструменты PostgreSQL.
 # ============================================================================
+
+# libpq5 — клиентская библиотека PostgreSQL (libpq.so): нужна psycopg, на
+# котором работает pgcli. Без неё pipx-окружение ставится, но pgcli падает при
+# старте с «no pq wrapper available».
+postgres_packages:
+  - libpq5
+
 postgres_binaries:
   # pgcenter — консольная админка и мониторинг PostgreSQL: активность, запросы,
   # блокировки, места и статистика таблиц/индексов, журнал ошибок — прямо с
@@ -12,3 +19,11 @@ postgres_binaries:
     url: "https://github.com/lesovsky/pgcenter/releases/download/{tag}/pgcenter_{version}_linux_amd64.tar.gz"
     archive: tar
     member: pgcenter
+
+# Python-приложения для работы с PostgreSQL (нет релизных бинарников — pipx).
+postgres_pipx_apps:
+  # pgcli — psql с автодополнением (таблицы, колонки, ключевые слова) и
+  # подсветкой синтаксиса; помнит историю и умеет многострочный ввод.
+  # Дополняет pgCenter (мониторинг) и psql (штатный клиент).
+  - name: pgcli
+    creates: pgcli

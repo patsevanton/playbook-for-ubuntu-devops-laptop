@@ -27,7 +27,9 @@ Linux-пользователя. Прежний общий список канд�
 
 ## Kubernetes: диагностика и валидация манифестов
 
-- [ ] **kubectl-ai** — AI-ассистент: генерирует и правит kubectl-команды и манифесты. *(7.6k ⭐, `tar.gz`)*
+- [x] **kubectl-ai** — AI-ассистент: генерирует и правит kubectl-команды и манифесты. *(7.6k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
+      kubectl-ai_Linux_x86_64.tar.gz).
 - [x] **k8sgpt** — сканирует кластер и объясняет проблемы человеческим языком (LLM). *(8.3k ⭐, `deb`)*
       — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
       k8sgpt_Linux_x86_64.tar.gz).
@@ -53,21 +55,29 @@ Linux-пользователя. Прежний общий список канд�
 - [x] **vcluster** — виртуальные кластеры внутри неймспейса: изоляция без цены реального кластера. *(11.4k ⭐, `script` install-standalone.sh)*
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       vcluster-linux-amd64).
-- [ ] **mirrord** — запускает локальный процесс «как будто он под в кластере» (без сборки образа). *(5.4k ⭐, `zip`)*
+- [x] **mirrord** — запускает локальный процесс «как будто он под в кластере» (без сборки образа). *(5.4k ⭐, `zip`)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
+      mirrord из zip-архива mirrord_linux_x86_64.zip).
 - [ ] **glasskube** — пакетный менеджер для Kubernetes с GUI и CLI (dependency-aware). *(3.5k ⭐, `deb`)*
 - [ ] **devspace** — деплой и hot-reload приложения прямо в кластер. *(5.2k ⭐, `bin` linux-amd64)*
 - [x] **kubeshark** — Wireshark-подобный анализ трафика внутри кластера (eBPF). *(12.1k ⭐, `bin` linux-amd64)*
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       kubeshark_linux_amd64).
-- [ ] **k3d** — k3s в Docker: быстрые локальные кластеры для тестов. *(6.6k ⭐, `bin` linux-amd64)*
+- [x] **k3d** — k3s в Docker: быстрые локальные кластеры для тестов. *(6.6k ⭐, `bin` linux-amd64)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
+      k3d-linux-amd64).
 - [x] **kind** — Kubernetes IN Docker: референсные локальные кластеры. *(15.5k ⭐, `bin` linux-amd64)*
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       kind-linux-amd64).
-- [ ] **telepresence** — проксирование локального сервиса в удалённый кластер. *(7.3k ⭐, `deb`)*
+- [x] **telepresence** — проксирование локального сервиса в удалённый кластер. *(7.3k ⭐, `deb`)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
+      telepresence-linux-amd64; root-демон ставится `telepresence daemons install`).
 - [x] **skaffold** — цикл сборка→деплой→проверка для Kubernetes. *(15.9k ⭐, `bin` linux-amd64)*
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       skaffold-linux-amd64).
-- [ ] **tilt** — live-update мультисервисных приложений в k8s с веб-UI. *(10.1k ⭐, `tar.gz`)*
+- [x] **tilt** — live-update мультисервисных приложений в k8s с веб-UI. *(10.1k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
+      tilt.{version}.linux.x86_64.tar.gz).
 
 ## Helm / GitOps
 
@@ -97,13 +107,17 @@ Linux-пользователя. Прежний общий список канд�
 - [ ] **tenv** — один менеджер версий для tofu/terraform/terragrunt/terramate/atmos. *(1.5k ⭐, `deb`)*
 - [ ] **tfupdate** — обновляет пины версий провайдеров/модулей в конфигах. *(`tar.gz`)*
 - [ ] **tfsort** (AlexNabokikh) — сортирует блоки `variable`/`output`/`locals`/`terraform` в `.tf`. *(`tar.gz`)*
-- [ ] **terraformer** — генерирует Terraform-код из уже существующей инфраструктуры (reverse). *(14.5k ⭐, `bin` terraformer-<cloud>-linux-amd64)*
+- [x] **terraformer** — генерирует Terraform-код из уже существующей инфраструктуры (reverse). *(14.5k ⭐, `bin` terraformer-<cloud>-linux-amd64)*
+      — ✅ добавлен в плейбук (роль `iac`, одиночный бинарник
+      terraformer-all-linux-amd64 со всеми провайдерами).
 - [x] **infracost** — считает стоимость изменений из `terraform plan` прямо в PR. *(12.6k ⭐, `tar.gz`)*
       — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
       infracost-linux-amd64.tar.gz).
 - [x] **checkov** — статический анализ IaC (Terraform/K8s/Docker/CloudFormation) на мисконфиги. *(9.1k ⭐, `pipx` / `zip`)*
       — ✅ добавлен в плейбук (роль `iac`, через pipx из PyPI).
-- [ ] **terrascan** — сканер IaC на нарушения политик безопасности. *(5.2k ⭐, `tar.gz`)*
+- [x] **terrascan** — сканер IaC на нарушения политик безопасности. *(5.2k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
+      terrascan_{version}_Linux_x86_64.tar.gz).
 - [ ] **inframap** — рисует граф ресурсов из tfstate/HCL. *(`go build` — релизных бинарников нет)*
 - [ ] **terraform-ls** — LSP-сервер для HCL (автодополнение в редакторе). *(`go build` — релизных бинарников нет)*
 
@@ -150,7 +164,9 @@ Linux-пользователя. Прежний общий список канд�
 - [x] **glow** — рендер Markdown прямо в терминале (для README и заметок). *(27.7k ⭐, `deb` / apt 2.1.1)*
       — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла
       glow_{version}_Linux_x86_64.tar.gz).
-- [ ] **vhs** — записывает терминальные GIF/видео из сценария (демо и документация). *(21.1k ⭐, `deb`)*
+- [x] **vhs** — записывает терминальные GIF/видео из сценария (демо и документация). *(21.1k ⭐, `deb`)*
+      — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла
+      vhs_{version}_Linux_x86_64.tar.gz; ffmpeg — пакетом apt).
 - [x] **hyperfine** — бенчмарк команд с прогревом и статистикой. *(apt 1.19 / `deb` 2.0)*
       — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла
       hyperfine-v{version}-x86_64-unknown-linux-musl.tar.gz).
@@ -175,22 +191,35 @@ Linux-пользователя. Прежний общий список канд�
 - [x] **jj** (jujutsu) — новая VCS от авторов Mercurial, совместима с git-репозиториями. *(32.1k ⭐, `tar.gz`)*
       — ✅ добавлен в плейбук (роль `git`, бинарник из тарболла
       jj-v{version}-x86_64-unknown-linux-musl.tar.gz).
-- [ ] **gitui** — быстрый TUI для git на Rust. *(22.6k ⭐, `tar.gz` linux-x86_64)*
-- [ ] **dagger** — движок CI-пайплайнов как код, запускается локально и в CI. *(16.3k ⭐, `tar.gz`)*
-- [ ] **devbox** — изолированные dev-окружения из Nix-пакетов без изучения Nix. *(12.4k ⭐, `tar.gz`)*
+- [x] **gitui** — быстрый TUI для git на Rust. *(22.6k ⭐, `tar.gz` linux-x86_64)*
+      — ✅ добавлен в плейбук (роль `git`, бинарник из тарболла
+      gitui-linux-x86_64.tar.gz).
+- [x] **dagger** — движок CI-пайплайнов как код, запускается локально и в CI. *(16.3k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `runtimes`, бинарник из тарболла
+      dagger_v{version}_linux_amd64.tar.gz).
+- [x] **devbox** — изолированные dev-окружения из Nix-пакетов без изучения Nix. *(12.4k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `runtimes`, бинарник из тарболла
+      devbox_{version}_linux_amd64.tar.gz).
 - [ ] **flox** — детерминированные окружения на базе Nix. *(4.2k ⭐, `script` — install.flox.dev)*
-- [ ] **lima** — Linux-VM поверх Linux (гоняет контейнеры без Docker Desktop). *(22.1k ⭐, `tar.gz`)*
+- [x] **lima** — Linux-VM поверх Linux (гоняет контейнеры без Docker Desktop). *(22.1k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `runtimes`, архив распаковывается в
+      /opt/lima + симлинки limactl/lima; QEMU — пакетами apt).
 
 ## Данные, логи, API и БД
 
-- [ ] **steampipe** — SQL-запросы к облакам и API без ETL (`select * from aws_s3_bucket`). *(8k ⭐, `deb`)*
+- [x] **steampipe** — SQL-запросы к облакам и API без ETL (`select * from aws_s3_bucket`). *(8k ⭐, `deb`)*
+      — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
+      steampipe_linux_amd64.tar.gz; плагины ставятся `steampipe plugin install`).
 - [x] **duckdb** — встраиваемая аналитическая СУБД: SQL по Parquet/CSV/JSON. *(42.2k ⭐, `zip`)*
       — ✅ добавлен в плейбук (роль `shell`, бинарник из тарболла
       duckdb-cli-linux-amd64.tar.gz).
 - [x] **doggo** — современный DNS-клиент (DoH/DoT/DoQ, цветной вывод). *(4.5k ⭐, `tar.gz`)*
       — ✅ уже был в плейбуке до этого разбора (роль `network`).
-- [ ] **pgcli** — psql с автодополнением и подсветкой. *(13.4k ⭐, `pipx`)*
-- [ ] **harlequin** — SQL-IDE в терминале (DuckDB, Postgres, MySQL и др.). *(6.5k ⭐, `pipx`)*
+- [x] **pgcli** — psql с автодополнением и подсветкой. *(13.4k ⭐, `pipx`)*
+      — ✅ добавлен в плейбук (роль `postgres`, через pipx из PyPI).
+- [x] **harlequin** — SQL-IDE в терминале (DuckDB, Postgres, MySQL и др.). *(6.5k ⭐, `pipx`)*
+      — ✅ добавлен в плейбук (роль `shell`, через pipx из PyPI; драйверы
+      конкретных СУБД — extras/inject).
 - [ ] **lazysql** — TUI-клиент к нескольким СУБД сразу. *(4.4k ⭐, `tar.gz`)*
 
 ---
