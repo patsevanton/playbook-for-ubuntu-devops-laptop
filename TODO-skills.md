@@ -95,7 +95,7 @@
 
 - [ ] Пройтись по зависимостям skill'ов: какие CLI нужны (`ripgrep`, `gh`,
       `jq` и т.п.) — проверить, что их ставит плейбук, иначе завести задачу
-      в `TODO-awesome-github.md` или в соответствующую роль.
+      в `TODO-trend-github.md` или в соответствующую роль.
 
 - [ ] Проверить, что skills подхватились opencode (каталог виден без
       перезапуска сервиса, но при сомнении — `opencode service restart`,
@@ -213,5 +213,6 @@
 
 ---
 
-Связанное: [`TODO.md`](TODO.md) — сводка по кандидатам; [`TODO-awesome-github.md`](TODO-awesome-github.md) —
-утилиты для плейбука; роль `opencode` в `roles/opencode/` — установка бинарника.
+Связанное: [`TODO.md`](TODO.md) — сводка по кандидатам;
+[`TODO-trend-github.md`](TODO-trend-github.md) — оставшиеся утилиты для
+плейбука; роль `opencode` в `roles/opencode/` — установка бинарника.

@@ -3,9 +3,8 @@
 Список кандидатов, которые **активно развиваются в 2026 году** и ставятся
 локально на Ubuntu 26.04 / x86_64 как CLI/TUI-утилиты. Уклон — DevOps: Kubernetes,
 Ansible, Terraform/Terragrunt, IaC, секреты, плюс полезное для обычного
-Linux-пользователя. Канонический общий список кандидатов — в
-[`TODO-awesome-github.md`](TODO-awesome-github.md): дубли с ним (и с прежним
-`TODO.md`) удалены отсюда и живут там (дедупликация 2026-10-18, см. раздел
+Linux-пользователя. Прежний общий список кандидатов разобран полностью и
+удалён; дубли с уже установленным плейбуком здесь не повторяются (см. раздел
 «Пересечение» ниже).
 
 Как читать:
@@ -174,12 +173,12 @@ Linux-пользователя. Канонический общий список
 Полный список уже устанавливаемого плейбуком (и кандидатов-дублей, которые
 поэтому не берутся) — в [`TODO.md`](TODO.md).
 
-## Пересечение с `TODO-awesome-github.md` (там уже есть, здесь не повторяются)
+## Пересечение с уже установленным плейбуком (здесь не повторяются)
 
-При дедупликации 2026-10-18 из этого файла в канонический
-[`TODO-awesome-github.md`](TODO-awesome-github.md) удалены дубли: `kftray`,
-`chart-testing`, `molecule`, `delta`, `difftastic`, `dust`, `hurl`, `xh`.
-Ранее не повторялись здесь по той же причине:
+При дедупликации 2026-10-18 из этого файла в общий список кандидатов (разобран
+и удалён) ушли дубли: `kftray`, `chart-testing`, `molecule`, `delta`,
+`difftastic`, `dust`, `hurl`, `xh`. Ранее не повторялись здесь по той же
+причине:
 
 `kubecolor`, `kube-capacity`, `ktop`, `kubefetch`, `ktail`, `kubebox`,
 `kubectl-view-secret`, `kubectl-df-pv`, `kubectl-browse-pvc`, `pluto`, `dyff`,
@@ -197,8 +196,8 @@ Linux-пользователя. Канонический общий список
 `certificate-ripper`, `showcert`, `gossl`, `ssh-audit`, `httptap`, `sshx`,
 `EternalTerminal`, `gotty`, `websocat`, `assh`.
 
-Часть из них после разбора вынесена из `TODO-awesome-github.md` в отдельные
-трекеры: `flawz`, `stew`, `mcelog`, `wondershaper`, `EternalTerminal` — в
+Часть из них после разбора вынесена в отдельные трекеры: `flawz`, `stew`,
+`mcelog`, `wondershaper`, `EternalTerminal` — в
 [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md), `dog`, `teller` —
 в [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
 `LACT` добавлен в плейбук (роль `hardware`) после появления сборки под

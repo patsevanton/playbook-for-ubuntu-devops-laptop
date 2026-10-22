@@ -7,7 +7,6 @@
 ни в одном файле-трекере плейбука.
 
 Дедупликация 2026-10-18: из списка исключены те, что уже есть в
-[`TODO-awesome-github.md`](TODO-awesome-github.md),
 [`TODO-trend-github.md`](TODO-trend-github.md), [`TODO.md`](TODO.md) (в т.ч.
 уже устанавливаемое плейбуком и отнесённое к серверным/платформенным) и других
 `TODO-*.md`. Полный список совпадений — в разделе «Уже описано в репозитории».
@@ -827,7 +826,7 @@
 - **Уже устанавливает плейбук (роль `kubernetes`, `README.md`) — 8:**
   `k9s`, `kubectx`+`kubens`, `kubecolor`, `stern`, `ktop`, `kube-capacity`,
   `kubespy`, `flux`.
-- **Уже есть в [`TODO-awesome-github.md`](TODO-awesome-github.md) — 16:**
+- **Разобрано в прежнем общем списке кандидатов (удалён после разбора) — 16:**
   `headlamp`, `pluto`, `kubeview`, `rbac-wizard`, `kftray`, `kubebox`,
   `kubectl-browse-pvc`, `goldpinger`, `netfetch`, `kbld`, `kubestriker`,
   `KubeHound`, `kondense`, `radar`, `krew`, `opencost`. Из них `goldpinger`
@@ -868,7 +867,6 @@
 - [ ] Периодически сверять новый список kubetools с репозиторием и дополнять
       этот файл.
 
-Связанное: [`TODO-awesome-github.md`](TODO-awesome-github.md) — канонический
-список локальных кандидатов; [`TODO-trend-github.md`](TODO-trend-github.md) —
-тренды 2026; [`TODO.md`](TODO.md) — что уже ставится, что серверное и что
-является подборками.
+Связанное: [`TODO-trend-github.md`](TODO-trend-github.md) — тренды 2026 и
+оставшиеся кандидаты; [`TODO.md`](TODO.md) — что уже ставится, что серверное
+и что является подборками.

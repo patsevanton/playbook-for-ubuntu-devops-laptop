@@ -157,8 +157,7 @@ Cilium, Longhorn, OpenEBS, MetalLB и т.п.) здесь не дублируют
 - [ ] Если понадобится — оформлять отдельной ролью с Helm/манифестами, а не
       ролью `binaries`.
 - [ ] Периодически сверять релизы: у части проектов может появиться
-      standalone-режим, тогда кандидата логично перенести в
-      [`TODO-awesome-github.md`](TODO-awesome-github.md).
+      standalone-режим, тогда кандидата логично поставить ролью `binaries`.
 
 Связанное: [`TODO.md`](TODO.md) — что ставится и что серверное;
 [`TODO-kubetools.md`](TODO-kubetools.md) — кластерные сервисы;

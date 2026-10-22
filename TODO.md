@@ -1,9 +1,7 @@
 # TODO: сводка по кандидатам — что уже есть и что ставить не нужно
 
-Канонический список кандидатов в утилиты для плейбука — в
-[`TODO-awesome-github.md`](TODO-awesome-github.md): сгруппирован по темам,
-со ссылками на репозитории и рекомендациями «что выбрать из дублей».
-Уникальные тренды 2026 — в [`TODO-trend-github.md`](TODO-trend-github.md),
+Оставшиеся кандидаты в утилиты для плейбука — в
+[`TODO-trend-github.md`](TODO-trend-github.md),
 глобальные skills и `AGENTS.md` для opencode — в
 [`TODO-skills.md`](TODO-skills.md), pitwall (не ставится, см. issue
 о русских буквах: <https://github.com/quanticstudios/pitwall/issues/127>) —
@@ -26,9 +24,10 @@ GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 релизы): `/home/magnit/Public/starred-tools/data/` (`install_hints.tsv`,
 `install_report.md`).
 
-Дедупликация 2026-10-18: каждый кандидат описан ровно в одном файле-трекере;
-дубли из этого файла и из `TODO-trend-github.md` перенесены в
-`TODO-awesome-github.md` вместе с блоками «⭐ Рекомендую». Здесь остались
+Дедупликация 2026-10-18: каждый кандидат описан ровно в одном файле-трекере.
+Общий список кандидатов разобран полностью: всё, что ставится, уже в ролях и
+`README.md`, отказы с причинами — в [`not-install.md`](not-install.md) и
+отдельных трекерах, поэтому сам файл со списком удалён. Здесь остались
 справочные списки: что уже ставит плейбук, что не ставится на ноутбук и что
 является просто подборками.
 
@@ -58,9 +57,8 @@ GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 <https://github.com/quanticstudios/pitwall/issues/127> и
 [`TODO-pitwall.md`](TODO-pitwall.md).
 
-Кандидаты, которые дублируют этот список и потому не берутся (в
-`TODO-awesome-github.md` помечены ⛔): `ktail` (≈ `stern`), `kube-switch`
-(≈ `kubectx`), `dyff` (≈ `diffyml`).
+Кандидаты, которые дублируют этот список и потому не берутся: `ktail`
+(≈ `stern`), `kube-switch` (≈ `kubectx`), `dyff` (≈ `diffyml`).
 
 ## Не для локальной установки (сервер/платформа) — только если понадобится
 
@@ -83,9 +81,9 @@ GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 `node-exporter`, `kured`, eBPF-агенты и т.п.) — отдельный список:
 [`TODO-node-tools.md`](TODO-node-tools.md).
 
-Ранее здесь числились `VictoriaMetrics` и `coroot` — перенесены в кандидаты
-(`TODO-awesome-github.md`, раздел «Локальный мониторинг»): у обоих есть
-single-binary режим для локального запуска.
+`VictoriaMetrics` и `coroot` сюда не относятся: у обоих есть single-binary
+режим для локального запуска, поэтому они стоят в роли `monitoring` (из
+VictoriaMetrics — только `vmalert-tool`).
 
 ## Списки и обучающие материалы (не утилиты)
 
@@ -94,8 +92,9 @@ single-binary режим для локального запуска.
 но устанавливать нечего.
 
 Остальные подборки (`devops-exercises`, `DevOps-Bash-tools`, `kubetools`,
-`modern-unix`, `awesome-tunneling`, `awesome-prometheus-alerts`) — со своими
-описаниями и ссылками, как кандидаты, в `TODO-awesome-github.md` (раздел
-«Обучающие материалы и подборки»). Инструменты из подборки `kubetools`, которых
-ещё нет в других файлах, разобраны отдельно — в
+`modern-unix`, `awesome-tunneling`, `awesome-prometheus-alerts`,
+`container-security-checklist`, `linux-network-performance-parameters`,
+`boilerplates`, `home-ops`/`homelab-gitops-k3s`) ставить нечего — это
+материалы для чтения. Инструменты из подборки `kubetools`, которых ещё нет
+в других файлах, разобраны отдельно — в
 [`TODO-kubetools.md`](TODO-kubetools.md).
