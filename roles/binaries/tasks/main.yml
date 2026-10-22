@@ -48,7 +48,9 @@
     status_code: [200]
     headers:
       User-Agent: "{{ http_user_agent }}"
-  loop: "{{ binaries_missing | selectattr('source', 'equalto', 'github') | list }}"
+  loop: >-
+    {{ binaries_missing | selectattr('source', 'equalto', 'github')
+       | rejectattr('version', 'defined') | list }}
   loop_control:
     label: "{{ item.name }}"
   register: binaries_github_result
@@ -61,7 +63,9 @@
     status_code: [200]
     headers:
       User-Agent: "{{ http_user_agent }}"
-  loop: "{{ binaries_missing | selectattr('source', 'equalto', 'gitlab') | list }}"
+  loop: >-
+    {{ binaries_missing | selectattr('source', 'equalto', 'gitlab')
+       | rejectattr('version', 'defined') | list }}
   loop_control:
     label: "{{ item.name }}"
   register: binaries_gitlab_result
@@ -73,7 +77,9 @@
     return_content: true
     headers:
       User-Agent: "{{ http_user_agent }}"
-  loop: "{{ binaries_missing | selectattr('source', 'equalto', 'text') | list }}"
+  loop: >-
+    {{ binaries_missing | selectattr('source', 'equalto', 'text')
+       | rejectattr('version', 'defined') | list }}
   loop_control:
     label: "{{ item.name }}"
   register: binaries_text_result
@@ -108,10 +114,14 @@
   loop_control:
     label: "{{ item.name }}"
   vars:
-    _tag: "{{ binaries_github_tags[item.name] | default('') }}"
+    # Если версия задана явно — берём её вместо результата запроса релизов.
+    _tag: >-
+      {{ item.tag | default(item.version
+         | default(binaries_github_tags[item.name] | default(''))) }}
     _version: >-
-      {{ binaries_text_versions[item.name]
-         | default(_tag | regex_replace(item.version_strip | default('^v'), '')) }}
+      {{ item.version
+         | default(binaries_text_versions[item.name] | default(_tag))
+         | regex_replace(item.version_strip | default('^v'), '') }}
     _ver: "{{ _version | trim }}"
     _item: >-
       {{ item | combine({

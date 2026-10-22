@@ -1,7 +1,14 @@
 ---
 # ============================================================================
-# Роль iac: tflint, terraform-docs, packer + менеджеры версий tfenv/tgenv.
+# Роль iac: tflint, terraform-docs, packer, inframap, rover, graphviz
+# + менеджеры версий tfenv/tgenv.
 # ============================================================================
+
+- name: Установить системные пакеты IaC (graphviz для рендера графов)
+  become: true
+  ansible.builtin.apt:
+    name: "{{ iac_apt_packages }}"
+    state: present
 
 - name: Установить инструменты IaC (актуальные версии)
   ansible.builtin.include_role:

@@ -243,6 +243,7 @@
         - "{{ bin_dir }}/conftest --version"
         - "{{ bin_dir }}/kube-bench version"
         - "{{ bin_dir }}/kubernetes-mcp-server --version"
+        - "{{ pipx_bin_dir }}/kubectl-mcp-server --version"
         - "{{ bin_dir }}/kubecm version"
         - "{{ bin_dir }}/kubectl-slice --version"
         - "{{ bin_dir }}/kubectl-ports --version"

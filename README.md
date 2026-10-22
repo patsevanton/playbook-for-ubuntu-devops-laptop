@@ -121,6 +121,8 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
 │   │                           #   tf-mirror, gitlab-terraform-manager,
+│   │                           #   inframap, rover (схемы из state/плана),
+│   │                           #   graphviz (apt),
 │   │                           #   checkov (pipx), tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL)
 │   ├── runtimes/               # Python, uv, Go, Node.js, Java
@@ -295,6 +297,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    gitlab-terraform-manager (управление GitLab Terraform backend),
    checkov (SAST для IaC: мисконфиги безопасности Terraform, Kubernetes,
    Dockerfile, Helm, через pipx),
+   inframap и rover (схемы из tfstate/плана, см. ниже), graphviz (`dot`
+   для рендера графов),
    плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL.
 8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21.
@@ -397,6 +401,7 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 |---|---|---|
 | base | ca-certificates, curl, wget, git, jq, unzip, zip, tar, gzip, xz-utils, bash-completion, lsb-release, ansible-lint, pipx | база для работы, самого плейбука, проверки стиля и установки molecule |
 | runtimes | python3-venv, python3-pip, python3-dev, golang-go, nodejs, npm, openjdk-21-jdk | языковые рантаймы |
+| iac | graphviz | `dot`: рендер графов Terraform/Terragrunt (DOT → svg/png) |
 | secrets | direnv | окружение по каталогам |
 | shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck | удобная работа в терминале, статический анализ shell-скриптов |
 | network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
@@ -452,6 +457,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | packer | releases.hashicorp.com |
 | driftctl | github.com/snyk/driftctl |
 | tgsieve | github.com/imcitius/tgsieve |
+| inframap | github.com/cycloidio/inframap (тег v0.8.0: в v0.8.1 нет бинарников) |
+| rover | github.com/im2nguyen/rover |
 | s5cmd | github.com/peak/s5cmd |
 | pgcenter | github.com/lesovsky/pgcenter |
 | vault | releases.hashicorp.com |
@@ -1136,6 +1143,47 @@ tgsieve plan --all --timings    # ещё и самые медленные юни
 
 ---
 
+## Схемы инфраструктуры: graphviz, inframap, rover
+
+Роль `iac` ставит **graphviz** (`dot`) и два визуализатора Terraform. Прямого
+аналога KubeDiagrams (манифесты → схема с иконками) для Terraform + Yandex
+Cloud нет: KubeDiagrams читает только k8s, а Terraform-инструменты либо не
+знают YC-провайдер, либо не знают про terragrunt (план работ — в
+[`TODO-diagrams.md`](TODO-diagrams.md)). Поэтому на большом стеке схема
+строится слоями.
+
+**1. Карта юнитов** — `terragrunt dag graph` (v0.93+), рёбра берутся из
+`dependency`-блоков. Ни `init`, ни `plan`, ни кредов не нужно.
+
+```bash
+terragrunt dag graph > dag.dot && dot -Tsvg dag.dot -o dag.svg
+terragrunt dag graph --working-dir live/prod > prod.dot   # по окружению
+```
+
+**2. Один юнит** — `inframap` читает tfstate или HCL и выбрасывает служебные
+узлы Terraform (провайдеры, переменные, data), поэтому граф читается лучше,
+чем от `terraform graph`. Для YC работает общий режим — без группировки по
+сетям и без иконок YC.
+
+```bash
+cd live/prod/ru-central1-d/k8s
+terragrunt run -- show -json > /tmp/k8s-state.json
+inframap generate /tmp/k8s-state.json | dot -Tsvg > k8s.svg
+```
+
+**3. То же интерактивно** — `rover` берёт JSON плана, показывает ресурсы,
+связи и граф в браузере; `-standalone` собирает статический HTML без сервера.
+Для terragrunt-юнита план снимается через `terragrunt`, потому что `rover`
+запускает `terraform` и в каталоге с одним `terragrunt.hcl` ничего не найдёт.
+
+```bash
+terragrunt run -- plan -out=/tmp/k8s.tfplan
+terragrunt run -- show -json /tmp/k8s.tfplan > /tmp/k8s-plan.json
+rover -planJSONPath /tmp/k8s-plan.json -standalone   # ../rover/index.html
+```
+
+---
+
 ## pgCenter — админка и мониторинг PostgreSQL
 
 Роль `postgres` ставит **pgcenter** (`lesovsky/pgcenter`) — консольную админку
@@ -1391,6 +1439,9 @@ pitwall в плейбук пока не ставится: решение не п
 [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md), а те, чей бинарник
 не запускается на Ubuntu 26.04, — в
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
+План генератора архитектурных схем из Terraform/Terragrunt (аналога
+KubeDiagrams для Yandex Cloud), который пока не реализован, — в
+[`TODO-diagrams.md`](TODO-diagrams.md).
 Утилиты, которые работают агентом на нодах Kubernetes (DaemonSet/static Pod и
 не ставятся на ноутбук), собраны в
 [`TODO-node-tools.md`](TODO-node-tools.md). Серверные приложения, сервисы и

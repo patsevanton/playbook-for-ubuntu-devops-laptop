@@ -1,0 +1,43 @@
+---
+# ============================================================================
+# kubectl-mcp-server — MCP-сервер Kubernetes для AI-клиентов (opencode,
+# Claude, Cursor и др.), PyPI-пакет rohitg00/kubectl-mcp-server.
+#
+# Установка через pipx (роль pipx_apps): изолированный venv, шим в
+# {{ pipx_bin_dir }}, sudo не нужен. npm-пакет с тем же именем — только
+# обёртка над этим Python-модулем, поэтому ставим первоисточник.
+# Идемпотентность: есть шим — не трогаем; обновление —
+# `pipx upgrade kubectl-mcp-server`.
+#
+# READ-ONLY ЗАДАЁТСЯ ФЛАГОМ ЗАПУСКА, А НЕ УСТАНОВКОЙ. Флаг --read-only
+# блокирует все write-операции сервера; без него AI может создавать, менять
+# и удалять объекты в кластере. Прописать флаг нужно там, где сервер
+# стартует — в конфиге MCP-клиента:
+#
+#   opencode (~/.config/opencode/opencode.json):
+#     "mcp": {
+#       "kubernetes": {
+#         "type": "local",
+#         "command": ["{{ kubectl_mcp_server_bin }}", "--read-only"],
+#         "enabled": true
+#       }
+#     }
+#
+#   Claude/Cursor (mcpServers):
+#     "kubernetes": {
+#       "command": "{{ kubectl_mcp_server_bin }}",
+#       "args": ["--read-only"]
+#     }
+#
+# Мягкий вариант — --disable-destructive (запрещает только удаление,
+# create/update остаются). Проверка, что флаг подхвачен:
+# `{{ kubectl_mcp_server_bin }} --help` — строка "--read-only".
+# ============================================================================
+
+- name: Установить kubectl-mcp-server (MCP-сервер Kubernetes, pipx)
+  ansible.builtin.include_role:
+    name: pipx_apps
+  vars:
+    pipx_apps:
+      - name: "{{ kubectl_mcp_server_package }}"
+        creates: kubectl-mcp-server

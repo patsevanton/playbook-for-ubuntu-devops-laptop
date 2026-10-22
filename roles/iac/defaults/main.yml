@@ -95,6 +95,37 @@ iac_binaries:
     repo: CRASH-Tech/gitlab-terraform-manager
     url: "https://github.com/CRASH-Tech/gitlab-terraform-manager/releases/download/{tag}/gitlab-terraform-manager_linux_amd64"
     archive: none
+  # inframap — граф инфраструктуры из tfstate или HCL в формате Graphviz DOT:
+  # выбрасывает служебные узлы Terraform (провайдеры, переменные, data) и
+  # схлопывает промежуточные ресурсы, поэтому читается лучше, чем
+  # `terraform graph`. Для Yandex Cloud работает в общем режиме — без
+  # группировки по сетям и без иконок YC (см. TODO-diagrams.md).
+  # Последний релиз v0.8.1 опубликован только исходниками, бинарники есть
+  # в v0.8.0, поэтому версия зафиксирована (в архиве — inframap-linux-amd64).
+  - name: inframap
+    source: github
+    repo: cycloidio/inframap
+    version: v0.8.0
+    url: "https://github.com/cycloidio/inframap/releases/download/{tag}/inframap-linux-amd64.tar.gz"
+    archive: tar
+    member: inframap-linux-amd64
+  # rover — интерактивный визуализатор Terraform: читает state или JSON плана
+  # и поднимает веб-UI с картой ресурсов, связями и графом; `-standalone`
+  # собирает статический HTML без сервера, `-genImage` — одну svg. В архиве
+  # бинарник rover_v{version}. Для terragrunt-юнита план снимается через
+  # terragrunt, а rover получает готовый JSON флагом -planJSONPath.
+  - name: rover
+    source: github
+    repo: im2nguyen/rover
+    url: "https://github.com/im2nguyen/rover/releases/download/{tag}/rover_{version}_linux_amd64.zip"
+    archive: zip
+    member: rover_v{version}
+
+# Пакеты apt для IaC. graphviz даёт `dot` — единственный практичный способ
+# превратить DOT-вывод `terraform graph`, `terragrunt dag graph` и inframap
+# в svg/png; без него все эти команды печатают текст в консоль.
+iac_apt_packages:
+  - graphviz
 
 # Python-приложения IaC (нет релизных бинарников — PyPI/pipx).
 iac_pipx_apps:

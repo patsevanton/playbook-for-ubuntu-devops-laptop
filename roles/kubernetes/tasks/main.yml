@@ -26,6 +26,11 @@
     file: kosko.yml
   when: kosko_install
 
+- name: Установить kubectl-mcp-server (MCP-сервер Kubernetes для AI-клиентов)
+  ansible.builtin.include_tasks:
+    file: kubectl-mcp-server.yml
+  when: kubectl_mcp_server_install
+
 - name: Установить Headlamp (web/desktop UI Kubernetes)
   ansible.builtin.include_tasks:
     file: headlamp.yml

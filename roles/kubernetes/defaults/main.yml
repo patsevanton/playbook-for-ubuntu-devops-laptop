@@ -1088,6 +1088,21 @@ kosko_install: true
 kosko_package: kosko
 kosko_bin: "{{ bin_dir }}/kosko"
 
+# --- kubectl-mcp-server: MCP-сервер Kubernetes (pipx) ------------------------
+# MCP-сервер для AI-клиентов (opencode, Claude, Cursor и др.). Готовых
+# бинарников апстрим не публикует — ставится из PyPI в изолированный venv
+# через pipx, шим кладётся в {{ pipx_bin_dir }}. npm-пакет с тем же именем
+# является лишь обёрткой над этим Python-модулем, поэтому берём первоисточник.
+#
+# Read-only — это флаг ЗАПУСКА, а не свойство установки:
+# `kubectl-mcp-server --read-only` блокирует все write-операции. Флаг
+# прописывается в конфиге MCP-клиента (см. tasks/kubectl-mcp-server.yml);
+# без него AI получает полный доступ на запись в кластер. Мягкий вариант —
+# `--disable-destructive` (блокирует только удаление).
+kubectl_mcp_server_install: true
+kubectl_mcp_server_package: kubectl-mcp-server
+kubectl_mcp_server_bin: "{{ pipx_bin_dir }}/kubectl-mcp-server"
+
 # --- kubebox: терминальная и веб-консоль Kubernetes --------------------------
 # Терминальный dashboard (pod, logs, exec, YAML) с запуском по SSH без
 # desktop-приложения и с опцией веб-режима в браузере. Апстрим публикует

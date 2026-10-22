@@ -17,6 +17,8 @@ Helm-чарты (не на ноутбук) — в
 [`TODO-server-apps.md`](TODO-server-apps.md), всё из Ansible Galaxy (роли,
 коллекции, готовые playbook'и), которое плейбук не ставит, — в
 [`TODO-ansible-galaxy-not-install.md`](TODO-ansible-galaxy-not-install.md).
+Не кандидат, а план работ — генератор архитектурных схем из
+Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 
 Источник подборки: все репозитории со ⭐ аккаунта (2057 шт.), из них отобраны
 ~570 похожих на локально устанавливаемые утилиты и вручную вычищены до списков
@@ -55,6 +57,7 @@ Helm-чарты (не на ноутбук) — в
 `ko`, `kubie`, `kubefwd`, `kubectl-tree`, `conftest`, `kube-bench`,
 `kube-hunter`, `cdk8s`, `kubernetes-mcp-server`, `kubecm`,
 `kubectl-slice`, `helmify`, `kail`, `kubeaudit`, `rbac-tool`,
+`inframap`, `rover`, `graphviz`,
 `kluctl`, `kube-burner`, `kwok`, `kwokctl`, `kpexec`,
 `groot`, `k2tf`, `kubesec`, `kpt`, `kube-job`, `kubectl-sniff`,
 `static-tcpdump`, `kdash`, `kubetail`, `kubepug`, `kube-prompt`,
