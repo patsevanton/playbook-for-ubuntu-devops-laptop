@@ -26,20 +26,41 @@
 они не устанавливаются на ноутбук по другой причине — см.
 [`TODO-server-apps.md`](TODO-server-apps.md).
 
+Способ установки сверен 2026-10-22: для GitHub-проектов — ассеты последнего
+релиза, для остальных — PyPI/apt. Перенесённые и отброшенные кандидаты — в
+конце файла.
+
 ---
 
 | Раздел | Кандидат | Что это | В каком виде поставляется |
 | --- | --- | --- | --- |
-| IaC и инфраструктура | [knee](https://github.com/shurutech/knee) | Интерактивный CLI поверх Ansible: полуавтоматический setup инфраструктуры | Клон репозитория и `pip install -r requirements.txt` (с пинами ansible-lint 6.22.2 и typer 0.9.0); пакета на PyPI нет, в релизе v0.0.1 ассетов нет |
-| Kubernetes | [kondense](https://github.com/unagex/kondense) | Автоматический подбор requests/limits для контейнеров | Только исходники (`go build`); релизы без ассетов |
-| Kubernetes | [kubernetes-rbac-audit](https://github.com/cyberark/kubernetes-rbac-audit) | Аудит RBAC в кластере, в том числе офлайн по заранее выгруженным JSON ролей | Один скрипт `ExtensiveRoleCheck.py` без упаковки, ни PyPI, ни релизных артефактов; покрывается `kubehound` (роль `kubernetes`) |
-| Сеть | [EternalTerminal](https://github.com/MisterTea/EternalTerminal) | Переподключаемый удалённый shell: сессия переживает обрыв | В релизе `.deb` только под arm64 плюс исходники; amd64 ставится из apt-репозитория ET, на 26.04 не проверялся |
-| Сеть | [wondershaper](https://github.com/magnific0/wondershaper) | Простое ограничение полосы пропускания адаптера | bash-скрипт, ставится копированием или `make install`; релизов нет |
-| Диагностика и железо | [linnix](https://github.com/linnix-os/linnix) | eBPF-наблюдаемость с AI-детекцией инцидентов | Исходники и docker-образ; релиз v0.2.0 опубликован без ассетов — ни `.deb`, ни Linux-бинарника |
-| Диагностика и железо | [sysinfo](https://github.com/peterbay/sysinfo) | Скрипты сбора подробной системной информации | Набор bash/python-скриптов без упаковки: ни PyPI, ни релизов; похожие данные дают `procs`, `fastfetch` и `jc` |
-| Диагностика и железо | [mcelog](https://github.com/andikleen/mcelog) | userspace-логирование аппаратных ошибок памяти CPU (MCE) | Сборка из исходников (`make`); релизов нет |
-| Диагностика и железо | [bench-scripts](https://github.com/haydenjames/bench-scripts) | Набор скриптов бенчмарка Linux-сервера | Набор shell-скриптов, запускается из клона репозитория; релизов нет |
-| Безопасность | [flawz](https://github.com/orhun/flawz) | TUI-браузер CVE/уязвимостей | В релизах только macOS/Windows и `flawz-installer.sh`; готового Linux-бинарника нет (`cargo build`) |
+| Kubernetes | [kubernetes-rbac-audit](https://github.com/cyberark/kubernetes-rbac-audit) | Аудит RBAC в кластере, в том числе офлайн по заранее выгруженным JSON ролей | Один скрипт `ExtensiveRoleCheck.py` без упаковки: ни PyPI, ни релизов. Покрывается `kubehound` (роль `kubernetes`) |
+| Диагностика и железо | [linnix](https://github.com/linnix-os/linnix) | eBPF-наблюдаемость с AI-детекцией инцидентов | Исходники и docker-образ; amd64 `.deb` был только в v0.1.0 (`cognitod_0.1.0_amd64.deb`), в v0.1.1 и v0.2.0 ассетов нет |
+| Диагностика и железо | [mcelog](https://github.com/andikleen/mcelog) | userspace-логирование аппаратных ошибок памяти CPU (MCE) | Сборка из исходников (`make`); релизов нет, в репозитории Ubuntu пакета тоже нет |
+| Безопасность | [flawz](https://github.com/orhun/flawz) | TUI-браузер CVE/уязвимостей | В релизе v0.4.1 только macOS/Windows и `flawz-installer.sh`; готового Linux-бинарника нет (`cargo build`) |
 | Контейнеры и реестры | [registry-cli](https://github.com/andrey-pohilko/registry-cli) | Манипуляции с docker-registry из командной строки | Одиночный `registry.py` плюс `pip install -r requirements-*.txt`; ни пакета на PyPI, ни релизных артефактов. Альтернатива — готовый docker-образ `anoxis/registry-cli` |
 | Контейнеры и реестры | [gitlab-registry-images-cleaner](https://github.com/n0madic/gitlab-registry-images-cleaner) | Чистка старых образов в GitLab registry | Одиночный python-скрипт с `requirements.txt`; пакета на PyPI и релизных ассетов нет |
-| Пакетные менеджеры | [stew](https://github.com/alxrem/stew) | Независимый пакетный менеджер для скомпилированных бинарников | Только исходники (`go install`); релизов нет |
+
+---
+
+## Убрано после проверки 2026-10-22
+
+- **knee** — не нужен: инфраструктура поднимается своими Ansible-плейбуками,
+  а knee — обёртка над 13 плейбуками из своего репозитория. См.
+  [`not-install.md`](not-install.md).
+- **wondershaper**, **sysinfo**, **bench-scripts** — bash-скрипты без
+  упаковки. Решение: shell-скрипты в плейбук не берём, даже если апстрим
+  когда-нибудь начнёт их релизить.
+- **kondense** — не утилита для ноутбука: работает сайдкаром
+  `kondense/kondense:1.1.0` внутри подов и правит им requests/limits.
+  Кандидат для [`TODO-kubetools.md`](TODO-kubetools.md), рядом с Goldilocks
+  и VPA.
+- **EternalTerminal** — под 26.04 собирается amd64-пакет
+  `et 7.0.0-resolute1` в PPA `ppa:jgmath2000/et`; проверено на 26.04.1:
+  зависимости ставятся, `et --version` отвечает `7.0.0`. В релизе GitHub
+  по-прежнему только `et_7.0.0-stable1_arm64.deb`. Оговорка: это PPA, а
+  плейбук сейчас подключает сторонний репозиторий только для Docker.
+- **stew** — у апстрима [marwanhawari/stew](https://github.com/marwanhawari/stew)
+  есть `stew-v0.6.0-linux-amd64.tar.gz` и `stew_0.6.0_linux_amd64.deb`.
+  В файле стояла ссылка на [alxrem/stew](https://github.com/alxrem/stew) —
+  это форк без собственных релизов.

@@ -13,6 +13,7 @@
 | auto-cpufreq | авто-оптимизация частоты CPU и энергопотребления | не нужен: хватает того, что в Ubuntu есть из коробки (`power-profiles-daemon` + `amd-pstate`/`intel_pstate`) | — |
 | argocd (Argo CD CLI) | CLI для GitOps-деплоя в Argo CD | Argo CD не используется: сервер не разворачивается, локальный CLI без него не нужен | — |
 | pulumi | IaC на языках программирования (альтернатива Terraform) | не используется: стек IaC на Terraform (`tfenv`/`tgenv`) | — |
+| knee | интерактивный CLI над Ansible: спрашивает окружение и стек, генерирует inventory/group_vars и запускает один из 13 готовых плейбуков (postgres/mysql/mongodb/redis, python/ruby/node/golang webserver) | не нужен: инфраструктура поднимается своими Ansible-плейбуками, а knee — обёртка над чужими плейбуками из своего репозитория | — |
 | 3mux | терминальный мультиплексор с тайлингом в стиле i3 | не нужен: используется стандартное окружение Ubuntu, а мультиплексор уже закрывает `zellij` | — |
 | asn | справка по IP/домену: ASN, RPKI, BGP, WHOIS, трейс | не нужен: распространяется только bash-скриптом, без релизных артефактов | — |
 | kubebuilder | SDK и скаффолдинг Kubernetes-операторов и CRD на Go | не используется: Kubernetes-операторы не создаются | — |
@@ -60,3 +61,16 @@ Pulumi не ставится, потому что IaC-стек уже на Terra
 Kubebuilder не ставится, потому что Kubernetes-операторы не создаются.
 Если понадобится писать оператор/CRD на Go — вернуть в
 `roles/kubernetes/defaults/main.yml` одной записью.
+
+## knee — свои плейбуки
+
+knee — интерактивный CLI над Ansible: спрашивает окружение (local/staging/
+production) и стек, генерирует inventory и group_vars, а затем запускает один
+из 13 плейбуков, которые лежат в его репозитории (`playbooks/*.yml`:
+PostgreSQL/MySQL/MongoDB/Redis, python/ruby/node/golang webserver,
+`user_management`, `webserver_base`). Запуск — через `ansible-runner`, то есть
+CLI только выбирает файл и подставляет переменные.
+
+Не ставим: инфраструктура поднимается своими Ansible-плейбуками, чужие
+плейбуки внутри knee не нужны. Ставился бы он всё равно из клона —
+пакета на PyPI нет, а в релизе v0.0.1 нет ассетов.
