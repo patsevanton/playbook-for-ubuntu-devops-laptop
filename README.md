@@ -106,8 +106,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   medusa, bank-vaults, horusec,
 │   │                           #   trufflehog, syft, cosign,
 │   │                           #   dependency-check (/opt + обёртка),
-│   │                           #   entropy, rbac-wizard (go install),
-│   │                           #   ochrona (pipx)
+│   │                           #   entropy (go install), ochrona (pipx)
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
 │   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
 │   │                           #   jnv, octosql, lazyjournal, gonzo, otel-tui, jl,
@@ -240,8 +239,7 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    каталогов в CycloneDX/SPDX), cosign (подпись и проверка артефактов
    sigstore), entropy (поиск строк с
    высокой энтропией — ключей и токенов — по признаку случайности, а не по
-   шаблону; `go install`), rbac-wizard (веб-UI для визуализации RBAC
-   кластера; `go install`) и ochrona (SCA для Python-зависимостей: сверка
+   шаблону; `go install`) и ochrona (SCA для Python-зависимостей: сверка
    версий с базой OSV и безопасные версии, через pipx).
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
@@ -534,8 +532,8 @@ PyPI через pipx (роль `iac`), `kube-hunter` — из PyPI через pi
 (роль `kubernetes`), `gitlabform` и
 `tftui` — из PyPI через pipx (общая роль
 `pipx_apps`, вызывается из `git`, `iac`, `secrets`, `shell` и `network`),
-`entropy` и `rbac-wizard` (роль `secrets`) и `reachable` (роль `network`) —
-сборкой из исходников через `go install` (общая роль `go_apps`, вызывается из
+`entropy` (роль `secrets`) и `reachable` (роль `network`) — сборкой из
+исходников через `go install` (общая роль `go_apps`, вызывается из
 `secrets` и `network`), `krr` — распаковкой PyInstaller-сборки в `/opt/krr` с обёрткой в
 `/usr/local/bin` (роль `monitoring`), `dependency-check` — распаковкой
 zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/bin` (роль

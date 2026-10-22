@@ -32,7 +32,7 @@
 | --- | --- | --- | --- |
 | IaC и инфраструктура | [knee](https://github.com/shurutech/knee) | Интерактивный CLI поверх Ansible: полуавтоматический setup инфраструктуры | Клон репозитория и `pip install -r requirements.txt` (с пинами ansible-lint 6.22.2 и typer 0.9.0); пакета на PyPI нет, в релизе v0.0.1 ассетов нет |
 | Kubernetes | [kondense](https://github.com/unagex/kondense) | Автоматический подбор requests/limits для контейнеров | Только исходники (`go build`); релизы без ассетов |
-| Kubernetes | [kubernetes-rbac-audit](https://github.com/cyberark/kubernetes-rbac-audit) | Аудит RBAC в кластере, в том числе офлайн по заранее выгруженным JSON ролей | Один скрипт `ExtensiveRoleCheck.py` без упаковки, ни PyPI, ни релизных артефактов; покрывается `rbac-wizard` и `kubehound` (роль `secrets`) |
+| Kubernetes | [kubernetes-rbac-audit](https://github.com/cyberark/kubernetes-rbac-audit) | Аудит RBAC в кластере, в том числе офлайн по заранее выгруженным JSON ролей | Один скрипт `ExtensiveRoleCheck.py` без упаковки, ни PyPI, ни релизных артефактов; покрывается `kubehound` (роль `kubernetes`) |
 | Сеть | [EternalTerminal](https://github.com/MisterTea/EternalTerminal) | Переподключаемый удалённый shell: сессия переживает обрыв | В релизе `.deb` только под arm64 плюс исходники; amd64 ставится из apt-репозитория ET, на 26.04 не проверялся |
 | Сеть | [wondershaper](https://github.com/magnific0/wondershaper) | Простое ограничение полосы пропускания адаптера | bash-скрипт, ставится копированием или `make install`; релизов нет |
 | Диагностика и железо | [linnix](https://github.com/linnix-os/linnix) | eBPF-наблюдаемость с AI-детекцией инцидентов | Исходники и docker-образ; релиз v0.2.0 опубликован без ассетов — ни `.deb`, ни Linux-бинарника |

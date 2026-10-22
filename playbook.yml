@@ -246,7 +246,6 @@
         - "{{ bin_dir }}/cdk8s --version"
         - "{{ pipx_bin_dir }}/kube-hunter --version"
         - "{{ pipx_bin_dir }}/checkov --version"
-        - "{{ bin_dir }}/rbac-wizard version"
         - "{{ pipx_bin_dir }}/yamlfixer --version"
         - "{{ bin_dir }}/tf-mirror --version"
         - "{{ bin_dir }}/shellclear --version"

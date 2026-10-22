@@ -191,6 +191,11 @@
       [aenix-io/cozystack](https://github.com/aenix-io/cozystack)
 - [ ] **kagent** — AI-агенты для операций в Kubernetes. *(`helm`)* —
       [kagent-dev/kagent](https://github.com/kagent-dev/kagent)
+- [ ] **rbac-wizard** — веб-UI для визуализации RBAC кластера: кто к чему
+      имеет доступ, цепочки ServiceAccount → Role → ClusterRole. *(`helm`)* —
+      [pehlicd/rbac-wizard](https://github.com/pehlicd/rbac-wizard)
+      — долгоживущий веб-сервис; на ноутбуке разовый анализ закрывают
+      `kubectl auth can-i --list` и `kubehound` (пути атак).
 
 ## 7. Знания, совместная работа и удалённый доступ
 
