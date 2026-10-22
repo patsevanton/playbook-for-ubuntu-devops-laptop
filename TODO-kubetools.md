@@ -232,8 +232,10 @@
 
 ### Logging and Tracing
 
-- [ ] **kubectl-mtail** — плагин kubectl: tail логов подов по label selector.
-      *(`go`)* — [grzesuav/kubectl-mtail](https://gitlab.com/grzesuav/kubectl-mtail)
+- [x] **kubectl-mtail** — плагин kubectl: tail логов подов по label selector.
+      *(`go`)* — [grzesuav/kubectl-mtail](https://gitlab.com/grzesuav/kubectl-mtail) —
+      не ставим: в GitLab-релизах нет ассетов (последний — 2020), а логи подов
+      по селектору уже дают `stern` и `kail` (см. [`not-install.md`](not-install.md)).
 - [x] **kail** — просмотрщик логов Kubernetes (`tail -f` по кластеру). *(`release`)* —
       [boz/kail](https://github.com/boz/kail) —
       добавлен в роль `kubernetes` (kail_v{version}_linux_amd64.tar.gz).
@@ -294,12 +296,17 @@
 - [x] **Lens IDE** — мощный desktop-клиент для нескольких кластеров (сейчас
       Mirror.xyz, есть Linux). *(`deb` / `AppImage`)* —
       [k8slens.dev](https://k8slens.dev/) — не ставим: платный продукт.
-- [ ] **Kosko** — организация k8s-манифестов на JavaScript. *(`npm`)* —
-      [kosko.dev](https://kosko.dev/)
-- [ ] **KuberEz** — графическое моделирование k8s-манифестов. *(`release`)* —
-      [uengine-oss/kuber-ez](https://github.com/uengine-oss/kuber-ez)
-- [ ] **Kubes** — деплой-инструмент: сборка образа, компиляция YAML, apply.
-      *(`gem`)* — [boltops-tools/kubes](https://github.com/boltops-tools/kubes)
+- [x] **Kosko** — организация k8s-манифестов на JavaScript. *(`npm`)* —
+      [kosko.dev](https://kosko.dev/) —
+      добавлен в роль `kubernetes` (npm-пакет `kosko`).
+- [x] **KuberEz** — графическое моделирование k8s-манифестов. *(`release`)* —
+      [uengine-oss/kuber-ez](https://github.com/uengine-oss/kuber-ez) —
+      не ставим: в релизе `1.0alpha` нет ассетов, проект заброшен с 2023 года
+      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
+- [x] **Kubes** — деплой-инструмент: сборка образа, компиляция YAML, apply.
+      *(`gem`)* — [boltops-tools/kubes](https://github.com/boltops-tools/kubes) —
+      не ставим: деплой через Helm/Flux, а ставится инструмент только как gem
+      (см. [`not-install.md`](not-install.md)).
 - [x] **Kubebuilder** — SDK для построения Kubernetes API на CRD. *(`release`)* —
       [kubernetes-sigs/kubebuilder](https://github.com/kubernetes-sigs/kubebuilder) —
       не используется: Kubernetes-операторы не создаются, см. [`not-install.md`](not-install.md).
@@ -354,8 +361,10 @@
       добавлен в роль `kubernetes` (бинарник `nodegizmo` из
       nodegizmo_v{version}_linux_amd64.tar.gz, на диск кладётся как
       `node-gizmo`).
-- [ ] **kubectl-fields** — плагин kubectl: разбор иерархии ресурсов. *(`krew`)* —
-      [rewanthtammana/kubectl-fields](https://github.com/rewanthtammana/kubectl-fields)
+- [x] **kubectl-fields** — плагин kubectl: разбор иерархии ресурсов. *(`krew`)* —
+      [rewanthtammana/kubectl-fields](https://github.com/rewanthtammana/kubectl-fields) —
+      добавлен в роль `kubernetes` (`kubectl-fields-Linux-x86_64.tar.gz`,
+      команда `kubectl fields`).
 - [ ] **scaf** — каркас нового проекта на Kubernetes. *(`pipx`)* —
       [sixfeetup/scaf](https://github.com/sixfeetup/scaf)
 - [x] **KubePug** — pre-upgrade checker: устаревшие API в манифестах. *(`release`)* —
@@ -379,8 +388,10 @@
       [kubernetes/minikube](https://github.com/kubernetes/minikube) —
       не ставим: работаем с облачными кластерами, для локальных тестов уже есть
       `kind`, см. [`not-install.md`](not-install.md).
-- [ ] **mokctl** — сборка conformant multi-node кластеров в контейнерах.
-      *(`release`)* — [bashtools/mokctl](https://github.com/bashtools/mokctl)
+- [x] **mokctl** — сборка conformant multi-node кластеров в контейнерах.
+      *(`release`)* — [bashtools/mokctl](https://github.com/bashtools/mokctl) —
+      не ставим: релизы без ассетов, распространяется shell-скриптами
+      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
 
 ### CI/CD integration Tools
 
@@ -406,8 +417,10 @@
       добавлен в роль `kubernetes` (kluctl_v{version}_linux_amd64.tar.gz).
 - [ ] **kubedog** — наблюдение за ресурсами в CI/CD пайплайнах. *(`release`)* —
       [werf/kubedog](https://github.com/werf/kubedog)
-- [ ] **Nelm** — современная альтернатива Helm (исправляет болячки Helm).
-      *(`release`)* — [werf/nelm](https://github.com/werf/nelm)
+- [x] **Nelm** — современная альтернатива Helm (исправляет болячки Helm).
+      *(`release`)* — [werf/nelm](https://github.com/werf/nelm) —
+      не ставим: в GitHub-релизах нет бинарников (установка через trdl),
+      см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md).
 - [ ] **mcp-for-argocd** — MCP-сервер для Argo CD (AI-ассистенты + Argo CD).
       *(`go`)* — [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd)
 - [ ] **Argazer** — мониторинг обновлений Helm-чартов в ArgoCD-приложениях.
@@ -419,8 +432,10 @@
       practices в YAML/Helm/кластере. *(`release`)* —
       [kubevious/cli](https://github.com/kubevious/cli) —
       добавлен в роль `kubernetes` (бинарник kubevious-linux-x64).
-- [ ] **klum** — «Kubernetes Lazy User Manager». *(`go`)* —
-      [ibuildthecloud/klum](https://github.com/ibuildthecloud/klum)
+- [x] **klum** — «Kubernetes Lazy User Manager». *(`go`)* —
+      [ibuildthecloud/klum](https://github.com/ibuildthecloud/klum) —
+      не ставим: релизов нет, только `go build`; проект не обновлялся с 2023
+      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
 - [x] **kube-bench** — проверки кластера по CIS Kubernetes Benchmark. *(`release`)* —
       [aquasecurity/kube-bench](https://github.com/aquasecurity/kube-bench) —
       добавлен в роль `kubernetes`.
@@ -439,8 +454,10 @@
 - [x] **audit2rbac** — автогенерация RBAC-политик из audit-логов. *(`release`)* —
       [liggitt/audit2rbac](https://github.com/liggitt/audit2rbac) —
       добавлен в роль `kubernetes` (audit2rbac-linux-amd64.tar.gz).
-- [ ] **Chartsec** — сканер безопасности Helm-чартов. *(`release`)* —
-      [banzaicloud/chartsec](https://github.com/banzaicloud/chartsec)
+- [x] **Chartsec** — сканер безопасности Helm-чартов. *(`release`)* —
+      [banzaicloud/chartsec](https://github.com/banzaicloud/chartsec) —
+      не ставим: релизов нет, проект заброшен с 2019 года
+      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
 - [x] **Datree** — CLI против k8s-мисконфигураций по best practices и политикам.
       *(`script`)* — [datreeio/datree](https://github.com/datreeio/datree) —
       не ставим: проект в архиве.
@@ -474,13 +491,18 @@
       добавлен в роль `kubernetes` (rbac-tool_v{version}_linux_amd64.tar.gz).
 - [ ] **MKAT** — all-in-one аудит-тулкит для managed Kubernetes (пока EKS).
       *(`pipx`)* — [DataDog/managed-kubernetes-auditing-toolkit](https://github.com/DataDog/managed-kubernetes-auditing-toolkit)
-- [ ] **scan2html** — плагин Trivy: вывод сканов в интерактивный HTML.
-      *(`pipx`)* — [fatihtokus/scan2html](https://github.com/fatihtokus/scan2html)
+- [x] **scan2html** — плагин Trivy: вывод сканов в интерактивный HTML.
+      *(`pipx`)* — [fatihtokus/scan2html](https://github.com/fatihtokus/scan2html) —
+      не ставим: пакета на PyPI нет (`pip index versions scan2html` пусто),
+      только исходники (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
 
 ### Network Policies
 
-- [ ] **k8s-tun** — доступ к pod IP / service IP кластера. *(`script`)* —
-      [yzxiu/k8s-tun](https://github.com/yzxiu/k8s-tun)
+- [x] **k8s-tun** — доступ к pod IP / service IP кластера. *(`script`)* —
+      [yzxiu/k8s-tun](https://github.com/yzxiu/k8s-tun) —
+      не ставим: требует server в кластере и прав NET_ADMIN на клиенте,
+      а доступ к pod/service IP уже даёт `k8s-insider`
+      (см. [`not-install.md`](not-install.md)).
 - [x] **knetvis** — CLI: визуализация и тестирование NetworkPolicy. *(`pipx`)* —
       [samuelarogbonlo/knetvis](https://github.com/samuelarogbonlo/knetvis) —
       добавлен в роль `kubernetes` через pipx: релизных ассетов нет,
@@ -498,8 +520,10 @@
 - [x] **Keploy** — конвертация пользовательского трафика в тест-кейсы и заглушки.
       *(`script`)* — [keploy/keploy](https://github.com/keploy/keploy) —
       добавлен в роль `kubernetes` (keploy_linux_amd64.tar.gz).
-- [ ] **Nighthawk** — HTTP load-tester (constant & adaptive rates, insights).
-      *(`release`)* — [layer5io/getnighthawk](https://github.com/layer5io/getnighthawk)
+- [x] **Nighthawk** — HTTP load-tester (constant & adaptive rates, insights).
+      *(`release`)* — [layer5io/getnighthawk](https://github.com/layer5io/getnighthawk) —
+      не ставим: ни в одном релизе нет ассетов (только Docker-образ и
+      Makefile), см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md).
 - [ ] **helm-hook-preflight** — CLI: проблемы порядка создания Job/Pod из
       отрендеренного Helm YAML. *(`pipx`)* —
       [ruslan-shaydullin/helm-hook-preflight](https://github.com/ruslan-shaydullin/helm-hook-preflight)
@@ -523,8 +547,10 @@
 - [x] **helm-ssm** — получение и инъекция секретов из AWS SSM в Helm.
       *(`script`)* — [totango/helm-ssm](https://github.com/totango/helm-ssm) —
       не нужен: bash-скрипт (см. `not-install.md`).
-- [ ] **Skupper** — мультиоблачная коммуникация для Kubernetes. *(`release`)* —
-      [skupper.io](https://skupper.io/)
+- [x] **Skupper** — мультиоблачная коммуникация для Kubernetes. *(`release`)* —
+      [skupper.io](https://skupper.io/) —
+      не ставим на ноутбук: CLI только разворачивает site router в кластере,
+      это кластерная платформа (см. [`TODO-server-apps.md`](TODO-server-apps.md)).
 - [ ] **eksdemo** — «easy button» для изучения и демонстрации Amazon EKS.
       *(`release`)* — [awslabs/eksdemo](https://github.com/awslabs/eksdemo)
 
@@ -565,14 +591,18 @@
 - [x] **kopilot** — AI-ассистент Kubernetes. *(`release`)* —
       [knight42/kopilot](https://github.com/knight42/kopilot) —
       добавлен в роль `kubernetes` (kopilot_v{version}_linux_amd64.tar.gz).
-- [ ] **kopylot** — AI-ассистент для разработчиков Kubernetes. *(`pipx`)* —
-      [avsthiago/kopylot](https://github.com/avsthiago/kopylot)
+- [x] **kopylot** — AI-ассистент для разработчиков Kubernetes. *(`pipx`)* —
+      [avsthiago/kopylot](https://github.com/avsthiago/kopylot) —
+      не ставим: дублирует `kopilot`, требует OpenAI-токен и не обновлялся
+      с 2024 года (см. [`not-install.md`](not-install.md)).
 - [x] **aiac** — генератор k8s-манифестов и пакетов через AI. *(`go` / `release`)* —
       [gofireflyio/aiac](https://github.com/gofireflyio/aiac) —
       не нужен: генерация манифестов через LLM не используется,
       см. [`not-install.md`](not-install.md).
-- [ ] **mico** — AI-помощник kubectl. *(`go`)* —
-      [tahtaciburak/mico](https://github.com/tahtaciburak/mico)
+- [x] **mico** — AI-помощник kubectl. *(`go`)* —
+      [tahtaciburak/mico](https://github.com/tahtaciburak/mico) —
+      не ставим: релизов нет, только `go build`
+      (см. [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).
 - [ ] **kubectl-assistant** — генерация kubectl-команд через GPT3 API. *(`pipx`)* —
       [dkoshkin/kubectl-assistant](https://github.com/dkoshkin/kubectl-assistant)
 - [x] **kubernetes-mcp-server** — MCP-сервер для Kubernetes/OpenShift.
@@ -671,6 +701,29 @@
 | scaf, helm-hook-preflight | [sixfeetup/scaf](https://github.com/sixfeetup/scaf), [ruslan-shaydullin/helm-hook-preflight](https://github.com/ruslan-shaydullin/helm-hook-preflight) | скаффолдинг проекта и проверка порядка Helm-хуков | пакетов на PyPI нет, релизов тоже | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
 | cnpg-drill, yupd | [danielgaskins/cnpg-drill](https://github.com/danielgaskins/cnpg-drill), [srozange/yupd](https://github.com/srozange/yupd) | проверка бэкапов CloudNativePG и обновление YAML | CloudNativePG не используется; `yupd` слишком узкий (4 звезды) | этот файл |
 | Function, kubectl-assistant | [functionio/function](https://github.com/functionio/function), [dkoshkin/kubectl-assistant](https://github.com/dkoshkin/kubectl-assistant) | CLI для function.io и генерация kubectl-команд через GPT-3 | репозитории недоступны | этот файл |
+
+### Волна «следующие 15» 2026-10-22
+
+Из оставшихся кандидатов отобраны 15 самых популярных по звёздам GitHub.
+В плейбук добавлены только два, у которых есть штатный способ установки без
+сборки из исходников: `kosko` (npm-пакет) и `kubectl-fields` (готовый
+бинарник). Остальные отброшены по причинам ниже.
+
+| Кандидат | GitHub | Что это | Почему отброшен | Где подробности |
+| --- | --- | --- | --- | --- |
+| Nelm | [werf/nelm](https://github.com/werf/nelm) | альтернатива Helm с исправленным порядком ресурсов и lifecycle | в GitHub-релизах нет бинарников (установка через trdl) | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| Skupper | [skupperproject/skupper](https://github.com/skupperproject/skupper) | мультиоблачная связность сервисов между кластерами | CLI только разворачивает site router в кластере — это платформа | [`TODO-server-apps.md`](TODO-server-apps.md) |
+| klum | [ibuildthecloud/klum](https://github.com/ibuildthecloud/klum) | управление пользователями и доступом к кластеру | релизов нет, только `go build`; не обновлялся с 2023 | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| kopylot | [avsthiago/kopylot](https://github.com/avsthiago/kopylot) | AI-аудит, диагностика и чат по ресурсам кластера | дублирует `kopilot`, требует OpenAI-токен, не обновлялся с 2024 | [`not-install.md`](not-install.md) |
+| Nighthawk | [layer5io/getnighthawk](https://github.com/layer5io/getnighthawk) | HTTP-нагрузочное тестирование с адаптивной нагрузкой | ни в одном релизе нет ассетов (только Docker-образ и Makefile) | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| scan2html | [fatihtokus/scan2html](https://github.com/fatihtokus/scan2html) | плагин Trivy: интерактивный HTML-отчёт | пакета на PyPI нет, только исходники | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| mokctl | [bashtools/mokctl](https://github.com/bashtools/mokctl) | conformant multi-node кластеры в контейнерах | релизы без ассетов, распространяется shell-скриптами | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| Kubes | [boltops-tools/kubes](https://github.com/boltops-tools/kubes) | сборка образа, компиляция YAML и деплой | деплой через Helm/Flux; ставится только как gem | [`not-install.md`](not-install.md) |
+| KuberEz | [uengine-oss/kuber-ez](https://github.com/uengine-oss/kuber-ez) | графическое моделирование манифестов | в релизе `1.0alpha` нет ассетов, проект заброшен с 2023 | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| Chartsec | [banzaicloud/chartsec](https://github.com/banzaicloud/chartsec) | сканер безопасности Helm-чартов | релизов нет, проект заброшен с 2019 | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| k8s-tun | [yzxiu/k8s-tun](https://github.com/yzxiu/k8s-tun) | доступ к pod IP и service IP кластера | нужен server в кластере и NET_ADMIN; дублирует `k8s-insider` | [`not-install.md`](not-install.md) |
+| kubectl-mtail | [grzesuav/kubectl-mtail](https://gitlab.com/grzesuav/kubectl-mtail) | tail логов подов по label selector | в GitLab-релизах нет ассетов; логи по селектору дают `stern` и `kail` | [`not-install.md`](not-install.md) |
+| mico | [tahtaciburak/mico](https://github.com/tahtaciburak/mico) | AI-помощник kubectl | релизов нет, только `go build` | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
 
 ---
 

@@ -21,6 +21,11 @@
     file: cdk8s.yml
   when: cdk8s_install
 
+- name: Установить kosko (манифесты Kubernetes на TypeScript)
+  ansible.builtin.include_tasks:
+    file: kosko.yml
+  when: kosko_install
+
 - name: Установить Headlamp (web/desktop UI Kubernetes)
   ansible.builtin.include_tasks:
     file: headlamp.yml

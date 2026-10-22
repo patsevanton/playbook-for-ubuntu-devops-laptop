@@ -440,6 +440,16 @@ kubernetes_binaries:
     url: "https://github.com/patrickdappollonio/kubectl-slice/releases/download/{tag}/kubectl-slice_linux_x86_64.tar.gz"
     archive: tar
     member: kubectl-slice
+  # kubectl-fields — плагин kubectl: иерархия полей ресурса по шаблону
+  # (`kubectl fields svc affinity`). Имя с префиксом даёт `kubectl fields`.
+  # Релиз — kubectl-fields-Linux-x86_64.tar.gz; флага --version нет,
+  # проверка установки — `kubectl-fields --help`.
+  - name: kubectl-fields
+    source: github
+    repo: rewanthtammana/kubectl-fields
+    url: "https://github.com/rewanthtammana/kubectl-fields/releases/download/{tag}/kubectl-fields-Linux-x86_64.tar.gz"
+    archive: tar
+    member: kubectl-fields
   # helmify — генерирует Helm-чарт (Chart.yaml, values.yaml, шаблоны) из
   # готовых Kubernetes-манифестов. Релиз — helmify_Linux_x86_64.tar.gz.
   - name: helmify
@@ -1068,6 +1078,15 @@ kubernetes_pipx_apps:
 cdk8s_install: true
 cdk8s_package: cdk8s-cli
 cdk8s_bin: "{{ bin_dir }}/cdk8s"
+
+# --- kosko: Kubernetes-манифесты на TypeScript (npm) -------------------------
+# Компоненты манифестов пишутся на TypeScript/JavaScript, `kosko generate`
+# рендерит их в YAML, `kosko validate` проверяет по схемам. Релизных
+# бинарников апстрим не публикует, CLI есть только в npm-пакете kosko —
+# ставится так же, как cdk8s.
+kosko_install: true
+kosko_package: kosko
+kosko_bin: "{{ bin_dir }}/kosko"
 
 # --- kubebox: терминальная и веб-консоль Kubernetes --------------------------
 # Терминальный dashboard (pod, logs, exec, YAML) с запуском по SSH без

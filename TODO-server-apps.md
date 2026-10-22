@@ -70,6 +70,15 @@
       [kuberhealthy/kuberhealthy](https://github.com/kuberhealthy/kuberhealthy)
 - [ ] **pixie** — eBPF-наблюдаемость Kubernetes без агентов. *(`helm`)* —
       [pixie-io/pixie](https://github.com/pixie-io/pixie)
+- [ ] **coroot** — observability/APM с root-cause: карта сервисов,
+      инспекции, трейсы и логи. *(`сервис` / `helm`)* —
+      [coroot/coroot](https://github.com/coroot/coroot)
+      — одиночный бинарник `coroot` — только сервер и UI. Данные собирает
+      `coroot-node-agent` (eBPF, privileged, host PID), метрики хранит
+      Prometheus с remote-write receiver, логи и трейсы — ClickHouse. Без
+      этого стека UI пустой, поэтому на ноутбуке держать его незачем: для
+      Kubernetes — Helm-релиз в кластере и `kubectl port-forward`, для хоста —
+      отдельный `docker compose`. **Перенести из роли `monitoring`.**
 - [ ] **odigos** — авто-инструментирование приложений для OTel.
       *(`helm`)* — [odigos-io/odigos](https://github.com/odigos-io/odigos)
 - [ ] **hubble** — наблюдаемость Cilium: Hubble Relay и UI в кластере.
@@ -163,6 +172,10 @@
       [cilium/cilium](https://github.com/cilium/cilium)
 - [ ] **meshery** — управление service mesh. *(`helm`)* —
       [meshery/meshery](https://github.com/meshery/meshery)
+- [ ] **Skupper** — мультиоблачная связность сервисов между кластерами.
+      *(`сервис`)* — [skupperproject/skupper](https://github.com/skupperproject/skupper):
+      CLI `skupper init` разворачивает site router в кластере, локального
+      сценария без него нет
 
 ## 5. Безопасность
 
@@ -242,6 +255,9 @@
 - [ ] Сверять при обновлении списка звёзд: у части проектов может появиться
       standalone-режим или удобный CLI, тогда кандидат переезжает в
       [`TODO-trend-github.md`](TODO-trend-github.md).
-- [ ] `VictoriaMetrics` и `coroot` сюда **не** относятся: у обоих есть
-      single-binary режим для локального запуска, поэтому они стоят в роли
-      `monitoring` (из VictoriaMetrics — только `vmalert-tool`).
+- [ ] `VictoriaMetrics` сюда **не** относится: у него есть single-binary
+      режим для локального запуска, поэтому он стоит в роли `monitoring`
+      (из VictoriaMetrics — только `vmalert-tool`).
+- [ ] Перенести `coroot` из роли `monitoring` в раздел 1: single-binary —
+      только сервер, для работы нужен отдельный стек (агент, Prometheus,
+      ClickHouse), а не бинарник на ноутбуке.

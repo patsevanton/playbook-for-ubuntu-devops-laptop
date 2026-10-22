@@ -43,6 +43,14 @@
 | Kubernetes | [kubectl-sudo](https://github.com/postfinance/kubectl-sudo) | запуск k8s-команд с привилегиями другого пользователя | Только krew, ассетов в релизе нет |
 | Kubernetes | [Click](https://github.com/databricks/click) | интерактивный CLI-контроллер Kubernetes | Только cargo, релизных бинарников нет |
 | Kubernetes | [kubecui](https://github.com/pymag09/kubecui) | TUI-обёртка над kubectl | Не опубликован в PyPI, релизов нет |
+| Kubernetes | [Nelm](https://github.com/werf/nelm) | альтернатива Helm с исправленным порядком ресурсов и lifecycle | В GitHub-релизах ассетов нет: установка через trdl/install-скрипт |
+| Kubernetes | [klum](https://github.com/ibuildthecloud/klum) | управление пользователями и доступом к кластеру | Только `go build`, релизов нет; не обновлялся с 2023 |
+| Kubernetes | [Nighthawk](https://github.com/layer5io/getnighthawk) | HTTP-нагрузочное тестирование с адаптивным профилем | Ни в одном релизе нет ассетов (только Docker-образ и Makefile) |
+| Kubernetes | [scan2html](https://github.com/fatihtokus/scan2html) | плагин Trivy: интерактивный HTML-отчёт | Пакета на PyPI нет, только исходники |
+| Kubernetes | [mokctl](https://github.com/bashtools/mokctl) | conformant multi-node кластеры в контейнерах | Релизы без ассетов, установка shell-скриптами |
+| Kubernetes | [KuberEz](https://github.com/uengine-oss/kuber-ez) | графическое моделирование манифестов | В релизе `1.0alpha` нет ассетов, проект заброшен с 2023 |
+| Kubernetes | [Chartsec](https://github.com/banzaicloud/chartsec) | сканер безопасности Helm-чартов | Релизов нет, проект заброшен с 2019 |
+| Kubernetes | [mico](https://github.com/tahtaciburak/mico) | AI-помощник kubectl | Только `go build`, релизов нет |
 
 ---
 

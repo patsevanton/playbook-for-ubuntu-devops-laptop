@@ -2,8 +2,7 @@
 
 Оставшиеся кандидаты в утилиты для плейбука — в
 [`TODO-trend-github.md`](TODO-trend-github.md),
-глобальные skills и `AGENTS.md` для opencode — в
-[`TODO-skills.md`](TODO-skills.md), оркестрация в opencode 2 (один агент
+opencode 2 (один агент
 раздаёт задачи другим, включая pitwall и herdr) — в
 [`TODO-opencode-orchestration.md`](TODO-opencode-orchestration.md), утилиты,
 сознательно не ставимые плейбуком (с причинами и issue — atuin и др.) —
@@ -66,7 +65,8 @@ Helm-чарты (не на ноутбук) — в
 `ktunnel`, `kubectl-duplicate`, `kubectl-fd`, `kubectl-relay`, `gwctl`,
 `kbu`, `kurt`, `kubediff`, `kubetrim`, `kubevious`, `k8shark`,
 `node-gizmo`, `burn`, `tk`, `audit2rbac`, `knetvis`, `pumba`, `kopilot`,
-`kubectl-outagedeck`, `kptop`, `monokle`, `rubick`, `klustr`.
+`kubectl-outagedeck`, `kptop`, `kubectl-fields`, `kosko`,
+`monokle`, `rubick`, `klustr`.
 
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см. [`not-install.md`](not-install.md) и

@@ -115,7 +115,8 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   keploy, okteto, garden, ig, peirates,
 │   │                           #   helmsman, kexp, gefyra, reckoner, copper,
 │   │                           #   alterant, crashd, kubescout, k8s-insider,
-│   │                           #   patchloom, klustr (.deb), headlamp, radar,
+│   │                           #   patchloom, klustr (.deb), kubectl-fields,
+│   │                           #   kosko (npm), headlamp, radar,
 │   │                           #   monokle и rubick (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
@@ -279,6 +280,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    alterant (точечные правки YAML), crashd (диагностика сбоев), kubescout
    (тревожные состояния по кластерам), k8s-insider (доступ к сети кластера)
    и patchloom (структурная правка конфигов для AI-агентов).
+   Последняя волна: kubectl-fields (иерархия полей ресурса) и kosko
+   (манифесты на TypeScript, через npm).
    Desktop-клиенты `monokle`, `rubick` и
    `klustr` ставятся `.deb`-пакетами. Для запуска `kptop` нужен
    `KPTOP_CONNECTION_METHOD`, для `kopilot` — `KOPILOT_TOKEN`; установка
@@ -604,6 +607,8 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | kubesec | github.com/controlplaneio/kubesec |
 | kpt | github.com/kptdev/kpt |
 | kube-job | github.com/h3poteto/kube-job |
+| kubectl-fields | github.com/rewanthtammana/kubectl-fields |
+| kosko | registry.npmjs.org/kosko |
 | silver-surfer | github.com/devtron-labs/silver-surfer |
 | kubeprompt | github.com/jlesquembre/kubeprompt |
 | kustomizer | github.com/stefanprodan/kustomizer |
@@ -683,11 +688,11 @@ zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/b
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
 `sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из
 gzip-сжатого одиночного бинарника релиза (роль `shell`), `osquery` — из
-`.deb`-пакета GitHub-релиза (роль `secrets`), `tldr`, `kubebox` и `cdk8s` —
-через `npm install -g` (роли `shell` и `kubernetes`), `tshark` — пакетом
-Ubuntu как зависимость `termshark` (роль `network`), `tracee` — из тарболла
-GitHub-релиза вместе с сигнатурами безопасности в `/opt/tracee` + симлинк в
-`/usr/local/bin` (роль `ebpf`),
+`.deb`-пакета GitHub-релиза (роль `secrets`), `tldr`, `kubebox`, `cdk8s` и
+`kosko` — через `npm install -g` (роли `shell` и `kubernetes`), `tshark` —
+пакетом Ubuntu как зависимость `termshark` (роль `network`), `tracee` — из
+тарболла GitHub-релиза вместе с сигнатурами безопасности в `/opt/tracee` +
+симлинк в `/usr/local/bin` (роль `ebpf`),
 глобальные skills для opencode — через `npx skills add` (роль `skills`, см.
 раздел «Глобальные skills для opencode»).
 
