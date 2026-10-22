@@ -8,7 +8,6 @@
 | Утилита | Зачем была | Причина отказа | Issue |
 | --- | --- | --- | --- |
 | atuin | синхронизируемая история команд (SQLite, fuzzy-поиск, статистика) | баг VTE: preexec-хук печатается буквально перед каждой командой в gnome-terminal | [GNOME/vte#2951](https://gitlab.gnome.org/GNOME/vte/-/work_items/2951), [rcaloras/bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186) |
-| pitwall | сетевой файрвол (GUI/TUI) | не работает ввод русских букв | [quanticstudios/pitwall#127](https://github.com/quanticstudios/pitwall/issues/127) |
 | victoria-metrics | single-node TSDB (локальный скрейп метрик + Web UI) | не нужна без приёмки/скрейпа метрик в локальную VM; от релизов VM оставлен только `vmalert-tool` | — |
 | auto-cpufreq | авто-оптимизация частоты CPU и энергопотребления | не нужен: хватает того, что в Ubuntu есть из коробки (`power-profiles-daemon` + `amd-pstate`/`intel_pstate`) | — |
 | mcelog | userspace-логирование аппаратных ошибок памяти и CPU (MCE) | не нужен: MCE видны в `dmesg` и `journalctl -k`, отдельный демон на ноутбуке не требуется | — |
@@ -67,11 +66,6 @@ OSC-терминатором `\e\\` (одиночный `\` на конце), и
 
 Вернуть atuin можно после обновления VTE до 0.84+ — либо оставить mcfly как
 есть (он локальный, без синхронизации; atuin давал синхронизацию `atuin sync`).
-
-## pitwall — русские буквы
-
-См. отдельный файл [`TODO-pitwall.md`](TODO-pitwall.md):
-не работает ввод русских букв — [quanticstudios/pitwall#127](https://github.com/quanticstudios/pitwall/issues/127).
 
 ## Argo CD, Pulumi и Kubebuilder — не используются
 

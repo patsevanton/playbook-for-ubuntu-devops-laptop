@@ -1293,8 +1293,12 @@ coroot                                      # сервер + UI на http://loca
 
 ## pitwall — терминал для coding-агентов
 
-pitwall в плейбук не ставится. См. issue о невозможности вводить русские буквы:
-<https://github.com/quanticstudios/pitwall/issues/127>.
+pitwall в плейбук пока не ставится: решение не принято. Блокер снят — issue о
+вводе русских букв закрыт 2026-10-19, фикс вышел в `v0.1.0-beta.12`
+(<https://github.com/quanticstudios/pitwall/issues/127>). Нужен ли он при
+наличии вкладок opencode 2 и `herdr`, разбирается в
+[`TODO-pitwall.md`](TODO-pitwall.md) и
+[`TODO-opencode-orchestration.md`](TODO-opencode-orchestration.md).
 
 Полный список утилит, которые плейбук сознательно не ставит (с причинами и
 ссылками на issue) — в [`not-install.md`](not-install.md). Кандидаты, которые
