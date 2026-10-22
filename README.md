@@ -98,7 +98,12 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   kubecm, kubectl-slice, helmify, kail,
 │   │                           #   kubeaudit, rbac-tool, kluctl, kube-burner,
 │   │                           #   kwok/kwokctl, kpexec, groot, k2tf, kubesec,
-│   │                           #   kpt, kube-job, headlamp и radar (UI, .deb)
+│   │                           #   kpt, kube-job, kubectl-sniff,
+│   │                           #   static-tcpdump, kdash, kubetail, kubepug,
+│   │                           #   kube-prompt, rbac-lookup, kubectl-who-can,
+│   │                           #   korb, kl, kubectl-doctor, kbom,
+│   │                           #   kubectl-modify-secret,
+│   │                           #   headlamp и radar (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
 │   │                           #   tf-mirror, gitlab-terraform-manager,
@@ -228,6 +233,12 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    в контейнере), groot (диагностический архив кластера для RCA), k2tf
    (Kubernetes YAML → Terraform HCL), kubesec (риск-анализ манифестов),
    kpt (пакеты Kubernetes-конфигов) и kube-job (одноразовые Job из CLI).
+   В том же наборе — kubectl-sniff и static-tcpdump (сниффинг трафика
+   подов), kdash (TUI-дашборд), kubetail (дашборд логов), kubepug
+   (устаревшие API), kube-prompt (интерактивный kubectl), rbac-lookup и
+   kubectl-who-can (разбор RBAC), korb (перенос PVC), kl (логи нескольких
+   контейнеров), kubectl-doctor (триаж кластера), kbom (инвентарь/SBOM
+   кластера) и kubectl-modify-secret (правка секретов без base64).
 6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
    (сжатый вывод `terragrunt plan`), s5cmd (быстрый параллельный клиент S3),
    tpm (менеджер провайдеров Terraform/OpenTofu), tfvar (генерация
@@ -547,6 +558,18 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | kubesec | github.com/controlplaneio/kubesec |
 | kpt | github.com/kptdev/kpt |
 | kube-job | github.com/h3poteto/kube-job |
+| kubectl-sniff, static-tcpdump | github.com/eldadru/ksniff |
+| kdash | github.com/kdash-rs/kdash |
+| kubetail | github.com/kubetail-org/kubetail |
+| kubepug | github.com/kubepug/kubepug |
+| kube-prompt | github.com/c-bata/kube-prompt |
+| rbac-lookup | github.com/FairwindsOps/rbac-lookup |
+| kubectl-who-can | github.com/aquasecurity/kubectl-who-can |
+| korb | github.com/BeryJu/korb |
+| kl | github.com/robinovitch61/kl |
+| kubectl-doctor | github.com/emirozer/kubectl-doctor |
+| kbom | github.com/rad-security/kbom |
+| kubectl-modify-secret | github.com/rajatjindal/kubectl-modify-secret |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`),

@@ -553,6 +553,111 @@ kubernetes_binaries:
     url: "https://github.com/h3poteto/kube-job/releases/download/{tag}/kube-job_v{version}_linux_amd64.zip"
     archive: zip
     member: kube-job
+  # kubectl-sniff — плагин kubectl: сниффинг трафика пода через tcpdump
+  # внутри контейнера (`kubectl sniff <pod>`). Имя с префиксом kubectl- даёт
+  # команду `kubectl sniff`. В zip также лежит static-tcpdump — ставим его
+  # отдельной записью ниже, иначе плагину нечем снимать трафик.
+  - name: kubectl-sniff
+    source: github
+    repo: eldadru/ksniff
+    url: "https://github.com/eldadru/ksniff/releases/download/{tag}/ksniff.zip"
+    archive: zip
+    member: kubectl-sniff
+  - name: static-tcpdump
+    source: github
+    repo: eldadru/ksniff
+    url: "https://github.com/eldadru/ksniff/releases/download/{tag}/ksniff.zip"
+    archive: zip
+    member: static-tcpdump
+  # kdash — быстрый TUI-дашборд Kubernetes на Rust: контексты, ноды, поды,
+  # деплойменты, логи и события с клавиатурной навигацией.
+  - name: kdash
+    source: github
+    repo: kdash-rs/kdash
+    url: "https://github.com/kdash-rs/kdash/releases/download/{tag}/kdash-linux.tar.gz"
+    archive: tar
+    member: kdash
+  # kubetail — real-time dashboard логов нескольких подов и контейнеров
+  # (терминал или браузер). Релиз CLI лежит под тегом cli/v{version},
+  # поэтому в URL подставляем {tag}, а не {version}.
+  - name: kubetail
+    source: github
+    repo: kubetail-org/kubetail
+    url: "https://github.com/kubetail-org/kubetail/releases/download/{tag}/kubetail-linux-amd64"
+    archive: none
+  # kubepug — поиск устаревших и удалённых apiVersion перед апгрейдом
+  # кластера и в манифестах (дополняет pluto, но с базой по версиям K8s).
+  - name: kubepug
+    source: github
+    repo: kubepug/kubepug
+    url: "https://github.com/kubepug/kubepug/releases/download/{tag}/kubepug_linux_amd64.tar.gz"
+    archive: tar
+    member: kubepug
+  # kube-prompt — интерактивный kubectl-клиент с автодополнением команд,
+  # ресурсов и namespace (аналог shell-режима, но в отдельном процессе).
+  - name: kube-prompt
+    source: github
+    repo: c-bata/kube-prompt
+    url: "https://github.com/c-bata/kube-prompt/releases/download/{tag}/kube-prompt_v{version}_linux_amd64.zip"
+    archive: zip
+    member: kube-prompt
+  # rbac-lookup — обратный поиск RBAC: какие роли и ClusterRole привязаны
+  # к пользователю, группе или service account.
+  - name: rbac-lookup
+    source: github
+    repo: FairwindsOps/rbac-lookup
+    url: "https://github.com/FairwindsOps/rbac-lookup/releases/download/{tag}/rbac-lookup_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: rbac-lookup
+  # kubectl-who-can — плагин kubectl: кто может выполнить verb над ресурсом
+  # (`kubectl who-can get pods`). Имя с префиксом kubectl- даёт эту команду.
+  - name: kubectl-who-can
+    source: github
+    repo: aquasecurity/kubectl-who-can
+    url: "https://github.com/aquasecurity/kubectl-who-can/releases/download/{tag}/kubectl-who-can_linux_x86_64.tar.gz"
+    archive: tar
+    member: kubectl-who-can
+  # korb — перенос PersistentVolumeClaim между StorageClass и namespace:
+  # создаёт новый PVC и копирует данные job'ом в кластере.
+  - name: korb
+    source: github
+    repo: BeryJu/korb
+    url: "https://github.com/BeryJu/korb/releases/download/{tag}/korb_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: korb
+  # kl — TUI для логов нескольких контейнеров и кластеров: фильтры,
+  # переключение источников, просмотр в реальном времени.
+  - name: kl
+    source: github
+    repo: robinovitch61/kl
+    url: "https://github.com/robinovitch61/kl/releases/download/{tag}/kl_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: kl
+  # kubectl-doctor — триаж кластера в духе `brew doctor`: проверяет ноды,
+  # поды и события и подсказывает, что чинить. Имя с префиксом kubectl-
+  # даёт команду `kubectl doctor`; тег релиза без префикса v.
+  - name: kubectl-doctor
+    source: github
+    repo: emirozer/kubectl-doctor
+    url: "https://github.com/emirozer/kubectl-doctor/releases/download/{tag}/kubectl-doctor_linux_amd64"
+    archive: none
+  # kbom — Kubernetes Bill of Materials: инвентарь компонентов кластера
+  # (образы, версии, ноды) в JSON — для аудита и SBOM.
+  - name: kbom
+    source: github
+    repo: rad-security/kbom
+    url: "https://github.com/rad-security/kbom/releases/download/{tag}/kbom_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kbom
+  # kubectl-modify-secret — плагин kubectl: правка секрета без ручного
+  # base64 (`kubectl modify-secret <name>`). В архиве бинарник с подчёркиванием
+  # (kubectl-modify_secret), на диск кладём под именем плагина.
+  - name: kubectl-modify-secret
+    source: github
+    repo: rajatjindal/kubectl-modify-secret
+    url: "https://github.com/rajatjindal/kubectl-modify-secret/releases/download/{tag}/kubectl-modify-secret_v{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kubectl-modify_secret
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и
