@@ -44,6 +44,20 @@
 | Finch | CLI контейнерной разработки (Lima/nerdctl) | не нужен: дублирует Docker с Compose, который уже ставится плейбуком | — |
 | kor | поиск неиспользуемых ресурсов кластера | не ставим: `releases/latest` ведёт на релиз Helm-чарта, CLI-бинарники лежат под другим тегом — версию без GitHub API не определить | — |
 | kubectl-foreach | параллельный запуск kubectl по контекстам | не нужен: распространяется только bash-скриптом, релизных артефактов нет | — |
+| Colima | контейнерные рантаймы на macOS/Linux | не нужен: дублирует Docker с Compose, который уже ставится | — |
+| Operator SDK | SDK для Kubernetes-операторов | не используется: операторы не создаются (как и `kubebuilder`) | — |
+| Arkade | установка бинарников и Helm-чартов одной командой | не нужен: дублирует `eget`, `binup` и `dra` из роли `base` | — |
+| kubectl-debug | отладочный контейнер в работающем поде | не нужен: `kubectl debug` встроен в kubectl | — |
+| kuttl | декларативное тестирование операторов | не используется: операторы не создаются | — |
+| kubectl-kubesec | krew-плагин `kubectl scan` поверх kubesec | не нужен: ставится только krew-плагином с `plugin.yaml`, а `kubesec` уже есть | — |
+| k8s-mcp-server | MCP-сервер с kubectl/helm/istioctl | репозиторий в архиве; MCP-сервер Kubernetes уже есть (`kubernetes-mcp-server`) | — |
+| kubectl-mcp-server | MCP-сервер Kubernetes для AI-инструментов | не нужен: дублирует `kubernetes-mcp-server` | — |
+| Hardeneks, MKAT, eksdemo | проверки, аудит и демо для Amazon EKS | не нужны: заточены под EKS, работа идёт с другими облаками | — |
+| Radius | cloud-native платформа приложений | не нужна на ноутбуке: требует развёрнутого control plane | — |
+| Scaphandre | агент метрик энергопотребления хоста | не нужен: это демон на хосте, а не утилита для Kubernetes | — |
+| mcp-for-argocd, Argazer | MCP-сервер и мониторинг чартов для Argo CD | Argo CD не используется | — |
+| Jenkins X | CI/CD-платформа для Kubernetes | ставится в кластер как платформа, а не на ноутбук | — |
+| werf, kubedog, odo, Krane | сборка/доставка, CI-наблюдение, разработка и RBAC-анализ | в GitHub-релизах нет готовых бинарников (trdl/install-скрипт или `go install`) | — |
 
 ---
 

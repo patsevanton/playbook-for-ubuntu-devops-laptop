@@ -870,6 +870,133 @@ kubernetes_binaries:
     url: "https://github.com/outagedeck/kubectl-outagedeck/releases/download/{tag}/kubectl-outagedeck_linux_amd64.tar.gz"
     archive: tar
     member: kubectl-outagedeck
+  # keploy — запись реального трафика приложения в тест-кейсы и моки, затем
+  # прогон этих тестов в Docker без написания кода. Релиз — одиночный
+  # keploy_linux_amd64.tar.gz без версии в имени.
+  - name: keploy
+    source: github
+    repo: keploy/keploy
+    url: "https://github.com/keploy/keploy/releases/download/{tag}/keploy_linux_amd64.tar.gz"
+    archive: tar
+    member: keploy
+  # okteto — разработка прямо в Kubernetes: синхронизация кода, сборка и
+  # деплой из CLI, dev-окружения на неймспейс. Релиз — одиночный бинарник
+  # okteto-Linux-x86_64 без версии в имени.
+  - name: okteto
+    source: github
+    repo: okteto/okteto
+    url: "https://github.com/okteto/okteto/releases/download/{tag}/okteto-Linux-x86_64"
+    archive: none
+  # garden — оркестратор разработки для Kubernetes и контейнеров: сборка,
+  # деплой, тесты, логи и зависимости в одном CLI (локально и в кластере).
+  # В архиве бинарник лежит в каталоге linux-amd64.
+  - name: garden
+    source: github
+    repo: garden-io/garden
+    url: "https://github.com/garden-io/garden/releases/download/{tag}/garden-{version}-linux-amd64.tar.gz"
+    archive: tar
+    member: linux-amd64/garden
+  # ig (Inspektor Gadget) — набор eBPF-гаджетов для отладки контейнеров и
+  # Kubernetes. Локально запускается с sudo (ig run ...), в кластере — через
+  # kubectl-gadget. Релиз — ig-linux-amd64-v{version}.tar.gz.
+  - name: ig
+    source: github
+    repo: inspektor-gadget/inspektor-gadget
+    url: "https://github.com/inspektor-gadget/inspektor-gadget/releases/download/{tag}/ig-linux-amd64-v{version}.tar.gz"
+    archive: tar
+    member: ig
+  # peirates — пентест Kubernetes изнутри: работа с токеном пода, перебор
+  # API, кража секретов и эскалация привилегий в учебных/своих кластерах.
+  # Апстрим публикует только tar.xz.
+  - name: peirates
+    source: github
+    repo: inguardians/peirates
+    url: "https://github.com/inguardians/peirates/releases/download/{tag}/peirates-linux-amd64.tar.xz"
+    archive: tarxz
+    member: peirates-linux-amd64/peirates
+  # helmsman — «Helm Charts as Code»: релизы Helm описаны в TOML, есть
+  # diff/apply, несколько окружений и проверка подписей чартов. Репозиторий
+  # переехал с Praqma на mkubaczyk — версию берём у нового владельца.
+  - name: helmsman
+    source: github
+    repo: mkubaczyk/helmsman
+    url: "https://github.com/mkubaczyk/helmsman/releases/download/{tag}/helmsman_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: helmsman
+  # kexp — визуальное понимание Kubernetes: локальный web-UI с графом
+  # объектов, связями и пояснениями (учебный инструмент, не для кластера).
+  - name: kexp
+    source: github
+    repo: iximiuz/kexp
+    url: "https://github.com/iximiuz/kexp/releases/download/{tag}/kexp_linux_amd64.tar.gz"
+    archive: tar
+    member: kexp
+  # gefyra — локальная разработка с кластером: подмена сервисов и проброс
+  # сети в обе стороны без пересборки образов. Клиент — gefyra, в кластер
+  # ставится оператор (gefyra up).
+  - name: gefyra
+    source: github
+    repo: gefyrahq/gefyra
+    url: "https://github.com/gefyrahq/gefyra/releases/download/{tag}/gefyra-{version}-linux-amd64.zip"
+    archive: zip
+    member: gefyra
+  # reckoner — управление Helm-релизами как кодом: course.yaml с чартами,
+  # values и репозиториями, команды plot/diff/apply для нескольких окружений.
+  - name: reckoner
+    source: github
+    repo: FairwindsOps/reckoner
+    url: "https://github.com/FairwindsOps/reckoner/releases/download/{tag}/reckoner_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: reckoner
+  # copper — валидатор конфигов (YAML/JSON) по правилам: схемы, политики и
+  # best practices для манифестов Kubernetes. Релиз — одиночный бинарник
+  # linux_amd64_{version}.
+  - name: copper
+    source: github
+    repo: cloud66-oss/copper
+    url: "https://github.com/cloud66-oss/copper/releases/download/{tag}/linux_amd64_{version}"
+    archive: none
+  # alterant — предсказуемые точечные изменения YAML/JSON по декларативному
+  # скрипту (удобно для массовых правок манифестов перед деплоем).
+  - name: alterant
+    source: github
+    repo: cloud66-oss/alterant
+    url: "https://github.com/cloud66-oss/alterant/releases/download/{tag}/linux_amd64_{version}"
+    archive: none
+  # crashd (crash-diagnostics) — сбор диагностики с недоступных хостов и
+  # кластеров по сценарию: команды, файлы, логи в один архив для RCA.
+  - name: crashd
+    source: github
+    repo: vmware-tanzu/crash-diagnostics
+    url: "https://github.com/vmware-tanzu/crash-diagnostics/releases/download/{tag}/crashd_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: crashd
+  # kubescout — поиск тревожных состояний по всем кластерам из kubeconfig
+  # (OOM, рестарты, незапланированные поды) с отчётом в консоль/Slack.
+  - name: kubescout
+    source: github
+    repo: ReallyLiri/kubescout
+    url: "https://github.com/ReallyLiri/kubescout/releases/download/{tag}/kubescout-linux.zip"
+    archive: zip
+    member: kubescout
+  # k8s-insider — zero-config доступ к сети кластера: DNS, сервисы и pod IP
+  # без port-forward, через временный агент в кластере.
+  - name: k8s-insider
+    source: github
+    repo: TrueGoric/k8s-insider
+    url: "https://github.com/TrueGoric/k8s-insider/releases/download/{tag}/k8s-insider-v{version}-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: k8s-insider
+  # patchloom — структурная правка JSON/YAML/TOML и кода для AI-агентов:
+  # parser-backed изменения, пакетные операции и MCP-сервер. Тег релиза
+  # patchloom-v{version}, поэтому version_strip срезает весь префикс.
+  - name: patchloom
+    source: github
+    repo: patchloom/patchloom
+    version_strip: "^patchloom-v"
+    url: "https://github.com/patchloom/patchloom/releases/download/{tag}/patchloom-x86_64-unknown-linux-gnu.tar.xz"
+    archive: tarxz
+    member: patchloom-x86_64-unknown-linux-gnu/patchloom
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и

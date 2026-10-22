@@ -111,8 +111,11 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   node-gizmo, burn, tk, audit2rbac,
 │   │                           #   knetvis (pipx), pumba, kopilot,
 │   │                           #   kubectl-outagedeck, kptop (pipx),
-│   │                           #   klustr (.deb), headlamp, radar, monokle
-│   │                           #   и rubick (UI, .deb)
+│   │                           #   keploy, okteto, garden, ig, peirates,
+│   │                           #   helmsman, kexp, gefyra, reckoner, copper,
+│   │                           #   alterant, crashd, kubescout, k8s-insider,
+│   │                           #   patchloom, klustr (.deb), headlamp, radar,
+│   │                           #   monokle и rubick (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
 │   │                           #   tf-mirror, gitlab-terraform-manager,
@@ -262,7 +265,17 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
    (ноды), burn (стоимость), tk (Grafana Tanka), audit2rbac (RBAC из
    audit-логов), knetvis (NetworkPolicy, pipx), pumba (chaos), kopilot
    (AI-ассистент) и kubectl-outagedeck (статус облаков). Ещё через pipx —
-   kptop (Prometheus-метрики). Desktop-клиенты `monokle`, `rubick` и
+   kptop (Prometheus-метрики). Следующая волна kubetools — самые популярные
+   из оставшихся кандидатов: keploy (тест-кейсы
+   из реального трафика), okteto (разработка в кластере), garden
+   (оркестратор разработки), ig/Inspektor Gadget (eBPF-гаджеты), peirates
+   (пентест изнутри кластера), helmsman (Helm-релизы как код), kexp
+   (визуальное понимание Kubernetes), gefyra (локальная разработка с
+   кластером), reckoner (Helm-релизы из YAML), copper (валидация конфигов),
+   alterant (точечные правки YAML), crashd (диагностика сбоев), kubescout
+   (тревожные состояния по кластерам), k8s-insider (доступ к сети кластера)
+   и patchloom (структурная правка конфигов для AI-агентов).
+   Desktop-клиенты `monokle`, `rubick` и
    `klustr` ставятся `.deb`-пакетами. Для запуска `kptop` нужен
    `KPTOP_CONNECTION_METHOD`, для `kopilot` — `KOPILOT_TOKEN`; установка
    от этих переменных не зависит.
@@ -623,6 +636,21 @@ PyPI через pipx: `git`, `iac`, `secrets`, `shell`) и `go_apps` (сборк
 | kubectl-doctor | github.com/emirozer/kubectl-doctor |
 | kbom | github.com/rad-security/kbom |
 | kubectl-modify-secret | github.com/rajatjindal/kubectl-modify-secret |
+| keploy | github.com/keploy/keploy |
+| okteto | github.com/okteto/okteto |
+| garden | github.com/garden-io/garden |
+| ig (Inspektor Gadget) | github.com/inspektor-gadget/inspektor-gadget |
+| peirates | github.com/inguardians/peirates |
+| helmsman | github.com/mkubaczyk/helmsman |
+| kexp | github.com/iximiuz/kexp |
+| gefyra | github.com/gefyrahq/gefyra |
+| reckoner | github.com/FairwindsOps/reckoner |
+| copper | github.com/cloud66-oss/copper |
+| alterant | github.com/cloud66-oss/alterant |
+| crashd (crash-diagnostics) | github.com/vmware-tanzu/crash-diagnostics |
+| kubescout | github.com/ReallyLiri/kubescout |
+| k8s-insider | github.com/TrueGoric/k8s-insider |
+| patchloom | github.com/patchloom/patchloom |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`),
@@ -1305,14 +1333,36 @@ kubebox --server 127.0.0.1:8080             # веб-режим на localhost
 
 ## coroot — локальный observability/APM
 
-**coroot** (`coroot/coroot`, роль `monitoring`, одиночный бинарник) собирает
-метрики, трейсы и логи контейнеров и раскладывает их по карте сервисов с
-root-cause подсказками. Поднимается локально (`coroot` слушает `:8080`) —
-не требует отдельного стека Prometheus/Grafana для быстрого разбора.
+**coroot** (`coroot/coroot`, роль `monitoring`, одиночный бинарник) — сервер
+и UI: карта сервисов, инспекции, трейсы, логи и подсказки root-cause.
+Важно: бинарник `coroot` — только сервер. Данные собирает
+`coroot-node-agent` (eBPF, privileged), а хранят ClickHouse и Prometheus с
+включённым remote-write receiver. Плейбук ставит только сервер, поэтому без
+этих компонентов UI будет пустым — это не «всё в одном».
+
+Минимальный локальный запуск (ClickHouse, Prometheus и агент ставятся
+вручную, см. [`TODO-server-apps.md`](TODO-server-apps.md)):
 
 ```bash
-coroot                                      # сервер + UI на http://localhost:8080
+# 1. Prometheus с приёмом remote write: ARGS="--enable-feature=remote-write-receiver"
+# 2. Сервер: SQLite для конфигурации, метрики — в Prometheus, логи — в ClickHouse
+coroot --bootstrap-prometheus-url=http://127.0.0.1:9090 \
+       --bootstrap-clickhouse-address=127.0.0.1:9000
+
+# 3. Агент на хосте (eBPF, нужен privileged и host PID)
+docker run -d --name coroot-node-agent --network host --privileged --pid host \
+  -v /sys/kernel/tracing:/sys/kernel/tracing:rw \
+  -v /sys/kernel/debug:/sys/kernel/debug:rw \
+  -v /sys/fs/cgroup:/host/sys/fs/cgroup:ro \
+  ghcr.io/coroot/coroot-node-agent \
+  --cgroupfs-root=/host/sys/fs/cgroup \
+  --collector-endpoint=http://127.0.0.1:8080
 ```
+
+UI — <http://localhost:8080>. Для Kubernetes coroot ставится в кластер
+Helm-чартом или оператором (не на ноутбук), а смотреть в него удобнее через
+`kubectl port-forward`. Требуется ядро Linux ≥ 4.16; Docker-in-Docker
+(например, minikube) не поддерживается из-за ограничений eBPF.
 
 ---
 
@@ -1321,8 +1371,7 @@ coroot                                      # сервер + UI на http://loca
 pitwall в плейбук пока не ставится: решение не принято. Блокер снят — issue о
 вводе русских букв закрыт 2026-10-19, фикс вышел в `v0.1.0-beta.12`
 (<https://github.com/quanticstudios/pitwall/issues/127>). Нужен ли он при
-наличии вкладок opencode 2 и `herdr`, разбирается в
-[`TODO-pitwall.md`](TODO-pitwall.md) и
+наличии вкладок opencode 2 и `herdr`, разбирается в разделе 6
 [`TODO-opencode-orchestration.md`](TODO-opencode-orchestration.md).
 
 Полный список утилит, которые плейбук сознательно не ставит (с причинами и

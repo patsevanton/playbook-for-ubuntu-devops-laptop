@@ -3,9 +3,8 @@
 Оставшиеся кандидаты в утилиты для плейбука — в
 [`TODO-trend-github.md`](TODO-trend-github.md),
 глобальные skills и `AGENTS.md` для opencode — в
-[`TODO-skills.md`](TODO-skills.md), pitwall (кандидат, блокер снят) —
-в [`TODO-pitwall.md`](TODO-pitwall.md), оркестрация в opencode 2 (один агент
-раздаёт задачи другим) — в
+[`TODO-skills.md`](TODO-skills.md), оркестрация в opencode 2 (один агент
+раздаёт задачи другим, включая pitwall и herdr) — в
 [`TODO-opencode-orchestration.md`](TODO-opencode-orchestration.md), утилиты,
 сознательно не ставимые плейбуком (с причинами и issue — atuin и др.) —
 в [`not-install.md`](not-install.md), кандидаты без готового бинарника на
@@ -80,9 +79,9 @@ Helm-чарты (не на ноутбук) — в
 `ansible-core` ставится один раз вручную при bootstrap (см. `README.md`).
 
 `pitwall` пока не ставится плейбуком, но уже не из-за бага: issue с вводом
-русских букв закрыт 2026-10-19, фикс вышел в `v0.1.0-beta.12` — см.
-[`TODO-pitwall.md`](TODO-pitwall.md). Решение о добавлении ждёт разбора
-оркестрации в opencode 2: [`TODO-opencode-orchestration.md`](TODO-opencode-orchestration.md).
+русских букв закрыт 2026-10-19, фикс вышел в `v0.1.0-beta.12`. Решение о
+добавлении ждёт разбора оркестрации в opencode 2, раздел 6:
+[`TODO-opencode-orchestration.md`](TODO-opencode-orchestration.md).
 
 Кандидаты, которые дублируют этот список и потому не берутся: `ktail`
 (≈ `stern`), `kube-switch` (≈ `kubectx`), `dyff` (≈ `diffyml`).
