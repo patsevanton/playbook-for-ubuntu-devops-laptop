@@ -48,6 +48,17 @@ Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 трекеров такие кандидаты убраны, там остались только ссылки на этот файл:
 один заброшенный проект не должен быть описан в нескольких местах.
 
+Разбор 2026-10-23: из [`not-install.md`](not-install.md) убраны кандидаты, у
+которых причина отказа техническая, а не «не нужен». HolmesGPT (Python 3.14)
+ушёл в [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md);
+werf, kubedog, odo, Krane, Kubes и kubectl-kubesec (trdl/`go install`, gem,
+только krew) — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md);
+kcmsu, Kubefirst, Radius, Jenkins X и k8s-tun — в
+[`TODO-server-apps.md`](TODO-server-apps.md); Scaphandre (агент на хосте) — в
+[`TODO-node-tools.md`](TODO-node-tools.md). В `not-install.md` остались платные
+продукты, дубли уже установленного, bash-скрипты без релизов и отказы из-за
+багов апстрима.
+
 ---
 
 ## Уже устанавливается плейбуком — НЕ дублировать
@@ -112,7 +123,8 @@ Ubuntu: `btop` (1.4.6) и `ncdu` (1.22), оба ролью `shell` через ap
 из этой волны — в [`TODO-abandoned.md`](TODO-abandoned.md).
 
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
-26.04 системный Python 3.14 — см. [`not-install.md`](not-install.md) и
+26.04 системный Python 3.14 — см.
+[`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) и
 [issue #2649](https://github.com/HolmesGPT/holmesgpt/issues/2649).
 
 `argocd`, `pulumi` и `kubebuilder` не ставятся: Argo CD не используется, IaC —

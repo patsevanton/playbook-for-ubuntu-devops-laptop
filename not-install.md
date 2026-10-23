@@ -5,15 +5,25 @@
 вышла фиксирующая версия), утилиту можно вернуть в плейбук — актуальный статус
 удобно сверять по ссылке на issue.
 
+Сюда попадает только сознательный отказ: утилита не нужна, дублирует уже
+установленное, платная или упирается в незакрытый баг апстрима. Причины
+установки, а не выбора, живут в отдельных трекерах:
+
+- [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) — нет готового
+  linux-amd64 бинарника (исходники, `go install`, gem, только krew);
+- [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) —
+  бинарник или пакет не запускается на Ubuntu 26.04;
+- [`TODO-server-apps.md`](TODO-server-apps.md) — серверные приложения,
+  сервисы и Helm-чарты (не на ноутбук);
+- [`TODO-node-tools.md`](TODO-node-tools.md) — агенты на нодах Kubernetes.
+
 Заброшенные проекты (архив GitHub, годы без обновлений) сюда не входят: они
 описаны только в [`TODO-abandoned.md`](TODO-abandoned.md).
 
 | Утилита | Зачем была | Причина отказа | Issue |
 | --- | --- | --- | --- |
-| HolmesGPT | on-call AI-ассистент для алертов Prometheus | последний релиз `0.45.0` требует Python `<3.14`; в Ubuntu 26.04 системный Python 3.14, а `pipx` ставит только старую `0.34.0` | [HolmesGPT/holmesgpt#2649](https://github.com/HolmesGPT/holmesgpt/issues/2649) |
 | Lens IDE | desktop-клиент для нескольких кластеров Kubernetes | платный продукт | — |
 | K8Studio | IDE-клиент для кластеров Kubernetes | платный продукт | — |
-| kcmsu | использование ConfigMaps и Secrets в кластере | устанавливает компонент в кластер, а не локальную утилиту | — |
 | atuin | синхронизируемая история команд (SQLite, fuzzy-поиск, статистика) | баг VTE: preexec-хук печатается буквально перед каждой командой в gnome-terminal | [GNOME/vte#2951](https://gitlab.gnome.org/GNOME/vte/-/work_items/2951), [rcaloras/bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186) |
 | victoria-metrics | single-node TSDB (локальный скрейп метрик + Web UI) | не нужна без приёмки/скрейпа метрик в локальную VM; от релизов VM оставлен только `vmalert-tool` | — |
 | auto-cpufreq | авто-оптимизация частоты CPU и энергопотребления | не нужен: хватает того, что в Ubuntu есть из коробки (`power-profiles-daemon` + `amd-pstate`/`intel_pstate`) | — |
@@ -39,7 +49,6 @@
 | helmwave | декларативный набор Helm-релизов из `helmwave.yml` (аналог `helmfile`) | не ставим на ноутбук: используется в CI/CD, локально дублирует `helmfile` | — |
 | kapp | деплой набора Kubernetes-ресурсов по метке (Carvel) | не используется: деплой через Helm/Flux, kapp нужен только для готового YAML без Helm | — |
 | aiac | генерация Kubernetes-манифестов запросом к LLM | не нужен: генерация манифестов через LLM не используется | — |
-| Kubefirst | разворачивание готовой GitOps-платформы «с нуля» | не используется: платформа на Argo CD, а Argo CD в плейбуке не применяется | — |
 | Kubexer | desktop-клиент Kubernetes (ресурсы, топология, GitOps) | закрытое ПО: нет публичного релиза, версию и артефакт не проверить | — |
 | Finch | CLI контейнерной разработки (Lima/nerdctl) | не нужен: дублирует Docker с Compose, который уже ставится плейбуком | — |
 | kor | поиск неиспользуемых ресурсов кластера | не ставим: `releases/latest` ведёт на релиз Helm-чарта, CLI-бинарники лежат под другим тегом — версию без GitHub API не определить | — |
@@ -49,16 +58,9 @@
 | Arkade | установка бинарников и Helm-чартов одной командой | не нужен: дублирует `eget`, `binup` и `dra` из роли `base` | — |
 | kubectl-debug | отладочный контейнер в работающем поде | не нужен: `kubectl debug` встроен в kubectl | — |
 | kuttl | декларативное тестирование операторов | не используется: операторы не создаются | — |
-| kubectl-kubesec | krew-плагин `kubectl scan` поверх kubesec | не нужен: ставится только krew-плагином с `plugin.yaml`, а `kubesec` уже есть | — |
 | kubectl-mcp-server | MCP-сервер Kubernetes для AI-инструментов | не нужен: дублирует `kubernetes-mcp-server` | — |
 | Hardeneks, MKAT, eksdemo | проверки, аудит и демо для Amazon EKS | не нужны: заточены под EKS, работа идёт с другими облаками | — |
-| Radius | cloud-native платформа приложений | не нужна на ноутбуке: требует развёрнутого control plane | — |
-| Scaphandre | агент метрик энергопотребления хоста | не нужен: это демон на хосте, а не утилита для Kubernetes | — |
 | mcp-for-argocd, Argazer | MCP-сервер и мониторинг чартов для Argo CD | Argo CD не используется | — |
-| Jenkins X | CI/CD-платформа для Kubernetes | ставится в кластер как платформа, а не на ноутбук | — |
-| werf, kubedog, odo, Krane | сборка/доставка, CI-наблюдение, разработка и RBAC-анализ | в GitHub-релизах нет готовых бинарников (trdl/install-скрипт или `go install`) | — |
-| Kubes | сборка образа, компиляция YAML и деплой в кластер | не используется: деплой через Helm/Flux, а ставится инструмент только как gem | — |
-| k8s-tun | доступ к pod IP и service IP кластера | не нужен: требует server в кластере и прав NET_ADMIN на клиенте, а доступ к pod/service IP уже даёт `k8s-insider` | — |
 
 ---
 

@@ -27,8 +27,9 @@
 [`TODO-server-apps.md`](TODO-server-apps.md). Заброшенные проекты (архив GitHub,
 годы без обновлений) описаны только в [`TODO-abandoned.md`](TODO-abandoned.md).
 
-Способ установки сверен 2026-10-22: для GitHub-проектов — ассеты последнего
-релиза, для остальных — PyPI/apt. Перенесённые и отброшенные кандидаты — в
+Способ установки сверен 2026-10-22 (строки werf/kubedog/odo, Kubes и
+kubectl-kubesec добавлены 2026-10-23 из `not-install.md`): для GitHub-проектов
+— ассеты последнего релиза, для остальных — PyPI/apt. Перенесённые и отброшенные кандидаты — в
 конце файла.
 
 ---
@@ -44,6 +45,9 @@
 | Kubernetes | [Nighthawk](https://github.com/layer5io/getnighthawk) | HTTP-нагрузочное тестирование с адаптивным профилем | Ни в одном релизе нет ассетов (только Docker-образ и Makefile) |
 | Kubernetes | [scan2html](https://github.com/fatihtokus/scan2html) | плагин Trivy: интерактивный HTML-отчёт | Пакета на PyPI нет, только исходники |
 | Kubernetes | [mokctl](https://github.com/bashtools/mokctl) | conformant multi-node кластеры в контейнерах | Релизы без ассетов, установка shell-скриптами |
+| Kubernetes | [werf](https://github.com/werf/werf), [kubedog](https://github.com/werf/kubedog), [odo](https://github.com/redhat-developer/odo), Krane | сборка и доставка, CI-наблюдение, разработка в кластере и RBAC-анализ | В GitHub-релизах нет готовых бинарников: trdl/install-скрипт или `go install` |
+| Kubernetes | [Kubes](https://github.com/boltops-tools/kubes) | сборка образа, компиляция YAML и деплой в кластер | Ставится только как gem, релизных бинарников нет |
+| Kubernetes | kubectl-kubesec | krew-плагин `kubectl scan` поверх kubesec | Только krew, ассетов в релизе нет; сам `kubesec` в плейбуке уже стоит |
 
 ---
 
@@ -69,9 +73,14 @@
   ассеты не собрались, но в `1.1.0` лежит статический
   `kubectl-ports_1.1.0-x86_64-unknown-linux-musl.tar.gz`. Ставится отдельной
   задачей с зафиксированным тегом.
-- **Kubefirst**, **Kubexer**, **Finch**, **kor**, **kubectl-foreach** —
-  рассмотрены вместе с очередной волной kubetools и не ставятся: причины в
-  [`not-install.md`](not-install.md).
+- **Kubexer**, **Finch**, **kor**, **kubectl-foreach** — рассмотрены вместе с
+  очередной волной kubetools и не ставятся: причины в
+  [`not-install.md`](not-install.md). **Kubefirst** — не на ноутбук, см.
+  [`TODO-server-apps.md`](TODO-server-apps.md).
+- **werf**, **kubedog**, **odo**, **Krane**, **Kubes**, **kubectl-kubesec** —
+  перенесены из `not-install.md` 2026-10-23: причина отказа техническая
+  (trdl/install-скрипт, `go install`, gem, только krew), а не «не нужен».
+  Теперь они в таблице выше.
 - **knee** — не нужен: инфраструктура поднимается своими Ansible-плейбуками,
   а knee — обёртка над 13 плейбуками из своего репозитория. См.
   [`not-install.md`](not-install.md).

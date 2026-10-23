@@ -26,7 +26,8 @@ eBPF-агенты, кэш образов и т.п. На ноутбуке они 
 - Ссылка ведёт на репозиторий проекта.
 
 Способ установки сверен с ассетами последнего релиза 2026-10-22
-(`releases/latest` + `releases/expanded_assets`). Платформы целиком (Calico,
+(`releases/latest` + `releases/expanded_assets`); Scaphandre добавлен
+2026-10-23. Платформы целиком (Calico,
 Cilium, Longhorn, OpenEBS, MetalLB и т.п.) здесь не дублируются: они уже
 отнесены к серверным в [`TODO.md`](TODO.md).
 
@@ -92,6 +93,12 @@ Cilium, Longhorn, OpenEBS, MetalLB и т.п.) здесь не дублируют
       [sustainable-computing-io/kepler](https://github.com/sustainable-computing-io/kepler)
       — есть `kepler-0.12.0.linux-amd64.tar.gz` и чарт; в кластере работает
       DaemonSet на нодах.
+- [ ] **Scaphandre** — агент метрик энергопотребления хоста (RAPL/powercap).
+      *(`image`)* — [hubblo-org/scaphandre](https://github.com/hubblo-org/scaphandre)
+      — в релизе `v1.0.3` ассетов нет (deb-пакеты и контейнерный образ);
+      работает systemd-юнитом или DaemonSet и отдаёт метрики в Prometheus.
+      На ноутбуке не нужен: хватает `power-profiles-daemon` и
+      `amd-pstate`/`intel_pstate`.
 
 ## 4. eBPF: наблюдаемость и безопасность
 

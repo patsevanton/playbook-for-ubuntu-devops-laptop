@@ -157,6 +157,13 @@
       *(`helm`)* — [crossplane/crossplane](https://github.com/crossplane/crossplane)
 - [ ] **Floci** — self-hosted сервис из подборки звёзд. *(`образ`)*
       — поднимается контейнером, а не ставится бинарником.
+- [ ] **Jenkins X** — CI/CD-платформа для Kubernetes: ставится в кластер
+      как платформа, а не на ноутбук. *(`образ`)* —
+      [jenkins-x/jx](https://github.com/jenkins-x/jx)
+- [ ] **Kubefirst** — разворачивание готовой GitOps-платформы «с нуля».
+      *(`сервис`)* — [konstructio/kubefirst](https://github.com/konstructio/kubefirst)
+      — CLI создаёт кластер и ставит в него платформу на Argo CD; локального
+      сценария нет, а Argo CD в плейбуке не применяется.
 - [ ] **k3s-ansible** — готовый плейбук HA-кластера k3s (kube-vip,
       MetalLB). *(`git clone`)* —
       [timothystewart6/k3s-ansible](https://github.com/timothystewart6/k3s-ansible)
@@ -180,6 +187,9 @@
       [cilium/cilium](https://github.com/cilium/cilium)
 - [ ] **meshery** — управление service mesh. *(`helm`)* —
       [meshery/meshery](https://github.com/meshery/meshery)
+- [ ] **k8s-tun** — доступ к pod IP и service IP кластера. *(`сервис`)*
+      — требует server в кластере и прав `NET_ADMIN` на клиенте; локального
+      сценария нет, а доступ к pod/service IP уже даёт `k8s-insider`
 - [ ] **Skupper** — мультиоблачная связность сервисов между кластерами.
       *(`сервис`)* — [skupperproject/skupper](https://github.com/skupperproject/skupper):
       CLI `skupper init` разворачивает site router в кластере, локального
@@ -238,6 +248,11 @@
       *(`образ`)* — [k8tz/k8tz](https://github.com/k8tz/k8tz)
       — ставится в кластер; на ноутбуке CLI умеет только править YAML и
       устанавливать сам контроллер, поэтому в роль `kubernetes` не входит.
+- [ ] **Radius** — cloud-native платформа приложений. *(`сервис`)* —
+      [radius-project/radius](https://github.com/radius-project/radius)
+      — на ноутбуке не нужна: требует развёрнутого control plane
+- [ ] **kcmsu** — работа с ConfigMaps и Secrets в кластере. *(`сервис`)*
+      — ставит компонент в кластер, а не локальную утилиту
 - [ ] **rbac-wizard** — веб-UI для визуализации RBAC кластера: кто к чему
       имеет доступ, цепочки ServiceAccount → Role → ClusterRole. *(`helm`)* —
       [pehlicd/rbac-wizard](https://github.com/pehlicd/rbac-wizard)

@@ -67,6 +67,17 @@ Ubuntu 26.04 / x86_64 он не работает: собран против ст
       Покрывается `kube-linter`, `kubeconform`, `marvin` и `kubehound`.
       Пересмотреть, если апстрим снимет пины.
 
+## AI и on-call
+
+- [ ] **HolmesGPT** — on-call AI-ассистент по алертам Prometheus. *(`pipx`)* —
+      [HolmesGPT/holmesgpt](https://github.com/HolmesGPT/holmesgpt)
+      — ⛔ не устанавливается: последний релиз `0.45.0` требует `Python <3.14`,
+      а в Ubuntu 26.04 системный Python 3.14, поэтому `pipx` откатывается на
+      старую `0.34.0`. Отслеживается в
+      [HolmesGPT/holmesgpt#2649](https://github.com/HolmesGPT/holmesgpt/issues/2649).
+      Частично покрывается `k8sgpt` (разбор проблем кластера с LLM).
+      Пересмотреть, когда апстрим поднимет потолок версии Python.
+
 ## Безопасность
 
 - [ ] **vulncov** — корреляция Semgrep-сканов с покрытием тестами. *(`pipx`)* —
