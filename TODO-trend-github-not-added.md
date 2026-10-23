@@ -327,3 +327,228 @@
 
 **Floci** (AWS-эмулятор) в эту партию не заводится: он уже описан в
 [`TODO-server-apps.md`](TODO-server-apps.md) как контейнерный сервис.
+
+---
+
+## Партия за последний год, 2026-10-23
+
+Вторая выборка того же дня. Источники: тренды GitHub за день/неделю/месяц
+(`github.com/trending`) и поиск `created:>2025-10-23 stars:>500` по темам
+`cli`, `tui`, `terminal`, `kubernetes`, `devops`, `docker`, `security`,
+`self-hosted`, `monitoring`, `observability`, `git`, `sql`, `dns`, `ssh`,
+`terraform` (плюс ключевые слова `cli`/`tui` в имени и описании). По каждому
+кандидату проверены лицензия, `releases/latest`, наличие linux-amd64
+артефакта, дата последнего пуша и отсутствие в плейбуке (README и все
+`TODO-*.md`, `not-install.md`).
+
+Наблюдение по выдаче: в месячных трендах половина — обвязки вокруг
+coding-агентов, плюс старые репозитории, которые к «последнему году»
+не относятся (Ghidra 2019, Supabase), и уже стоящий `t3code`. Ниже только
+утилиты для ноутбука.
+
+### Кандидаты на добавление
+
+- [ ] **revdiff** — TUI для ревью диффов, файлов и документов с аннотациями
+      построчно; результат отдаёт в stdout, чтобы передать агенту или скрипту.
+      *(936 ⭐, `linux_amd64.tar.gz`/`.deb`, MIT)* —
+      [umputun/revdiff](https://github.com/umputun/revdiff)
+      — не добавлен: ревью диффов в плейбуке закрывают `difftastic`
+      (структурный diff) и `lumen` (diff + сообщение коммита), а сценарий
+      «аннотировать и вернуть агенту» пока ручной. Пересматривать, если правки
+      агента придётся принимать пачками: `revdiff` отдаёт разметку в stdout,
+      и её можно скормить тому же агенту без копипаста.
+- [ ] **lazyrsync** — TUI к `rsync`: профили, предпросмотр переноса в виде
+      структурированного диффа до запуска, живой прогресс и отмена.
+      *(936 ⭐, `x86_64-unknown-linux-gnu.tar.gz`, MIT)* —
+      [westpoint-io/lazyrsync](https://github.com/westpoint-io/lazyrsync)
+      — не добавлен: `rsync` в плейбуке есть как системная утилита, но
+      сценария регулярной синхронизации каталогов на ноутбуке нет, а бэкапы
+      описаны `nxs-backup`. Пересматривать, если появится вторая машина или
+      NAS: сухой прогон в виде диффа — главное, чего не хватает голому
+      `rsync --dry-run`.
+- [ ] **tuicr** — ревью кода в терминале с vim-клавишами: сплошной diff,
+      комментарии к строке/диапазону/файлу, отправка готового ревью в
+      GitHub, GitLab, Gitea, Bitbucket, Azure DevOps и Gerrit; понимает git,
+      jj и Mercurial. *(3.4k ⭐, `x86_64-unknown-linux-gnu.tar.gz`, MIT)* —
+      [agavra/tuicr](https://github.com/agavra/tuicr)
+      — не добавлен: ревью сейчас идёт через `glab`/`gh` и веб (там же
+      CI-статусы и обсуждения), а `tuicr` закрывает только сам diff.
+      Пересматривать при регулярных ревью MR из терминала: поддержка `jj`
+      и отправка ревью одним нажатием — то, чего у `glab` нет.
+- [ ] **quien** — whois и разведка по домену: вкладки WHOIS, DNS, MX/почта,
+      TLS, HTTP-заголовки, SEO и определение стека; интерактивный TUI.
+      *(1.3k ⭐, `linux_amd64.tar.gz`, apt-репозиторий `apt.quien.dev`, MIT)* —
+      [retlehs/quien](https://github.com/retlehs/quien)
+      — не добавлен: DNS закрывает `doggo`, распространение записей —
+      `dnsglobe`, сертификаты — `showcert`. Пересматривать, когда понадобится
+      именно `whois` (его в плейбуке нет вообще) или разбор «чужого» домена
+      одним экраном вместо трёх утилит.
+- [ ] **cloudflare-speed-cli** — замер скорости через Cloudflare в TUI:
+      загрузка/отгрузка, latency под нагрузкой, потери и джиттер UDP,
+      сравнение IPv4/IPv6, тайминги DNS и TLS, история и экспорт в JSON/CSV.
+      *(1.1k ⭐, `x86_64-unknown-linux-musl.tar.xz`, GPL-3.0)* —
+      [kavehtehrani/cloudflare-speed-cli](https://github.com/kavehtehrani/cloudflare-speed-cli)
+      — не добавлен: утилиты для замера канала в плейбуке нет, но и задачи
+      «померить скорость» он пока не решает. Первый кандидат на добавление,
+      если такая задача появится: GPL-3.0 допустима (бинарник не линкуется),
+      но имя
+      ассета кривое — `cloudflare-speed-cli_-x86_64-...` с пустой версией,
+      поэтому `url` в роли `binaries` придётся писать без `{version}`.
+- [ ] **xleak** — просмотр Excel в терминале: TUI, полнотекстовый поиск,
+      отображение формул, переход по листам. *(1.5k ⭐,
+      `xleak-linux-x86_64.tar.gz`, MIT)* —
+      [bgreenwell/xleak](https://github.com/bgreenwell/xleak)
+      — не добавлен: CSV/Parquet разбирает `duckdb`, Excel на ноутбуке
+      встречается редко. Пересматривать, если регулярно приходят `.xlsx`
+      от заказчиков: конвертировать их в CSV ради `duckdb` — лишний шаг.
+- [ ] **sql-tap** — прокси-демон плюс TUI: показывает SQL-трафик между
+      приложением и PostgreSQL/MySQL/TiDB в реальном времени, разбирает
+      транзакции и запускает EXPLAIN без правки кода приложения.
+      *(1.6k ⭐, `sql-tap_0.0.1_linux_amd64.tar.gz`, MIT)* —
+      [mickamy/sql-tap](https://github.com/mickamy/sql-tap)
+      — не добавлен: версия `0.0.1`, последний пуш — июль 2026. Статистику
+      по Postgres даёт `pgcenter`, сами запросы — `pgcli`/`lazysql`, но
+      перехвата трафика нет ни у кого. Пересматривать после 0.1 и стабильного
+      формата конфига.
+- [ ] **cass** (coding-agent-search) — TUI и CLI для индексации и поиска
+      истории сессий локальных coding-агентов (OpenCode, Claude Code, Codex,
+      Gemini CLI, Cursor и ещё десятки) в одной временной шкале.
+      *(1.2k ⭐, `cass-linux-amd64.tar.gz`, MIT + оговорки OpenAI/Anthropic)* —
+      [Dicklesworthstone/coding_agent_session_search](https://github.com/Dicklesworthstone/coding_agent_session_search)
+      — не добавлен: лицензия помечена как `NOASSERTION` — к MIT добавлены
+      тексты-оговорки вендоров, и это надо читать перед установкой. Плюс
+      `opencode` и `herdr` уже хранят сессии, а поиск по ним — редкая задача.
+      Пересматривать, если сессий станет много и понадобится «где я это уже
+      решал».
+
+### Под условием или рано
+
+- [ ] **vykar** — бэкапы на Rust: YAML-конфиг, дедупликация FastCDC,
+      шифрование AES-256-GCM/ChaCha20, локальный диск, S3, SFTP, REST-сервер,
+      встроенный демон вместо cron. Бинарник называется `vger`.
+      *(714 ⭐, `vger-v0.2.0-x86_64-unknown-linux-gnu.tar.gz`, GPL-3.0)* —
+      [borgbase/vykar](https://github.com/borgbase/vykar)
+      — не добавлен: автор прямо пишет «не для продакшена, но протестируйте
+      рядом с другими бэкапами», а YAML-бэкапы уже делает `nxs-backup`
+      (без дедупликации). Пересматривать к 1.0, если понадобится
+      дедуплицированный репозиторий на S3.
+- [ ] **mcpc** — универсальный CLI-клиент MCP: вызывает tools/resources/
+      prompts любого сервера, умеет собирать их в cli. *(1.1k ⭐, npm,
+      Apache-2.0)* — [apify/mcpc](https://github.com/apify/mcpc)
+      — не добавлен: ассетов нет, ставится через npm (Node.js в плейбуке есть
+      из роли `runtimes`), а MCP-серверы пока используются только изнутри
+      агентов (`kubernetes-mcp-server`, `kubectl-mcp-server`, `radar`).
+      Пересматривать, когда понадобится дёргать MCP руками или проверять
+      сервер без агента.
+- [ ] **deja** — предиктивные inline-подсказки для zsh «как в fish».
+      *(914 ⭐, `deja_0.1.0_linux_amd64.tar.gz`, MIT)* —
+      [Giammarco-Ferranti/deja](https://github.com/Giammarco-Ferranti/deja)
+      — не добавлен: историей и подсказками уже занимаются `atuin`, `mcfly`
+      и `zoxide`. Пересматривать только если убрать `mcfly`: два механизма
+      подсказок в одной строке конфликтуют.
+- [ ] **weathr** — погода в терминале с ASCII-анимацией.
+      *(3.1k ⭐, одиночный `weathr-linux-amd64`, GPL-3.0)* —
+      [Veirt/weathr](https://github.com/Veirt/weathr)
+      — не добавлен: полезной нагрузки для DevOps-ноутбука нет, только
+      эстетика. Держать в уме как «одна команда, один бинарник», если
+      захочется.
+- [ ] **Surge** — TUI-менеджер загрузок на Go: многопоточные загрузки,
+      докачка, очередь. *(3.6k ⭐, `*_linux_amd64.tar.gz`, MIT)* —
+      [SurgeDM/Surge](https://github.com/SurgeDM/Surge)
+      — не добавлен: релиз помечен `0.1.0-SNAPSHOT`, а скачивание закрывают
+      `curl` и `wget` из роли `base` — очередей и докачки они не умеют, но и
+      потребности в них пока нет. Пересматривать, если понадобится качать
+      крупные образы с докачкой после обрыва.
+- [ ] **eilmeldung** — TUI RSS-ридер на библиотеке news-flash.
+      *(1.0k ⭐, `x86_64-unknown-linux-gnu.tar.gz`, GPL-3.0)* —
+      [christo-auer/eilmeldung](https://github.com/christo-auer/eilmeldung)
+      — не добавлен: чтение лент не входит в сценарии ноутбука.
+      Пересматривать, если появится привычка читать релиз-ноуты через RSS.
+
+### Не приложение или не для Linux
+
+- [ ] **polyglot** — транспайлер SQL на 30+ диалектов. *(973 ⭐, MIT)* —
+      [tobilg/polyglot](https://github.com/tobilg/polyglot)
+      — ⛔ в релизах только FFI-библиотеки (`polyglot-sql-ffi-*.tar.gz`),
+      CLI-бинарника нет: это библиотека для встраивания, а не утилита.
+- [ ] **ghui** — TUI-клиент GitHub. *(1.1k ⭐, MIT)* —
+      [kitlangton/ghui](https://github.com/kitlangton/ghui)
+      — ⛔ релизных ассетов нет (сборка через bun/npm), а функционально
+      дублирует `gh` и `ghgrab`.
+- [ ] **look** — кросс-платформенный лаунчер в духе Spotlight/Raycast.
+      *(1.2k ⭐, GPL-3.0)* — [kunkka19xx/look](https://github.com/kunkka19xx/look)
+      — ⛔ в релизе только `Look-0.1.0-macOS.zip`: Linux-сборки нет, несмотря
+      на заявленную кросс-платформенность.
+- [ ] **Kaku** — терминал для macOS. *(6.1k ⭐, MIT)* —
+      [tw93/Kaku](https://github.com/tw93/Kaku)
+      — ⛔ единственный ассет — `Kaku.dmg`.
+- [ ] **muxy** — терминальный мультиплексор на Rust. *(2.3k ⭐, MIT)* —
+      [muxy-app/muxy](https://github.com/muxy-app/muxy)
+      — ⛔ Linux-сборки нет (в релизе `.dmg`), да и мультиплексор в плейбуке —
+      `zellij`.
+- [ ] **tcpfit** — подбор TCP-параметров по замеру BDP на конкретной машине.
+      *(909 ⭐, MIT)* — [Kylin010/tcpfit](https://github.com/Kylin010/tcpfit)
+      — ⛔ это shell-скрипт без бинарника и с пояснениями на китайском;
+      менять `sysctl` на ноутбуке ради тюнинга смысла нет.
+- [ ] **plexo** — ускорение загрузок через несколько соединений.
+      *(4.9k ⭐, MIT)* — [anmolkapil/plexo](https://github.com/anmolkapil/plexo)
+      — ⛔ GUI (`.dmg`/`.exe`/AppImage, deb только arm64), CLI-режима нет.
+- [ ] **fakecloud** — локальный эмулятор AWS, 107 сервисов, альтернатива
+      LocalStack. *(768 ⭐, `fakecloud-v0.1.1-linux-amd64.tar.gz`, AGPL-3.0)* —
+      [faiscadev/fakecloud](https://github.com/faiscadev/fakecloud)
+      — ⛔ конкурирует с `Floci`, который уже описан в
+      [`TODO-server-apps.md`](TODO-server-apps.md); держать как замену, если
+      `Floci` не покроет нужный сервис. AGPL-3.0 для локального сервиса
+      допустима, но лишняя.
+
+### Дубли уже стоящего в плейбуке
+
+- [ ] **ttl** — traceroute с TUI: статистика по хопам, ASN/geo, ECMP, MPLS.
+      *(1.5k ⭐, `x86_64-unknown-linux-gnu.tar.gz`, Apache-2.0)* —
+      [lance0/ttl](https://github.com/lance0/ttl)
+      — ⛔ базовый сценарий закрывает `trippy`; ASN/geo и ECMP — приятные
+      добавки, но второй traceroute ради них держать незачем.
+- [ ] **elio** — терминальный файловый менеджер «всё в комплекте».
+      *(902 ⭐, `x86_64-unknown-linux-gnu.tar.gz`, MIT)* —
+      [elio-fm/elio](https://github.com/elio-fm/elio)
+      — ⛔ дублирует `yazi` и `lf`.
+- [ ] **keifu** — TUI для навигации по графу коммитов. *(811 ⭐, Rust)* —
+      [trasta298/keifu](https://github.com/trasta298/keifu)
+      — ⛔ дублирует `lazygit`/`gitui`: граф коммитов там есть.
+- [ ] **syswatch** — диагностика одного хоста в TUI.
+      *(916 ⭐, `syswatch-linux-x86_64.tar.gz`, MIT)* —
+      [matthart1983/syswatch](https://github.com/matthart1983/syswatch)
+      — ⛔ дублирует `btm`/`bottom` и `procs`.
+- [ ] **droast** (dockerfile-roast) — линтер Dockerfile «с мнением».
+      *(1.1k ⭐, `droast-linux-x86_64`, MIT)* —
+      [immanuwell/dockerfile-roast](https://github.com/immanuwell/dockerfile-roast)
+      — ⛔ дублирует `hadolint`.
+- [ ] **sqlit** — TUI к SQL Server, MySQL, Postgres, SQLite и Turso.
+      *(4.9k ⭐, Python, MIT)* — [Maxteabag/sqlit](https://github.com/Maxteabag/sqlit)
+      — ⛔ дублирует `lazysql` и `harlequin`.
+- [ ] **vex-tui** — редактор Excel/CSV в терминале. *(943 ⭐, MIT)* —
+      [CodeOne45/vex-tui](https://github.com/CodeOne45/vex-tui)
+      — ⛔ альтернатива `xleak` из списка выше; выбран `xleak` (свежие
+      коммиты, режим только для чтения), `vex-tui` — если понадобится
+      именно правка таблиц.
+- [ ] **leaf** — просмотр Markdown в терминале «как в GUI».
+      *(2.2k ⭐, Rust)* — [RivoLink/leaf](https://github.com/RivoLink/leaf)
+      — ⛔ дублирует `glow`.
+- [ ] **git-wt** — подкоманда `git worktree` без боли. *(563 ⭐, Go)* —
+      [k1LoW/git-wt](https://github.com/k1LoW/git-wt)
+      — ⛔ дублирует `wt` (worktrunk).
+- [ ] **Netcatty**, **Voltius**, **RustConn**, **uniterm**, **navop**,
+      **nyaterm**, **KKTerm**, **oxideterm**, **sshdesk** — SSH-клиенты и
+      «рабочие пространства» с SFTP, RDP, VNC и вкладками (6.8k, 783, 632,
+      906 ⭐ и т. д.) — ⛔ класс уже закрыт `assh` для конфигов и `sshx` для
+      совместных сессий; GUI-менеджер подключений осознанно отклонён
+      (`omnyssh` в этом же файле). Пересматривать не нужно.
+- [ ] **rune** — GPU-ускоренный IDE-мультиплексор. *(1.3k ⭐,
+      `rune-linux-amd64.tar.gz`, GPL-3.0)* —
+      [unstablebuild/rune](https://github.com/unstablebuild/rune)
+      — ⛔ дублирует `zellij` и редактор, которым пользуется владелец.
+- [ ] **spotatui**, **gloomberb**, **bookokrat**, **late-sh**, **tuxedo**,
+      **micasa** — Spotify-клиент, финансовый терминал, читалка EPUB,
+      «клуб» по SSH, todo.txt и учёт домашних дел в терминале
+      — ⛔ полезной нагрузки для DevOps-ноутбука нет; перечислены, чтобы
+      не разбирать их повторно.
