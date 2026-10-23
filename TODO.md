@@ -63,38 +63,6 @@ kcmsu, Kubefirst, Radius, Jenkins X, k8s-tun и Scaphandre (агент на хо
 
 ---
 
-## Уже устанавливается плейбуком — НЕ дублировать
-
-`gh`, `glab`, `gitlabcloner`, `glci`, `pre-commit`, `reposcan`, `ansible-lint`,
-`molecule`, `tflint`, `terraform-docs`, `packer`, `driftctl`, `tgsieve`, `tfenv`,
-`tgenv`, `pgcenter`, `kubectl`, `helm`, `k9s`, `kustomize`, `kubectx`, `flux`,
-`flux9s`, `stern`, `flate`, `flux-tools`, `cty`, `diffyml`, `kubectl-k8i`,
-`kubespy`, `kubecolor`, `kube-capacity`, `ktop`, `kubefetch`, `vault`,
-`gitleaks`, `starship`, `bat`, `eza`, `zoxide`, `fzf`, `ripgrep`, `fd-find`,
-`direnv`, `uv`, `yq`, `nmap`, `tcpdump`, `httpie`, `opencode`,
-`herdr`, `rtk`, `T3 Code`, `ghostty`, `opengrep`,
-`mcommander`, `HushMic`, `LACT`, `rkn-block-checker`, `gai`, `dnsglobe`,
-`docker`, `guardrails-llm-filter`, `kops`, `devpod`, `kompose`,
-`ko`, `kubie`, `kubefwd`, `kubectl-tree`, `conftest`, `kube-bench`,
-`kube-hunter`, `cdk8s`, `kubernetes-mcp-server`, `kubecm`,
-`kubectl-slice`, `helmify`, `kail`, `kubeaudit`, `rbac-tool`,
-`inframap`, `rover`, `graphviz`,
-`kluctl`, `kube-burner`, `kwok`, `kwokctl`, `kpexec`,
-`groot`, `k2tf`, `kubesec`, `kpt`, `kube-job`, `kubectl-sniff`,
-`static-tcpdump`, `kdash`, `kubetail`, `kubepug`, `kube-prompt`,
-`rbac-lookup`, `kubectl-who-can`, `korb`, `kl`, `kubectl-doctor`,
-`kbom`, `kubectl-modify-secret`, `silver-surfer`, `kubeprompt`,
-`kustomizer`, `buoy`, `k9sight`, `hanoi-cli`, `kzero`, `kubectl-kzero`,
-`ktunnel`, `kubectl-duplicate`, `kubectl-fd`, `kubectl-relay`, `gwctl`,
-`kbu`, `kurt`, `kubediff`, `kubetrim`, `kubevious`, `k8shark`,
-`node-gizmo`, `burn`, `tk`, `audit2rbac`, `knetvis`, `pumba`, `kopilot`,
-`kubectl-outagedeck`, `kptop`, `kubectl-fields`, `kosko`,
-`monokle`, `rubick`, `klustr`, `devspace`, `kubent`, `rustnet`,
-`lazysql`, `polaris`, `kube-score`, `kubectl-neat`, `kubectl-validate`,
-`nova`, `helm-secrets`, `ansible-navigator`, `ansible-builder`,
-`ansible-creator`, `ansible-doctor`, `ara`, `tenv`, `atmos`, `tfupdate`,
-`tfsort`, `btop`, `ncdu`.
-
 Добавлены 2026-10-22 из трендов GitHub (топ-15
 приложений по звёздам среди оставшихся кандидатов; `dev-sec` — коллекция
 Ansible Galaxy, а не приложение, поэтому вместо неё в набор вошёл следующий по
