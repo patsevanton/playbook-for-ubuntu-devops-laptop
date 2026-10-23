@@ -19,6 +19,17 @@ iac_binaries:
     url: "https://github.com/terraform-docs/terraform-docs/releases/download/{tag}/terraform-docs-v{version}-linux-amd64.tar.gz"
     archive: tar
     member: terraform-docs
+  # terraform-ls — LSP-сервер для HCL: автодополнение, диагностика,
+  # форматирование и переходы по определениям в редакторе. В GitHub-релизах
+  # ассетов нет: HashiCorp публикует бинарники только на releases.hashicorp.com
+  # (как и packer ниже) — terraform-ls/{version}/terraform-ls_{version}_linux_amd64.zip,
+  # в архиве один бинарник terraform-ls.
+  - name: terraform-ls
+    source: github
+    repo: hashicorp/terraform-ls
+    url: "https://releases.hashicorp.com/terraform-ls/{version}/terraform-ls_{version}_linux_amd64.zip"
+    archive: zip
+    member: terraform-ls
   - name: packer
     source: github
     repo: hashicorp/packer

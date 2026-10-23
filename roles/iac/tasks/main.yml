@@ -1,6 +1,6 @@
 ---
 # ============================================================================
-# Роль iac: tflint, terraform-docs, packer, inframap, rover, graphviz
+# Роль iac: tflint, terraform-docs, terraform-ls, packer, inframap, rover, graphviz
 # + менеджеры версий tfenv/tgenv.
 # ============================================================================
 

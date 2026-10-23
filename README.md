@@ -294,6 +294,7 @@ ansible-lint                                   # проверка стиля (pr
 - [graphviz](https://gitlab.com/graphviz/graphviz) — `dot` для рендера графов Terraform/Terragrunt.
 - [tflint](https://github.com/terraform-linters/tflint) — линтер Terraform/OpenTofu.
 - [terraform-docs](https://github.com/terraform-docs/terraform-docs) — документация модулей из HCL.
+- [terraform-ls](https://github.com/hashicorp/terraform-ls) — LSP-сервер для HCL: автодополнение, диагностика, форматирование.
 - [packer](https://github.com/hashicorp/packer) — сборка образов VM и контейнеров.
 - [driftctl](https://github.com/snyk/driftctl) — расхождения реальной инфраструктуры с IaC.
 - [tgsieve](https://github.com/imcitius/tgsieve) — сжатый вывод `terragrunt plan` по всему стеку.
