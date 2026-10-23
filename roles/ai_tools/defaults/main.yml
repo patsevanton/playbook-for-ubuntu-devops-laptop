@@ -52,3 +52,19 @@ ai_tools_binaries:
     url: "https://github.com/rtk-ai/rtk/releases/download/{tag}/rtk-x86_64-unknown-linux-musl.tar.gz"
     archive: tar
     member: rtk
+
+# --- T3 Code ----------------------------------------------------------------
+# T3 Code — графический пульт к coding-агентам: один сервер на ноутбуке,
+# к нему десктопное приложение (Electron), веб-клиент и мобильные приложения
+# iOS/Android. Видит сессии Claude Code, Codex, Cursor, Grok Build, opencode и
+# Google Antigravity, установленные и авторизованные локально, — выдаёт им
+# задачи, показывает диффы и статус. Ставится официальным .deb из
+# GitHub-релиза (T3-Code-{version}-amd64.deb): приложение в /opt, ярлык
+# /usr/bin/t3code. CLI `t3` (headless-сервер, `t3 service install`, `t3 pair`
+# для телефона) в .deb не входит — при необходимости ставится официальным
+# install.sh с t3.codes; плейбук его не трогает.
+t3code_install: true
+t3code_repo: pingdotgg/t3code
+t3code_deb_arch: amd64
+t3code_bin: /usr/bin/t3code
+t3code_deb_dir: "{{ tmp_dir }}/t3code"

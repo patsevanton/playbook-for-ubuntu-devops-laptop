@@ -140,7 +140,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   Lima (Linux-VM, /opt + симлинки)
 │   ├── secrets/                # direnv, vault, gitleaks, sops, grype, trivy,
 │   │                           #   age, lynis, osquery, mfa,
-│   │                           #   medusa, bank-vaults, horusec,
+│   │                           #   medusa, bank-vaults, horusec, opengrep,
 │   │                           #   trufflehog, syft, cosign,
 │   │                           #   dependency-check (/opt + обёртка),
 │   │                           #   entropy (go install), ochrona (pipx)
@@ -154,7 +154,8 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   mise, just, yazi, glow, btm (bottom),
 │   │                           #   hyperfine, duckdb, vhs, harlequin (pipx),
 │   │                           #   lazysql, shellclear, nxs-backup, cheat, tldr,
-│   │                           #   JetBrainsMono Nerd Font, mcommander, конфиг shell
+│   │                           #   JetBrainsMono Nerd Font, mcommander, ghostty,
+│   │                           #   конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
 │   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
 │   │                           #   tcping, doggo, gotty, sshx, txeh, assh,
@@ -166,6 +167,8 @@ ansible-lint                                   # проверка стиля (pr
 │   ├── ebpf/                   # eBPF-наблюдаемость: pwru, bpftop, oryx,
 │   │                           #   pktstat-bpf, tracee
 │   ├── opencode/               # opencode (из npm-реестра) + глобальный AGENTS.md
+│   ├── ai_tools/               # herdr, rtk (инструменты для AI-агентов),
+│   │                           #   T3 Code (.deb: пульт к агентам)
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
 │   ├── hardware/               # LACT (настройка и мониторинг GPU, .deb + lactd)
@@ -356,7 +359,9 @@ ansible-lint                                   # проверка стиля (pr
    инструментация ОС),
    mfa (терминальный менеджер 2FA/TOTP), medusa (импорт/экспорт секретов
    Vault), bank-vaults (init/unseal и конфигурация Vault через YAML),
-   horusec (SAST одной командой), dependency-check (OWASP SCA: уязвимые
+   horusec (SAST одной командой), opengrep (SAST на правилах с taint-анализом
+   — локальная замена серверному GSC, см. `TODO-server-apps.md`),
+   dependency-check (OWASP SCA: уязвимые
    зависимости проекта, zip в `/opt` + обёртка), trufflehog (поиск секретов
    в истории git и файлах с проверкой, что ключ живой), syft (SBOM образов и
    каталогов в CycloneDX/SPDX), cosign (подпись и проверка артефактов
@@ -365,6 +370,8 @@ ansible-lint                                   # проверка стиля (pr
    шаблону; `go install`) и ochrona (SCA для Python-зависимостей: сверка
    версий с базой OSV и безопасные версии, через pipx).
 10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
+    терминал ghostty (нативный GTK4, окна/табы/сплиты, terminfo
+    `xterm-ghostty` в комплекте),
     JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
     M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
     difftastic (структурный diff), delta (улучшенный git-diff), gdu
@@ -461,7 +468,7 @@ ansible-lint                                   # проверка стиля (pr
 | iac | graphviz | `dot`: рендер графов Terraform/Terragrunt (DOT → svg/png) |
 | postgres | libpq5 | клиентская библиотека PostgreSQL (libpq.so) для psycopg/pgcli |
 | secrets | direnv, age, lynis | окружение по каталогам; шифрование файлов для sops; аудит безопасности и харденинга Linux |
-| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck, duf, btop, ncdu, ttyd, ffmpeg | удобная работа в терминале, статический анализ shell-скриптов, понятная таблица дисков, монитор ресурсов и анализ занятого места, ttyd и ffmpeg — запись терминальных демо через vhs |
+| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck, duf, btop, ncdu, ttyd, ffmpeg, ghostty | удобная работа в терминале, статический анализ shell-скриптов, понятная таблица дисков, монитор ресурсов и анализ занятого места, ttyd и ffmpeg — запись терминальных демо через vhs, ghostty — терминал с нативным GTK4-интерфейсом |
 | network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
 | audio | pipewire, pipewire-bin, pipewire-pulse, wireplumber, hicolor-icon-theme | шумоподавление микрофона (HushMic) |
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
@@ -469,7 +476,8 @@ ansible-lint                                   # проверка стиля (pr
 
 Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`),
 `HushMic` (роль `audio`), `LACT` (роль `hardware`), `atmos` (роль `iac`),
-`headlamp`, `radar`, `monokle`, `rubick` и `klustr` (роль `kubernetes`).
+`headlamp`, `radar`, `monokle`, `rubick` и `klustr` (роль `kubernetes`),
+`T3 Code` (роль `ai_tools`, приложение в `/opt`, ярлык `/usr/bin/t3code`).
 
 ### Скачиваемые бинарники в `/usr/local/bin`
 
@@ -601,6 +609,7 @@ ansible-lint                                   # проверка стиля (pr
 | medusa | github.com/jonasvinther/medusa |
 | bank-vaults | github.com/bank-vaults/bank-vaults |
 | horusec | github.com/ZupIT/horusec |
+| opengrep | github.com/opengrep/opengrep |
 | opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
 | dra | github.com/devmatteini/dra |
 | ghgrab | github.com/abhixdd/ghgrab |
@@ -1520,11 +1529,11 @@ Helm-чарты (grafana, prometheus, gitea, Jenkins и т.п.), которые 
 
 ---
 
-## herdr и rtk — инструменты для AI-агентов
+## herdr, rtk и T3 Code — инструменты для AI-агентов
 
-Роль `ai_tools` ставит два CLI, усиливающих coding-агентов (opencode и др.).
-Бинарники кладутся в `/usr/local/bin/` через роль `binaries` (версия —
-актуальная на момент запуска).
+Роль `ai_tools` ставит два CLI, усиливающих coding-агентов (opencode и др.),
+и приложение T3 Code. Бинарники кладутся в `/usr/local/bin/` через роль
+`binaries` (версия — актуальная на момент запуска).
 
 - **herdr** (`herdrdev/herdr`) — TUI-оболочка поверх терминала: управляет
   сессиями/панелями/вкладками coding-агентов, показывает их состояние
@@ -1538,6 +1547,36 @@ Helm-чарты (grafana, prometheus, gitea, Jenkins и т.п.), которые 
 herdr --version
 rtk --version
 ```
+
+### T3 Code — графический пульт к агентам
+
+`pingdotgg/t3code` — один локальный сервер на ноутбуке и несколько клиентов к
+нему: десктопное приложение (Electron), веб-клиент и мобильные приложения
+iOS/Android. T3 Code не запускает «своих» агентов, а подхватывает уже
+установленные и авторизованные CLI — Claude Code, Codex, Cursor, Grok Build,
+opencode и Google Antigravity: показывает сессии, статус, диффы и позволяет
+выдавать задачи из одного окна (в том числе с телефона).
+
+Ставится официальным `.deb` из GitHub-релиза (`T3-Code-{version}-amd64.deb`),
+приложение распаковывается в `/opt`, ярлык — `/usr/bin/t3code`:
+
+```bash
+t3code --version
+```
+
+- **Идемпотентность:** если `/usr/bin/t3code` уже есть, роль ничего не
+  скачивает. Обновить — запустить установку вручную (`sudo apt install
+  ./T3-Code-*.deb` из свежего релиза) или удалить приложение и прогнать плейбук.
+- **Зависимости** (libgtk-3, libnss3, libasound2t64, libsecret-1-0 и т. п.)
+  подтягиваются из репозитория Ubuntu: пакет ставится модулем `apt`, а не
+  `dpkg`.
+- **CLI `t3`** (headless-сервер, `t3 service install` в фон, `t3 pair` для
+  телефона, `t3 update`) в `.deb` не входит. Он нужен, когда T3 Code работает
+  без десктопного приложения — тогда ставится официальным скриптом:
+  `curl -fsSL https://t3.codes/install.sh | sh` (кладёт в `~/.t3`, симлинк —
+  в `~/.local/bin`). Плейбук его не ставит: на ноутбуке хватает приложения.
+- **Данные и проекты** T3 Code хранит у себя (`~/.t3` у CLI, каталог приложения
+  у `.deb`); удаление пакета их не трогает.
 
 ### Конфиги
 

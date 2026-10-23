@@ -26,6 +26,12 @@ shell_packages:
   # кодировщик, в который vhs отдаёт кадры (без него vhs не соберёт видео).
   - ttyd
   - ffmpeg
+  # ghostty — терминал на Zig: нативный GTK4-интерфейс (окна, табы, сплиты),
+  # OpenGL-рендер, kitty graphics protocol, terminfo xterm-ghostty в комплекте.
+  # В Ubuntu 26.04 пакет есть в universe (1.3.0~us1) — отдельный .deb или snap
+  # не нужен. Апстрим выпускает только tip-сборки macOS и исходники, готового
+  # linux-amd64 бинарника в релизах нет, поэтому apt здесь единственный путь.
+  - ghostty
 
 shell_binaries:
   - name: starship

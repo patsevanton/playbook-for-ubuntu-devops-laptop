@@ -52,7 +52,8 @@ Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 `kubespy`, `kubecolor`, `kube-capacity`, `ktop`, `kubefetch`, `vault`,
 `gitleaks`, `starship`, `bat`, `eza`, `zoxide`, `fzf`, `ripgrep`, `fd-find`,
 `direnv`, `uv`, `yq`, `nmap`, `tcpdump`, `httpie`, `opencode`,
-`herdr`, `rtk`, `mcommander`, `HushMic`, `LACT`, `rkn-block-checker`, `gai`, `dnsglobe`,
+`herdr`, `rtk`, `T3 Code`, `ghostty`, `opengrep`,
+`mcommander`, `HushMic`, `LACT`, `rkn-block-checker`, `gai`, `dnsglobe`,
 `docker`, `guardrails-llm-filter`, `kops`, `devpod`, `kompose`,
 `ko`, `kubie`, `kubefwd`, `kubectl-tree`, `conftest`, `kube-bench`,
 `kube-hunter`, `cdk8s`, `kubernetes-mcp-server`, `kubecm`,
@@ -115,6 +116,21 @@ Ubuntu: `btop` (1.4.6) и `ncdu` (1.22), оба ролью `shell` через ap
 русских букв закрыт 2026-10-19, фикс вышел в `v0.1.0-beta.12`. Решение о
 добавлении ждёт разбора оркестрации в opencode 2, раздел 6:
 [`TODO-opencode-orchestration.md`](TODO-opencode-orchestration.md).
+
+`Slightly Parallel` ([`NMar33/slightly-parallel`](https://github.com/NMar33/slightly-parallel))
+— **разобраться, нужен ли он в плейбуке**, решение отложено. Локальный дашборд
+для работы с несколькими проектами и агентами сразу: записывает все чаты
+(хуки Claude Code/Codex/Cursor, плагин opencode), держит канбан задач, собирает
+стендапы и чекпоинты по команде `#scan`, данные — плоские файлы в
+`~/.slightly-parallel`, сервер слушает `127.0.0.1:8123` без авторизации
+(один человек, один компьютер). Пакетов нет: ни на PyPI (значит, pipx не
+подходит), ни `.deb`, ни релизных бинарников — только `git clone` и
+`./run.sh`, который сам создаёт `backend/.venv` (нужны Python 3.11+ и
+`python3-venv`). При подключении проекта он пишет в его `AGENTS.md`/
+`CLAUDE.md`, ставит хуки и запись MCP, поэтому подключение остаётся ручным
+шагом в UI, а не задачей плейбука. Если добавлять — только ролью: `git clone`
+в `~/opt` + systemd-юнит `--user` (`sp.sh autostart on`), с флагом
+`slightly_parallel_install: false` по умолчанию.
 
 Кандидаты, которые дублируют этот список и потому не берутся: `ktail`
 (≈ `stern`), `kube-switch` (≈ `kubectx`), `dyff` (≈ `diffyml`).

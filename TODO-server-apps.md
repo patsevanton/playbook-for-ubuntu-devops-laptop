@@ -191,6 +191,23 @@
       [eliasgranderubio/dagda](https://github.com/eliasgranderubio/dagda)
       — сервер (Django + MongoDB + docker-образ), а не CLI. На ноутбуке его
       функции закрывают `grype` и `copa`.
+- [ ] **GSC** — «Git Security Checker»: self-learning AppSec-платформа
+      (SAST/SCA/secrets/IaC, 69 детекторов), автогенерация PoC-эксплойтов и
+      Proof-of-Fix. *(`образ`)* —
+      [poliakarmai/gsc](https://github.com/poliakarmai/gsc)
+      — движок закрытый и поставляется только Docker-образом
+      `ghcr.io/poliakarmai/gsc-scanner` (BSL 1.1, в Apache 2.0 переходит
+      06.08.2030); в публичном репозитории — GitHub Action, документация и
+      MCP-сервер. Работает на сервере, а не на ноутбуке: это долгоживущий
+      сканер с песочницей для hostile-PoC (нужны docker/podman), состоянием в
+      SQLite-томе и запуском по расписанию/в CI, а не разовая утилита. Плюс
+      доверия к self-reported метрикам мало: сами авторы пишут, что precision
+      по CRITICAL — около 31%. Локальный аналог на ноутбуке — `opengrep`
+      (SAST на правилах с taint-анализом, стоит в роли `secrets`) вместе с уже
+      установленными `trivy`, `gitleaks`, `checkov` и `dependency-check`: те же
+      классы находок, но без генерации PoC и проверки фиксов.
+      Внимание: пакет `gsc` на PyPI — другой проект («Git for Scientists»,
+      2020), ставить его «вместо GSC» нельзя.
 - [ ] **scantron** — распределённый nmap/masscan с расписанием и API.
       *(`сервис`)* —
       [rackerlabs/scantron](https://github.com/rackerlabs/scantron)
