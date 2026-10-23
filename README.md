@@ -59,774 +59,468 @@ ansible-lint                                   # проверка стиля (pr
 
 ---
 
-## Структура проекта
+## Каталог приложений
 
-```
-.
-├── ansible.cfg                 # настройки: инвентарь, путь к ролям
-├── playbook.yml                # точка входа: список ролей + проверка в конце
-├── inventory/
-│   └── hosts.yml               # localhost с локальным подключением
-├── group_vars/
-│   └── all.yml                 # общие переменные проекта
-├── roles/
-│   ├── base/                   # проверки, каталоги, базовые пакеты (в т.ч. pipx),
-│   │                           #   yq, eget, dra, binup, ansible-lint, molecule,
-│   │                           #   ansible-navigator/builder/creator/doctor, ara (pipx)
-│   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan,
-│   │                           #   lazygit, wt (worktrunk), changie, ghgrab, glaball,
-│   │                           #   reviewdog, typos, act, jj (jujutsu),
-│   │                           #   gitui (TUI для git),
-│   │                           #   lumen, gptcommit, codegpt (LLM-коммиты),
-│   │                           #   gitlabform (pipx)
-│   ├── docker/                 # репозиторий Docker, Engine, Compose V2,
-│   │                           #   dive, lazydocker, ctop, oras, dry, decompose,
-│   │                           #   copa (copacetic), hadolint,
-│   │                           #   docker-image-layer-explorer
-│   ├── kubernetes/             # kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
-│   │                           #   stern, flate, flux-tools, cty, diffyml,
-│   │                           #   kubectl-k8i, kubespy, kubecolor, kube-capacity,
-│   │                           #   ktop, kubefetch, krew, view-secret, df-pv,
-│   │                           #   browse-pvc, pluto, pv-migrate, marvin,
-│   │                           #   kftui, ct (chart-testing), ytt, kbld,
-│   │                           #   chartsnap, kubewall, kubevpn, netfetch,
-│   │                           #   timoni, kubeview, kubehound, charts-syncer,
-│   │                           #   netobserv, capacitor, kubebox (npm),
-│   │                           #   kubeconform, kube-linter, helmfile, kind,
-│   │                           #   kops, devpod, kompose, ko,
-│   │                           #   kubie, kubefwd, kubectl-tree, conftest,
-│   │                           #   kube-bench, kube-hunter (pipx),
-│   │                           #   cdk8s (npm), kubernetes-mcp-server,
-│   │                           #   kubecm, kubectl-slice, helmify, kail,
-│   │                           #   kubeaudit, rbac-tool, kluctl, kube-burner,
-│   │                           #   kwok/kwokctl, kpexec, groot, k2tf, kubesec,
-│   │                           #   kpt, kube-job, kubectl-sniff,
-│   │                           #   static-tcpdump, kdash, kubetail, kubepug,
-│   │                           #   kube-prompt, rbac-lookup, kubectl-who-can,
-│   │                           #   korb, kl, kubectl-doctor, kbom,
-│   │                           #   kubectl-modify-secret, silver-surfer,
-│   │                           #   kubeprompt, kustomizer, buoy, k9sight,
-│   │                           #   hanoi-cli, kzero/kubectl-kzero, ktunnel,
-│   │                           #   kubectl-duplicate, kubectl-fd,
-│   │                           #   kubectl-ports (тег 1.1.0),
-│   │                           #   kubectl-relay, gwctl, kbu, kurt,
-│   │                           #   kubediff, kubetrim, kubevious, k8shark,
-│   │                           #   node-gizmo, burn, tk, audit2rbac,
-│   │                           #   knetvis (pipx), pumba, kopilot,
-│   │                           #   kubectl-outagedeck, kptop (pipx),
-│   │                           #   keploy, okteto, garden, ig, peirates,
-│   │                           #   helmsman, kexp, gefyra, reckoner, copper,
-│   │                           #   alterant, crashd, kubescout, k8s-insider,
-│   │                           #   patchloom, klustr (.deb), kubectl-fields,
-│   │                           #   kosko (npm), headlamp, radar, sextant,
-│   │                           #   k8sgpt, kubescape, popeye, vcluster,
-│   │                           #   skaffold, kubeshark, helm-diff (плагин helm),
-│   │                           #   kubectl-ai, k3d, telepresence, tilt, mirrord,
-│   │                           #   devspace, kubent, polaris, kube-score,
-│   │                           #   kubectl-neat, kubectl-validate, nova,
-│   │                           #   helm-secrets (плагин helm),
-│   │                           #   monokle и rubick (UI, .deb)
-│   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
-│   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
-│   │                           #   tf-mirror, gitlab-terraform-manager,
-│   │                           #   inframap, rover (схемы из state/плана),
-│   │                           #   terramate, infracost, graphviz (apt),
-│   │                           #   terraformer, terrascan, steampipe,
-│   │                           #   tenv, atmos, tfupdate, tfsort,
-│   │                           #   checkov (pipx), tfenv, tgenv
-│   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL),
-│   │                           #   pgcli (pipx)
-│   ├── runtimes/               # Python, uv, Go, Node.js, Java, dagger,
-│   │                           #   Lima (Linux-VM, /opt + симлинки)
-│   ├── secrets/                # direnv, vault, gitleaks, sops, grype, trivy,
-│   │                           #   age, lynis, osquery, mfa,
-│   │                           #   medusa, bank-vaults, horusec, opengrep,
-│   │                           #   trufflehog, syft, cosign,
-│   │                           #   dependency-check (/opt + обёртка),
-│   │                           #   entropy (go install), ochrona (pipx)
-│   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
-│   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
-│   │                           #   duf, btop, ncdu, tv (television), witr,
-│   │                           #   jnv, octosql, lazyjournal, gonzo, otel-tui, jl,
-│   │                           #   logdy, jlv, spacer,
-│   │                           #   lf, gomplate, yamlfmt, yamlfixer (pipx), gum,
-│   │                           #   fastfetch, procs, dusage,
-│   │                           #   mise, just, yazi, glow, btm (bottom),
-│   │                           #   hyperfine, duckdb, vhs, harlequin (pipx),
-│   │                           #   lazysql, shellclear, nxs-backup, cheat, tldr,
-│   │                           #   JetBrainsMono Nerd Font, mcommander, ghostty,
-│   │                           #   конфиг shell
-│   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
-│   │                           #   gai, dnsglobe, bandwhich, uncover, q, xh, hurl, trippy,
-│   │                           #   tcping, doggo, gotty, sshx, txeh, assh,
-│   │                           #   k6, gping,
-│   │                           #   rkn-block-checker (pipx), ssh-audit и httptap (pipx),
-│   │                           #   lexicon (pipx), gossl, crip (certificate-ripper),
-│   │                           #   ecapture, termshark, websocat, sniffnet,
-│   │                           #   rustnet, netutils-linux (pipx), reachable (go install)
-│   ├── ebpf/                   # eBPF-наблюдаемость: pwru, bpftop, oryx,
-│   │                           #   pktstat-bpf, tracee
-│   ├── opencode/               # opencode (из npm-реестра) + глобальный AGENTS.md
-│   ├── ai_tools/               # herdr, rtk (инструменты для AI-агентов),
-│   │                           #   T3 Code (.deb: пульт к агентам),
-│   │                           #   Ouroboros (.deb: AI-агент с десктопом и CLI)
-│   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
-│   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
-│   ├── hardware/               # LACT (настройка и мониторинг GPU, .deb + lactd)
-│   ├── guardrails/             # guardrails-llm-filter (systemd-юнит поверх Docker)
-│   ├── nora/                   # NORA artifact registry + mkcert TLS + CA клиентам,
-│   │                           #   Caddy как TLS-терминатор
-│   ├── monitoring/             # vmalert-tool (проверка алерт-правил), sloth (SLO),
-│   │                           #   cloudprober, canary-checker, krr
-│   ├── binaries/               # общий движок установки бинарников (вызывается ролями)
-│   ├── pipx_apps/              # общий движок установки приложений из PyPI (pipx)
-│   └── go_apps/                # общий движок сборки Go-приложений (go install)
-├── .ansible-lint
-└── README.md
-```
+Что ставит плейбук: ссылка на проект и краткое описание. Разделы — по ролям;
+версии не фиксируются, ставится актуальное на момент запуска.
 
-Роль `binaries` не тянет инструменты сама: её вызывают роли `base`, `git`,
-`kubernetes`, `iac`, `postgres`, `runtimes`, `secrets`, `shell`, `network`,
-`opencode`, передавая список того, что нужно поставить. Каждая роль хранит
-свой список в `roles/<роль>/defaults/main.yml`. Так же устроены `pipx_apps`
-(приложения из PyPI через pipx: `base`, `git`, `iac`, `postgres`, `secrets`, `shell`)
-и `go_apps` (сборка из исходников: `secrets`, `network`).
+### base
 
-Имя `playbook.yml` выбрано осознанно; в чужих проектах точку входа часто называют
-`site.yml` — переименование ничего не ломает.
+- [yq](https://github.com/mikefarah/yq) — YAML/JSON/XML-процессор с jq-подобным синтаксисом.
+- [eget](https://github.com/zyedidia/eget) — установка готовых бинарников прямо из GitHub-релизов одной командой.
+- [dra](https://github.com/devmatteini/dra) — скачивание отдельных ассетов GitHub-релиза по имени репозитория.
+- [binup](https://github.com/KonishchevDmitry/binup) — установка и обновление приложений из GitHub-релизов по декларативному манифесту.
+- [molecule](https://github.com/ansible/molecule) — тестирование Ansible-ролей в контейнерах (вместе с драйвером `molecule-plugins`).
+- [ansible-navigator](https://github.com/ansible/ansible-navigator) — TUI-запуск плейбуков в execution environments.
+- [ansible-builder](https://github.com/ansible/ansible-builder) — сборка образов execution environments.
+- [ansible-creator](https://github.com/ansible/ansible-creator) — генерация каркаса коллекций и ролей.
+- [ansible-doctor](https://github.com/ansible/ansible-doctor) — документация ролей по комментариям.
+- [ara](https://github.com/ansible-community/ara) — запись и просмотр прогонов Ansible.
+- [ansible-lint](https://github.com/ansible/ansible-lint) — проверка стиля плейбуков (профиль `production`).
+- [pipx](https://github.com/pypa/pipx) — изолированные окружения для Python-приложений.
+- [curl](https://github.com/curl/curl) — передача данных по URL.
+- [wget](https://savannah.gnu.org/projects/wget) — скачивание файлов из CLI.
+- [git](https://github.com/git/git) — система контроля версий.
+- [jq](https://github.com/jqlang/jq) — обработка JSON из CLI.
+- [ca-certificates](https://salsa.debian.org/debian/ca-certificates) — корневые сертификаты.
+- [unzip](https://infozip.sourceforge.net/UnZip.html) — распаковка zip-архивов.
+- [zip](https://infozip.sourceforge.net/Zip.html) — создание zip-архивов.
+- [tar](https://savannah.gnu.org/projects/tar) — архивы tar.
+- [gzip](https://savannah.gnu.org/projects/gzip) — сжатие gzip.
+- [xz-utils](https://github.com/tukaani-project/xz) — сжатие xz.
+- [bash-completion](https://github.com/scop/bash-completion) — автодополнение в bash.
+- [lsb-release](https://github.com/LinuxStandardBase/lsb) — определение версии дистрибутива.
 
----
+### git
 
-## Что делает плейбук
+- [gh](https://github.com/cli/cli) — GitHub CLI: пул-реквесты, issues, релизы, Actions.
+- [glab](https://gitlab.com/gitlab-org/cli) — GitLab CLI: MR, issues, пайплайны, релизы.
+- [gitlabcloner](https://github.com/Andrey039/gitlabcloner) — клонирование групп и подгрупп GitLab одной командой.
+- [glci](https://gitlab.com/gitlab-org/ci-cd/runner-tools/glci) — локальный запуск пайплайнов GitLab CI.
+- [pre-commit](https://github.com/pre-commit/pre-commit) — git-хуки из `.pre-commit-config.yaml`.
+- [reposcan](https://github.com/mabd-dev/reposcan) — поиск git-репозиториев с незакоммиченными или незапушенными изменениями.
+- [lazygit](https://github.com/jesseduffield/lazygit) — TUI для git: статус, коммиты, ветки, rebase.
+- [reviewdog](https://github.com/reviewdog/reviewdog) — замечания любых линтеров в PR/MR как inline-комментарии.
+- [wt (worktrunk)](https://github.com/max-sixty/worktrunk) — CLI для git worktree: параллельные ветки в отдельных каталогах.
+- [changie](https://github.com/miniscruff/changie) — фрагменты changelog и сборка релизной секции.
+- [ghgrab](https://github.com/abhixdd/ghgrab) — TUI-браузер файлов репозиториев GitHub/GitLab/Gitea.
+- [glaball](https://github.com/flant/glaball) — массовые команды на нескольких self-hosted GitLab-инстансах.
+- [lumen](https://github.com/jnsahaj/lumen) — просмотр диффа и генерация сообщения коммита через LLM.
+- [gptcommit](https://github.com/zurawiki/gptcommit) — git-хук `prepare-commit-msg` с сообщением от LLM.
+- [codegpt](https://github.com/appleboy/CodeGPT) — сообщения коммитов и ревью через LLM из CLI.
+- [typos](https://github.com/crate-ci/typos) — поиск опечаток в коде и документации с автоисправлением.
+- [act](https://github.com/nektos/act) — локальный запуск GitHub Actions в Docker.
+- [jj (jujutsu)](https://github.com/jj-vcs/jj) — VCS поверх обычного git-репозитория.
+- [gitui](https://github.com/extrawurst/gitui) — быстрый TUI для git на Rust.
+- [gitlabform](https://github.com/gitlabform/gitlabform) — GitLab как код: группы, проекты и настройки из YAML.
 
-1. Проверяет, что ОС — Ubuntu, архитектура — x86_64, и создаёт служебные каталоги.
-2. Ставит пакеты из репозитория Ubuntu (актуальные версии, без пинов),
-   включая `pipx`, `ansible-lint` (проверка стиля плейбуков), `molecule`
-   (тестирование Ansible-ролей в контейнерах, ставится через pipx), `eget`
-   (установщик бинарников из GitHub-релизов), `dra` (скачивание отдельных
-   ассетов GitHub-релиза) и `binup` (установка приложений из релизов по
-   декларативному манифесту). Туда же через pipx ставятся инструменты
-   Ansible: `ansible-navigator` (TUI-запуск плейбуков в execution
-   environments), `ansible-builder` (сборка образов EE), `ansible-creator`
-   (генерация каркаса коллекций/ролей), `ansible-doctor` (документация ролей
-   по комментариям) и `ara` (запись и просмотр прогонов Ansible).
-3. Ставит клиенты GitHub и GitLab: `gh`, `glab`, `gitlabcloner`, а также `glci`
-   (локальный запуск GitLab CI), `pre-commit`, `reposcan`, `lazygit`
-   (TUI для git), `wt` (worktrunk — параллельные ветки через git worktree),
-   `changie` (фрагменты changelog и подготовка релизов), `ghgrab` (TUI-браузер
-   файлов GitHub/GitLab/Gitea), `glaball` (массовые команды на нескольких
-   self-hosted GitLab-инстансах), `gitlabform` (GitLab как код, через pipx),
-   `typos` (поиск опечаток в коде и документации с автоисправлением), `act`
-   (локальный запуск GitHub Actions в Docker — пара к `glci`), `jj`
-   (jujutsu — VCS поверх обычного git-репозитория), `gitui` (быстрый TUI для
-   git на Rust), а также CLI для
-   работы с коммитами через LLM: `lumen` (просмотр диффа и сообщение коммита),
-   `gptcommit` (git-хук `prepare-commit-msg`) и `codegpt` (сообщения и
-   ревью).
-4. Подключает официальный репозиторий Docker и ставит Engine + Compose V2,
-   а также `dive` (анализ слоёв образа), `lazydocker` (TUI-менеджер контейнеров),
-    `ctop` (`top` для метрик контейнеров), `oras` (клиент OCI-реестров),
-    `dry` (терминальный менеджер Docker), `decompose` (карта образов, сетей
-    и томов существующего docker-окружения), `copa` (copacetic — патчинг
-    CVE прямо в образах по отчёту grype/trivy), `hadolint` (линтер Dockerfile)
-    и `docker-image-layer-explorer` (список слоёв образа и распаковка
-    выбранного слоя).
-5. Ставит клиенты Kubernetes: kubectl, helm, k9s, kustomize, kubectx, flux, flux9s,
-   stern, flate, flux-tools (офлайн-рендер и дифф Flux GitOps), cty (sample-YAML
-   из CRD), diffyml (структурный дифф YAML), kubectl-k8i (ресурсы нод),
-   kubespy (наблюдение за ресурсами в реальном времени), kubecolor (цветной
-   вывод kubectl), kube-capacity и ktop (ресурсы и метрики кластера),
-   kubefetch (сводка о кластере), krew (менеджер kubectl-плагинов) и три
-   утилиты бинарниками — view-secret (декодирование секретов), df-pv
-   (`df` по PV), browse-pvc (просмотр PVC) — а также pluto (устаревшие
-   apiVersion), pv-migrate (миграция PV), marvin (сканер кластера
-   CEL-выражениями), kftui (TUI-менеджер port-forward), ct (линтинг и
-   тестирование Helm-чартов), ytt (структурный шаблонизатор YAML), kbld
-   (фиксация образов в манифестах), chartsnap (snapshot-тесты Helm-чартов),
-   kubewall (дашборд на несколько кластеров), kubevpn (VPN в кластер для
-   локальной разработки), netfetch (поиск ворклоадов без NetworkPolicy),
-   timoni (пакетный менеджер Kubernetes на CUE), kubeview (граф ресурсов
-   кластера), kubehound (поиск путей атак в кластере), charts-syncer
-   (синхронизация Helm-репозиториев), netobserv (сетевая наблюдаемость на
-   eBPF без агента), capacitor (UI для FluxCD), kubeconform (валидация
-   манифестов по схемам), kube-linter (антипаттерны в манифестах), helmfile
-   (декларативный набор Helm-релизов), kind (локальный кластер Kubernetes в
-   Docker), k3d (k3s в Docker — локальные кластеры из контейнеров),
-   kubebox (терминальная и веб консоль Kubernetes, npm),
-   headlamp (web/desktop UI Kubernetes) и radar (UI Kubernetes со встроенным
-   MCP-сервером для AI-агентов, .deb), а также kops (жизненный цикл
-   production-кластеров), devpod (dev-окружения по `devcontainer.json`),
-   kompose (docker-compose → Kubernetes),
-   ko (сборка Go-образов и деплой в кластер), kubie (изолированные
-   kubeconfig по shell/каталогу), kubefwd (массовый port-forward с записями
-   в `/etc/hosts`), kubectl-tree (дерево объектов по ownerReferences),
-   conftest (политики Rego/OPA для конфигов), kube-bench (CIS Kubernetes
-   Benchmark), kube-hunter (поиск уязвимостей кластера, через pipx),
-   cdk8s (манифесты кодом, через npm) и kubernetes-mcp-server (MCP-сервер
-   для AI-агентов). Дополнительно ставятся kubecm (управление kubeconfig),
-   kubectl-slice (разбиение multi-doc YAML), helmify (Helm-чарт из
-   манифестов), kail (`tail` логов подов по селектору), kubeaudit (аудит
-   security-мисконфигов), rbac-tool (анализ RBAC), kluctl (декларативный
-   GitOps-деплой), kube-burner (нагрузочные тесты кластера),
-   kwok/kwokctl (симуляция нод без kubelet), kpexec (привилегированный exec
-   в контейнере), groot (диагностический архив кластера для RCA), k2tf
-   (Kubernetes YAML → Terraform HCL), kubesec (риск-анализ манифестов),
-   kpt (пакеты Kubernetes-конфигов) и kube-job (одноразовые Job из CLI).
-   В том же наборе — kubectl-sniff и static-tcpdump (сниффинг трафика
-   подов), kdash (TUI-дашборд), kubetail (дашборд логов), kubepug
-   (устаревшие API), kube-prompt (интерактивный kubectl), rbac-lookup и
-   kubectl-who-can (разбор RBAC), korb (перенос PVC), kl (логи нескольких
-   контейнеров), kubectl-doctor (триаж кластера), kbom (инвентарь/SBOM
-   кластера) и kubectl-modify-secret (правка секретов без base64).
-   Следующая волна kubetools: silver-surfer (проверка совместимости
-   apiVersion при апгрейде), kubeprompt (контекст кластера в prompt),
-   kustomizer (пакеты конфигов как OCI-артефакты), buoy (декларативный
-   TUI-дашборд), k9sight (TUI для отладки workload'ов), hanoi-cli (советник
-   по ребалансировке подов), kzero/kubectl-kzero (декларативные down/up
-   кластера), ktunnel (туннель в кластер без SSH), kubectl-duplicate
-   (дублирование ресурсов), kubectl-fd (поиск ресурсов в духе find),
-   kubectl-relay (замена port-forward), gwctl (разбор Gateway API) и kbu
-   (однопанельный TUI). Новая волна kubetools: kurt (перезапуски подов),
-   kubediff (дифф исходников и кластера), kubetrim (чистка kubeconfig),
-   kubevious (проверка конфигов), k8shark (снимок и replay), node-gizmo
-   (ноды), burn (стоимость), tk (Grafana Tanka), audit2rbac (RBAC из
-   audit-логов), knetvis (NetworkPolicy, pipx), pumba (chaos), kopilot
-   (AI-ассистент) и kubectl-outagedeck (статус облаков). Ещё через pipx —
-   kptop (Prometheus-метрики). Отдельной задачей ставится kubectl-ports —
-   плагин `kubectl ports` с таблицей портов подов и сервисов (тег
-   зафиксирован на 1.1.0: в последнем релизе апстрима ассетов нет).
-   Следующая волна kubetools — самые популярные
-   из оставшихся кандидатов: keploy (тест-кейсы
-   из реального трафика), okteto (разработка в кластере), garden
-   (оркестратор разработки), ig/Inspektor Gadget (eBPF-гаджеты), peirates
-   (пентест изнутри кластера), helmsman (Helm-релизы как код), kexp
-   (визуальное понимание Kubernetes), gefyra (локальная разработка с
-   кластером), reckoner (Helm-релизы из YAML), copper (валидация конфигов),
-   alterant (точечные правки YAML), crashd (диагностика сбоев), kubescout
-   (тревожные состояния по кластерам), k8s-insider (доступ к сети кластера)
-   и patchloom (структурная правка конфигов для AI-агентов).
-   Последняя волна: kubectl-fields (иерархия полей ресурса) и kosko
-   (манифесты на TypeScript, через npm).
-   Добавлены k8sgpt (объяснение проблем кластера через LLM), kubescape
-   (профили безопасности NSA/CIS), popeye (мёртвые и неиспользуемые
-   ресурсы кластера), vcluster (виртуальные кластеры внутри namespace),
-   skaffold (цикл сборка→деплой→проверка с hot-reload), kubeshark (разбор
-   трафика подов на L7 через eBPF), `kubectl-ai` (AI-ассистент: генерирует и
-   правит kubectl-команды и манифесты), `telepresence` (локальный сервис «как
-   будто в кластере»), `tilt` (live-update приложений с веб-UI), `mirrord`
-   (локальный процесс в сети, ФС и окружении пода), `devspace` (синхронизация
-   файлов и hot-reload в кластере по `devspace.yaml`), `kubent` (что сломается
-   при апгрейде: удалённые apiVersion), а также плагины `helm-diff`
-   (`helm diff upgrade` — что изменится до применения чарта) и
-   `helm-secrets` (`helm secrets enc/dec/view` и прозрачная расшифровка
-   values через sops; ставятся отдельными задачами). Аудит манифестов:
-   `polaris` (best practices и securityContext), `kube-score` (чек-лист
-   probes/requests/limits), `kubectl-neat` (чистый YAML без managedFields),
-   `kubectl-validate` (офлайн-валидация схемами Kubernetes) и `nova`
-   (устаревшие версии Helm-чартов в кластере).
-   Desktop-клиенты `monokle`, `rubick` и
-   `klustr` ставятся `.deb`-пакетами. Для запуска `kptop` нужен
-   `KPTOP_CONNECTION_METHOD`, для `kopilot` — `KOPILOT_TOKEN`; установка
-   от этих переменных не зависит.
-6. Ставит инструменты IaC: tflint, terraform-docs, packer, driftctl, tgsieve
-   (сжатый вывод `terragrunt plan`), s5cmd (быстрый параллельный клиент S3),
-   tpm (менеджер провайдеров Terraform/OpenTofu), tfvar (генерация
-   `variables.tf`), config-lint (валидация HCL/JSON/YAML по правилам),
-   tftui (TUI для работы с Terraform-стейтом, через pipx), tf-mirror
-   (локальное зеркало провайдеров Terraform для air-gapped/CI),
-   gitlab-terraform-manager (управление GitLab Terraform backend),
-   checkov (SAST для IaC: мисконфиги безопасности Terraform, Kubernetes,
-   Dockerfile, Helm, через pipx),
-   inframap и rover (схемы из tfstate/плана, см. ниже), terramate
-   (оркестрация стэков IaC: change detection и генерация кода), infracost
-   (стоимость изменений по `terraform plan`), terraformer (генерация
-   Terraform-кода из существующей инфраструктуры), terrascan (проверка IaC по
-   политикам OPA/Rego), steampipe (SQL-запросы к облакам и API через плагины),
-   tenv (менеджер версий OpenTofu/Terraform/Terragrunt/Terramate/Atmos),
-   atmos (оркестрация Terraform-окружений поверх Terragrunt),
-   tfupdate (обновление пинов провайдеров и модулей в HCL),
-   tfsort (сортировка блоков в `.tf`),
-   graphviz (`dot` для рендера графов),
-   плюс tfenv и tgenv.
-7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL, и `pgcli`
-   (psql с автодополнением и подсветкой, через pipx).
-8. Ставит рантаймы: Python (venv/pip), uv, Go, Node.js, Java 21, `dagger`
-   (CI-пайплайны как код), `limactl`/`lima` (Linux-VM
-   поверх Linux; QEMU — пакетами apt, сам архив распаковывается в `/opt/lima`).
-9. Ставит direnv, Vault, gitleaks, sops (шифрование секретов в Git), grype
-   (сканер уязвимостей образов и ФС), trivy (уязвимости образов, IaC и
-   секреты в одном сканере), age (простое шифрование файлов — бэкенд sops),
-   lynis (аудит безопасности и харденинга Linux), osquery (SQL-подобная
-   инструментация ОС),
-   mfa (терминальный менеджер 2FA/TOTP), medusa (импорт/экспорт секретов
-   Vault), bank-vaults (init/unseal и конфигурация Vault через YAML),
-   horusec (SAST одной командой), opengrep (SAST на правилах с taint-анализом
-   — локальная замена серверному GSC, см. `TODO-server-apps.md`),
-   dependency-check (OWASP SCA: уязвимые
-   зависимости проекта, zip в `/opt` + обёртка), trufflehog (поиск секретов
-   в истории git и файлах с проверкой, что ключ живой), syft (SBOM образов и
-   каталогов в CycloneDX/SPDX), cosign (подпись и проверка артефактов
-   sigstore), entropy (поиск строк с
-   высокой энтропией — ключей и токенов — по признаку случайности, а не по
-   шаблону; `go install`) и ochrona (SCA для Python-зависимостей: сверка
-   версий с базой OSV и безопасные версии, через pipx).
-10. Настраивает shell: `~/.config/devops-shell.sh` + одна строка `source` в `~/.bashrc`,
-    терминал ghostty (нативный GTK4, окна/табы/сплиты, terminfo
-    `xterm-ghostty` в комплекте),
-    JetBrainsMono Nerd Font (иконки для prompt и `eza --icons`),
-    M-Commander (двухпанельный файловый менеджер) и утилиты просмотра
-    difftastic (структурный diff), delta (улучшенный git-diff), gdu
-    (анализатор диска), dust (наглядный du), dasel (запросы к
-    JSON/YAML/TOML/XML/CSV), jc (конвертация вывода CLI в JSON), sd
-    (интуитивная замена sed), shellcheck (статический анализ shell-скриптов),
-    duf (`df` «для людей» — таблица дисков и точек монтирования), btop
-    (монитор ресурсов с графиками), ncdu (интерактивный анализ занятого
-    места на диске), tv
-    (television — fuzzy-finder с готовыми каналами поиска), witr (трассировка
-    «почему процесс запущен и кто занял порт/файл»),
-    zellij (терминальный мультиплексор), navi (шпаргалки команд поверх fzf),
-    fx (интерактивный просмотр JSON), jnv (интерактивный jq-фильтр JSON),
-    octosql (SQL-запросы к JSON/CSV/Parquet), hl (просмотр JSON-логов),
-    lazyjournal (TUI для journald, auditd, Docker и файлов), gonzo
-    (TUI-анализ логов с графиками по столбцам), otel-tui (просмотр
-    OpenTelemetry-трейсов/логов/метрик), jl (раскраска JSON-логов),
-    logdy (просмотр логов в браузере в реальном времени), jlv
-    (интерактивный просмотр JSON-логов), spacer (разделители с таймингом
-    между шагами пайплайна),
-    mcfly (умная история команд по Ctrl-R), lf (терминальный файловый
-    менеджер), gomplate (шаблонизатор конфигов), yamlfmt (форматтер YAML),
-    yamlfixer (автоисправление замечаний yamllint, через pipx),
-    gum (примитивы для «красивых» shell-скриптов), fastfetch (информация о
-    системе), procs (современная замена ps), dusage (наглядный подсчёт
-    занятого места), mise (менеджер версий рантаймов), just (командный
-    раннер вместо Makefile), yazi (быстрый TUI-файловый менеджер), glow
-    (рендер Markdown в терминале), btm (монитор процессов и ресурсов с
-    графиками), hyperfine (бенчмарк команд), duckdb (SQL по
-    Parquet/CSV/JSON), vhs (запись терминальных GIF/видео из сценария),
-    harlequin (SQL-IDE в терминале, через pipx), lazysql (TUI-клиент к MySQL,
-    PostgreSQL, MSSQL и SQLite), shellclear (секреты и опасные
-    команды в истории shell), nxs-backup (бэкапы по YAML-описанию),
-    cheat (собственные шпаргалки команд) и tldr (краткие примеры команд).
-11. Ставит opencode (из npm-реестра, в `/usr/local/bin`) и глобальный
-    `AGENTS.md` (`~/.config/opencode/AGENTS.md`).
-12. Ставит глобальные skills для opencode (CLI `skills`, каталог
-    `~/.agents/skills`) — см. раздел «Глобальные skills для opencode».
-13. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
-    (проверка распространения DNS), `bandwhich` (трафик по процессам),
-    `q` (DNS-клиент с DoH/DoT/DoQ), `doggo` (DNS-клиент с человекочитаемым
-    цветным выводом), `xh` (HTTP-клиент), `uncover` (поиск хостов через
-    Shodan, Censys, FOFA, Quake и другие движки — результат готов для пайпа
-    в `httpx`/`naabu`/`nuclei`), `hurl` (HTTP-запросы
-    из plain-text `.hurl`-файлов), `trippy` (TUI traceroute со статистикой),
-    `tcping` (`ping` поверх TCP-портов), `gotty` (терминал как веб-приложение),
-    `sshx` (совместный терминал в браузере), `txeh` (управление `/etc/hosts`),
-    `assh` (генерация SSH-конфигов, jump-хосты и прокси),
-    `ecapture` (eBPF-захват TLS/SSL plaintext), `termshark` (TUI к
-    Wireshark/tshark), `websocat` (netcat для WebSockets), `rustnet`
-    (TUI-мониторинг сети по процессам с разбором пакетов) и `sniffnet`
-    (графический TUI-мониторинг трафика, .deb), а также
-    `rkn-block-checker` (через pipx), `kyanos` (eBPF-анализ сетевых запросов),
-    `showcert` (разбор X.509-сертификатов, через pipx), `ssh-audit`
-    (аудит конфигурации SSH-серверов и клиентов, через pipx), `httptap`
-    (разбор HTTP-запроса по слоям: DNS, connect, TLS, TTFB, через pipx),
-    `lexicon` (управление DNS-записями у разных провайдеров, через pipx),
-    `gossl` (проверка SSL-сертификата: цепочка, срок, протоколы), `crip`
-    (certificate-ripper — извлечение цепочки сертификатов с хоста),
-    `netutils-linux` (утилиты тюнинга и диагностики стека: `network-top`,
-    `softirq-top`, `rps`, `link-rate` и др., через pipx), `k6` (нагрузочное
-    тестирование сценариями на JS), `gping` (`ping` с графиком задержек) и
-    `reachable`
-    (проверка доступности домена по резолверам; `go install`).
-14. Ставит eBPF-наблюдаемость: `pwru` (eBPF-отладчик сетевого стека), `bpftop`
-    (обзор запущенных eBPF-программ), `oryx` (TUI-сниффер трафика), `pktstat-bpf`
-    (монитор трафика по процессам) и `tracee` (runtime-security и форензика).
-15. Ставит HushMic — шумоподавление микрофона реального времени (PipeWire) —
-    и LACT — GUI и демон `lactd` для настройки и мониторинга GPU (AMD/Intel/
-    NVIDIA): температура, частоты, вентиляторы, лимиты мощности.
-16. Поднимает `guardrails-llm-filter` — systemd-юнит, который запускает
-    Docker-контейнер маскировки PII/секретов на пути к LLM.
-17. Добавляет пользователя в группу `docker`.
-18. Ставит NORA artifact registry: `.deb`-пакет, локальный TLS-сертификат через
-    mkcert, автодоверие CA у клиентов (системный store, Docker, npm, pip, Java)
-    и Caddy как TLS-терминатор.
-19. Ставит `vmalert-tool` (офлайн-проверка и unit-тесты алерт-правил
-    Prometheus-совместимых систем), `sloth` (генерация SLO/алертов из
-    описания), `cloudprober` (активные пробы), `canary-checker` (health-check
-    платформа с проверками из YAML) и `krr` (рекомендации
-    requests/limits по фактическому потреблению) в роли `monitoring`, а также `reviewdog`
-    (автоматическое code review) в роли `git` и `grex` (генерация regex из
-    примеров) в роли `shell`.
-20. В конце проверяет установку и печатает версии всех утилит.
+### docker
 
----
+- [Docker Engine](https://github.com/moby/moby) — движок контейнеров из официального репозитория Docker.
+- [Compose V2](https://github.com/docker/compose) — плагин `docker compose`.
+- [dive](https://github.com/wagoodman/dive) — анализ слоёв образа: размер, мусор, эффективность.
+- [lazydocker](https://github.com/jesseduffield/lazydocker) — TUI-менеджер контейнеров, образов и томов.
+- [ctop](https://github.com/bcicen/ctop) — `top` по метрикам контейнеров (CPU, память, сеть).
+- [oras](https://github.com/oras-project/oras) — клиент OCI-реестров для произвольных артефактов.
+- [dry](https://github.com/moncho/dry) — терминальный менеджер Docker с несколькими хостами.
+- [decompose](https://github.com/s0rg/decompose) — карта образов, сетей, томов и зависимостей docker-окружения.
+- [copa (copacetic)](https://github.com/project-copacetic/copacetic) — патчинг CVE прямо в образе по отчёту grype/trivy.
+- [hadolint](https://github.com/hadolint/hadolint) — линтер Dockerfile.
+- [docker-image-layer-explorer](https://github.com/Kartik1397/docker-image-layer-explorer) — список слоёв образа и распаковка выбранного слоя.
+- [containerd](https://github.com/containerd/containerd) — контейнерный рантайм под Docker Engine.
 
-## Что устанавливается
+### kubernetes
 
-### Пакеты apt (актуальные версии из репозитория Ubuntu)
+- [kubectl](https://github.com/kubernetes/kubectl) — официальный CLI Kubernetes.
+- [helm](https://github.com/helm/helm) — пакетный менеджер Kubernetes (чарты).
+- [k9s](https://github.com/derailed/k9s) — TUI-консоль кластера: ресурсы, логи, exec.
+- [kustomize](https://github.com/kubernetes-sigs/kustomize) — сборка манифестов из `kustomization.yaml`.
+- [flux](https://github.com/fluxcd/flux2) — CLI Flux CD: bootstrap, reconcile, GitOps.
+- [flux9s](https://github.com/dgunzy/flux9s) — TUI для Flux-ресурсов.
+- [stern](https://github.com/stern/stern) — логи нескольких подов с фильтрами по регэкспу.
+- [flate](https://github.com/home-operations/flate) — офлайн-рендер Flux GitOps-репозитория без кластера.
+- [flux-tools](https://github.com/alexandervidyaev/flux-tools) — независимая реализация офлайн-рендера и диффа Flux.
+- [kubectx](https://github.com/ahmetb/kubectx) — быстрое переключение контекстов и namespace.
+- [cty (crd-to-sample-yaml)](https://github.com/Skarlso/crd-to-sample-yaml) — sample-YAML из CRD и валидация схем.
+- [diffyml](https://github.com/szhekpisov/diffyml) — структурный дифф YAML с учётом семантики Kubernetes.
+- [kubectl-k8i](https://github.com/ViktorUJ/kubectl-k8i) — ресурсы нод с цветовой индикацией загрузки.
+- [kubespy](https://github.com/pulumi/kubespy) — наблюдение за изменениями ресурсов в реальном времени.
+- [kubecolor](https://github.com/kubecolor/kubecolor) — цветной, читаемый вывод kubectl.
+- [kube-capacity](https://github.com/robscott/kube-capacity) — requests/limits и потребление по нодам и подам.
+- [ktop](https://github.com/vladimirvivien/ktop) — top-подобный TUI-монитор метрик нод и подов.
+- [kubefetch](https://github.com/jkulzer/kubefetch) — сводка о кластере в стиле neofetch.
+- [krew](https://github.com/kubernetes-sigs/krew) — менеджер kubectl-плагинов.
+- [view-secret](https://github.com/elsesiy/kubectl-view-secret) — декодирование секретов из CLI.
+- [df-pv](https://github.com/yashbhutwala/kubectl-df-pv) — `df` по PersistentVolume.
+- [browse-pvc](https://github.com/clbx/kubectl-browse-pvc) — просмотр содержимого PVC.
+- [pluto](https://github.com/FairwindsOps/pluto) — устаревшие и удалённые apiVersion в манифестах и релизах.
+- [pv-migrate](https://github.com/utkuozdemir/pv-migrate) — миграция и backup/restore PersistentVolume.
+- [marvin](https://github.com/undistro/marvin) — сканер кластера CEL-выражениями.
+- [kftui](https://github.com/hcavarsan/kftray) — TUI-менеджер kubectl port-forward и reverse-туннелей.
+- [ct (chart-testing)](https://github.com/helm/chart-testing) — линтинг и тестирование Helm-чартов.
+- [ytt](https://github.com/carvel-dev/ytt) — шаблонизатор YAML по структуре документа, а не по тексту.
+- [kbld](https://github.com/carvel-dev/kbld) — фиксация образов по digest в манифестах.
+- [chartsnap](https://github.com/jlandowner/helm-chartsnap) — snapshot-тесты Helm-чартов.
+- [kubewall](https://github.com/kubewall/kubewall) — веб-дашборд на несколько кластеров одним бинарником.
+- [kubevpn](https://github.com/kubenetworks/kubevpn) — VPN в кластер: поды видны как соседи в локальной сети.
+- [netfetch](https://github.com/deggja/netfetch) — поиск ворклоадов, не покрытых NetworkPolicy.
+- [timoni](https://github.com/stefanprodan/timoni) — пакетный менеджер Kubernetes на CUE.
+- [kubeview](https://github.com/benc-uk/kubeview) — граф ресурсов кластера и связей между ними в браузере.
+- [kubehound](https://github.com/DataDog/KubeHound) — построение путей атак в кластере.
+- [charts-syncer](https://github.com/bitnami/charts-syncer) — синхронизация Helm-репозиториев, в том числе OCI.
+- [netobserv](https://github.com/netobserv/netobserv-cli) — сетевая наблюдаемость на eBPF без агента в кластере.
+- [capacitor](https://github.com/gimlet-io/capacitor) — UI для FluxCD.
+- [kubeconform](https://github.com/yannh/kubeconform) — валидация манифестов по схемам без кластера.
+- [kube-linter](https://github.com/stackrox/kube-linter) — антипаттерны в манифестах: probes, limits, securityContext.
+- [helmfile](https://github.com/helmfile/helmfile) — декларативное описание набора Helm-релизов.
+- [kind](https://github.com/kubernetes-sigs/kind) — локальный кластер Kubernetes в Docker.
+- [kops](https://github.com/kubernetes/kops) — жизненный цикл production-кластеров.
+- [devpod](https://github.com/loft-sh/devpod) — dev-окружения по `devcontainer.json`.
+- [kompose](https://github.com/kubernetes/kompose) — конвертация `docker-compose.yml` в манифесты Kubernetes.
+- [ko](https://github.com/google/ko) — сборка Go-образов и деплой без Docker.
+- [kubie](https://github.com/kubie-org/kubie) — изолированные kubeconfig по shell и каталогу.
+- [kubefwd](https://github.com/txn2/kubefwd) — массовый port-forward с записями в `/etc/hosts`.
+- [kubectl-tree](https://github.com/ahmetb/kubectl-tree) — дерево объектов по `ownerReferences`.
+- [conftest](https://github.com/open-policy-agent/conftest) — политики Rego/OPA для конфигов.
+- [kube-bench](https://github.com/aquasecurity/kube-bench) — проверка кластера по CIS Kubernetes Benchmark.
+- [kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) — MCP-сервер Kubernetes/OpenShift для AI-агентов.
+- [kubecm](https://github.com/sunny0826/kubecm) — управление kubeconfig: слияние, переименование, переключение.
+- [kubectl-slice](https://github.com/patrickdappollonio/kubectl-slice) — разбиение multi-document YAML на отдельные файлы.
+- [kubectl-fields](https://github.com/rewanthtammana/kubectl-fields) — иерархия полей ресурса.
+- [helmify](https://github.com/arttor/helmify) — генерация Helm-чарта из манифестов.
+- [kail](https://github.com/boz/kail) — `tail -f` по логам подов с фильтрами по селектору.
+- [kubeaudit](https://github.com/Shopify/kubeaudit) — аудит security-мисконфигов в кластере.
+- [rbac-tool](https://github.com/alcideio/rbac-tool) — анализ RBAC: lookup, who-can, визуализация.
+- [kluctl](https://github.com/kluctl/kluctl) — декларативный GitOps-деплой в Kubernetes.
+- [kube-burner](https://github.com/kube-burner/kube-burner) — нагрузочные тесты кластера.
+- [kwok](https://github.com/kubernetes-sigs/kwok) — симуляция тысяч нод без kubelet.
+- [kwokctl](https://github.com/kubernetes-sigs/kwok) — управление кластерами kwok.
+- [kpexec](https://github.com/ssup2/kpexec) — запуск команды в контейнере с привилегиями хоста.
+- [groot](https://github.com/hrodrig/groot) — диагностический архив кластера для RCA.
+- [k2tf](https://github.com/sl1pm4t/k2tf) — конвертация Kubernetes YAML в Terraform HCL.
+- [kubesec](https://github.com/controlplaneio/kubesec) — статический риск-анализ манифестов.
+- [kpt](https://github.com/kptdev/kpt) — управление пакетами Kubernetes-конфигов.
+- [kube-job](https://github.com/h3poteto/kube-job) — запуск одноразовых Job из CLI.
+- [kubectl-sniff](https://github.com/eldadru/ksniff) — сниффинг трафика пода через tcpdump.
+- [static-tcpdump](https://github.com/eldadru/ksniff) — статический tcpdump для контейнеров без него.
+- [kdash](https://github.com/kdash-rs/kdash) — быстрый TUI-дашборд кластера на Rust.
+- [kubetail](https://github.com/kubetail-org/kubetail) — дашборд логов нескольких подов и контейнеров.
+- [kubepug](https://github.com/kubepug/kubepug) — поиск устаревших API перед апгрейдом.
+- [kube-prompt](https://github.com/c-bata/kube-prompt) — интерактивный kubectl с автодополнением.
+- [rbac-lookup](https://github.com/FairwindsOps/rbac-lookup) — обратный поиск RBAC: кто связан с ролью.
+- [kubectl-who-can](https://github.com/aquasecurity/kubectl-who-can) — кто может выполнить verb над ресурсом.
+- [korb](https://github.com/BeryJu/korb) — перенос PVC между StorageClass и namespace.
+- [kl](https://github.com/robinovitch61/kl) — TUI для логов нескольких контейнеров и кластеров.
+- [kubectl-doctor](https://github.com/emirozer/kubectl-doctor) — триаж кластера в духе `brew doctor`.
+- [kbom](https://github.com/rad-security/kbom) — инвентарь и SBOM кластера.
+- [kubectl-modify-secret](https://github.com/rajatjindal/kubectl-modify-secret) — правка секрета без ручного base64.
+- [silver-surfer](https://github.com/devtron-labs/silver-surfer) — совместимость манифестов с apiVersion кластера.
+- [kubeprompt](https://github.com/jlesquembre/kubeprompt) — контекст и namespace в prompt.
+- [kustomizer](https://github.com/stefanprodan/kustomizer) — пакеты конфигов как OCI-артефакты.
+- [buoy](https://github.com/everettraven/buoy) — декларативный TUI-дашборд Kubernetes.
+- [k9sight](https://github.com/doganarif/k9sight) — TUI для отладки workload'ов.
+- [hanoi-cli](https://github.com/k-krew/hanoi-cli) — советник по ребалансировке подов.
+- [kzero](https://github.com/hrodrig/kzero) — декларативные down/up/reset кластера по YAML.
+- [kubectl-kzero](https://github.com/hrodrig/kzero) — kubectl-плагин к kzero.
+- [ktunnel](https://github.com/omrikiei/ktunnel) — туннель в кластер без SSH.
+- [kubectl-duplicate](https://github.com/Telemaco019/duplik8s) — дублирование ресурсов между namespace.
+- [kubectl-fd](https://github.com/alikhil/kubectl-find) — поиск ресурсов в духе UNIX `find`.
+- [kubectl-relay](https://github.com/knight42/krelay) — замена `kubectl port-forward`.
+- [gwctl](https://github.com/kubernetes-sigs/gwctl) — CLI для Gateway API.
+- [kbu](https://github.com/vulcanshen/kbu) — однопанельный TUI Kubernetes.
+- [kurt](https://github.com/soraro/kurt) — перезапуски подов и поиск проблемных workload'ов.
+- [kubediff](https://github.com/Ramilito/kubediff) — дифф исходников и задеплоенного состояния.
+- [kubetrim](https://github.com/alexellis/kubetrim) — чистка недоступных контекстов в kubeconfig.
+- [kubevious](https://github.com/kubevious/cli) — проверка Kubernetes-конфигов.
+- [k8shark](https://github.com/phenixblue/k8shark) — снимок состояния кластера и replay.
+- [node-gizmo](https://github.com/Kavinraja-G/node-gizmo) — CLI по нодам кластера.
+- [burn](https://github.com/tanrikuluozlem/burn) — стоимость Kubernetes по namespace.
+- [tk (Grafana Tanka)](https://github.com/grafana/tanka) — Jsonnet-конфигурация Kubernetes.
+- [audit2rbac](https://github.com/liggitt/audit2rbac) — генерация RBAC из audit-логов.
+- [pumba](https://github.com/alexei-led/pumba) — chaos-тестирование контейнеров.
+- [kopilot](https://github.com/knight42/kopilot) — AI-ассистент для диагностики кластера.
+- [kubectl-outagedeck](https://github.com/outagedeck/kubectl-outagedeck) — статус облачных провайдеров.
+- [keploy](https://github.com/keploy/keploy) — тест-кейсы из реального трафика приложения.
+- [okteto](https://github.com/okteto/okteto) — разработка прямо в кластере.
+- [garden](https://github.com/garden-io/garden) — оркестратор разработки для Kubernetes.
+- [ig (Inspektor Gadget)](https://github.com/inspektor-gadget/inspektor-gadget) — eBPF-гаджеты для отладки контейнеров.
+- [peirates](https://github.com/inguardians/peirates) — пентест изнутри кластера.
+- [helmsman](https://github.com/mkubaczyk/helmsman) — Helm-релизы как код в TOML.
+- [kexp](https://github.com/iximiuz/kexp) — визуальное понимание Kubernetes в локальном web-UI.
+- [gefyra](https://github.com/gefyrahq/gefyra) — локальная разработка с подменой сервисов в кластере.
+- [reckoner](https://github.com/FairwindsOps/reckoner) — Helm-релизы из YAML.
+- [copper](https://github.com/cloud66-oss/copper) — валидатор конфигов по правилам и схемам.
+- [alterant](https://github.com/cloud66-oss/alterant) — предсказуемые точечные правки YAML/JSON.
+- [crashd](https://github.com/vmware-tanzu/crash-diagnostics) — сбор диагностики с недоступных хостов и кластеров.
+- [kubescout](https://github.com/ReallyLiri/kubescout) — тревожные состояния по всем кластерам из kubeconfig.
+- [k8s-insider](https://github.com/TrueGoric/k8s-insider) — доступ к сети кластера без настройки.
+- [patchloom](https://github.com/patchloom/patchloom) — структурная правка конфигов для AI-агентов.
+- [k8sgpt](https://github.com/k8sgpt-ai/k8sgpt) — объяснение проблем кластера через LLM.
+- [kubescape](https://github.com/kubescape/kubescape) — проверка по профилям NSA/CIS.
+- [popeye](https://github.com/derailed/popeye) — мёртвые и неиспользуемые ресурсы кластера.
+- [vcluster](https://github.com/loft-sh/vcluster) — виртуальные Kubernetes-кластеры внутри namespace.
+- [skaffold](https://github.com/GoogleContainerTools/skaffold) — цикл «сборка → деплой → проверка» с hot-reload.
+- [kubeshark](https://github.com/kubeshark/kubeshark) — разбор L7-трафика подов через eBPF.
+- [kubectl-ai](https://github.com/GoogleCloudPlatform/kubectl-ai) — AI-ассистент: генерирует команды и манифесты.
+- [k3d](https://github.com/k3d-io/k3d) — k3s в Docker: локальные кластеры из контейнеров.
+- [telepresence](https://github.com/telepresenceio/telepresence) — локальный сервис «как будто в кластере».
+- [tilt](https://github.com/tilt-dev/tilt) — live-update приложений с веб-UI.
+- [mirrord](https://github.com/metalbear-co/mirrord) — локальный процесс в сети, ФС и окружении пода.
+- [devspace](https://github.com/devspace-sh/devspace) — синхронизация файлов и hot-reload по `devspace.yaml`.
+- [kubent](https://github.com/doitintl/kube-no-trouble) — что сломается при апгрейде кластера.
+- [polaris](https://github.com/FairwindsOps/polaris) — best practices и securityContext для манифестов.
+- [kube-score](https://github.com/zegl/kube-score) — чек-лист probes/requests/limits по манифестам.
+- [kubectl-neat](https://github.com/itaysk/kubectl-neat) — чистый YAML без `managedFields`.
+- [kubectl-validate](https://github.com/kubernetes-sigs/kubectl-validate) — офлайн-валидация схемами Kubernetes.
+- [nova](https://github.com/FairwindsOps/nova) — устаревшие версии Helm-чартов в кластере.
+- [kube-hunter](https://github.com/aquasecurity/kube-hunter) — поиск уязвимостей кластера.
+- [knetvis](https://pypi.org/project/knetvis/) — визуализация и тестирование NetworkPolicy.
+- [kptop](https://pypi.org/project/kptop/) — TUI-мониторинг нод, подов и PVC через Prometheus.
+- [helm-diff](https://github.com/databus23/helm-diff) — плагин `helm diff`: что изменится до применения чарта.
+- [helm-secrets](https://github.com/jkroepke/helm-secrets) — плагин: шифрование values через sops.
+- [kubectl-ports](https://github.com/widnyana/kubectl-ports-rs) — таблица портов подов и сервисов.
+- [kubebox](https://github.com/astefanutti/kubebox) — терминальная и веб-консоль Kubernetes.
+- [cdk8s](https://github.com/cdk8s-team/cdk8s-cli) — манифесты кодом на TypeScript/Python.
+- [kosko](https://github.com/tommy351/kosko) — манифесты на TypeScript.
+- [headlamp](https://github.com/kubernetes-sigs/headlamp) — web/desktop UI Kubernetes.
+- [radar](https://github.com/skyhook-io/radar) — desktop UI со встроенным MCP-сервером для AI-агентов.
+- [monokle](https://github.com/kubeshop/monokle) — desktop-редактор и анализатор манифестов.
+- [rubick](https://github.com/Dudude-bit/rubick) — лёгкий desktop-клиент Kubernetes.
+- [klustr](https://github.com/SametKUM/klustr) — desktop-клиент, работающий по kubeconfig.
+- [sextant](https://github.com/FriendsOfKubernetes/sextant) — desktop-клиент Kubernetes (альтернатива Lens) с MCP-сервером.
 
-| Роль | Пакеты | Зачем |
-|---|---|---|
-| base | ca-certificates, curl, wget, git, jq, unzip, zip, tar, gzip, xz-utils, bash-completion, lsb-release, ansible-lint, pipx | база для работы, самого плейбука, проверки стиля и установки molecule |
-| runtimes | python3-venv, python3-pip, python3-dev, golang-go, nodejs, npm, openjdk-21-jdk, qemu-system-x86, qemu-utils | языковые рантаймы; QEMU (`qemu-system-x86_64`, `qemu-img`) для VM в Lima |
-| iac | graphviz | `dot`: рендер графов Terraform/Terragrunt (DOT → svg/png) |
-| postgres | libpq5 | клиентская библиотека PostgreSQL (libpq.so) для psycopg/pgcli |
-| secrets | direnv, age, lynis | окружение по каталогам; шифрование файлов для sops; аудит безопасности и харденинга Linux |
-| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck, duf, btop, ncdu, ttyd, ffmpeg, ghostty | удобная работа в терминале, статический анализ shell-скриптов, понятная таблица дисков, монитор ресурсов и анализ занятого места, ttyd и ffmpeg — запись терминальных демо через vhs, ghostty — терминал с нативным GTK4-интерфейсом |
-| network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
-| audio | pipewire, pipewire-bin, pipewire-pulse, wireplumber, hicolor-icon-theme | шумоподавление микрофона (HushMic) |
-| docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
-| nora | mkcert, libnss3-tools, caddy, apache2-utils | mkcert (локальный CA), Caddy (TLS-терминатор), htpasswd (авторизация) |
+### iac
 
-Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`),
-`HushMic` (роль `audio`), `LACT` (роль `hardware`), `atmos` (роль `iac`),
-`headlamp`, `radar`, `monokle`, `rubick`, `klustr` и `sextant`
-(роль `kubernetes`), `T3 Code` (роль `ai_tools`, приложение в `/opt`, ярлык
-`/usr/bin/t3code`), `Ouroboros` (роль `ai_tools`, приложение в `/opt`,
-команда `ouroboros`).
+- [graphviz](https://gitlab.com/graphviz/graphviz) — `dot` для рендера графов Terraform/Terragrunt.
+- [tflint](https://github.com/terraform-linters/tflint) — линтер Terraform/OpenTofu.
+- [terraform-docs](https://github.com/terraform-docs/terraform-docs) — документация модулей из HCL.
+- [packer](https://github.com/hashicorp/packer) — сборка образов VM и контейнеров.
+- [driftctl](https://github.com/snyk/driftctl) — расхождения реальной инфраструктуры с IaC.
+- [tgsieve](https://github.com/imcitius/tgsieve) — сжатый вывод `terragrunt plan` по всему стеку.
+- [s5cmd](https://github.com/peak/s5cmd) — быстрый параллельный клиент S3.
+- [tpm](https://github.com/Madh93/tpm) — менеджер провайдеров Terraform/OpenTofu.
+- [tfvar](https://github.com/shihanng/tfvar) — генерация `variables.tf` из существующего кода.
+- [config-lint](https://github.com/stelligent/config-lint) — валидация HCL/JSON/YAML по декларативным правилам.
+- [tf-mirror](https://github.com/kashtan404/tf-mirror) — локальное зеркало провайдеров Terraform для air-gapped и CI.
+- [gitlab-terraform-manager](https://github.com/CRASH-Tech/gitlab-terraform-manager) — управление GitLab Terraform backend.
+- [inframap](https://github.com/cycloidio/inframap) — граф инфраструктуры из tfstate или HCL.
+- [terramate](https://github.com/terramate-io/terramate) — оркестрация стэков IaC: change detection и генерация кода.
+- [infracost](https://github.com/infracost/infracost) — стоимость изменений по `terraform plan`.
+- [rover](https://github.com/im2nguyen/rover) — интерактивный визуализатор Terraform state и плана.
+- [terraformer](https://github.com/GoogleCloudPlatform/terraformer) — генерация Terraform-кода из существующей инфраструктуры.
+- [terrascan](https://github.com/tenable/terrascan) — проверка IaC по политикам OPA/Rego.
+- [steampipe](https://github.com/turbot/steampipe) — SQL-запросы к облакам и API через плагины.
+- [tenv](https://github.com/tofuutils/tenv) — менеджер версий OpenTofu/Terraform/Terragrunt/Terramate/Atmos.
+- [tfupdate](https://github.com/minamijoyo/tfupdate) — обновление пинов провайдеров и модулей в HCL.
+- [tfsort](https://github.com/AlexNabokikh/tfsort) — сортировка блоков в `.tf`.
+- [tftui](https://github.com/idoavrah/terraform-tui) — TUI для работы с Terraform-стейтом.
+- [checkov](https://github.com/bridgecrewio/checkov) — SAST для IaC: мисконфиги в Terraform, Kubernetes, Dockerfile, Helm.
+- [atmos](https://github.com/cloudposse/atmos) — оркестрация Terraform-окружений поверх Terragrunt.
+- [tfenv](https://github.com/tfutils/tfenv) — менеджер версий Terraform.
+- [tgenv](https://github.com/tgenv/tgenv) — менеджер версий Terragrunt.
 
-### Скачиваемые бинарники в `/usr/local/bin`
+### postgres
 
-| Утилита | Источник |
-|---|---|
-| yq | github.com/mikefarah/yq |
-| gh | github.com/cli/cli |
-| glab | gitlab.com/gitlab-org/cli |
-| gitlabcloner | github.com/Andrey039/gitlabcloner |
-| glaball | github.com/flant/glaball |
-| glci | gitlab.com/gitlab-org/ci-cd/runner-tools/glci (Generic Packages) |
-| pre-commit | github.com/pre-commit/pre-commit (самодостаточный `.pyz`) |
-| reposcan | github.com/mabd-dev/reposcan |
-| kubectl | dl.k8s.io |
-| helm | get.helm.sh |
-| k9s | github.com/derailed/k9s |
-| kustomize | github.com/kubernetes-sigs/kustomize |
-| kubectx | github.com/ahmetb/kubectx (shell-скрипт, ветка master) |
-| flux | github.com/fluxcd/flux2 |
-| flux9s | github.com/dgunzy/flux9s |
-| stern | github.com/stern/stern |
-| flate | github.com/home-operations/flate |
-| flux-tools | github.com/alexandervidyaev/flux-tools |
-| cty | github.com/Skarlso/crd-to-sample-yaml |
-| diffyml | github.com/szhekpisov/diffyml |
-| kubectl-k8i | github.com/ViktorUJ/kubectl-k8i |
-| kubespy | github.com/pulumi/kubespy |
-| kubecolor | github.com/kubecolor/kubecolor |
-| kube-capacity | github.com/robscott/kube-capacity |
-| ktop | github.com/vladimirvivien/ktop |
-| kubefetch | github.com/jkulzer/kubefetch |
-| krew | github.com/kubernetes-sigs/krew |
-| view-secret | github.com/elsesiy/kubectl-view-secret |
-| df-pv | github.com/yashbhutwala/kubectl-df-pv |
-| browse-pvc | github.com/clbx/kubectl-browse-pvc |
-| pluto | github.com/FairwindsOps/pluto |
-| pv-migrate | github.com/utkuozdemir/pv-migrate |
-| marvin | github.com/undistro/marvin |
-| kftui | github.com/hcavarsan/kftray (TUI) |
-| ct | github.com/helm/chart-testing |
-| tflint | github.com/terraform-linters/tflint |
-| terraform-docs | github.com/terraform-docs/terraform-docs |
-| packer | releases.hashicorp.com |
-| driftctl | github.com/snyk/driftctl |
-| tgsieve | github.com/imcitius/tgsieve |
-| inframap | github.com/cycloidio/inframap (тег v0.8.0: в v0.8.1 нет бинарников) |
-| terramate | github.com/terramate-io/terramate |
-| infracost | github.com/infracost/infracost |
-| rover | github.com/im2nguyen/rover |
-| s5cmd | github.com/peak/s5cmd |
-| pgcenter | github.com/lesovsky/pgcenter |
-| vault | releases.hashicorp.com |
-| gitleaks | github.com/gitleaks/gitleaks |
-| gai | github.com/casablanque-code/gai |
-| dnsglobe | github.com/514-labs/dnsglobe |
-| bandwhich | github.com/imsnif/bandwhich |
-| uncover | github.com/projectdiscovery/uncover |
-| q | github.com/natesales/q |
-| xh | github.com/ducaale/xh |
-| hurl | github.com/Orange-OpenSource/hurl |
-| trippy | github.com/fujiapple852/trippy |
-| tcping | github.com/pouriyajamshidi/tcping |
-| doggo | github.com/mr-karan/doggo |
-| ecapture | github.com/gojue/ecapture |
-| termshark | github.com/gcla/termshark |
-| websocat | github.com/vi/websocat |
-| pwru | github.com/cilium/pwru |
-| bpftop | github.com/jfernandez/bpftop |
-| oryx | github.com/pythops/oryx |
-| pktstat-bpf | github.com/dkorunic/pktstat-bpf |
-| eget | github.com/zyedidia/eget |
-| difftastic | github.com/Wilfred/difftastic |
-| delta | github.com/dandavison/delta |
-| gdu | github.com/dundee/gdu |
-| dust | github.com/bootandy/dust |
-| dasel | github.com/TomWright/dasel |
-| jc | github.com/kellyjonbrazil/jc |
-| sd | github.com/chmln/sd |
-| lf | github.com/gokcehan/lf |
-| gomplate | github.com/hairyhenderson/gomplate |
-| yamlfmt | github.com/google/yamlfmt |
-| gum | github.com/charmbracelet/gum |
-| fastfetch | github.com/fastfetch-cli/fastfetch |
-| procs | github.com/dalance/procs |
-| cheat | github.com/cheat/cheat |
-| tldr | registry.npmjs.org/tldr |
-| gotty | github.com/yudai/gotty |
-| oras | github.com/oras-project/oras |
-| lazygit | github.com/jesseduffield/lazygit |
-| lazydocker | github.com/jesseduffield/lazydocker |
-| dive | github.com/wagoodman/dive |
-| ctop | github.com/bcicen/ctop |
-| sops | github.com/getsops/sops |
-| grype | github.com/anchore/grype |
-| trivy | github.com/aquasecurity/trivy |
-| zellij | github.com/zellij-org/zellij |
-| navi | github.com/denisidoro/navi |
-| mcfly | github.com/cantino/mcfly |
-| fx | github.com/antonmedv/fx |
-| hl | github.com/pamburus/hl |
-| kyanos | github.com/hengyoush/kyanos |
-| starship | github.com/starship/starship |
-| bat | github.com/sharkdp/bat |
-| reviewdog | github.com/reviewdog/reviewdog |
-| wt (worktrunk) | github.com/max-sixty/worktrunk |
-| grex | github.com/pemistahl/grex |
-| jnv | github.com/ynqa/jnv |
-| octosql | github.com/cube2222/octosql |
-| dry | github.com/moncho/dry |
-| lazyjournal | github.com/Lifailon/lazyjournal |
-| ytt | github.com/carvel-dev/ytt |
-| changie | github.com/miniscruff/changie |
-| mfa | github.com/LexSerest/mfa |
-| vmalert-tool | github.com/VictoriaMetrics/VictoriaMetrics |
-| sloth | github.com/slok/sloth |
-| gonzo | github.com/control-theory/gonzo |
-| otel-tui | github.com/ymtdzzz/otel-tui |
-| jl | github.com/koenbollen/jl |
-| kbld | github.com/carvel-dev/kbld |
-| chartsnap | github.com/jlandowner/helm-chartsnap |
-| kubewall | github.com/kubewall/kubewall |
-| tpm | github.com/Madh93/tpm |
-| tfvar | github.com/shihanng/tfvar |
-| config-lint | github.com/stelligent/config-lint |
-| tf-mirror | github.com/kashtan404/tf-mirror |
-| gitlab-terraform-manager | github.com/CRASH-Tech/gitlab-terraform-manager |
-| txeh | github.com/txn2/txeh |
-| assh | github.com/moul/assh |
-| decompose | github.com/s0rg/decompose |
-| medusa | github.com/jonasvinther/medusa |
-| bank-vaults | github.com/bank-vaults/bank-vaults |
-| horusec | github.com/ZupIT/horusec |
-| opengrep | github.com/opengrep/opengrep |
-| opencode | registry.npmjs.org/@opencode/cli-linux-x64 |
-| dra | github.com/devmatteini/dra |
-| ghgrab | github.com/abhixdd/ghgrab |
-| kubevpn | github.com/kubenetworks/kubevpn |
-| netfetch | github.com/deggja/netfetch |
-| timoni | github.com/stefanprodan/timoni |
-| kubeview | github.com/benc-uk/kubeview |
-| kubehound | github.com/DataDog/KubeHound |
-| charts-syncer | github.com/bitnami/charts-syncer |
-| netobserv | github.com/netobserv/netobserv-cli |
-| capacitor | github.com/gimlet-io/capacitor |
-| copa | github.com/project-copacetic/copacetic |
-| logdy | github.com/logdyhq/logdy-core |
-| spacer | github.com/samwho/spacer |
-| shellclear | github.com/rusty-ferris-club/shellclear |
-| nxs-backup | github.com/nixys/nxs-backup |
-| cloudprober | github.com/cloudprober/cloudprober |
-| canary-checker | github.com/flanksource/canary-checker |
-| gossl | github.com/vvrnv/gossl |
-| crip (certificate-ripper) | github.com/Hakky54/certificate-ripper |
-| jlv (json-log-viewer) | github.com/hedhyw/json-log-viewer |
-| dusage | github.com/mihaigalos/dusage |
-| binup | github.com/KonishchevDmitry/binup |
-| lumen | github.com/jnsahaj/lumen |
-| gptcommit | github.com/zurawiki/gptcommit |
-| codegpt | github.com/appleboy/CodeGPT |
-| typos | github.com/crate-ci/typos |
-| act | github.com/nektos/act |
-| hadolint | github.com/hadolint/hadolint |
-| kubeconform | github.com/yannh/kubeconform |
-| kube-linter | github.com/stackrox/kube-linter |
-| k8sgpt | github.com/k8sgpt-ai/k8sgpt |
-| kubescape | github.com/kubescape/kubescape |
-| popeye | github.com/derailed/popeye |
-| vcluster | github.com/loft-sh/vcluster |
-| skaffold | github.com/GoogleContainerTools/skaffold |
-| kubeshark | github.com/kubeshark/kubeshark |
-| helmfile | github.com/helmfile/helmfile |
-| kubebox | registry.npmjs.org/kubebox |
-| mise | github.com/jdx/mise |
-| just | github.com/casey/just |
-| yazi | github.com/sxyazi/yazi |
-| glow | github.com/charmbracelet/glow |
-| btm (bottom) | github.com/ClementTsang/bottom |
-| hyperfine | github.com/sharkdp/hyperfine |
-| duckdb | github.com/duckdb/duckdb |
-| tv (television) | github.com/alexpasmantier/television |
-| witr | github.com/pranshuparmar/witr |
-| jj (jujutsu) | github.com/jj-vcs/jj |
-| k6 | github.com/grafana/k6 |
-| gping | github.com/orf/gping |
-| trufflehog | github.com/trufflesecurity/trufflehog |
-| syft | github.com/anchore/syft |
-| cosign | github.com/sigstore/cosign |
-| kind | github.com/kubernetes-sigs/kind |
-| kops | github.com/kubernetes/kops |
-| devpod | github.com/loft-sh/devpod |
-| kompose | github.com/kubernetes/kompose |
-| ko | github.com/google/ko |
-| kubie | github.com/kubie-org/kubie |
-| kubefwd | github.com/txn2/kubefwd |
-| kubectl-tree | github.com/ahmetb/kubectl-tree |
-| conftest | github.com/open-policy-agent/conftest |
-| kube-bench | github.com/aquasecurity/kube-bench |
-| kubernetes-mcp-server | github.com/containers/kubernetes-mcp-server |
-| kubecm | github.com/sunny0826/kubecm |
-| kubectl-slice | github.com/patrickdappollonio/kubectl-slice |
-| kubectl-ports | github.com/widnyana/kubectl-ports-rs (тег 1.1.0) |
-| helmify | github.com/arttor/helmify |
-| kail | github.com/boz/kail |
-| kubeaudit | github.com/Shopify/kubeaudit |
-| rbac-tool | github.com/alcideio/rbac-tool |
-| kluctl | github.com/kluctl/kluctl |
-| kube-burner | github.com/kube-burner/kube-burner |
-| kwok, kwokctl | github.com/kubernetes-sigs/kwok |
-| kpexec | github.com/ssup2/kpexec |
-| groot | github.com/hrodrig/groot |
-| k2tf | github.com/sl1pm4t/k2tf |
-| kubesec | github.com/controlplaneio/kubesec |
-| kpt | github.com/kptdev/kpt |
-| kube-job | github.com/h3poteto/kube-job |
-| kubectl-fields | github.com/rewanthtammana/kubectl-fields |
-| kosko | registry.npmjs.org/kosko |
-| silver-surfer | github.com/devtron-labs/silver-surfer |
-| kubeprompt | github.com/jlesquembre/kubeprompt |
-| kustomizer | github.com/stefanprodan/kustomizer |
-| buoy | github.com/everettraven/buoy |
-| k9sight | github.com/doganarif/k9sight |
-| hanoi-cli | github.com/k-krew/hanoi-cli |
-| kzero, kubectl-kzero | github.com/hrodrig/kzero |
-| ktunnel | github.com/omrikiei/ktunnel |
-| kubectl-duplicate | github.com/Telemaco019/duplik8s |
-| kubectl-fd | github.com/alikhil/kubectl-find |
-| kubectl-relay | github.com/knight42/krelay |
-| gwctl | github.com/kubernetes-sigs/gwctl |
-| kbu | github.com/vulcanshen/kbu |
-| kurt | github.com/soraro/kurt |
-| kubediff | github.com/Ramilito/kubediff |
-| kubetrim | github.com/alexellis/kubetrim |
-| kubevious | github.com/kubevious/cli |
-| k8shark | github.com/phenixblue/k8shark (бинарник `kshrk`) |
-| node-gizmo | github.com/Kavinraja-G/node-gizmo (бинарник `nodegizmo`) |
-| burn | github.com/tanrikuluozlem/burn |
-| tk (Grafana Tanka) | github.com/grafana/tanka |
-| audit2rbac | github.com/liggitt/audit2rbac |
-| pumba | github.com/alexei-led/pumba |
-| kopilot | github.com/knight42/kopilot |
-| kubectl-outagedeck | github.com/outagedeck/kubectl-outagedeck |
-| kubectl-sniff, static-tcpdump | github.com/eldadru/ksniff |
-| kdash | github.com/kdash-rs/kdash |
-| kubetail | github.com/kubetail-org/kubetail |
-| kubepug | github.com/kubepug/kubepug |
-| kube-prompt | github.com/c-bata/kube-prompt |
-| rbac-lookup | github.com/FairwindsOps/rbac-lookup |
-| kubectl-who-can | github.com/aquasecurity/kubectl-who-can |
-| korb | github.com/BeryJu/korb |
-| kl | github.com/robinovitch61/kl |
-| kubectl-doctor | github.com/emirozer/kubectl-doctor |
-| kbom | github.com/rad-security/kbom |
-| kubectl-modify-secret | github.com/rajatjindal/kubectl-modify-secret |
-| keploy | github.com/keploy/keploy |
-| okteto | github.com/okteto/okteto |
-| garden | github.com/garden-io/garden |
-| ig (Inspektor Gadget) | github.com/inspektor-gadget/inspektor-gadget |
-| peirates | github.com/inguardians/peirates |
-| helmsman | github.com/mkubaczyk/helmsman |
-| kexp | github.com/iximiuz/kexp |
-| gefyra | github.com/gefyrahq/gefyra |
-| reckoner | github.com/FairwindsOps/reckoner |
-| copper | github.com/cloud66-oss/copper |
-| alterant | github.com/cloud66-oss/alterant |
-| crashd (crash-diagnostics) | github.com/vmware-tanzu/crash-diagnostics |
-| kubescout | github.com/ReallyLiri/kubescout |
-| k8s-insider | github.com/TrueGoric/k8s-insider |
-| patchloom | github.com/patchloom/patchloom |
-| gitui | github.com/extrawurst/gitui |
-| vhs | github.com/charmbracelet/vhs |
-| dagger | github.com/dagger/dagger |
-| terraformer | github.com/GoogleCloudPlatform/terraformer |
-| terrascan | github.com/tenable/terrascan |
-| steampipe | github.com/turbot/steampipe |
-| kubectl-ai | github.com/GoogleCloudPlatform/kubectl-ai |
-| k3d | github.com/k3d-io/k3d |
-| telepresence | github.com/telepresenceio/telepresence |
-| tilt | github.com/tilt-dev/tilt |
-| mirrord | github.com/metalbear-co/mirrord |
-| devspace | github.com/devspace-sh/devspace |
-| kubent (kube-no-trouble) | github.com/doitintl/kube-no-trouble |
-| rustnet | github.com/domcyrus/rustnet |
-| lazysql | github.com/jorgerojas26/lazysql |
-| polaris | github.com/FairwindsOps/polaris |
-| kube-score | github.com/zegl/kube-score |
-| kubectl-neat | github.com/itaysk/kubectl-neat |
-| kubectl-validate | github.com/kubernetes-sigs/kubectl-validate |
-| nova | github.com/FairwindsOps/nova |
-| tenv | github.com/tofuutils/tenv |
-| tfupdate | github.com/minamijoyo/tfupdate |
-| tfsort | github.com/AlexNabokikh/tfsort |
+- [pgCenter](https://github.com/lesovsky/pgcenter) — консольная админка и мониторинг PostgreSQL.
+- [pgcli](https://github.com/dbcli/pgcli) — psql с автодополнением и подсветкой синтаксиса.
+- [libpq5](https://www.postgresql.org/) — клиентская библиотека PostgreSQL для psycopg и pgcli.
 
-Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
-`~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`),
-`ansible-navigator`, `ansible-builder`, `ansible-creator`, `ansible-doctor` и
-`ara` — тоже через pipx (роль `base`),
-`rkn-block-checker`, `showcert`,
-`ssh-audit`, `httptap`, `lexicon` и `netutils-linux` — из PyPI через pipx в
-`~/.local/bin` (роль `network`), `yamlfixer` — из PyPI через pipx (роль
-`shell`), `ochrona` — из PyPI через pipx (роль `secrets`), `checkov` — из
-PyPI через pipx (роль `iac`), `kube-hunter`, `knetvis` и `kptop` — из PyPI
-через pipx (роль `kubernetes`), `gitlabform`, `tftui`, `pgcli` и `harlequin`
-— из PyPI через pipx (общая роль
-`pipx_apps`, вызывается из `base`, `git`, `iac`, `postgres`, `secrets`, `shell`,
-`network` и `kubernetes`), `entropy` (роль `secrets`) и `reachable` (роль `network`) — сборкой из
-исходников через `go install` (общая роль `go_apps`, вызывается из
-`secrets` и `network`), `krr` — распаковкой PyInstaller-сборки в `/opt/krr` с обёрткой в
-`/usr/local/bin` (роль `monitoring`), `dependency-check` — распаковкой
-zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/bin` (роль
-`secrets`; база NVD кэшируется в `~/.cache/dependency-check`),
-`sshx` — из тарболла S3 (без релиз-ассетов GitHub, роль `network`),
-`docker-image-layer-explorer` — одиночным релизным python-скриптом с
-зафиксированным тегом `v0.1.0` (у апстрима нет релиза с меткой «Latest»,
-роль `docker`), `kubectl-ports` — бинарником из релиза с зафиксированным
-тегом `1.1.0` (в последнем релизе `1.1.1` ассетов нет, роль `kubernetes`),
-`helm-diff` и `helm-secrets` — helm-плагинами (`helm plugin install`, каталог
-`~/.local/share/helm/plugins`, роль `kubernetes`),
-`atmos` — из `.deb`-пакета GitHub-релиза (роль `iac`; .deb втрое меньше
-одиночного бинарника),
-`headlamp`, `radar`, `monokle`, `rubick`, `klustr` и `sextant` — из
-`.deb`-пакетов GitHub-релиза (роль `kubernetes`, desktop UI), `T3 Code` и
-`Ouroboros` — из `.deb`-пакетов GitHub-релиза (роль `ai_tools`), `HushMic` — из
-`.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
-`sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из
-gzip-сжатого одиночного бинарника релиза (роль `shell`), `osquery` — из
-`.deb`-пакета GitHub-релиза (роль `secrets`), `tldr`, `kubebox`, `cdk8s` и
-`kosko` — через `npm install -g` (роли `shell` и `kubernetes`), `tshark` —
-пакетом Ubuntu как зависимость `termshark` (роль `network`), `tracee` — из
-тарболла GitHub-релиза вместе с сигнатурами безопасности в `/opt/tracee` +
-симлинк в `/usr/local/bin` (роль `ebpf`), `lima` — распаковкой релизного
-архива целиком в `/opt/lima` (bin, share/lima с шаблонами, libexec) и
-симлинками `limactl`/`lima` в `/usr/local/bin`; QEMU для VM — пакетами apt
-(роль `runtimes`),
-глобальные skills для opencode — через `npx skills add` (роль `skills`, см.
-раздел «Глобальные skills для opencode»).
+### runtimes
 
-Скачивание версий идёт без GitHub API (лимит 60 запросов в час): тег последнего
-релиза берётся из HTTP-редиректа `releases/latest` — для GitHub это
-`github.com/<repo>/releases/latest`, для GitLab (утилиты `glab`, `glci`) —
-`gitlab.com/<repo>/-/releases/permalink/latest`.
+- [Python 3 (venv/pip)](https://www.python.org/) — интерпретатор и виртуальные окружения из apt.
+- [uv](https://github.com/astral-sh/uv) — быстрый менеджер Python-пакетов и версий.
+- [Go](https://go.dev/) — компилятор и toolchain из apt (`golang-go`).
+- [Node.js + npm](https://nodejs.org/) — рантайм и менеджер пакетов из apt.
+- [Java 21 (OpenJDK)](https://openjdk.org/) — JDK из apt.
+- [QEMU](https://github.com/qemu/qemu) — виртуалка для Lima (`qemu-system-x86_64`, `qemu-img`).
+- [dagger](https://github.com/dagger/dagger) — CI-пайплайны как код: шаги на Go/Python/TypeScript в контейнерах.
+- [Lima](https://github.com/lima-vm/lima) — Linux-VM поверх Linux (`limactl`, `lima`): containerd, Docker и k3s внутри.
 
-Роль `binaries` понимает четыре формата архивов: `tar` (`.tar.gz`), `tarxz`
-(`.tar.xz`, напр. `dnsglobe`), `tarbz2` (`.tar.bz2`, напр. `binup`) и `zip`;
-для одиночных бинарников — `archive: none`.
+### secrets
+
+- [direnv](https://github.com/direnv/direnv) — переменные окружения по каталогам.
+- [Vault](https://github.com/hashicorp/vault) — хранилище секретов с аудитом и политиками.
+- [gitleaks](https://github.com/gitleaks/gitleaks) — поиск секретов в git-истории и файлах.
+- [sops](https://github.com/getsops/sops) — шифрование секретов прямо в Git (KMS/age/PGP).
+- [grype](https://github.com/anchore/grype) — сканер уязвимостей образов и файловой системы.
+- [trivy](https://github.com/aquasecurity/trivy) — уязвимости образов, IaC и секреты одним сканером.
+- [age](https://github.com/FiloSottile/age) — простое шифрование файлов, бэкенд sops.
+- [lynis](https://github.com/CISOfy/lynis) — аудит безопасности и харденинга Linux.
+- [osquery](https://github.com/osquery/osquery) — SQL-подобная инструментация ОС.
+- [mfa](https://github.com/LexSerest/mfa) — терминальный менеджер 2FA/TOTP.
+- [medusa](https://github.com/jonasvinther/medusa) — импорт и экспорт секретов Vault.
+- [bank-vaults](https://github.com/bank-vaults/bank-vaults) — init/unseal и конфигурация Vault через YAML.
+- [horusec](https://github.com/ZupIT/horusec) — SAST одной командой.
+- [opengrep](https://github.com/opengrep/opengrep) — SAST на правилах с taint-анализом (форк Semgrep CE).
+- [dependency-check](https://github.com/dependency-check/DependencyCheck) — OWASP SCA: уязвимые зависимости проекта.
+- [trufflehog](https://github.com/trufflesecurity/trufflehog) — поиск секретов с проверкой, что ключ живой.
+- [syft](https://github.com/anchore/syft) — SBOM образов и каталогов в CycloneDX/SPDX.
+- [cosign](https://github.com/sigstore/cosign) — подпись и проверка артефактов sigstore.
+- [entropy](https://github.com/EwenQuim/entropy) — поиск строк с высокой энтропией: ключей и токенов по признаку случайности.
+- [ochrona](https://pypi.org/project/ochrona/) — SCA для Python-зависимостей: сверка версий с базой OSV.
+
+### shell
+
+- [eza](https://github.com/eza-community/eza) — современная замена `ls` с иконками и git-статусом.
+- [zoxide](https://github.com/ajeetdsouza/zoxide) — быстрый переход по каталогам (`z`).
+- [fzf](https://github.com/junegunn/fzf) — интерактивный fuzzy-поиск.
+- [ripgrep](https://github.com/BurntSushi/ripgrep) — быстрый рекурсивный grep.
+- [fd-find](https://github.com/sharkdp/fd) — простая и быстрая замена `find`.
+- [starship](https://github.com/starship/starship) — prompt с информацией о репозитории и окружении.
+- [bat](https://github.com/sharkdp/bat) — `cat` с подсветкой синтаксиса и номерами строк.
+- [difftastic](https://github.com/Wilfred/difftastic) — структурный diff с пониманием синтаксиса языка.
+- [delta](https://github.com/dandavison/delta) — улучшенный просмотр git-diff.
+- [gdu](https://github.com/dundee/gdu) — быстрый анализатор занятого места с интерактивным режимом.
+- [dust](https://github.com/bootandy/dust) — наглядный `du`: дерево каталогов с графиком.
+- [dasel](https://github.com/TomWright/dasel) — запросы и правка JSON/YAML/TOML/XML/CSV/HCL.
+- [jc](https://github.com/kellyjonbrazil/jc) — конвертация вывода CLI-утилит в JSON.
+- [sd](https://github.com/chmln/sd) — интуитивная замена `sed` для поиска и замены.
+- [shellcheck](https://github.com/koalaman/shellcheck) — статический анализ shell-скриптов.
+- [duf](https://github.com/muesli/duf) — `df` «для людей»: таблица дисков и точек монтирования.
+- [btop](https://github.com/aristocratos/btop) — монитор ресурсов с графиками.
+- [ncdu](https://github.com/rofl0r/ncdu) — интерактивный анализ занятого места.
+- [tv (television)](https://github.com/alexpasmantier/television) — fuzzy-finder с готовыми каналами поиска.
+- [witr](https://github.com/pranshuparmar/witr) — трассировка «почему процесс запущен и кто держит порт».
+- [zellij](https://github.com/zellij-org/zellij) — терминальный мультиплексор.
+- [navi](https://github.com/denisidoro/navi) — шпаргалки команд поверх fzf.
+- [fx](https://github.com/antonmedv/fx) — интерактивный просмотр JSON.
+- [jnv](https://github.com/ynqa/jnv) — интерактивный jq-фильтр для JSON.
+- [octosql](https://github.com/cube2222/octosql) — SQL-запросы к JSON/CSV/Parquet.
+- [hl](https://github.com/pamburus/hl) — быстрый просмотрщик JSON-логов.
+- [lazyjournal](https://github.com/Lifailon/lazyjournal) — TUI для journald, auditd, Docker и файлов.
+- [gonzo](https://github.com/control-theory/gonzo) — TUI-анализ логов с графиками по столбцам.
+- [otel-tui](https://github.com/ymtdzzz/otel-tui) — просмотр OpenTelemetry-трейсов, логов и метрик.
+- [jl](https://github.com/koenbollen/jl) — фильтр структурированных JSON-логов.
+- [logdy](https://github.com/logdyhq/logdy-core) — просмотр логов в браузере в реальном времени.
+- [jlv](https://github.com/hedhyw/json-log-viewer) — интерактивный просмотр JSON-логов.
+- [spacer](https://github.com/samwho/spacer) — разделители с таймингом между шагами пайплайна.
+- [mcfly](https://github.com/cantino/mcfly) — умная история команд по Ctrl-R.
+- [lf](https://github.com/gokcehan/lf) — терминальный файловый менеджер с vim-подобными клавишами.
+- [gomplate](https://github.com/hairyhenderson/gomplate) — шаблонизатор конфигов из разных источников.
+- [yamlfmt](https://github.com/google/yamlfmt) — форматтер YAML.
+- [yamlfixer](https://github.com/opt-nc/yamlfixer) — автоисправление замечаний yamllint.
+- [gum](https://github.com/charmbracelet/gum) — примитивы для «красивых» shell-скриптов.
+- [fastfetch](https://github.com/fastfetch-cli/fastfetch) — информация о системе.
+- [procs](https://github.com/dalance/procs) — современная замена `ps`.
+- [grex](https://github.com/pemistahl/grex) — генерация регулярного выражения из примеров строк.
+- [dusage](https://github.com/mihaigalos/dusage) — наглядный подсчёт занятого места.
+- [mise](https://github.com/jdx/mise) — менеджер версий рантаймов.
+- [just](https://github.com/casey/just) — командный раннер вместо Makefile.
+- [yazi](https://github.com/sxyazi/yazi) — быстрый TUI-файловый менеджер.
+- [glow](https://github.com/charmbracelet/glow) — рендер Markdown в терминале.
+- [btm (bottom)](https://github.com/ClementTsang/bottom) — монитор процессов и ресурсов с графиками.
+- [hyperfine](https://github.com/sharkdp/hyperfine) — бенчмарк команд.
+- [duckdb](https://github.com/duckdb/duckdb) — аналитическая СУБД: SQL по Parquet/CSV/JSON.
+- [vhs](https://github.com/charmbracelet/vhs) — запись терминальных GIF/видео из сценария.
+- [harlequin](https://github.com/tconbeer/harlequin) — SQL-IDE в терминале.
+- [lazysql](https://github.com/jorgerojas26/lazysql) — TUI-клиент к MySQL, PostgreSQL, MSSQL и SQLite.
+- [shellclear](https://github.com/rusty-ferris-club/shellclear) — поиск секретов и опасных команд в истории shell.
+- [nxs-backup](https://github.com/nixys/nxs-backup) — бэкапы по YAML-описанию.
+- [cheat](https://github.com/cheat/cheat) — собственные шпаргалки команд.
+- [tldr](https://github.com/tldr-pages/tldr) — краткие примеры команд.
+- [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts) — шрифт с иконками для prompt и `eza --icons`.
+- [ghostty](https://github.com/ghostty-org/ghostty) — терминал на GTK4: окна, табы, сплиты.
+- [M-Commander](https://github.com/blue-panels/mcommander) — двухпанельный файловый менеджер.
+- [fontconfig](https://gitlab.freedesktop.org/fontconfig/fontconfig) — `fc-cache` для кэша шрифтов (Nerd Font).
+- [ttyd](https://github.com/tsl0922/ttyd) — веб-терминал, через который vhs записывает демо.
+- [ffmpeg](https://github.com/FFmpeg/FFmpeg) — кодировщик видео для vhs.
+- [devops-shell.sh](https://github.com/patsevanton/playbook-for-ubuntu-devops-laptop/blob/main/roles/shell/templates/devops-shell.sh.j2) — конфиг shell: `~/.config/devops-shell.sh` плюс одна строка `source` в `~/.bashrc`.
+
+### network
+
+- [nmap](https://github.com/nmap/nmap) — сканер портов и сервисов.
+- [netcat](https://nc110.sourceforge.io/) — «швейцарский нож» TCP/UDP.
+- [tcpdump](https://github.com/the-tcpdump-group/tcpdump) — захват и разбор пакетов.
+- [httpie](https://github.com/httpie/cli) — человекочитаемый HTTP-клиент.
+- [dig (dnsutils)](https://github.com/isc-projects/bind9) — DNS-запросы.
+- [telnet](https://savannah.gnu.org/projects/inetutils) — проверка TCP-портов.
+- [tshark](https://github.com/wireshark/wireshark) — CLI Wireshark, нужен termshark для разбора PCAP.
+- [rkn-block-checker](https://pypi.org/project/rkn-block-checker/) — диагностика блокировок: DNS-подмена, TCP reset, DPI по SNI.
+- [showcert](https://github.com/yaroslaff/showcert) — человекочитаемый разбор X.509-сертификатов.
+- [ssh-audit](https://github.com/jtesta/ssh-audit) — аудит конфигурации SSH-серверов и клиентов.
+- [httptap](https://github.com/monasticacademy/httptap) — разбор HTTP-запроса по слоям: DNS, connect, TLS, TTFB.
+- [lexicon](https://github.com/AnalogJ/lexicon) — управление DNS-записями у разных провайдеров.
+- [netutils-linux](https://github.com/strizhechenko/netutils-linux) — утилиты диагностики и тюнинга сетевого стека.
+- [reachable](https://github.com/italolelis/reachable) — проверка доступности домена по резолверам и HTTP.
+- [gai](https://github.com/casablanque-code/gai) — инспектор `getaddrinfo`: реальный путь разрешения имени.
+- [dnsglobe](https://github.com/514-labs/dnsglobe) — TUI-проверка распространения DNS-записи по публичным резолверам.
+- [bandwhich](https://github.com/imsnif/bandwhich) — трафик по процессам и соединениям.
+- [q](https://github.com/natesales/q) — DNS-клиент с DoH/DoT/DoQ/ODoH.
+- [xh](https://github.com/ducaale/xh) — быстрый HTTP-клиент, замена httpie.
+- [kyanos](https://github.com/hengyoush/kyanos) — анализ сетевых запросов через eBPF.
+- [hurl](https://github.com/Orange-OpenSource/hurl) — HTTP-запросы и тесты из plain-text `.hurl`-файлов.
+- [trippy](https://github.com/fujiapple852/trippy) — TUI traceroute со статистикой по хопам.
+- [ecapture](https://github.com/gojue/ecapture) — захват TLS-трафика приложений без CA-сертификатов.
+- [termshark](https://github.com/gcla/termshark) — TUI к Wireshark/tshark.
+- [websocat](https://github.com/vi/websocat) — netcat для WebSocket.
+- [tcping](https://github.com/pouriyajamshidi/tcping) — `ping` поверх TCP-порта.
+- [doggo](https://github.com/mr-karan/doggo) — DNS-клиент с человекочитаемым цветным выводом.
+- [gotty](https://github.com/yudai/gotty) — терминал как веб-приложение.
+- [sshx](https://github.com/ekzhang/sshx) — совместный терминал в браузере.
+- [txeh](https://github.com/txn2/txeh) — управление `/etc/hosts` из CLI.
+- [assh](https://github.com/moul/assh) — генерация SSH-конфигов, jump-хосты и прокси.
+- [gossl](https://github.com/vvrnv/gossl) — проверка SSL-сертификата: цепочка, срок, протоколы.
+- [crip (certificate-ripper)](https://github.com/Hakky54/certificate-ripper) — извлечение цепочки сертификатов с хоста.
+- [k6](https://github.com/grafana/k6) — нагрузочное тестирование сценариями на JS.
+- [gping](https://github.com/orf/gping) — ping с графиком задержек.
+- [rustnet](https://github.com/domcyrus/rustnet) — TUI-мониторинг сети по процессам с разбором пакетов.
+- [sniffnet](https://github.com/GyulyVGC/sniffnet) — графический TUI-мониторинг трафика.
+- [uncover](https://github.com/projectdiscovery/uncover) — поиск хостов через Shodan, Censys, FOFA, Quake и другие движки.
+
+### ebpf
+
+- [pwru](https://github.com/cilium/pwru) — eBPF-отладчик сетевого стека: где потерялся пакет.
+- [bpftop](https://github.com/jfernandez/bpftop) — обзор запущенных eBPF-программ и их CPU.
+- [oryx](https://github.com/pythops/oryx) — TUI-сниффер трафика на eBPF.
+- [pktstat-bpf](https://github.com/dkorunic/pktstat-bpf) — монитор трафика по процессам и потокам.
+- [tracee](https://github.com/aquasecurity/tracee) — runtime-security и форензика Linux на eBPF.
+
+### monitoring
+
+- [vmalert-tool](https://github.com/VictoriaMetrics/VictoriaMetrics) — офлайн-проверка и unit-тесты алерт-правил.
+- [sloth](https://github.com/slok/sloth) — генерация SLO и алертов из короткого описания.
+- [cloudprober](https://github.com/cloudprober/cloudprober) — активные пробы HTTP/PING/TCP/DNS.
+- [canary-checker](https://github.com/flanksource/canary-checker) — health-check платформа с проверками из YAML.
+- [krr](https://github.com/robusta-dev/krr) — рекомендации requests/limits по фактическому потреблению.
+
+### ai_tools
+
+- [herdr](https://github.com/herdrdev/herdr) — TUI-оболочка для сессий и панелей coding-агентов.
+- [rtk](https://github.com/rtk-ai/rtk) — прокси, который сжимает и фильтрует вывод перед отправкой в контекст LLM.
+- [T3 Code](https://github.com/pingdotgg/t3code) — графический пульт к coding-агентам (desktop, web, мобильные клиенты).
+- [Ouroboros](https://github.com/razzant/ouroboros) — AI-агент с десктопным приложением, CLI и web-интерфейсом.
+
+### skills
+
+- [skills CLI](https://github.com/vercel-labs/skills) — глобальные skills для opencode в `~/.agents/skills` (68 skills из 16 репозиториев).
+
+### audio
+
+- [PipeWire](https://gitlab.freedesktop.org/pipewire/pipewire) — звуковой сервер (пакеты `pipewire`, `pipewire-pulse`, `pipewire-bin`).
+- [WirePlumber](https://gitlab.freedesktop.org/pipewire/wireplumber) — менеджер сессий PipeWire.
+- [hicolor-icon-theme](https://www.freedesktop.org/wiki/Software/icon-theme/) — иконки для меню приложений.
+- [HushMic](https://github.com/Fovty/HushMic) — шумоподавление микрофона в реальном времени (PipeWire).
+
+### hardware
+
+- [LACT](https://github.com/ilya-zlobintsev/LACT) — GUI и демон `lactd` для настройки и мониторинга GPU (AMD/Intel/NVIDIA).
+
+### guardrails
+
+- [guardrails-llm-filter](https://github.com/cloud-ru-tech/guardrails-llm-filter) — прокси, который маскирует PII и секреты на пути к LLM (systemd-юнит поверх Docker).
+
+### nora
+
+- [NORA](https://github.com/getnora-io/nora) — artifact registry: кэш провайдеров Terraform и pull-through cache Docker-образов.
+- [Caddy](https://github.com/caddyserver/caddy) — TLS-терминатор для NORA.
+- [mkcert](https://github.com/FiloSottile/mkcert) — локальный CA и сертификаты.
+- [libnss3-tools](https://github.com/nss-dev/nss) — `certutil` для доверия CA в NSS (Chrome, Firefox).
+- [apache2-utils](https://httpd.apache.org/) — `htpasswd` для авторизации в реестре.
+
+### opencode
+
+- [opencode](https://github.com/sst/opencode) — AI-агент в терминале (из npm-реестра в `/usr/local/bin`).
+- [AGENTS.md](https://github.com/patsevanton/playbook-for-ubuntu-devops-laptop/blob/main/roles/opencode/files/AGENTS.md) — глобальные инструкции для opencode в `~/.config/opencode/AGENTS.md`.
 
 ---
 
