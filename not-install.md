@@ -14,8 +14,7 @@
 - [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) —
   бинарник или пакет не запускается на Ubuntu 26.04;
 - [`TODO-server-apps.md`](TODO-server-apps.md) — серверные приложения,
-  сервисы и Helm-чарты (не на ноутбук);
-- [`TODO-node-tools.md`](TODO-node-tools.md) — агенты на нодах Kubernetes.
+  сервисы, Helm-чарты и агенты на нодах Kubernetes (не на ноутбук).
 
 Заброшенные проекты (архив GitHub, годы без обновлений) сюда не входят: они
 описаны только в [`TODO-abandoned.md`](TODO-abandoned.md).

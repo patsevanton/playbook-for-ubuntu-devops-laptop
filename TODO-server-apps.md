@@ -1,11 +1,13 @@
-# TODO-server-apps: серверные приложения, утилиты и Helm-чарты — не на ноутбук
+# TODO-server-apps: серверные приложения, агенты на нодах и Helm-чарты — не на ноутбук
 
-Список серверных приложений, сервисов и Helm-чартов, которые плейбук
-**не устанавливает**. Плейбук настраивает рабочий ноутбук: бинарники в
+Список серверных приложений, сервисов, агентов на нодах и Helm-чартов, которые
+плейбук **не устанавливает**. Плейбук настраивает рабочий ноутбук: бинарники в
 `/usr/local/bin`, конфиги в `~/.config`, несколько CLI-утилит и агентов.
 Всё, что ниже, живёт иначе — как долгоживущий сервис с портами, доменом,
 хранилищем, базой и пользователями: Docker Compose, Helm-чарт, Deployment в
-кластере или отдельная ВМ.
+кластере или отдельная ВМ. Агенты на нодах (DaemonSet, static Pod) устроены
+проще, но ставятся не на ноутбук по той же причине: без кластера и kubelet им
+нечего обслуживать.
 
 Ставить такое на ноутбук «одной командой» бессмысленно: без внешних
 зависимостей (БД, S3, DNS, TLS) оно не заработает, а место и обновления
@@ -17,13 +19,14 @@
 - `- [ ]` — не ставим и не планируем в роли плейбука;
 - в скобках — чем апстрим распространяется: `helm` — Helm-чарт, `образ` —
   контейнерный образ/манифесты, `сервис` — self-hosted приложение с
-  установкой по документации;
+  установкой по документации, `бинарник` — linux-amd64 релиз есть, но
+  запускается он на ноде или в кластере, а не на ноутбуке;
+- пометка «DaemonSet на нодах» — компонент ставится на каждую ноду, а не
+  одним Deployment;
 - ссылка ведёт на репозиторий проекта.
 
 Смежные файлы с другими причинами отказа:
 
-- [`TODO-node-tools.md`](TODO-node-tools.md) — агенты на ноды (DaemonSet,
-  static Pod);
 - [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) — у проекта нет
   linux-amd64 бинарника;
 - [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) —
@@ -43,6 +46,25 @@
 - [ ] **prometheus-operator** — оператор для Prometheus/Alertmanager в
       кластере. *(`helm`)* —
       [prometheus-operator/prometheus-operator](https://github.com/prometheus-operator/prometheus-operator)
+- [ ] **node_exporter** — метрики хоста (CPU, память, диск, сеть) для
+      Prometheus. *(`бинарник`)* — DaemonSet на нодах —
+      [prometheus/node_exporter](https://github.com/prometheus/node_exporter)
+      — есть `node_exporter-1.12.1.linux-amd64.tar.gz`, но в кластере он
+      работает агентом на каждой ноде, а на ноутбуке смотреть нечего.
+- [ ] **kube-state-metrics** — метрики состояния объектов кластера
+      (Deployment, Pod, PVC) для Prometheus. *(`образ`)* — Deployment —
+      [kubernetes/kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)
+- [ ] **metrics-server** — сервер метрик для API Kubernetes (`kubectl top`,
+      HPA). *(`образ`)* — Deployment —
+      [kubernetes-sigs/metrics-server](https://github.com/kubernetes-sigs/metrics-server)
+      — на ноутбуке его роль играет `ktop` (см. `README.md`); нужен ещё
+      `kube-capacity --util`.
+- [ ] **prometheus-adapter** — адаптер кастомных метрик для HPA. *(`helm`)* —
+      [kubernetes-sigs/prometheus-adapter](https://github.com/kubernetes-sigs/prometheus-adapter)
+- [ ] **node-problem-detector** — детекторы проблем ноды (ядро, диск, память).
+      *(`бинарник`)* — DaemonSet на нодах —
+      [kubernetes/node-problem-detector](https://github.com/kubernetes/node-problem-detector)
+      — есть `node-problem-detector-v1.37.0-linux_amd64.tar.gz`.
 - [ ] **netdata** — realtime-мониторинг хостов и приложений с веб-UI.
       *(`сервис`)* — [netdata/netdata](https://github.com/netdata/netdata)
       — на ноутбуке хватает `procs`, `fastfetch` и `jc` (уже стоят).
@@ -84,6 +106,19 @@
       — CLI `hubble` только клиент к Relay; без Cilium и Hubble в кластере
       он бесполезен. Локальная наблюдаемость на ноутбуке уже есть —
       `netobserv` (eBPF, без агента).
+- [ ] **Retina** — распределённая сетевая наблюдаемость для Kubernetes.
+      *(`helm` / `образ`)* — DaemonSet на нодах —
+      [microsoft/retina](https://github.com/microsoft/retina)
+      — агент ставится чартом/оператором; в релизе есть только CLI
+      `kubectl-retina-linux-amd64-v1.3.0.tar.gz`.
+- [ ] **DeepFlow** — eBPF-трейсинг и профилирование для Kubernetes.
+      *(`образ`)* — DaemonSet на нодах —
+      [deepflowio/deepflow](https://github.com/deepflowio/deepflow)
+      — релиз без ассетов.
+- [ ] **Alaz** — eBPF-агент наблюдаемости сервисных взаимодействий.
+      *(`образ`)* — DaemonSet на нодах —
+      [getanteon/alaz](https://github.com/getanteon/alaz)
+      — релиз без ассетов.
 - [ ] **opencost** — стоимость ворклоадов Kubernetes и облака. *(`helm`)* —
       [opencost/opencost](https://github.com/opencost/opencost)
       — в релизах только SBOM; распространяется контейнерным образом.
@@ -91,8 +126,18 @@
       серверу.
 - [ ] **Kubecost** — распределение затрат по ворклоадам. *(`helm`)* —
       [kubecost/cost-model](https://github.com/kubecost/cost-model)
+- [ ] **kepler** — оценка энергопотребления ворклоадов через eBPF и
+      Prometheus-метрики. *(`бинарник` / `helm`)* — DaemonSet на нодах —
+      [sustainable-computing-io/kepler](https://github.com/sustainable-computing-io/kepler)
+      — есть `kepler-0.12.0.linux-amd64.tar.gz` и чарт.
+- [ ] **Scaphandre** — агент метрик энергопотребления хоста (RAPL/powercap).
+      *(`образ`)* — systemd-юнит или DaemonSet —
+      [hubblo-org/scaphandre](https://github.com/hubblo-org/scaphandre)
+      — в релизе `v1.0.3` ассетов нет (deb-пакеты и контейнерный образ), отдаёт
+      метрики в Prometheus. На ноутбуке не нужен: хватает
+      `power-profiles-daemon` и `amd-pstate`/`intel_pstate`.
 
-## 2. Данные, БД и реестры артефактов
+## 2. Данные, БД, хранилище и реестры артефактов
 
 - [ ] **ClickHouse** — колоночная OLAP-СУБД. *(`сервис`)* —
       [ClickHouse/ClickHouse](https://github.com/ClickHouse/ClickHouse)
@@ -121,6 +166,18 @@
       реплицировать, а `single`-режим с SQLite рядом с теми же файлами — не
       бэкап. Локально воспроизводится только `make up` с двумя MinIO, и это
       стенд для разработки самого s3syncer, а не установка.
+- [ ] **TopoLVM** — CSI-плагин с учётом ёмкости локальных дисков ноды.
+      *(`helm`)* — DaemonSet на нодах —
+      [topolvm/topolvm](https://github.com/topolvm/topolvm)
+      — в релизе только чарт `topolvm-17.3.0.tgz`; node-компонент — DaemonSet.
+- [ ] **kube-fledged** — кэш контейнерных образов прямо на нодах.
+      *(`образ`)* — DaemonSet + контроллер —
+      [senthilrch/kube-fledged](https://github.com/senthilrch/kube-fledged)
+      — релиз без ассетов.
+- [ ] **Kubernetes Image Puller** — предзагрузка образов на ноды через
+      DaemonSet. *(`образ`)* — DaemonSet на нодах —
+      [che-incubator/kubernetes-image-puller](https://github.com/che-incubator/kubernetes-image-puller)
+      — ставится манифестами/оператором в кластер.
 
 ## 3. CI/CD, GitOps и IaC
 
@@ -185,6 +242,36 @@
       [Kong/kong](https://github.com/Kong/kong)
 - [ ] **cilium** — CNI и eBPF-платформа кластера. *(`helm`)* —
       [cilium/cilium](https://github.com/cilium/cilium)
+- [ ] **kube-router** — CNI, service proxy вместо kube-proxy и network policy
+      в одном DaemonSet. *(`бинарник`)* — DaemonSet на нодах —
+      [cloudnativelabs/kube-router](https://github.com/cloudnativelabs/kube-router)
+      — есть `kube-router_2.11.1_linux_amd64.tar.gz`, но бинарник запускается
+      агентом на ноде, а не на ноутбуке.
+- [ ] **kube-network-policies** — eBPF-реализация NetworkPolicy без CNI.
+      *(`образ`)* — DaemonSet на нодах —
+      [kubernetes-sigs/kube-network-policies](https://github.com/kubernetes-sigs/kube-network-policies)
+      — релиз без ассетов; агент работает на каждой ноде.
+- [ ] **Submariner** — связность подов и сервисов между кластерами.
+      *(`образ`)* — gateway в DaemonSet —
+      [submariner-io/submariner](https://github.com/submariner-io/submariner)
+      — релиз без ассетов; ставится оператором/Helm.
+- [ ] **goldpinger** — проверка связности между нодами кластера.
+      *(`helm`)* — DaemonSet на нодах —
+      [bloomberg/goldpinger](https://github.com/bloomberg/goldpinger)
+      — в релизе только Helm-чарт `goldpinger-1.2.0.tgz`; распространяется
+      контейнерным образом.
+- [ ] **k8s-netchecker-server** — server + agent: проверка сети между нодами,
+      ближайший аналог goldpinger. *(`образ`)* — DaemonSet на нодах —
+      [mirantis/k8s-netchecker-server](https://github.com/mirantis/k8s-netchecker-server)
+      — релиз без ассетов; server и agent ставятся манифестами в кластер.
+- [ ] **k8spacket** — визуализация трафика подов на уровне ноды.
+      *(`образ`)* — DaemonSet на нодах —
+      [k8spacket/k8spacket](https://github.com/k8spacket/k8spacket)
+      — релиз без ассетов; eBPF-агенты плюс веб-интерфейс.
+- [ ] **KubeSkoop** — диагностика сети для разных CNI и облачных провайдеров.
+      *(`образ`)* — DaemonSet на нодах —
+      [alibaba/kubeskoop](https://github.com/alibaba/kubeskoop)
+      — релиз без ассетов; `skoop-agent` работает на нодах.
 - [ ] **meshery** — управление service mesh. *(`helm`)* —
       [meshery/meshery](https://github.com/meshery/meshery)
 - [ ] **k8s-tun** — доступ к pod IP и service IP кластера. *(`сервис`)*
@@ -233,6 +320,11 @@
       [rackerlabs/scantron](https://github.com/rackerlabs/scantron)
       — набор Ansible-плейбуков с Django-сервером, очередью и БД. Локальный
       скан делается обычным `nmap` (уже стоит).
+- [ ] **Tetragon** — eBPF-наблюдаемость и runtime-enforcement.
+      *(`helm`)* — DaemonSet на нодах —
+      [cilium/tetragon](https://github.com/cilium/tetragon)
+      — агент ставится чартом; в релизе есть только CLI
+      `tetra-linux-amd64.tar.gz`.
 
 ## 6. Kubernetes-платформы и ОС
 
@@ -258,6 +350,40 @@
       [pehlicd/rbac-wizard](https://github.com/pehlicd/rbac-wizard)
       — долгоживущий веб-сервис; на ноутбуке разовый анализ закрывают
       `kubectl auth can-i --list` и `kubehound` (пути атак).
+- [ ] **kured** — перезагрузка нод после обновлений ядра/ОС.
+      *(`бинарник`)* — DaemonSet на нодах —
+      [kubereboot/kured](https://github.com/kubereboot/kured)
+      — есть `kured_1.23.0_linux_amd64`; следит за reboot-required.
+- [ ] **node-feature-discovery** — разметка нод по возможностям железа
+      (CPU-флаги, GPU, SR-IOV). *(`helm`)* — DaemonSet на нодах —
+      [kubernetes-sigs/node-feature-discovery](https://github.com/kubernetes-sigs/node-feature-discovery)
+      — в релизе только чарт `node-feature-discovery-chart-0.20.0.tgz`.
+- [ ] **NVIDIA k8s-device-plugin** — доступ подов к GPU на нодах.
+      *(`helm`)* — DaemonSet на нодах —
+      [NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin)
+      — в релизе только чарты `nvidia-device-plugin` и
+      `gpu-feature-discovery`.
+- [ ] **kube-fencing** — очистка ресурсов упавших нод, чтобы не блокировать
+      восстановление. *(`образ`)* — DaemonSet на control-plane нодах —
+      [kvaps/kube-fencing](https://github.com/kvaps/kube-fencing)
+      — релиз без ассетов.
+- [ ] **descheduler** — вытеснение подов с неудачно выбранных нод.
+      *(`образ`)* — Job/Deployment в кластере —
+      [kubernetes-sigs/descheduler](https://github.com/kubernetes-sigs/descheduler)
+- [ ] **VPA (Vertical Pod Autoscaler)** — автоматическая правка
+      requests/limits подов. *(`образ`)* —
+      [kubernetes/autoscaler](https://github.com/kubernetes/autoscaler)
+      — контроллер в кластере; локального сценария нет.
+- [ ] **Goldilocks** — рекомендации requests/limits по данным VPA.
+      *(`helm`)* — [FairwindsOps/goldilocks](https://github.com/FairwindsOps/goldilocks)
+- [ ] **kube-green** — выключение неиспользуемых ворклоадов по расписанию.
+      *(`helm`)* — [kube-green/kube-green](https://github.com/kube-green/kube-green)
+- [ ] **Chaos Mesh** — chaos-платформа для Kubernetes. *(`helm`)* —
+      [chaos-mesh/chaos-mesh](https://github.com/chaos-mesh/chaos-mesh)
+- [ ] **chaoskube** — случайное убийство подов для проверки отказоустойчивости.
+      *(`helm`)* — [linki/chaoskube](https://github.com/linki/chaoskube)
+- [ ] **kubeinvaders** — chaos-игра про поды кластера. *(`образ`)* —
+      [lucky-sideburn/kubeinvaders](https://github.com/lucky-sideburn/kubeinvaders)
 
 ## 7. Знания, совместная работа и удалённый доступ
 
@@ -292,9 +418,13 @@
       серверы и кластеры.
 - [ ] Если понадобится поднять что-то из списка — отдельный хост, отдельный
       `docker compose` или Helm-релиз, а не роль `binaries`.
+- [ ] Агенты на нодах (`node_exporter`, `goldpinger`, `kured`, eBPF-агенты)
+      оформлять Helm-чартом или DaemonSet-манифестами, а не ролью `binaries`,
+      даже когда у проекта есть linux-amd64 бинарник.
 - [ ] Сверять при обновлении списка звёзд: у части проектов может появиться
       standalone-режим или удобный CLI, тогда кандидат переезжает в
-      [`TODO.md`](TODO.md) как установленный.
+      [`TODO.md`](TODO.md) как установленный. То же и для агентов: если
+      появится режим без kubelet, кандидат становится ролью `binaries`.
 - [ ] `VictoriaMetrics` сюда **не** относится: у него есть single-binary
       режим для локального запуска, поэтому он стоит в роли `monitoring`
       (из VictoriaMetrics — только `vmalert-tool`).

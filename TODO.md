@@ -10,10 +10,8 @@ opencode 2 (один агент
 GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 кандидаты, чей бинарник не запускается на Ubuntu 26.04, —
 в [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md),
-утилиты для нод Kubernetes
-(DaemonSet/агенты, не на ноутбук) — в
-[`TODO-node-tools.md`](TODO-node-tools.md), серверные приложения, утилиты и
-Helm-чарты (не на ноутбук) — в
+серверные приложения, утилиты, Helm-чарты и агенты на нодах Kubernetes
+(DaemonSet/static Pod, не на ноутбук) — в
 [`TODO-server-apps.md`](TODO-server-apps.md), всё из Ansible Galaxy (роли,
 коллекции, готовые playbook'и), которое плейбук не ставит, — в
 [`TODO-ansible-galaxy-not-install.md`](TODO-ansible-galaxy-not-install.md),
@@ -35,13 +33,18 @@ Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 справочные списки: что уже ставит плейбук, что не ставится на ноутбук и что
 является просто подборками.
 
-Дедупликация 2026-10-22: нодовые агенты Kubernetes (DaemonSet/static Pod)
-вынесены из `TODO-no-prebuilt-binary.md` в отдельный
-[`TODO-node-tools.md`](TODO-node-tools.md) — чтобы не смешивать их с
-кластерными сервисами уровня Deployment и с кандидатами, у которых просто нет
-бинарника. Тогда же серверные приложения, сервисы и Helm-чарты собраны в
+Дедупликация 2026-10-22: серверные приложения, сервисы и Helm-чарты собраны в
 [`TODO-server-apps.md`](TODO-server-apps.md) (из этого файла и из
-`TODO-no-prebuilt-binary.md`).
+`TODO-no-prebuilt-binary.md`); тогда же нодовые агенты Kubernetes
+(DaemonSet/static Pod) вынесены из `TODO-no-prebuilt-binary.md` в отдельный
+`TODO-node-tools.md`, чтобы не смешивать их с кластерными сервисами уровня
+Deployment и с кандидатами, у которых просто нет бинарника.
+
+Дедупликация 2026-10-23: `TODO-node-tools.md` влит в
+[`TODO-server-apps.md`](TODO-server-apps.md) — причина отказа у нодовых агентов
+та же, что у остальных кластерных компонентов (не ноутбук), а признак
+«DaemonSet на нодах» сохранён пометкой в описании кандидата, а не отдельным
+файлом.
 
 Реестр 2026-10-23: заброшенные проекты (архив GitHub, годы без обновлений)
 описаны только в [`TODO-abandoned.md`](TODO-abandoned.md). Из остальных
@@ -53,9 +56,8 @@ Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 ушёл в [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md);
 werf, kubedog, odo, Krane, Kubes и kubectl-kubesec (trdl/`go install`, gem,
 только krew) — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md);
-kcmsu, Kubefirst, Radius, Jenkins X и k8s-tun — в
-[`TODO-server-apps.md`](TODO-server-apps.md); Scaphandre (агент на хосте) — в
-[`TODO-node-tools.md`](TODO-node-tools.md). В `not-install.md` остались платные
+kcmsu, Kubefirst, Radius, Jenkins X, k8s-tun и Scaphandre (агент на хосте) — в
+[`TODO-server-apps.md`](TODO-server-apps.md). В `not-install.md` остались платные
 продукты, дубли уже установленного, bash-скрипты без релизов и отказы из-за
 багов апстрима.
 
@@ -167,9 +169,9 @@ Compose или Helm-релиз. Полный список с описаниям�
 локального запуска, поэтому он стоит в роли `monitoring` (из VictoriaMetrics —
 только `vmalert-tool`).
 
-Нодовые агенты Kubernetes (DaemonSet/static Pod: `goldpinger`,
-`node-exporter`, `kured`, eBPF-агенты и т.п.) — отдельный список:
-[`TODO-node-tools.md`](TODO-node-tools.md).
+Нодовые агенты Kubernetes (DaemonSet/static Pod: `goldpinger`, `node-exporter`,
+`kured`, eBPF-агенты и т.п.) — в том же
+[`TODO-server-apps.md`](TODO-server-apps.md), с пометкой «DaemonSet на нодах».
 
 ## Списки и обучающие материалы (не утилиты)
 

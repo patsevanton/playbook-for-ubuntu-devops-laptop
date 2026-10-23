@@ -20,10 +20,9 @@
 поставляется» — что именно отдаёт апстрим и чего не хватает для установки
 ролью `binaries`. Все кандидаты ниже ждут релизного linux-amd64 бинарника.
 
-Нодовые агенты (DaemonSet, static Pod) — отдельный список:
-[`TODO-node-tools.md`](TODO-node-tools.md). Серверные приложения и Helm-чарты
-(opencost, dagda, scantron, terrapod, k3s-ansible и т.п.) сюда тоже не входят:
-они не устанавливаются на ноутбук по другой причине — см.
+Нодовые агенты (DaemonSet, static Pod), серверные приложения и Helm-чарты
+(opencost, dagda, scantron, terrapod, k3s-ansible и т.п.) сюда не входят: они
+не устанавливаются на ноутбук по другой причине — см.
 [`TODO-server-apps.md`](TODO-server-apps.md). Заброшенные проекты (архив GitHub,
 годы без обновлений) описаны только в [`TODO-abandoned.md`](TODO-abandoned.md).
 

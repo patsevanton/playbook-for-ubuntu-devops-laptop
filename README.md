@@ -1224,14 +1224,11 @@ pitwall в плейбук пока не ставится: решение не п
 План генератора архитектурных схем из Terraform/Terragrunt (аналога
 KubeDiagrams для Yandex Cloud), который пока не реализован, — в
 [`TODO-diagrams.md`](TODO-diagrams.md).
-Утилиты, которые работают агентом на нодах Kubernetes (DaemonSet/static Pod и
-не ставятся на ноутбук), собраны в
-[`TODO-node-tools.md`](TODO-node-tools.md). Серверные приложения, сервисы и
-Helm-чарты (grafana, prometheus, gitea, Jenkins и т.п.), которые плейбук не
-ставит, — в [`TODO-server-apps.md`](TODO-server-apps.md). Из Ansible Galaxy
-плейбук не ставит
-ничего — ни ролей, ни коллекций, ни готовых playbook'ов (почему и как поставить
-в конкретном проекте) — в
+Серверные приложения, сервисы и Helm-чарты (grafana, prometheus, gitea, Jenkins
+и т.п.), а также агенты на нодах Kubernetes (DaemonSet/static Pod), которые
+плейбук не ставит, — в [`TODO-server-apps.md`](TODO-server-apps.md). Из Ansible
+Galaxy плейбук не ставит ничего — ни ролей, ни коллекций, ни готовых
+playbook'ов (почему и как поставить в конкретном проекте) — в
 [`TODO-ansible-galaxy-not-install.md`](TODO-ansible-galaxy-not-install.md).
 
 ---
