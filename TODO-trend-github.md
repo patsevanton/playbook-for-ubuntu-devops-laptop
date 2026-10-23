@@ -37,20 +37,28 @@ Linux-пользователя. Прежний общий список канд�
       — ✅ добавлен в плейбук (роль `kubernetes`).
 - [x] **kube-linter** — статический анализ YAML на антипаттерны и best practices. *(3.5k ⭐, `tar.gz`)*
       — ✅ добавлен в плейбук (роль `kubernetes`).
-- [ ] **kube-score** — оценка манифестов по чек-листу: probes, requests/limits, securityContext. *(3.1k ⭐, `tar.gz`)*
+- [x] **kube-score** — оценка манифестов по чек-листу: probes, requests/limits, securityContext. *(3.1k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
+      kube-score_{version}_linux_amd64.tar.gz).
 - [x] **popeye** — «spinach» для кластера: находит мёртвые ресурсы, ошибки конфигов. *(6.5k ⭐, `deb`)*
       — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
       popeye_linux_amd64.tar.gz).
 - [x] **kubescape** — сканер безопасности кластера по NSA/CIS-профилям. *(11.8k ⭐, `deb`)*
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       kubescape_{version}_linux_amd64).
-- [ ] **polaris** (FairwindsOps) — аудит и автофикс конфигов на соответствие best practices. *(3.4k ⭐, `tar.gz`)*
-- [ ] **nova** (FairwindsOps) — находит Helm-релизы с устаревшими версиями чартов. *(0.9k ⭐, `tar.gz`)*
+- [x] **polaris** (FairwindsOps) — аудит и автофикс конфигов на соответствие best practices. *(3.4k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
+      polaris_{version}_linux_amd64.tar.gz).
+- [x] **nova** (FairwindsOps) — находит Helm-релизы с устаревшими версиями чартов. *(0.9k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
+      nova_{version}_linux_amd64.tar.gz).
 - [x] **kubent** (kube-no-trouble) — показывает, что сломается при апгрейде кластера (removed APIs). *(3.7k ⭐, `tar.gz`)*
       — ✅ добавлен в плейбук (роль `kubernetes`, бинарник из тарболла
       kubent-{version}-linux-amd64.tar.gz).
-- [ ] **kubectl-neat** — убирает из `kubectl get -o yaml` служебный мусор (`managedFields`, `status`). *(2.1k ⭐, `tar.gz`)*
-- [ ] **kubectl-validate** (kubernetes-sigs) — офлайн-валидация манифестов родными схемами. *(0.3k ⭐, `tar.gz`)*
+- [x] **kubectl-neat** — убирает из `kubectl get -o yaml` служебный мусор (`managedFields`, `status`). *(2.1k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, плагин `kubectl neat`).
+- [x] **kubectl-validate** (kubernetes-sigs) — офлайн-валидация манифестов родными схемами. *(0.3k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, плагин `kubectl validate`).
 
 ## Kubernetes: работа с кластером и dev-окружение
 
@@ -61,6 +69,8 @@ Linux-пользователя. Прежний общий список канд�
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       mirrord из zip-архива mirrord_linux_x86_64.zip).
 - [ ] **glasskube** — пакетный менеджер для Kubernetes с GUI и CLI (dependency-aware). *(3.5k ⭐, `deb`)*
+      — ⛔ не добавлен: репозиторий заархивирован (архив с 2026-06-14),
+      проект больше не развивается.
 - [x] **devspace** — деплой и hot-reload приложения прямо в кластер. *(5.2k ⭐, `bin` linux-amd64)*
       — ✅ добавлен в плейбук (роль `kubernetes`, одиночный бинарник
       devspace-linux-amd64; репозиторий переехал на devspace-sh/devspace).
@@ -90,27 +100,46 @@ Linux-пользователя. Прежний общий список канд�
 - [x] **helm-diff** (databus23) — плагин `helm diff upgrade`: что изменится до применения. *(3.5k ⭐, `tgz`)*
       — ✅ добавлен в плейбук (роль `kubernetes`, helm-плагин через
       `helm plugin install`).
-- [ ] **helm-secrets** (jkroepke) — плагин helmfile/helm для шифрования values через sops. *(2k ⭐, `tar.gz`)*
+- [x] **helm-secrets** (jkroepke) — плагин helmfile/helm для шифрования values через sops. *(2k ⭐, `tar.gz`)*
+      — ✅ добавлен в плейбук (роль `kubernetes`, helm-плагин через
+      `helm plugin install`).
 
 ## Ansible
 
-- [ ] **ansible-navigator** — TUI для запуска и разбора плейбуков через execution environments. *(0.6k ⭐, `pipx`)*
-- [ ] **ansible-builder** — сборка образов Execution Environment (ansible-builder). *(0.4k ⭐, `pipx`)*
-- [ ] **ansible-creator** — генератор каркаса коллекций/ролей/плагинов. *(0.2k ⭐, `pipx`)*
+- [x] **ansible-navigator** — TUI для запуска и разбора плейбуков через execution environments. *(0.6k ⭐, `pipx`)*
+      — ✅ добавлен в плейбук (роль `base`, через pipx).
+- [x] **ansible-builder** — сборка образов Execution Environment (ansible-builder). *(0.4k ⭐, `pipx`)*
+      — ✅ добавлен в плейбук (роль `base`, через pipx).
+- [x] **ansible-creator** — генератор каркаса коллекций/ролей/плагинов. *(0.2k ⭐, `pipx`)*
+      — ✅ добавлен в плейбук (роль `base`, через pipx).
 - [ ] **ansible-dev-tools** — мета-пакет: ставит molecule, navigator, builder, creator, lint разом. *(`pipx`)*
-- [ ] **ansible-doctor** — генерирует документацию ролей по комментариям и метаданным. *(`pipx`)*
-- [ ] **ara** — запись и веб-просмотр прогонов Ansible (что где изменилось). *(2k ⭐, `pipx` + сервер)*
+      — ⛔ не добавлен: мета-пакет дублирует уже поставленные по отдельности
+      navigator, builder, creator, molecule и ansible-lint.
+- [x] **ansible-doctor** — генерирует документацию ролей по комментариям и метаданным. *(`pipx`)*
+      — ✅ добавлен в плейбук (роль `base`, через pipx).
+- [x] **ara** — запись и веб-просмотр прогонов Ansible (что где изменилось). *(2k ⭐, `pipx` + сервер)*
+      — ✅ добавлен в плейбук (роль `base`, через pipx: `ara` и `ara-manage`;
+      для записи callback подключается в `ansible.cfg`).
 - [ ] **dev-sec hardening collection** — готовая коллекция харденинга Linux/SSH/nginx для плейбуков. *(5.5k ⭐, `ansible-galaxy`)*
+      — это коллекция Ansible Galaxy, а не приложение; в набор из 15 не вошла.
 
 ## Terraform / OpenTofu / Terragrunt
 
 - [x] **terramate** — оркестрация стэков IaC: change detection, генерация кода, GitOps. *(3.6k ⭐, `deb`)*
       — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
       terramate_{version}_linux_x86_64.tar.gz).
-- [ ] **atmos** (Cloud Posse) — Terraform-оркестратор: DRY-конфиги окружений поверх Terragrunt. *(1.4k ⭐, `deb`)*
-- [ ] **tenv** — один менеджер версий для tofu/terraform/terragrunt/terramate/atmos. *(1.5k ⭐, `deb`)*
-- [ ] **tfupdate** — обновляет пины версий провайдеров/модулей в конфигах. *(`tar.gz`)*
-- [ ] **tfsort** (AlexNabokikh) — сортирует блоки `variable`/`output`/`locals`/`terraform` в `.tf`. *(`tar.gz`)*
+- [x] **atmos** (Cloud Posse) — Terraform-оркестратор: DRY-конфиги окружений поверх Terragrunt. *(1.4k ⭐, `deb`)*
+      — ✅ добавлен в плейбук (роль `iac`, .deb-пакет atmos_{version}_amd64.deb:
+      одиночный бинарник занимает ~300 МБ, .deb — втрое меньше).
+- [x] **tenv** — один менеджер версий для tofu/terraform/terragrunt/terramate/atmos. *(1.5k ⭐, `deb`)*
+      — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
+      tenv_v{version}_Linux_x86_64.tar.gz).
+- [x] **tfupdate** — обновляет пины версий провайдеров/модулей в конфигах. *(`tar.gz`)*
+      — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
+      tfupdate_{version}_linux_amd64.tar.gz).
+- [x] **tfsort** (AlexNabokikh) — сортирует блоки `variable`/`output`/`locals`/`terraform` в `.tf`. *(`tar.gz`)*
+      — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
+      tfsort_{version}_linux_amd64.tar.gz).
 - [x] **terraformer** — генерирует Terraform-код из уже существующей инфраструктуры (reverse). *(14.5k ⭐, `bin` terraformer-<cloud>-linux-amd64)*
       — ✅ добавлен в плейбук (роль `iac`, одиночный бинарник
       terraformer-all-linux-amd64 со всеми провайдерами).
@@ -122,7 +151,8 @@ Linux-пользователя. Прежний общий список канд�
 - [x] **terrascan** — сканер IaC на нарушения политик безопасности. *(5.2k ⭐, `tar.gz`)*
       — ✅ добавлен в плейбук (роль `iac`, бинарник из тарболла
       terrascan_{version}_Linux_x86_64.tar.gz).
-- [ ] **inframap** — рисует граф ресурсов из tfstate/HCL. *(`go build` — релизных бинарников нет)*
+- [x] **inframap** — рисует граф ресурсов из tfstate/HCL. *(`tar.gz`)*
+      — ✅ уже в плейбуке (роль `iac`, тег v0.8.0: в v0.8.1 нет бинарников).
 - [ ] **terraform-ls** — LSP-сервер для HCL (автодополнение в редакторе). *(`go build` — релизных бинарников нет)*
 
 ## Секреты, supply chain, безопасность

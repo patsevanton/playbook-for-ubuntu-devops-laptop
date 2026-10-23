@@ -71,7 +71,8 @@ ansible-lint                                   # проверка стиля (pr
 │   └── all.yml                 # общие переменные проекта
 ├── roles/
 │   ├── base/                   # проверки, каталоги, базовые пакеты (в т.ч. pipx),
-│   │                           #   yq, eget, dra, binup, ansible-lint, molecule
+│   │                           #   yq, eget, dra, binup, ansible-lint, molecule,
+│   │                           #   ansible-navigator/builder/creator/doctor, ara (pipx)
 │   ├── git/                    # gh, glab, gitlabcloner, glci, pre-commit, reposcan,
 │   │                           #   lazygit, wt (worktrunk), changie, ghgrab, glaball,
 │   │                           #   reviewdog, typos, act, jj (jujutsu),
@@ -121,13 +122,17 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   k8sgpt, kubescape, popeye, vcluster,
 │   │                           #   skaffold, kubeshark, helm-diff (плагин helm),
 │   │                           #   kubectl-ai, k3d, telepresence, tilt, mirrord,
-│   │                           #   devspace, kubent, monokle и rubick (UI, .deb)
+│   │                           #   devspace, kubent, polaris, kube-score,
+│   │                           #   kubectl-neat, kubectl-validate, nova,
+│   │                           #   helm-secrets (плагин helm),
+│   │                           #   monokle и rubick (UI, .deb)
 │   ├── iac/                    # tflint, terraform-docs, packer, driftctl, tgsieve,
 │   │                           #   s5cmd, tpm, tfvar, config-lint, tftui (pipx),
 │   │                           #   tf-mirror, gitlab-terraform-manager,
 │   │                           #   inframap, rover (схемы из state/плана),
 │   │                           #   terramate, infracost, graphviz (apt),
 │   │                           #   terraformer, terrascan, steampipe,
+│   │                           #   tenv, atmos, tfupdate, tfsort,
 │   │                           #   checkov (pipx), tfenv, tgenv
 │   ├── postgres/               # pgCenter (админка и мониторинг PostgreSQL),
 │   │                           #   pgcli (pipx)
@@ -180,7 +185,7 @@ ansible-lint                                   # проверка стиля (pr
 `kubernetes`, `iac`, `postgres`, `runtimes`, `secrets`, `shell`, `network`,
 `opencode`, передавая список того, что нужно поставить. Каждая роль хранит
 свой список в `roles/<роль>/defaults/main.yml`. Так же устроены `pipx_apps`
-(приложения из PyPI через pipx: `git`, `iac`, `postgres`, `secrets`, `shell`)
+(приложения из PyPI через pipx: `base`, `git`, `iac`, `postgres`, `secrets`, `shell`)
 и `go_apps` (сборка из исходников: `secrets`, `network`).
 
 Имя `playbook.yml` выбрано осознанно; в чужих проектах точку входа часто называют
@@ -196,7 +201,11 @@ ansible-lint                                   # проверка стиля (pr
    (тестирование Ansible-ролей в контейнерах, ставится через pipx), `eget`
    (установщик бинарников из GitHub-релизов), `dra` (скачивание отдельных
    ассетов GitHub-релиза) и `binup` (установка приложений из релизов по
-   декларативному манифесту).
+   декларативному манифесту). Туда же через pipx ставятся инструменты
+   Ansible: `ansible-navigator` (TUI-запуск плейбуков в execution
+   environments), `ansible-builder` (сборка образов EE), `ansible-creator`
+   (генерация каркаса коллекций/ролей), `ansible-doctor` (документация ролей
+   по комментариям) и `ara` (запись и просмотр прогонов Ansible).
 3. Ставит клиенты GitHub и GitLab: `gh`, `glab`, `gitlabcloner`, а также `glci`
    (локальный запуск GitLab CI), `pre-commit`, `reposcan`, `lazygit`
    (TUI для git), `wt` (worktrunk — параллельные ветки через git worktree),
@@ -303,9 +312,14 @@ ansible-lint                                   # проверка стиля (pr
    будто в кластере»), `tilt` (live-update приложений с веб-UI), `mirrord`
    (локальный процесс в сети, ФС и окружении пода), `devspace` (синхронизация
    файлов и hot-reload в кластере по `devspace.yaml`), `kubent` (что сломается
-   при апгрейде: удалённые apiVersion), а также плагин `helm-diff`
-   (`helm diff upgrade` — что изменится до применения чарта; ставится
-   отдельной задачей).
+   при апгрейде: удалённые apiVersion), а также плагины `helm-diff`
+   (`helm diff upgrade` — что изменится до применения чарта) и
+   `helm-secrets` (`helm secrets enc/dec/view` и прозрачная расшифровка
+   values через sops; ставятся отдельными задачами). Аудит манифестов:
+   `polaris` (best practices и securityContext), `kube-score` (чек-лист
+   probes/requests/limits), `kubectl-neat` (чистый YAML без managedFields),
+   `kubectl-validate` (офлайн-валидация схемами Kubernetes) и `nova`
+   (устаревшие версии Helm-чартов в кластере).
    Desktop-клиенты `monokle`, `rubick` и
    `klustr` ставятся `.deb`-пакетами. Для запуска `kptop` нужен
    `KPTOP_CONNECTION_METHOD`, для `kopilot` — `KOPILOT_TOKEN`; установка
@@ -324,6 +338,10 @@ ansible-lint                                   # проверка стиля (pr
    (стоимость изменений по `terraform plan`), terraformer (генерация
    Terraform-кода из существующей инфраструктуры), terrascan (проверка IaC по
    политикам OPA/Rego), steampipe (SQL-запросы к облакам и API через плагины),
+   tenv (менеджер версий OpenTofu/Terraform/Terragrunt/Terramate/Atmos),
+   atmos (оркестрация Terraform-окружений поверх Terragrunt),
+   tfupdate (обновление пинов провайдеров и модулей в HCL),
+   tfsort (сортировка блоков в `.tf`),
    graphviz (`dot` для рендера графов),
    плюс tfenv и tgenv.
 7. Ставит pgCenter — консольную админку и мониторинг PostgreSQL, и `pgcli`
@@ -448,8 +466,8 @@ ansible-lint                                   # проверка стиля (pr
 | nora | mkcert, libnss3-tools, caddy, apache2-utils | mkcert (локальный CA), Caddy (TLS-терминатор), htpasswd (авторизация) |
 
 Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`),
-`HushMic` (роль `audio`), `LACT` (роль `hardware`), `headlamp`, `radar`,
-`monokle`, `rubick` и `klustr` (роль `kubernetes`).
+`HushMic` (роль `audio`), `LACT` (роль `hardware`), `atmos` (роль `iac`),
+`headlamp`, `radar`, `monokle`, `rubick` и `klustr` (роль `kubernetes`).
 
 ### Скачиваемые бинарники в `/usr/local/bin`
 
@@ -731,9 +749,19 @@ ansible-lint                                   # проверка стиля (pr
 | kubent (kube-no-trouble) | github.com/doitintl/kube-no-trouble |
 | rustnet | github.com/domcyrus/rustnet |
 | lazysql | github.com/jorgerojas26/lazysql |
+| polaris | github.com/FairwindsOps/polaris |
+| kube-score | github.com/zegl/kube-score |
+| kubectl-neat | github.com/itaysk/kubectl-neat |
+| kubectl-validate | github.com/kubernetes-sigs/kubectl-validate |
+| nova | github.com/FairwindsOps/nova |
+| tenv | github.com/tofuutils/tenv |
+| tfupdate | github.com/minamijoyo/tfupdate |
+| tfsort | github.com/AlexNabokikh/tfsort |
 
 Отдельно (не через роль `binaries`): `molecule` ставится из PyPI через pipx в
 `~/.local/bin` (роль `base`) вместе с драйвером docker (`molecule-plugins`),
+`ansible-navigator`, `ansible-builder`, `ansible-creator`, `ansible-doctor` и
+`ara` — тоже через pipx (роль `base`),
 `rkn-block-checker`, `showcert`,
 `ssh-audit`, `httptap`, `lexicon` и `netutils-linux` — из PyPI через pipx в
 `~/.local/bin` (роль `network`), `yamlfixer` — из PyPI через pipx (роль
@@ -741,7 +769,7 @@ ansible-lint                                   # проверка стиля (pr
 PyPI через pipx (роль `iac`), `kube-hunter`, `knetvis` и `kptop` — из PyPI
 через pipx (роль `kubernetes`), `gitlabform`, `tftui`, `pgcli` и `harlequin`
 — из PyPI через pipx (общая роль
-`pipx_apps`, вызывается из `git`, `iac`, `postgres`, `secrets`, `shell`,
+`pipx_apps`, вызывается из `base`, `git`, `iac`, `postgres`, `secrets`, `shell`,
 `network` и `kubernetes`), `entropy` (роль `secrets`) и `reachable` (роль `network`) — сборкой из
 исходников через `go install` (общая роль `go_apps`, вызывается из
 `secrets` и `network`), `krr` — распаковкой PyInstaller-сборки в `/opt/krr` с обёрткой в
@@ -753,8 +781,10 @@ zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/b
 зафиксированным тегом `v0.1.0` (у апстрима нет релиза с меткой «Latest»,
 роль `docker`), `kubectl-ports` — бинарником из релиза с зафиксированным
 тегом `1.1.0` (в последнем релизе `1.1.1` ассетов нет, роль `kubernetes`),
-`helm-diff` — helm-плагином (`helm plugin install`, каталог
+`helm-diff` и `helm-secrets` — helm-плагинами (`helm plugin install`, каталог
 `~/.local/share/helm/plugins`, роль `kubernetes`),
+`atmos` — из `.deb`-пакета GitHub-релиза (роль `iac`; .deb втрое меньше
+одиночного бинарника),
 `headlamp`, `radar`, `monokle`, `rubick` и `klustr` — из
 `.deb`-пакетов GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),

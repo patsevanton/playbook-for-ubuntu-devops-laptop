@@ -68,3 +68,26 @@ base_binaries:
 # тесты в контейнерах Docker (Engine ставится ролью docker).
 molecule_pipx_name: molecule
 molecule_pipx_inject: "molecule-plugins[docker]"
+
+# Ansible-инструменты из PyPI (релизных бинарников нет — ставим через pipx,
+# как molecule). Все они работают поверх уже установленного ansible-core:
+#   ansible-navigator — TUI для запуска и разбора плейбуков через execution
+#     environments (образы со всеми зависимостями, а не системный Python);
+#   ansible-builder — сборка образов Execution Environment (definition YAML);
+#   ansible-creator — генерация каркаса коллекций, ролей и плагинов;
+#   ansible-doctor — документация ролей по комментариям и метаданным;
+#   ansible-dev-tools — мета-пакет (navigator + builder + creator + lint и др.),
+#     поэтому отдельно НЕ ставится: его части уже стоят по отдельности;
+#   ara — запись прогонов Ansible в БД и просмотр через `ara`/`ara-manage`
+#     (CLI и сервер; для записи callback подключается в ansible.cfg, см. README).
+base_pipx_apps:
+  - name: ansible-navigator
+    creates: ansible-navigator
+  - name: ansible-builder
+    creates: ansible-builder
+  - name: ansible-creator
+    creates: ansible-creator
+  - name: ansible-doctor
+    creates: ansible-doctor
+  - name: ara
+    creates: ara

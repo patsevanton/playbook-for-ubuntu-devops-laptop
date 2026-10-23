@@ -15,6 +15,11 @@
     file: helm-diff.yml
   when: helm_diff_install
 
+- name: Установить плагин helm-secrets (шифрование values через sops)
+  ansible.builtin.include_tasks:
+    file: helm-secrets.yml
+  when: helm_secrets_install
+
 - name: Установить kube-hunter (поиск уязвимостей кластера, pipx)
   ansible.builtin.include_role:
     name: pipx_apps

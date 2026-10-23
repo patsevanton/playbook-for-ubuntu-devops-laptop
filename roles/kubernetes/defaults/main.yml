@@ -1129,6 +1129,54 @@ kubernetes_binaries:
     url: "https://github.com/doitintl/kube-no-trouble/releases/download/{tag}/kubent-{version}-linux-amd64.tar.gz"
     archive: tar
     member: kubent
+  # polaris (FairwindsOps) — аудит манифестов и кластера по best practices:
+  # probes, requests/limits, securityContext, RBAC, устаревшие API. Умеет
+  # проверять YAML без кластера (`polaris audit --audit-path`) и живой кластер.
+  # Релиз — polaris_{version}_linux_amd64.tar.gz, бинарник polaris в корне.
+  - name: polaris
+    source: github
+    repo: FairwindsOps/polaris
+    url: "https://github.com/FairwindsOps/polaris/releases/download/{tag}/polaris_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: polaris
+  # kube-score — оценка манифестов по чек-листу best practices: probes,
+  # requests/limits, securityContext, отказоустойчивость, NetworkPolicy.
+  # Дополняет kube-linter (антипаттерны) и polaris (более широкий аудит).
+  # Релиз — kube-score_{version}_linux_amd64.tar.gz, бинарник kube-score.
+  - name: kube-score
+    source: github
+    repo: zegl/kube-score
+    url: "https://github.com/zegl/kube-score/releases/download/{tag}/kube-score_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: kube-score
+  # kubectl-neat — плагин kubectl: убирает из `kubectl get -o yaml` служебный
+  # мусор (managedFields, status, resourceVersion, uid), оставляя читаемый
+  # манифест. Имя с префиксом kubectl- даёт команду `kubectl neat`.
+  # В релизе архив без версии в имени (kubectl-neat_linux_amd64.tar.gz).
+  - name: kubectl-neat
+    source: github
+    repo: itaysk/kubectl-neat
+    url: "https://github.com/itaysk/kubectl-neat/releases/download/{tag}/kubectl-neat_linux_amd64.tar.gz"
+    archive: tar
+    member: kubectl-neat
+  # kubectl-validate (kubernetes-sigs) — офлайн-валидация манифестов родными
+  # схемами Kubernetes и CRD, без кластера и без скачивания чужих схем.
+  # Имя с префиксом kubectl- даёт команду `kubectl validate`.
+  - name: kubectl-validate
+    source: github
+    repo: kubernetes-sigs/kubectl-validate
+    url: "https://github.com/kubernetes-sigs/kubectl-validate/releases/download/{tag}/kubectl-validate_linux_amd64.tar.gz"
+    archive: tar
+    member: kubectl-validate
+  # nova (FairwindsOps) — ищет Helm-релизы с устаревшими версиями чартов:
+  # сравнивает установленное в кластере с последними версиями в репозиториях.
+  # Релиз — nova_{version}_linux_amd64.tar.gz, бинарник nova в корне.
+  - name: nova
+    source: github
+    repo: FairwindsOps/nova
+    url: "https://github.com/FairwindsOps/nova/releases/download/{tag}/nova_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: nova
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и
@@ -1188,6 +1236,16 @@ helm_diff_install: true
 helm_diff_repo: databus23/helm-diff
 helm_diff_plugins_dir: "{{ home_dir }}/.local/share/helm/plugins"
 helm_diff_plugin_dir: "{{ helm_diff_plugins_dir }}/helm-diff"
+
+# --- helm-secrets: шифрование values через sops (плагин helm) ----------------
+# `helm secrets enc/dec/view/edit` и прозрачная расшифровка values при
+# `helm secrets upgrade`. Ключи — sops (age уже стоит в роли secrets), git —
+# для хранения зашифрованных файлов рядом с чартом. Ставится не ролью
+# binaries: это helm-плагин. Версия берётся из редиректа releases/latest.
+helm_secrets_install: true
+helm_secrets_repo: jkroepke/helm-secrets
+helm_secrets_plugins_dir: "{{ home_dir }}/.local/share/helm/plugins"
+helm_secrets_plugin_dir: "{{ helm_secrets_plugins_dir }}/helm-secrets"
 
 # --- kube-hunter: поиск уязвимостей кластера (pipx) --------------------------
 # Linux-бинарников в релизах нет — ставится из PyPI в изолированное окружение.

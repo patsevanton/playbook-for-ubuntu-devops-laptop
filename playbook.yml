@@ -375,6 +375,20 @@
         - "docker compose version"
         - "{{ home_dir }}/.tfenv/bin/tfenv --version"
         - "{{ home_dir }}/.tgenv/bin/tgenv --version"
+        - "{{ bin_dir }}/polaris version"
+        - "{{ bin_dir }}/kube-score version"
+        - "{{ bin_dir }}/kubectl-neat --help"
+        - "{{ bin_dir }}/kubectl-validate --help"
+        - "{{ bin_dir }}/nova version"
+        - "{{ bin_dir }}/tenv --version"
+        - "atmos version"
+        - "{{ bin_dir }}/tfupdate --version"
+        - "{{ bin_dir }}/tfsort --help"
+        - "{{ pipx_bin_dir }}/ansible-navigator --version"
+        - "{{ pipx_bin_dir }}/ansible-builder --version"
+        - "{{ pipx_bin_dir }}/ansible-creator --version"
+        - "{{ pipx_bin_dir }}/ansible-doctor --version"
+        - "{{ pipx_bin_dir }}/ara --help"
       loop_control:
         label: "{{ item }}"
 
@@ -396,6 +410,7 @@
         - /usr/bin/hushmic
         - "{{ bin_dir }}/kubeview"
         - "{{ helm_diff_plugin_dir }}"
+        - "{{ helm_secrets_plugin_dir }}"
         - "{{ bin_dir }}/capacitor"
         - "{{ bin_dir }}/kubebox"
         - "{{ bin_dir }}/gitlab-terraform-manager"

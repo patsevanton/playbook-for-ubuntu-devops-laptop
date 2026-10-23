@@ -92,3 +92,11 @@
     PIPX_DEFAULT_PYTHON: "{{ pipx_python }}"
   when: not molecule_stat.stat.exists
   changed_when: true
+
+# Инструменты разработки Ansible (navigator, builder, creator, doctor, ara) —
+# из PyPI в изолированные venv через общий движок pipx_apps.
+- name: Установить Ansible-инструменты из PyPI (pipx)
+  ansible.builtin.include_role:
+    name: pipx_apps
+  vars:
+    pipx_apps: "{{ base_pipx_apps }}"

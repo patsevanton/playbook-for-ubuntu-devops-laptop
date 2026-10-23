@@ -69,7 +69,10 @@ Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 `node-gizmo`, `burn`, `tk`, `audit2rbac`, `knetvis`, `pumba`, `kopilot`,
 `kubectl-outagedeck`, `kptop`, `kubectl-fields`, `kosko`,
 `monokle`, `rubick`, `klustr`, `devspace`, `kubent`, `rustnet`,
-`lazysql`.
+`lazysql`, `polaris`, `kube-score`, `kubectl-neat`, `kubectl-validate`,
+`nova`, `helm-secrets`, `ansible-navigator`, `ansible-builder`,
+`ansible-creator`, `ansible-doctor`, `ara`, `tenv`, `atmos`, `tfupdate`,
+`tfsort`.
 
 Добавлены 2026-10-22 из [`TODO-trend-github.md`](TODO-trend-github.md) (топ-15
 приложений по звёздам среди оставшихся кандидатов; `dev-sec` — коллекция
@@ -81,6 +84,16 @@ Ansible Galaxy, а не приложение, поэтому вместо неё
 Добавлены 2026-10-22 из того же файла следующим по звёздам (снова без
 `dev-sec`): `devspace`, `rustnet`, `lazysql`, `kubent`. `devbox` и `flox`
 удалены: Nix не используется.
+
+Добавлены 2026-10-23 из того же файла — следующие 15 по звёздам среди
+оставшихся кандидатов (без архивного `glasskube`, мета-пакета
+`ansible-dev-tools`, который дублирует уже поставленные части, и коллекции
+Ansible Galaxy `dev-sec`): `polaris`, `kube-score`, `kubectl-neat`,
+`kubectl-validate`, `nova`, `helm-secrets`, `ansible-navigator`,
+`ansible-builder`, `ansible-creator`, `ansible-doctor`, `ara`, `tenv`,
+`atmos`, `tfupdate`, `tfsort`. `glasskube` не ставится: репозиторий
+заархивирован 2026-06-14. `inframap` в трекере отмечен как уже стоящий
+(роль `iac`, тег v0.8.0).
 
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см. [`not-install.md`](not-install.md) и

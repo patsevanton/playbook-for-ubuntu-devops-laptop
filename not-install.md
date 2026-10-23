@@ -11,6 +11,7 @@
 | Lens IDE | desktop-клиент для нескольких кластеров Kubernetes | платный продукт | — |
 | K8Studio | IDE-клиент для кластеров Kubernetes | платный продукт | — |
 | Datree | CLI против Kubernetes-мисконфигураций | проект в архиве (`datreeio/datree`) | — |
+| glasskube | пакетный менеджер Kubernetes с GUI и CLI | проект в архиве (`glasskube/glasskube`, архив с 2026-06-14) | — |
 | kcmsu | использование ConfigMaps и Secrets в кластере | устанавливает компонент в кластер, а не локальную утилиту | — |
 | atuin | синхронизируемая история команд (SQLite, fuzzy-поиск, статистика) | баг VTE: preexec-хук печатается буквально перед каждой командой в gnome-terminal | [GNOME/vte#2951](https://gitlab.gnome.org/GNOME/vte/-/work_items/2951), [rcaloras/bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186) |
 | victoria-metrics | single-node TSDB (локальный скрейп метрик + Web UI) | не нужна без приёмки/скрейпа метрик в локальную VM; от релизов VM оставлен только `vmalert-tool` | — |

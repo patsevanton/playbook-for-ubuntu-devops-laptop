@@ -173,6 +173,47 @@ iac_binaries:
     url: "https://github.com/turbot/steampipe/releases/download/{tag}/steampipe_linux_amd64.tar.gz"
     archive: tar
     member: steampipe
+  # tenv — один менеджер версий для OpenTofu/Terraform/Terragrunt/Terramate/
+  # Atmos: переключает версии по `.opentofu-version`/`.terraform-version` и
+  # скачивает нужную сам. Дополняет tfenv/tgenv (те только Terraform и
+  # Terragrunt), но не заменяет их: tenv умеет больше инструментов.
+  # Релиз — tenv_v{version}_Linux_x86_64.tar.gz, бинарник tenv в корне.
+  - name: tenv
+    source: github
+    repo: tofuutils/tenv
+    url: "https://github.com/tofuutils/tenv/releases/download/{tag}/tenv_v{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: tenv
+  # tfupdate — обновляет пины версий провайдеров и модулей в HCL: находит
+  # `required_providers`/`module` и подставляет актуальные версии (или
+  # фиксированные), не трогая остальной код. Релиз —
+  # tfupdate_{version}_linux_amd64.tar.gz, бинарник tfupdate в корне.
+  - name: tfupdate
+    source: github
+    repo: minamijoyo/tfupdate
+    url: "https://github.com/minamijoyo/tfupdate/releases/download/{tag}/tfupdate_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: tfupdate
+  # tfsort — сортирует блоки `variable`/`output`/`locals`/`terraform` в .tf
+  # по алфавиту (и умеет сортировать атрибуты внутри блоков), чтобы диффы
+  # оставались читаемыми. Релиз — tfsort_{version}_linux_amd64.tar.gz,
+  # бинарник tfsort в корне.
+  - name: tfsort
+    source: github
+    repo: AlexNabokikh/tfsort
+    url: "https://github.com/AlexNabokikh/tfsort/releases/download/{tag}/tfsort_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: tfsort
+
+# --- atmos: оркестратор Terraform-окружений (.deb из GitHub-релиза) ---------
+# DRY-конфиги стеков поверх Terragrunt, импорт/план/apply по компонентам и
+# окружениям, вендоринг и политики. Ставится .deb: одиночный релизный
+# бинарник atmos_{version}_linux_amd64 распаковывается в ~300 МБ, а .deb —
+# втрое меньше (gzip). Имя артефакта atmos_{version}_amd64.deb (версия без v).
+# Версия берётся из редиректа releases/latest (см. tasks/atmos.yml).
+atmos_install: true
+atmos_repo: cloudposse/atmos
+atmos_deb_dir: "{{ tmp_dir }}/atmos"
 
 # Пакеты apt для IaC. graphviz даёт `dot` — единственный практичный способ
 # превратить DOT-вывод `terraform graph`, `terragrunt dag graph` и inframap

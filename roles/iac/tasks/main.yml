@@ -22,6 +22,11 @@
   vars:
     pipx_apps: "{{ iac_pipx_apps }}"
 
+- name: Установить atmos (оркестратор Terraform-окружений)
+  ansible.builtin.include_tasks:
+    file: atmos.yml
+  when: atmos_install
+
 # tfenv/tgenv ставятся в домашний каталог пользователя, поэтому без become.
 # Идемпотентность по наличию файла: нет бинарника — клонируем репозиторий.
 - name: Проверить наличие tfenv
