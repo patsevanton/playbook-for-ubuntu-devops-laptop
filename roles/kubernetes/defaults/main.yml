@@ -18,12 +18,8 @@ kubernetes_binaries:
     url: "https://get.helm.sh/helm-v{version}-linux-amd64.tar.gz"
     archive: tar
     member: linux-amd64/helm
-  - name: k9s
-    source: github
-    repo: derailed/k9s
-    url: "https://github.com/derailed/k9s/releases/download/{tag}/k9s_Linux_amd64.tar.gz"
-    archive: tar
-    member: k9s
+  # k9s ставится не бинарником, а официальным .deb (см. kubernetes_github_debs
+  # ниже): у релиза есть пакет k9s_linux_amd64.deb, поэтому версия видна в dpkg.
   - name: kustomize
     source: github
     repo: kubernetes-sigs/kustomize
@@ -1191,10 +1187,39 @@ radar_deb_dir: "{{ tmp_dir }}/radar"
 # --- Headlamp: web/desktop UI Kubernetes (.deb из GitHub-релиза) --------------
 # GUI-приложение ~123 МБ (Electron): ставится официальным .deb, появляется в
 # меню приложений. Имя артефакта headlamp_<ver>-1_amd64.deb (версия без v).
-# Версия берётся из редиректа releases/latest (см. tasks/headlamp.yml).
+# Входит в kubernetes_github_debs ниже, ставится tasks/github_deb.yml.
 headlamp_install: true
-headlamp_repo: kubernetes-sigs/headlamp
-headlamp_deb_dir: "{{ tmp_dir }}/headlamp"
+
+# --- Одиночные .deb-пакеты из GitHub-релизов --------------------------------
+# Ставятся и обновляются одной задачей tasks/github_deb.yml: версия релиза
+# (из редиректа releases/latest, без GitHub API) сравнивается с установленной
+# в dpkg, поэтому повторный прогон плейбука подтягивает новый релиз.
+# Поля элемента: pkg — имя пакета в dpkg, repo — owner/repo, asset — шаблон
+# имени файла в релизе ({version} без ведущего v).
+sextant_install: true
+k9s_install: true
+helmwave_install: true
+
+kubernetes_github_debs:
+  - pkg: headlamp
+    repo: kubernetes-sigs/headlamp
+    asset: "headlamp_{version}-1_amd64.deb"
+    install: "{{ headlamp_install }}"
+  - pkg: helmwave
+    repo: helmwave/helmwave
+    asset: "helmwave_{version}_linux_amd64.deb"
+    install: "{{ helmwave_install }}"
+  # k9s: официальный .deb с v0.51.0 (в релизе также .rpm/.apk и tarball).
+  - pkg: k9s
+    repo: derailed/k9s
+    asset: "k9s_linux_amd64.deb"
+    install: "{{ k9s_install }}"
+  # Sextant: Rust/Tauri-клиент, все контексты из kubeconfig сразу, Helm/Flux/
+  # Argo CD, RBAC, встроенный MCP-сервер. Имя ассета с заглавной S.
+  - pkg: sextant
+    repo: FriendsOfKubernetes/sextant
+    asset: "Sextant_{version}_amd64.deb"
+    install: "{{ sextant_install }}"
 
 # --- Monokle: desktop-редактор Kubernetes-конфигов (.deb из GitHub-релиза) ---
 # Electron-приложение: авторство и анализ манифестов, валидация по схемам,
@@ -1220,17 +1245,6 @@ rubick_deb_dir: "{{ tmp_dir }}/rubick"
 klustr_install: true
 klustr_repo: SametKUM/klustr
 klustr_deb_dir: "{{ tmp_dir }}/klustr"
-
-# --- Sextant: desktop-клиент Kubernetes, альтернатива Lens (.deb) ------------
-# Rust/Tauri-приложение: все контексты из kubeconfig сразу, ресурсы и YAML
-# со схемой кластера, логи, шеллы в контейнерах и на нодах, port-forward,
-# Helm/Flux/Argo CD, Istio/Linkerd, RBAC, right-sizing, диагностика сети и
-# встроенный MCP-сервер для AI-агентов. Без аккаунта и телеметрии.
-# Имя артефакта Sextant_{version}_amd64.deb (версия без v, с заглавной S).
-# Версия берётся из редиректа releases/latest (см. tasks/sextant.yml).
-sextant_install: true
-sextant_repo: FriendsOfKubernetes/sextant
-sextant_deb_dir: "{{ tmp_dir }}/sextant"
 
 # kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
 kubectx_ref: master

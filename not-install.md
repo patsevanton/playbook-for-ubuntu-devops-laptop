@@ -23,6 +23,7 @@
 | --- | --- | --- | --- |
 | Lens IDE | desktop-клиент для нескольких кластеров Kubernetes | платный продукт | — |
 | K8Studio | IDE-клиент для кластеров Kubernetes | платный продукт | — |
+| Aptakube | desktop-клиент Kubernetes: несколько кластеров одновременно, агрегированные логи, метрики pod/node, diff ресурсов (Tauri, .deb 12.7 МБ) | платный продукт: лицензия привязана к аккаунту | — |
 | atuin | синхронизируемая история команд (SQLite, fuzzy-поиск, статистика) | баг VTE: preexec-хук печатается буквально перед каждой командой в gnome-terminal | [GNOME/vte#2951](https://gitlab.gnome.org/GNOME/vte/-/work_items/2951), [rcaloras/bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186) |
 | victoria-metrics | single-node TSDB (локальный скрейп метрик + Web UI) | не нужна без приёмки/скрейпа метрик в локальную VM; от релизов VM оставлен только `vmalert-tool` | — |
 | auto-cpufreq | авто-оптимизация частоты CPU и энергопотребления | не нужен: хватает того, что в Ubuntu есть из коробки (`power-profiles-daemon` + `amd-pstate`/`intel_pstate`) | — |
@@ -46,7 +47,6 @@
 | minikube | локальный одноузловой Kubernetes | не нужен: работаем с облачными кластерами, для локальных тестов уже есть `kind` | — |
 | mok (бывший mokctl) | conformant multi-node кластеры Kubernetes в контейнерах | не нужен: локальные кластеры закрывают `kind` и `k3d`, которые уже стоят; к тому же ставится shell-скриптом, релизных бинарников нет | — |
 | crictl (cri-tools) | CLI к CRI для отладки контейнеров и образов на нодах | не нужен на ноутбуке: Docker не предоставляет CRI-эндпоинт, а containerd Docker-движка запущен без CRI-плагина | — |
-| helmwave | декларативный набор Helm-релизов из `helmwave.yml` (аналог `helmfile`) | не ставим на ноутбук: используется в CI/CD, локально дублирует `helmfile` | — |
 | Nelm | альтернатива Helm с исправленным порядком ресурсов и lifecycle | не ставим на ноутбук: нужен только в CI/CD, локально дублирует `helm` и `helmfile`; релизных бинарников нет, установка через trdl-скрипт | — |
 | Krane | деплой манифестов в namespace с проверкой результата: predeploy, watch rollout, задачи на bare-pod, секреты из EJSON | не нужен: дублирует `helm`/`helmfile` с `--wait`, `kubectl rollout status` и `kubectl wait`; ставится только как gem | — |
 | Kubes | сборка образа, компиляция YAML (YAML/ERB или DSL) и деплой через `kubectl apply` | не нужен: композиция уже стоящих `docker`, `kustomize`, `helm`/`helmfile` и `kubectl`; ставится только как gem | — |
@@ -156,13 +156,7 @@ Docker, работает без включённого CRI-плагина (`/run
 Исключение — если ноутбук станет kubelet-нодой с containerd и включённым CRI,
 но это не сценарий этого плейбука.
 
-## Helmwave, kapp и aiac — не используются
-
-Helmwave — декларативное описание набора Helm-релизов, по смыслу аналог
-`helmfile`. Основной сценарий — CI/CD. На ноутбуке он дублирует уже
-установленный `helmfile`, поэтому не ставится. Вернуть можно, если в CI
-используется именно helmwave и нужно локально воспроизводить сборку или
-дифф.
+## kapp и aiac — не используются
 
 kapp — деплойер готовых Kubernetes-манифестов из набора Carvel: метки
 приложения, diff, ожидание готовности, удаление группой. Не ставим, потому

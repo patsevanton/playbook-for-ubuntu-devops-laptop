@@ -41,10 +41,25 @@
     file: kubectl-mcp-server.yml
   when: kubectl_mcp_server_install
 
-- name: Установить Headlamp (web/desktop UI Kubernetes)
+# Одиночные .deb из GitHub-релизов: headlamp, helmwave, k9s, sextant.
+# Задача сравнивает версию из releases/latest с установленной в dpkg, поэтому
+# повторный прогон плейбука обновляет пакеты (список — kubernetes_github_debs).
+- name: Установить и обновить одиночные .deb из GitHub-релизов
   ansible.builtin.include_tasks:
-    file: headlamp.yml
-  when: headlamp_install
+    file: github_deb.yml
+  loop: "{{ kubernetes_github_debs }}"
+  loop_control:
+    loop_var: deb_item
+    label: "{{ deb_item.pkg }}"
+  when: deb_item.install | bool
+
+# k9s раньше ставился бинарником в bin_dir: /usr/local/bin/k9s перекрывает
+# /usr/bin/k9s из .deb (bin_dir в PATH раньше), поэтому старый файл убираем.
+- name: Удалить k9s, установленный ранее как бинарник (переход на .deb)
+  ansible.builtin.file:
+    path: "{{ bin_dir }}/k9s"
+    state: absent
+  when: k9s_install
 
 - name: Установить Radar (Kubernetes UI со встроенным MCP-сервером)
   ansible.builtin.include_tasks:
@@ -65,11 +80,6 @@
   ansible.builtin.include_tasks:
     file: klustr.yml
   when: klustr_install
-
-- name: Установить Sextant (desktop-клиент Kubernetes, альтернатива Lens)
-  ansible.builtin.include_tasks:
-    file: sextant.yml
-  when: sextant_install
 
 - name: Установить kubebox (терминальная и веб-консоль Kubernetes)
   ansible.builtin.include_tasks:

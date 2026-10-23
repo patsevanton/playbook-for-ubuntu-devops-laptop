@@ -133,6 +133,7 @@ ansible-lint                                   # проверка стиля (pr
 
 - [kubectl](https://github.com/kubernetes/kubectl) — официальный CLI Kubernetes.
 - [helm](https://github.com/helm/helm) — пакетный менеджер Kubernetes (чарты).
+- [helmwave](https://github.com/helmwave/helmwave) — helm3-native деплой чартов: план, дифф и применение.
 - [k9s](https://github.com/derailed/k9s) — TUI-консоль кластера: ресурсы, логи, exec.
 - [kustomize](https://github.com/kubernetes-sigs/kustomize) — сборка манифестов из `kustomization.yaml`.
 - [flux](https://github.com/fluxcd/flux2) — CLI Flux CD: bootstrap, reconcile, GitOps.

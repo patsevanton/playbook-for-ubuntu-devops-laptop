@@ -5,7 +5,7 @@
 # появляется в меню приложений Ubuntu. Зависимости (libgtk-3-0, libnss3 и др.)
 # apt доставит сам.
 # Версия не фиксируется: тег последнего релиза берётся из HTTP-редиректа
-# releases/latest (без GitHub API — по образцу headlamp.yml).
+# releases/latest (без GitHub API — по образцу github_deb.yml).
 #
 # Идемпотентность: если приложение уже установлено (есть /opt/Monokle/Monokle) —
 # ничего не делаем.

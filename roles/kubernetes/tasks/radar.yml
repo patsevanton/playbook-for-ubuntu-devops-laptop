@@ -5,7 +5,7 @@
 # появляется в меню приложений Ubuntu. Зависимости (libgtk-3-0,
 # libwebkit2gtk-4.1-0) apt доставит сам.
 # Версия не фиксируется: тег последнего релиза берётся из HTTP-редиректа
-# releases/latest (без GitHub API — по образцу headlamp.yml).
+# releases/latest (без GitHub API — по образцу github_deb.yml).
 #
 # Идемпотентность: если пакет уже установлен (есть /usr/bin/radar-desktop) —
 # ничего не делаем.
