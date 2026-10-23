@@ -16,7 +16,9 @@ GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 Helm-чарты (не на ноутбук) — в
 [`TODO-server-apps.md`](TODO-server-apps.md), всё из Ansible Galaxy (роли,
 коллекции, готовые playbook'и), которое плейбук не ставит, — в
-[`TODO-ansible-galaxy-not-install.md`](TODO-ansible-galaxy-not-install.md).
+[`TODO-ansible-galaxy-not-install.md`](TODO-ansible-galaxy-not-install.md),
+заброшенные проекты (архив GitHub или годы без обновлений) — в
+[`TODO-abandoned.md`](TODO-abandoned.md).
 Не кандидат, а план работ — генератор архитектурных схем из
 Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 
@@ -40,6 +42,11 @@ Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 бинарника. Тогда же серверные приложения, сервисы и Helm-чарты собраны в
 [`TODO-server-apps.md`](TODO-server-apps.md) (из этого файла и из
 `TODO-no-prebuilt-binary.md`).
+
+Реестр 2026-10-23: заброшенные проекты (архив GitHub, годы без обновлений)
+собраны в [`TODO-abandoned.md`](TODO-abandoned.md). Это не новый трекер, а
+сводка статусов: описание кандидата остаётся в том файле, где он разобран,
+чтобы не нарушать правило «один кандидат — один трекер».
 
 ---
 
