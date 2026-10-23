@@ -26,9 +26,8 @@
 [`TODO-server-apps.md`](TODO-server-apps.md). Заброшенные проекты (архив GitHub,
 годы без обновлений) описаны только в [`TODO-abandoned.md`](TODO-abandoned.md).
 
-Способ установки сверен 2026-10-22 (строки werf/kubedog/odo, Kubes и
-kubectl-kubesec добавлены 2026-10-23 из `not-install.md`): для GitHub-проектов
-— ассеты последнего релиза, для остальных — PyPI/apt. Перенесённые и отброшенные кандидаты — в
+Способ установки сверен 2026-10-22: для GitHub-проектов — ассеты последнего
+релиза, для остальных — PyPI/apt. Перенесённые и отброшенные кандидаты — в
 конце файла.
 
 ---
@@ -37,11 +36,6 @@ kubectl-kubesec добавлены 2026-10-23 из `not-install.md`): для Git
 | --- | --- | --- | --- |
 | Диагностика и железо | [linnix](https://github.com/linnix-os/linnix) | eBPF-наблюдаемость с AI-детекцией инцидентов | Исходники и docker-образ; amd64 `.deb` был только в v0.1.0 (`cognitod_0.1.0_amd64.deb`), в v0.1.1 и v0.2.0 ассетов нет. Запрошено в [#124](https://github.com/linnix-os/linnix/issues/124) |
 | Безопасность | [flawz](https://github.com/orhun/flawz) | TUI-браузер CVE/уязвимостей | В релизе v0.4.1 только macOS/Windows и `flawz-installer.sh`; готового Linux-бинарника нет (`cargo build`). Запрошено в [#113](https://github.com/orhun/flawz/issues/113) |
-| Kubernetes | [scan2html](https://github.com/fatihtokus/scan2html) | плагин Trivy: интерактивный HTML-отчёт | Пакета на PyPI нет, только исходники |
-| Kubernetes | [mokctl](https://github.com/bashtools/mokctl) | conformant multi-node кластеры в контейнерах | Релизы без ассетов, установка shell-скриптами |
-| Kubernetes | [werf](https://github.com/werf/werf), [kubedog](https://github.com/werf/kubedog), [odo](https://github.com/redhat-developer/odo), Krane | сборка и доставка, CI-наблюдение, разработка в кластере и RBAC-анализ | В GitHub-релизах нет готовых бинарников: trdl/install-скрипт или `go install` |
-| Kubernetes | [Kubes](https://github.com/boltops-tools/kubes) | сборка образа, компиляция YAML и деплой в кластер | Ставится только как gem, релизных бинарников нет |
-| Kubernetes | kubectl-kubesec | krew-плагин `kubectl scan` поверх kubesec | Только krew, ассетов в релизе нет; сам `kubesec` в плейбуке уже стоит |
 
 ---
 
@@ -71,10 +65,23 @@ kubectl-kubesec добавлены 2026-10-23 из `not-install.md`): для Git
   очередной волной kubetools и не ставятся: причины в
   [`not-install.md`](not-install.md). **Kubefirst** — не на ноутбук, см.
   [`TODO-server-apps.md`](TODO-server-apps.md).
-- **werf**, **kubedog**, **odo**, **Krane**, **Kubes**, **kubectl-kubesec** —
-  перенесены из `not-install.md` 2026-10-23: причина отказа техническая
-  (trdl/install-скрипт, `go install`, gem, только krew), а не «не нужен».
-  Теперь они в таблице выше.
+- **Krane**, **Kubes** — перенесены из `not-install.md` 2026-10-23 и в тот же
+  день возвращены: причина отказа — аналоги в плейбуке, а не отсутствие
+  бинарника (у обоих только gem). См. [`not-install.md`](not-install.md).
+- **kubectl-kubesec** — убран 2026-10-23: бинарники в релизе есть
+  (`kubectl-kubesec_linux_amd64.tar.gz` в `v1.1.0`, 2023), а плагин по
+  умолчанию сканирует через hosted `kubesec.io`. Сам `kubesec` в плейбуке уже
+  стоит, поэтому кандидат перенесён в [`not-install.md`](not-install.md).
+- **scan2html** — убран 2026-10-23: бинарник публикуется. В релизе
+  `v0.3.28-rc.1` лежат `scan2html_0.3.28-rc.1_linux-amd64.tar.gz` и сборки под
+  остальные платформы; штатная установка — плагин Trivy
+  (`trivy plugin install scan2html`), то есть кандидат в роль `secrets` рядом
+  с `trivy`, а не в этот список.
+- **werf**, **kubedog** — убраны из списка 2026-10-23: в плейбуке не
+  рассматриваются вообще. Сборка и доставка — задача CI/CD, локальный CLI под
+  неё не нужен.
+- **odo** — перенесён 2026-10-23 в [`TODO-abandoned.md`](TODO-abandoned.md):
+  репозиторий `redhat-developer/odo` в архиве.
 - **knee** — не нужен: инфраструктура поднимается своими Ansible-плейбуками,
   а knee — обёртка над 13 плейбуками из своего репозитория. См.
   [`not-install.md`](not-install.md).
@@ -110,6 +117,10 @@ kubectl-kubesec добавлены 2026-10-23 из `not-install.md`): для Git
   зависимости ставятся, `et --version` отвечает `7.0.0`. В релизе GitHub
   по-прежнему только `et_7.0.0-stable1_arm64.deb`. Оговорка: это PPA, а
   плейбук сейчас подключает сторонний репозиторий только для Docker.
+- **mok** (бывший **mokctl**, `bashtools/mokctl` теперь редиректит на
+  `bashtools/mok`) — перенесён в [`not-install.md`](not-install.md) 2026-10-23:
+  локальные кластеры уже закрывают `kind` и `k3d` из роли `kubernetes`,
+  а сам mok ставится shell-скриптом из репозитория, без релизных ассетов.
 - **stew** — у апстрима [marwanhawari/stew](https://github.com/marwanhawari/stew)
   есть `stew-v0.6.0-linux-amd64.tar.gz` и `stew_0.6.0_linux_amd64.deb`.
   В файле стояла ссылка на [alxrem/stew](https://github.com/alxrem/stew) —

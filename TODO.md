@@ -54,12 +54,15 @@ Deployment и с кандидатами, у которых просто нет �
 Разбор 2026-10-23: из [`not-install.md`](not-install.md) убраны кандидаты, у
 которых причина отказа техническая, а не «не нужен». HolmesGPT (Python 3.14)
 ушёл в [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md);
-werf, kubedog, odo, Krane, Kubes и kubectl-kubesec (trdl/`go install`, gem,
-только krew) — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md);
 kcmsu, Kubefirst, Radius, Jenkins X, k8s-tun и Scaphandre (агент на хосте) — в
-[`TODO-server-apps.md`](TODO-server-apps.md). В `not-install.md` остались платные
-продукты, дубли уже установленного, bash-скрипты без релизов и отказы из-за
-багов апстрима.
+[`TODO-server-apps.md`](TODO-server-apps.md). Krane и Kubes (только gem),
+kubectl-kubesec (krew) сначала ушли в
+[`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md), но в тот же день
+вернулись в `not-install.md`: у всех трёх есть аналоги среди уже
+поставленного. werf и kubedog не рассматриваются, odo перенесён в
+[`TODO-abandoned.md`](TODO-abandoned.md) (репозиторий в архиве).
+В `not-install.md` остались платные продукты, дубли уже установленного,
+bash-скрипты без релизов и отказы из-за багов апстрима.
 
 ---
 

@@ -47,6 +47,11 @@ linux-amd64 бинарник) — тогда кандидат возвращае
       `kustomizer`, `kpt` плюс UI `headlamp`/`radar`; dependency-aware
       менеджера с GUI нет. Если архив снимут, `.deb` из релиза ставится ролью
       `kubernetes` одной строкой.
+- [ ] **odo** — CLI для итеративной разработки в кластере по devfile:
+      `odo dev` собирает образ, деплоит приложение и синхронизирует файлы. —
+      [redhat-developer/odo](https://github.com/redhat-developer/odo) — архив;
+      последний пуш 2026-03-30. Покрыт: `devspace`, `tilt`, `mirrord`,
+      `telepresence` (роль `kubernetes`).
 - [ ] **Octant** — web-UI/дашборд кластера. —
       [vmware-archive/octant](https://github.com/vmware-archive/octant) —
       архив (vmware-archive), последний пуш 2023-01-19. Заменён `headlamp` и
