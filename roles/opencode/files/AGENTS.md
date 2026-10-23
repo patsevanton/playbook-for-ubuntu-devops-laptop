@@ -19,3 +19,4 @@
 - opencode ЗАПРЕЩЕНО коммитить (`git commit`), пушить (`git push`), создавать PR, выполнять `git rebase`, `git reset`, `git cherry-pick` или любые другие операции, изменяющие историю репозитория или отправляющие изменения удалённо.
 - opencode может выполнять только read-only операции git: `git status`, `git diff`, `git log`, `git branch`, `git show` и т.п.
 - Если задача требует коммита, пуша или создания PR, opencode должен отказать и предложить пользователю выполнить действие вручную.
+- Предлагаемый текст коммита — заголовок с отглагольным существительным, а не с инфинитивом: `docs: перенос kubectl-sudo, Click и kubecui в not-install`, а не `docs: перенести kubectl-sudo, Click и kubecui в not-install`.
