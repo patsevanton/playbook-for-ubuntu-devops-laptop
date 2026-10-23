@@ -235,6 +235,8 @@
         - "{{ bin_dir }}/tv --version"
         - "{{ bin_dir }}/witr --version"
         - "duf --version"
+        - "btop --version"
+        - "ncdu --version"
         - "{{ bin_dir }}/k6 version"
         - "{{ bin_dir }}/gping --version"
         - "{{ bin_dir }}/rustnet --version"

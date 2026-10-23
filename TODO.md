@@ -95,6 +95,12 @@ Ansible Galaxy `dev-sec`): `polaris`, `kube-score`, `kubectl-neat`,
 заархивирован 2026-06-14. `inframap` в трекере отмечен как уже стоящий
 (роль `iac`, тег v0.8.0).
 
+Добавлены 2026-10-23 из того же файла — последние кандидаты с готовым пакетом
+Ubuntu: `btop` (1.4.6) и `ncdu` (1.22), оба ролью `shell` через apt. Остаток
+трекера, который осознанно не добавлен (`glasskube` — архив, `ansible-dev-tools`
+— мета-пакет, `dev-sec` — коллекция Galaxy, `terraform-ls` — только исходники),
+вынесен в [`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md).
+
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см. [`not-install.md`](not-install.md) и
 [issue #2649](https://github.com/HolmesGPT/holmesgpt/issues/2649).

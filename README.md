@@ -146,7 +146,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   entropy (go install), ochrona (pipx)
 │   ├── shell/                  # eza, zoxide, fzf, starship, bat, difftastic,
 │   │                           #   delta, gdu, dust, dasel, jc, sd, shellcheck,
-│   │                           #   duf, tv (television), witr,
+│   │                           #   duf, btop, ncdu, tv (television), witr,
 │   │                           #   jnv, octosql, lazyjournal, gonzo, otel-tui, jl,
 │   │                           #   logdy, jlv, spacer,
 │   │                           #   lf, gomplate, yamlfmt, yamlfixer (pipx), gum,
@@ -371,7 +371,9 @@ ansible-lint                                   # проверка стиля (pr
     (анализатор диска), dust (наглядный du), dasel (запросы к
     JSON/YAML/TOML/XML/CSV), jc (конвертация вывода CLI в JSON), sd
     (интуитивная замена sed), shellcheck (статический анализ shell-скриптов),
-    duf (`df` «для людей» — таблица дисков и точек монтирования), tv
+    duf (`df` «для людей» — таблица дисков и точек монтирования), btop
+    (монитор ресурсов с графиками), ncdu (интерактивный анализ занятого
+    места на диске), tv
     (television — fuzzy-finder с готовыми каналами поиска), witr (трассировка
     «почему процесс запущен и кто занял порт/файл»),
     zellij (терминальный мультиплексор), navi (шпаргалки команд поверх fzf),
@@ -459,7 +461,7 @@ ansible-lint                                   # проверка стиля (pr
 | iac | graphviz | `dot`: рендер графов Terraform/Terragrunt (DOT → svg/png) |
 | postgres | libpq5 | клиентская библиотека PostgreSQL (libpq.so) для psycopg/pgcli |
 | secrets | direnv, age, lynis | окружение по каталогам; шифрование файлов для sops; аудит безопасности и харденинга Linux |
-| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck, duf, ttyd, ffmpeg | удобная работа в терминале, статический анализ shell-скриптов, понятная таблица дисков, ttyd и ffmpeg — запись терминальных демо через vhs |
+| shell | eza, zoxide, fzf, ripgrep, fd-find, fontconfig, shellcheck, duf, btop, ncdu, ttyd, ffmpeg | удобная работа в терминале, статический анализ shell-скриптов, понятная таблица дисков, монитор ресурсов и анализ занятого места, ttyd и ffmpeg — запись терминальных демо через vhs |
 | network | nmap, netcat-openbsd, tcpdump, httpie, bind9-dnsutils, telnet | сеть и диагностика |
 | audio | pipewire, pipewire-bin, pipewire-pulse, wireplumber, hicolor-icon-theme | шумоподавление микрофона (HushMic) |
 | docker | docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin | контейнеры (см. ниже) |
