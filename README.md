@@ -1514,6 +1514,9 @@ pitwall в плейбук пока не ставится: решение не п
 [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md), а те, чей бинарник
 не запускается на Ubuntu 26.04, — в
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
+Кандидаты из трендов GitHub, которые осознанно не добавлены в плейбук
+(закрытый проект, не приложение, нет релизных бинарников), — в
+[`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md).
 План генератора архитектурных схем из Terraform/Terragrunt (аналога
 KubeDiagrams для Yandex Cloud), который пока не реализован, — в
 [`TODO-diagrams.md`](TODO-diagrams.md).

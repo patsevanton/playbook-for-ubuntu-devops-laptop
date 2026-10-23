@@ -1,7 +1,7 @@
 # TODO: сводка по кандидатам — что уже есть и что ставить не нужно
 
-Оставшиеся кандидаты в утилиты для плейбука — в
-[`TODO-trend-github.md`](TODO-trend-github.md),
+Кандидаты из трендов GitHub, которые осознанно не попали в плейбук, — в
+[`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md),
 opencode 2 (один агент
 раздаёт задачи другим, включая pitwall и herdr) — в
 [`TODO-opencode-orchestration.md`](TODO-opencode-orchestration.md), утилиты,
@@ -73,34 +73,35 @@ Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 `lazysql`, `polaris`, `kube-score`, `kubectl-neat`, `kubectl-validate`,
 `nova`, `helm-secrets`, `ansible-navigator`, `ansible-builder`,
 `ansible-creator`, `ansible-doctor`, `ara`, `tenv`, `atmos`, `tfupdate`,
-`tfsort`.
+`tfsort`, `btop`, `ncdu`.
 
-Добавлены 2026-10-22 из [`TODO-trend-github.md`](TODO-trend-github.md) (топ-15
+Добавлены 2026-10-22 из трендов GitHub (топ-15
 приложений по звёздам среди оставшихся кандидатов; `dev-sec` — коллекция
 Ansible Galaxy, а не приложение, поэтому вместо неё в набор вошёл следующий по
 звёздам `terrascan`): `gitui`, `vhs`, `dagger`, `limactl`/`lima`,
 `pgcli`, `harlequin`, `terraformer`, `terrascan`, `steampipe`, `kubectl-ai`,
 `k3d`, `telepresence`, `tilt`, `mirrord`.
 
-Добавлены 2026-10-22 из того же файла следующим по звёздам (снова без
+Добавлены 2026-10-22 из тех же трендов следующим по звёздам (снова без
 `dev-sec`): `devspace`, `rustnet`, `lazysql`, `kubent`. `devbox` и `flox`
 удалены: Nix не используется.
 
-Добавлены 2026-10-23 из того же файла — следующие 15 по звёздам среди
+Добавлены 2026-10-23 из тех же трендов — следующие 15 по звёздам среди
 оставшихся кандидатов (без архивного `glasskube`, мета-пакета
 `ansible-dev-tools`, который дублирует уже поставленные части, и коллекции
 Ansible Galaxy `dev-sec`): `polaris`, `kube-score`, `kubectl-neat`,
 `kubectl-validate`, `nova`, `helm-secrets`, `ansible-navigator`,
 `ansible-builder`, `ansible-creator`, `ansible-doctor`, `ara`, `tenv`,
 `atmos`, `tfupdate`, `tfsort`. `glasskube` не ставится: репозиторий
-заархивирован 2026-06-14. `inframap` в трекере отмечен как уже стоящий
+заархивирован 2026-06-14. `inframap` уже стоял в плейбуке до этого разбора
 (роль `iac`, тег v0.8.0).
 
-Добавлены 2026-10-23 из того же файла — последние кандидаты с готовым пакетом
-Ubuntu: `btop` (1.4.6) и `ncdu` (1.22), оба ролью `shell` через apt. Остаток
-трекера, который осознанно не добавлен (`glasskube` — архив, `ansible-dev-tools`
-— мета-пакет, `dev-sec` — коллекция Galaxy, `terraform-ls` — только исходники),
-вынесен в [`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md).
+Добавлены 2026-10-23 из тех же трендов — последние кандидаты с готовым пакетом
+Ubuntu: `btop` (1.4.6) и `ncdu` (1.22), оба ролью `shell` через apt. Трекер
+трендов после этого разобран полностью и удалён; кандидаты, которые осознанно
+не добавлены (`glasskube` — архив, `ansible-dev-tools` — мета-пакет, `dev-sec`
+— коллекция Galaxy, `terraform-ls` — только исходники), перечислены с
+причинами в [`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md).
 
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см. [`not-install.md`](not-install.md) и

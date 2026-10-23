@@ -269,7 +269,7 @@
       `docker compose` или Helm-релиз, а не роль `binaries`.
 - [ ] Сверять при обновлении списка звёзд: у части проектов может появиться
       standalone-режим или удобный CLI, тогда кандидат переезжает в
-      [`TODO-trend-github.md`](TODO-trend-github.md).
+      [`TODO.md`](TODO.md) как установленный.
 - [ ] `VictoriaMetrics` сюда **не** относится: у него есть single-binary
       режим для локального запуска, поэтому он стоит в роли `monitoring`
       (из VictoriaMetrics — только `vmalert-tool`).
