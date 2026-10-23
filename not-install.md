@@ -5,13 +5,14 @@
 вышла фиксирующая версия), утилиту можно вернуть в плейбук — актуальный статус
 удобно сверять по ссылке на issue.
 
+Заброшенные проекты (архив GitHub, годы без обновлений) сюда не входят: они
+описаны только в [`TODO-abandoned.md`](TODO-abandoned.md).
+
 | Утилита | Зачем была | Причина отказа | Issue |
 | --- | --- | --- | --- |
 | HolmesGPT | on-call AI-ассистент для алертов Prometheus | последний релиз `0.45.0` требует Python `<3.14`; в Ubuntu 26.04 системный Python 3.14, а `pipx` ставит только старую `0.34.0` | [HolmesGPT/holmesgpt#2649](https://github.com/HolmesGPT/holmesgpt/issues/2649) |
 | Lens IDE | desktop-клиент для нескольких кластеров Kubernetes | платный продукт | — |
 | K8Studio | IDE-клиент для кластеров Kubernetes | платный продукт | — |
-| Datree | CLI против Kubernetes-мисконфигураций | проект в архиве (`datreeio/datree`) | — |
-| glasskube | пакетный менеджер Kubernetes с GUI и CLI | проект в архиве (`glasskube/glasskube`, архив с 2026-06-14) | — |
 | kcmsu | использование ConfigMaps и Secrets в кластере | устанавливает компонент в кластер, а не локальную утилиту | — |
 | atuin | синхронизируемая история команд (SQLite, fuzzy-поиск, статистика) | баг VTE: preexec-хук печатается буквально перед каждой командой в gnome-terminal | [GNOME/vte#2951](https://gitlab.gnome.org/GNOME/vte/-/work_items/2951), [rcaloras/bash-preexec#186](https://github.com/rcaloras/bash-preexec/issues/186) |
 | victoria-metrics | single-node TSDB (локальный скрейп метрик + Web UI) | не нужна без приёмки/скрейпа метрик в локальную VM; от релизов VM оставлен только `vmalert-tool` | — |
@@ -38,10 +39,8 @@
 | helmwave | декларативный набор Helm-релизов из `helmwave.yml` (аналог `helmfile`) | не ставим на ноутбук: используется в CI/CD, локально дублирует `helmfile` | — |
 | kapp | деплой набора Kubernetes-ресурсов по метке (Carvel) | не используется: деплой через Helm/Flux, kapp нужен только для готового YAML без Helm | — |
 | aiac | генерация Kubernetes-манифестов запросом к LLM | не нужен: генерация манифестов через LLM не используется | — |
-| Octant | web-UI/дашборд кластера | не нужен: проект в архиве (vmware-archive, 2023), дашборд дублирует `headlamp` и `radar` | — |
 | Kubefirst | разворачивание готовой GitOps-платформы «с нуля» | не используется: платформа на Argo CD, а Argo CD в плейбуке не применяется | — |
 | Kubexer | desktop-клиент Kubernetes (ресурсы, топология, GitOps) | закрытое ПО: нет публичного релиза, версию и артефакт не проверить | — |
-| kube-shell | интерактивный shell для kubectl | заброшен с 2017 (последний релиз 0.0.23), современные API не покрывает; интерактивный режим уже даёт `kube-prompt` | — |
 | Finch | CLI контейнерной разработки (Lima/nerdctl) | не нужен: дублирует Docker с Compose, который уже ставится плейбуком | — |
 | kor | поиск неиспользуемых ресурсов кластера | не ставим: `releases/latest` ведёт на релиз Helm-чарта, CLI-бинарники лежат под другим тегом — версию без GitHub API не определить | — |
 | kubectl-foreach | параллельный запуск kubectl по контекстам | не нужен: распространяется только bash-скриптом, релизных артефактов нет | — |
@@ -51,7 +50,6 @@
 | kubectl-debug | отладочный контейнер в работающем поде | не нужен: `kubectl debug` встроен в kubectl | — |
 | kuttl | декларативное тестирование операторов | не используется: операторы не создаются | — |
 | kubectl-kubesec | krew-плагин `kubectl scan` поверх kubesec | не нужен: ставится только krew-плагином с `plugin.yaml`, а `kubesec` уже есть | — |
-| k8s-mcp-server | MCP-сервер с kubectl/helm/istioctl | репозиторий в архиве; MCP-сервер Kubernetes уже есть (`kubernetes-mcp-server`) | — |
 | kubectl-mcp-server | MCP-сервер Kubernetes для AI-инструментов | не нужен: дублирует `kubernetes-mcp-server` | — |
 | Hardeneks, MKAT, eksdemo | проверки, аудит и демо для Amazon EKS | не нужны: заточены под EKS, работа идёт с другими облаками | — |
 | Radius | cloud-native платформа приложений | не нужна на ноутбуке: требует развёрнутого control plane | — |
@@ -59,10 +57,8 @@
 | mcp-for-argocd, Argazer | MCP-сервер и мониторинг чартов для Argo CD | Argo CD не используется | — |
 | Jenkins X | CI/CD-платформа для Kubernetes | ставится в кластер как платформа, а не на ноутбук | — |
 | werf, kubedog, odo, Krane | сборка/доставка, CI-наблюдение, разработка и RBAC-анализ | в GitHub-релизах нет готовых бинарников (trdl/install-скрипт или `go install`) | — |
-| kubectl-mtail | tail логов подов по label selector | не нужен: в GitLab-релизах нет ассетов (последний — 2020), а логи по селектору уже дают `stern` и `kail` | — |
 | Kubes | сборка образа, компиляция YAML и деплой в кластер | не используется: деплой через Helm/Flux, а ставится инструмент только как gem | — |
 | k8s-tun | доступ к pod IP и service IP кластера | не нужен: требует server в кластере и прав NET_ADMIN на клиенте, а доступ к pod/service IP уже даёт `k8s-insider` | — |
-| kopylot | AI-аудит, диагностика и чат по ресурсам кластера | не нужен: дублирует `kopilot`, требует OpenAI-токен и не обновлялся с 2024 | — |
 
 ---
 

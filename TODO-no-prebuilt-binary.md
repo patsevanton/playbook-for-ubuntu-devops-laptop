@@ -24,7 +24,8 @@
 [`TODO-node-tools.md`](TODO-node-tools.md). Серверные приложения и Helm-чарты
 (opencost, dagda, scantron, terrapod, k3s-ansible и т.п.) сюда тоже не входят:
 они не устанавливаются на ноутбук по другой причине — см.
-[`TODO-server-apps.md`](TODO-server-apps.md).
+[`TODO-server-apps.md`](TODO-server-apps.md). Заброшенные проекты (архив GitHub,
+годы без обновлений) описаны только в [`TODO-abandoned.md`](TODO-abandoned.md).
 
 Способ установки сверен 2026-10-22: для GitHub-проектов — ассеты последнего
 релиза, для остальных — PyPI/apt. Перенесённые и отброшенные кандидаты — в
@@ -36,21 +37,13 @@
 | --- | --- | --- | --- |
 | Диагностика и железо | [linnix](https://github.com/linnix-os/linnix) | eBPF-наблюдаемость с AI-детекцией инцидентов | Исходники и docker-образ; amd64 `.deb` был только в v0.1.0 (`cognitod_0.1.0_amd64.deb`), в v0.1.1 и v0.2.0 ассетов нет. Запрошено в [#124](https://github.com/linnix-os/linnix/issues/124) |
 | Безопасность | [flawz](https://github.com/orhun/flawz) | TUI-браузер CVE/уязвимостей | В релизе v0.4.1 только macOS/Windows и `flawz-installer.sh`; готового Linux-бинарника нет (`cargo build`). Запрошено в [#113](https://github.com/orhun/flawz/issues/113) |
-| Kubernetes | [kubectl-snapshot](https://github.com/fbrubbo/kubectl-snapshot) | снимки состояния кластера | Ассетов в релизе нет, проект заброшен с 2020 года |
-| Kubernetes | [xlskubectl](https://github.com/learnk8s/xlskubectl) | управление кластером из «электронной таблицы» | Не опубликован в PyPI, релизов нет |
-| Kubernetes | [KindScaler](https://github.com/lobuhi/kindscaler) | управление нодами KinD-кластера | Только `go build`, релизов нет |
-| Kubernetes | [kuttle](https://github.com/kayrus/kuttle) | sshuttle-доступ к подам без SSH | Релизов нет; имя `kuttle` на PyPI занято другим проектом |
 | Kubernetes | [kubectl-sudo](https://github.com/postfinance/kubectl-sudo) | запуск k8s-команд с привилегиями другого пользователя | Только krew, ассетов в релизе нет |
 | Kubernetes | [Click](https://github.com/databricks/click) | интерактивный CLI-контроллер Kubernetes | Только cargo, релизных бинарников нет |
 | Kubernetes | [kubecui](https://github.com/pymag09/kubecui) | TUI-обёртка над kubectl | Не опубликован в PyPI, релизов нет |
 | Kubernetes | [Nelm](https://github.com/werf/nelm) | альтернатива Helm с исправленным порядком ресурсов и lifecycle | В GitHub-релизах ассетов нет: установка через trdl/install-скрипт |
-| Kubernetes | [klum](https://github.com/ibuildthecloud/klum) | управление пользователями и доступом к кластеру | Только `go build`, релизов нет; не обновлялся с 2023 |
 | Kubernetes | [Nighthawk](https://github.com/layer5io/getnighthawk) | HTTP-нагрузочное тестирование с адаптивным профилем | Ни в одном релизе нет ассетов (только Docker-образ и Makefile) |
 | Kubernetes | [scan2html](https://github.com/fatihtokus/scan2html) | плагин Trivy: интерактивный HTML-отчёт | Пакета на PyPI нет, только исходники |
 | Kubernetes | [mokctl](https://github.com/bashtools/mokctl) | conformant multi-node кластеры в контейнерах | Релизы без ассетов, установка shell-скриптами |
-| Kubernetes | [KuberEz](https://github.com/uengine-oss/kuber-ez) | графическое моделирование манифестов | В релизе `1.0alpha` нет ассетов, проект заброшен с 2023 |
-| Kubernetes | [Chartsec](https://github.com/banzaicloud/chartsec) | сканер безопасности Helm-чартов | Релизов нет, проект заброшен с 2019 |
-| Kubernetes | [mico](https://github.com/tahtaciburak/mico) | AI-помощник kubectl | Только `go build`, релизов нет |
 
 ---
 
@@ -76,9 +69,9 @@
   ассеты не собрались, но в `1.1.0` лежит статический
   `kubectl-ports_1.1.0-x86_64-unknown-linux-musl.tar.gz`. Ставится отдельной
   задачей с зафиксированным тегом.
-- **Octant**, **Kubefirst**, **Kubexer**, **kube-shell**, **Finch**, **kor**,
-  **kubectl-foreach** — рассмотрены вместе с очередной волной kubetools
-  и не ставятся: причины в [`not-install.md`](not-install.md).
+- **Kubefirst**, **Kubexer**, **Finch**, **kor**, **kubectl-foreach** —
+  рассмотрены вместе с очередной волной kubetools и не ставятся: причины в
+  [`not-install.md`](not-install.md).
 - **knee** — не нужен: инфраструктура поднимается своими Ansible-плейбуками,
   а knee — обёртка над 13 плейбуками из своего репозитория. См.
   [`not-install.md`](not-install.md).

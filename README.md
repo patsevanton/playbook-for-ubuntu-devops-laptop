@@ -1522,8 +1522,10 @@ pitwall в плейбук пока не ставится: решение не п
 не запускается на Ubuntu 26.04, — в
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
 Кандидаты из трендов GitHub, которые осознанно не добавлены в плейбук
-(закрытый проект, не приложение, нет релизных бинарников), — в
+(не приложение, нет релизных бинарников, удалены после добавления), — в
 [`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md).
+Заброшенные проекты (архив GitHub, годы без обновлений) — только в
+[`TODO-abandoned.md`](TODO-abandoned.md).
 План генератора архитектурных схем из Terraform/Terragrunt (аналога
 KubeDiagrams для Yandex Cloud), который пока не реализован, — в
 [`TODO-diagrams.md`](TODO-diagrams.md).

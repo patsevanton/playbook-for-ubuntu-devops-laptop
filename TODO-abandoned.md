@@ -1,18 +1,21 @@
 # TODO-abandoned: заброшенные проекты — не ставить
 
-Реестр апстримов, которые заархивированы или годами не обновляются. Сюда
-попали только кандидаты, которые рассматривались для ноутбука: из
-[`TODO.md`](TODO.md), [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
+Реестр апстримов, которые заархивированы или годами не обновляются, и
+единственное место, где они описаны: что это, почему не ставим, чем роль
+закрыта сейчас и при каком условии вернуться. В остальных трекерах
+([`TODO.md`](TODO.md), [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md),
-[`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md) и
-[`not-install.md`](not-install.md). Серверные приложения
-([`TODO-server-apps.md`](TODO-server-apps.md)) и нодовые агенты
-([`TODO-node-tools.md`](TODO-node-tools.md)) сюда не входят: они не ставятся
-на ноутбук по другой причине, и смерть апстрима ничего не меняет.
+[`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md),
+[`not-install.md`](not-install.md)) заброшенных кандидатов нет — там только
+ссылки на этот файл.
 
-Это сводный реестр статуса апстримов, а не второй трекер: полные описания,
-причины отказа и условия пересмотра остаются в исходных файлах. Здесь только
-дата последней активности, признак архива и короткая причина.
+Правило действует с 2026-10-23: заброшенный проект описывается только здесь.
+Описания и причины отказа перенесены сюда из перечисленных файлов без потери
+деталей, чтобы не дублировать один кандидат в нескольких трекерах.
+
+Серверные приложения ([`TODO-server-apps.md`](TODO-server-apps.md)) и нодовые
+агенты ([`TODO-node-tools.md`](TODO-node-tools.md)) сюда не входят: они не
+ставятся на ноутбук по другой причине, и смерть апстрима ничего не меняет.
 
 Как читать:
 
@@ -26,8 +29,8 @@
   может быть активен в коммитах и при этом годами не выпускать бинарники.
 
 Правило возврата одно: проект оживает (архив снят, вышел релиз, появился
-linux-amd64 бинарник) — тогда кандидат возвращается в свой трекер и
-ставится ролью. Без этого не тратить время.
+linux-amd64 бинарник) — тогда кандидат возвращается в свой трекер и ставится
+ролью. Без этого не тратить время.
 
 ---
 
@@ -35,16 +38,15 @@ linux-amd64 бинарник) — тогда кандидат возвращае
 
 - [ ] **Datree** — CLI против Kubernetes-мисконфигураций. —
       [datreeio/datree](https://github.com/datreeio/datree) — архив; последний
-      пуш 2024-04-23. Причина отказа в [`not-install.md`](not-install.md).
-      Покрыт: `kubeconform`, `kube-linter`, `polaris`, `kube-score`,
-      `kubesec`, `kubescape` (роль `kubernetes`).
-- [ ] **glasskube** — пакетный менеджер Kubernetes с GUI и CLI. —
-      [glasskube/glasskube](https://github.com/glasskube/glasskube) — архив с
-      2026-06-14. Описан в
-      [`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md) и
-      [`not-install.md`](not-install.md). Покрыт частично: `helm`, `helmfile`,
-      `kluctl`, `kustomizer`, `kpt` плюс UI `headlamp`/`radar`;
-      dependency-aware менеджера с GUI нет.
+      пуш 2024-04-23. Покрыт: `kubeconform`, `kube-linter`, `polaris`,
+      `kube-score`, `kubesec`, `kubescape` (роль `kubernetes`).
+- [ ] **glasskube** — пакетный менеджер Kubernetes с GUI и CLI
+      (dependency-aware). *(3.5k ⭐, `deb`)* —
+      [glasskube/glasskube](https://github.com/glasskube/glasskube) — архив
+      с 2026-06-14. Покрыт частично: `helm`, `helmfile`, `kluctl`,
+      `kustomizer`, `kpt` плюс UI `headlamp`/`radar`; dependency-aware
+      менеджера с GUI нет. Если архив снимут, `.deb` из релиза ставится ролью
+      `kubernetes` одной строкой.
 - [ ] **Octant** — web-UI/дашборд кластера. —
       [vmware-archive/octant](https://github.com/vmware-archive/octant) —
       архив (vmware-archive), последний пуш 2023-01-19. Заменён `headlamp` и
@@ -57,49 +59,50 @@ linux-amd64 бинарник) — тогда кандидат возвращае
 
 ## 2. Не архив, но проект мёртв
 
-- [ ] **dog** — DNS-клиент с человекочитаемым выводом. —
+- [ ] **dog** — DNS-клиент с человекочитаемым цветным выводом. *(`cargo`)* —
       [ogham/dog](https://github.com/ogham/dog) — последний релиз `v0.1.0`
       (2021), последний пуш 2024-05-29. Бинарник к тому же не запускается на
-      Ubuntu 26.04 — см.
-      [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
-      Покрыт: `q` и `doggo` (роль `network`).
+      Ubuntu 26.04: динамически связан с `libssl.so.1.1`, которого в
+      дистрибутиве нет. Симптом подтверждён в
+      [ogham/dog#109](https://github.com/ogham/dog/issues/109); смежные
+      открытые issue — [#98](https://github.com/ogham/dog/issues/98) и
+      [#122](https://github.com/ogham/dog/issues/122). Покрыт: `q` и `doggo`
+      (роль `network`). Пересмотреть, если выйдет релиз со статической
+      сборкой.
 - [ ] **Chartsec** — сканер безопасности Helm-чартов. —
       [banzaicloud/chartsec](https://github.com/banzaicloud/chartsec) —
-      заброшен с 2019, последний пуш 2019-08-30. Описан в
-      [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md). Покрыт
+      заброшен с 2019, последний пуш 2019-08-30, релизов нет. Покрыт
       частично: `kubesec`, `trivy` (роль `secrets`), `kubeaudit` — статический
       скан манифестов, чарт целиком не рендерится.
 - [ ] **kubectl-snapshot** — снимки состояния кластера. —
       [fbrubbo/kubectl-snapshot](https://github.com/fbrubbo/kubectl-snapshot) —
-      заброшен с 2020, последний пуш 2020-03-24. Описан в
-      [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md). Покрыт
-      частично: `kbom` (инвентарь состояния в JSON) и `kubectl-slice`; снимка
-      с восстановлением нет.
+      заброшен с 2020, последний пуш 2020-03-24, ассетов в релизе нет.
+      Покрыт частично: `kbom` (инвентарь состояния в JSON) и `kubectl-slice`;
+      снимка с восстановлением нет.
 - [ ] **kube-shell** — интерактивный shell для kubectl. —
       [cloudnativelabs/kube-shell](https://github.com/cloudnativelabs/kube-shell)
-      — последний релиз `0.0.23` (2017), последний пуш 2022-11-02. Заменён
-      `kube-prompt`. Покрыт: `kube-prompt` и `kubeprompt` (роль `kubernetes`),
-      также `k9s`.
+      — последний релиз `0.0.23` (2017), последний пуш 2022-11-02; современные
+      API не покрывает. Заменён `kube-prompt`. Покрыт: `kube-prompt` и
+      `kubeprompt` (роль `kubernetes`), также `k9s`.
 - [ ] **klum** — управление пользователями и доступом к кластеру. —
       [ibuildthecloud/klum](https://github.com/ibuildthecloud/klum) — не
-      обновлялся с 2023, последний пуш 2023-09-21. Описан в
-      [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md). Покрыт
-      частично: `kubecm` (kubeconfig), `rbac-tool`, `rbac-lookup`,
+      обновлялся с 2023, последний пуш 2023-09-21; только `go build`, релизов
+      нет. Покрыт частично: `kubecm` (kubeconfig), `rbac-tool`, `rbac-lookup`,
       `kubectl-who-can`, `audit2rbac`; создания пользователей нет.
 - [ ] **KuberEz** — графическое моделирование манифестов. —
       [uengine-oss/kubeez](https://github.com/uengine-oss/kubeez) — переименован
-      из `kuber-ez`, заброшен с 2023, последний пуш 2023-11-13. Описан в
-      [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md). Покрыт:
-      `monokle`, `rubick`, `klustr`, `sextant` (роль `kubernetes`).
+      из `kuber-ez`, заброшен с 2023, последний пуш 2023-11-13; в релизе
+      `1.0alpha` нет ассетов. Покрыт: `monokle`, `rubick`, `klustr`, `sextant`
+      (роль `kubernetes`).
 - [ ] **kopylot** — AI-аудит, диагностика и чат по ресурсам кластера. —
       [avsthiago/kopylot](https://github.com/avsthiago/kopylot) — не
-      обновлялся с 2024, последний пуш 2024-01-24. Причина отказа в
-      [`not-install.md`](not-install.md). Покрыт: `kopilot`, `k8sgpt`,
-      `kubectl-ai`, `kubernetes-mcp-server` (роль `kubernetes`).
+      обновлялся с 2024, последний пуш 2024-01-24; дублирует `kopilot` и
+      требует OpenAI-токен. Покрыт: `kopilot`, `k8sgpt`, `kubectl-ai`,
+      `kubernetes-mcp-server` (роль `kubernetes`).
 - [ ] **kubectl-mtail** — tail логов подов по label selector. —
       проект живёт на GitLab, ссылки в трекере нет; последний релиз 2020 года,
-      ассетов в нём нет. Причина отказа в [`not-install.md`](not-install.md).
-      Покрыт: `stern`, `kail`, `kubetail`, `kftui`, `kl` (роль `kubernetes`).
+      ассетов в нём нет. Покрыт: `stern`, `kail`, `kubetail`, `kftui`, `kl`
+      (роль `kubernetes`).
 
 ## 3. Формально живы, но два года без активности
 
@@ -117,8 +120,8 @@ linux-amd64 бинарник) — тогда кандидат возвращае
       `kubefwd`, `gefyra`, `mirrord`; sshuttle-модели нет.
 - [ ] **mico** — AI-помощник kubectl. —
       [tahtaciburak/mico](https://github.com/tahtaciburak/mico) — последний
-      пуш 2023-03-25; только `go build`. Покрыт: `kubectl-ai` и `k8sgpt`
-      (роль `kubernetes`).
+      пуш 2023-03-25; только `go build`, релизов нет. Покрыт: `kubectl-ai` и
+      `k8sgpt` (роль `kubernetes`).
 - [ ] **KindScaler** — управление нодами KinD-кластера. —
       [lobuhi/kindscaler](https://github.com/lobuhi/kindscaler) — последний
       пуш 2024-06-15; только `go build`, релизов нет.
@@ -136,3 +139,6 @@ linux-amd64 бинарник) — тогда кандидат возвращае
   [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md).
 - **`devbox` и `flox`** — живые, но удалены из-за отказа от Nix:
   [`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md).
+- **Кандидаты без релизного бинарника, но с живым апстримом** — остаются в
+  [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md): там ждут релиз,
+  а не возрождения проекта.

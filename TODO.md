@@ -44,9 +44,9 @@ Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 `TODO-no-prebuilt-binary.md`).
 
 Реестр 2026-10-23: заброшенные проекты (архив GitHub, годы без обновлений)
-собраны в [`TODO-abandoned.md`](TODO-abandoned.md). Это не новый трекер, а
-сводка статусов: описание кандидата остаётся в том файле, где он разобран,
-чтобы не нарушать правило «один кандидат — один трекер».
+описаны только в [`TODO-abandoned.md`](TODO-abandoned.md). Из остальных
+трекеров такие кандидаты убраны, там остались только ссылки на этот файл:
+один заброшенный проект не должен быть описан в нескольких местах.
 
 ---
 
@@ -94,21 +94,22 @@ Ansible Galaxy, а не приложение, поэтому вместо неё
 удалены: Nix не используется.
 
 Добавлены 2026-10-23 из тех же трендов — следующие 15 по звёздам среди
-оставшихся кандидатов (без архивного `glasskube`, мета-пакета
-`ansible-dev-tools`, который дублирует уже поставленные части, и коллекции
-Ansible Galaxy `dev-sec`): `polaris`, `kube-score`, `kubectl-neat`,
-`kubectl-validate`, `nova`, `helm-secrets`, `ansible-navigator`,
-`ansible-builder`, `ansible-creator`, `ansible-doctor`, `ara`, `tenv`,
-`atmos`, `tfupdate`, `tfsort`. `glasskube` не ставится: репозиторий
-заархивирован 2026-06-14. `inframap` уже стоял в плейбуке до этого разбора
-(роль `iac`, тег v0.8.0).
+оставшихся кандидатов (без заброшенных — см.
+[`TODO-abandoned.md`](TODO-abandoned.md), мета-пакета `ansible-dev-tools`,
+который дублирует уже поставленные части, и коллекции Ansible Galaxy
+`dev-sec`): `polaris`, `kube-score`, `kubectl-neat`, `kubectl-validate`,
+`nova`, `helm-secrets`, `ansible-navigator`, `ansible-builder`,
+`ansible-creator`, `ansible-doctor`, `ara`, `tenv`, `atmos`, `tfupdate`,
+`tfsort`. `inframap` уже стоял в плейбуке до этого разбора (роль `iac`, тег
+v0.8.0).
 
 Добавлены 2026-10-23 из тех же трендов — последние кандидаты с готовым пакетом
 Ubuntu: `btop` (1.4.6) и `ncdu` (1.22), оба ролью `shell` через apt. Трекер
 трендов после этого разобран полностью и удалён; кандидаты, которые осознанно
-не добавлены (`glasskube` — архив, `ansible-dev-tools` — мета-пакет, `dev-sec`
-— коллекция Galaxy, `terraform-ls` — только исходники), перечислены с
-причинами в [`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md).
+не добавлены (`ansible-dev-tools` — мета-пакет, `dev-sec` — коллекция Galaxy,
+`terraform-ls` — только исходники), перечислены с причинами в
+[`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md). Заброшенные
+из этой волны — в [`TODO-abandoned.md`](TODO-abandoned.md).
 
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см. [`not-install.md`](not-install.md) и
