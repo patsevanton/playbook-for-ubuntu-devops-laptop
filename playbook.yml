@@ -118,6 +118,7 @@
         - "{{ bin_dir }}/gai --version"
         - "{{ bin_dir }}/dnsglobe --version"
         - "{{ bin_dir }}/bandwhich --version"
+        - "{{ bin_dir }}/uncover -version"
         - "{{ bin_dir }}/q --version"
         - "{{ bin_dir }}/xh --version"
         - "{{ bin_dir }}/kyanos --version"

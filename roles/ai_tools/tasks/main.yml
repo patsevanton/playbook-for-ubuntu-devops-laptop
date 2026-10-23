@@ -1,7 +1,8 @@
 ---
 # ============================================================================
-# Роль ai_tools: herdr, rtk и T3 Code (усиление AI-агентов).
-# Ставит бинарники, конфиги, приложение T3 Code и интеграции с opencode.
+# Роль ai_tools: herdr, rtk, T3 Code и Ouroboros (усиление AI-агентов).
+# Ставит бинарники, конфиги, приложения T3 Code и Ouroboros, интеграции
+# с opencode.
 # ============================================================================
 
 - name: Установить herdr и rtk (актуальные версии)
@@ -14,6 +15,11 @@
   ansible.builtin.include_tasks:
     file: t3code.yml
   when: t3code_install
+
+- name: Установить Ouroboros (AI-агент с десктопом и CLI, .deb)
+  ansible.builtin.include_tasks:
+    file: ouroboros.yml
+  when: ouroboros_install
 
 - name: Создать каталог конфига rtk
   ansible.builtin.file:

@@ -1221,6 +1221,17 @@ klustr_install: true
 klustr_repo: SametKUM/klustr
 klustr_deb_dir: "{{ tmp_dir }}/klustr"
 
+# --- Sextant: desktop-клиент Kubernetes, альтернатива Lens (.deb) ------------
+# Rust/Tauri-приложение: все контексты из kubeconfig сразу, ресурсы и YAML
+# со схемой кластера, логи, шеллы в контейнерах и на нодах, port-forward,
+# Helm/Flux/Argo CD, Istio/Linkerd, RBAC, right-sizing, диагностика сети и
+# встроенный MCP-сервер для AI-агентов. Без аккаунта и телеметрии.
+# Имя артефакта Sextant_{version}_amd64.deb (версия без v, с заглавной S).
+# Версия берётся из редиректа releases/latest (см. tasks/sextant.yml).
+sextant_install: true
+sextant_repo: FriendsOfKubernetes/sextant
+sextant_deb_dir: "{{ tmp_dir }}/sextant"
+
 # kubectx — shell-скрипт без релизных артефактов, берётся из ветки master.
 kubectx_ref: master
 kubectx_url: "https://raw.githubusercontent.com/ahmetb/kubectx/{{ kubectx_ref }}/kubectx"

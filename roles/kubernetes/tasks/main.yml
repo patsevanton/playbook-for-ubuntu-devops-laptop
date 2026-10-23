@@ -66,6 +66,11 @@
     file: klustr.yml
   when: klustr_install
 
+- name: Установить Sextant (desktop-клиент Kubernetes, альтернатива Lens)
+  ansible.builtin.include_tasks:
+    file: sextant.yml
+  when: sextant_install
+
 - name: Установить kubebox (терминальная и веб-консоль Kubernetes)
   ansible.builtin.include_tasks:
     file: kubebox.yml

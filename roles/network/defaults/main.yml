@@ -251,6 +251,18 @@ network_binaries:
     url: "https://github.com/domcyrus/rustnet/releases/download/{tag}/rustnet-v{version}-x86_64-unknown-linux-musl.tar.gz"
     archive: tar
     member: rustnet-v{version}-x86_64-unknown-linux-musl/rustnet
+  # uncover — поиск хостов через API поисковых систем (Shodan, Censys, FOFA,
+  # Hunter, Quake, ZoomEye, Netlas, CriminalIP и др.): один запрос по
+  # нескольким движкам сразу, вывод `ip:port`, `host`, JSONL или шаблон под
+  # пайп в httpx/naabu/nuclei. Ключи нужны только для запросов, не для
+  # установки; shodan-idb работает по IP/CIDR вообще без ключа.
+  # Релиз — uncover_{version}_linux_amd64.zip, бинарник uncover.
+  - name: uncover
+    source: github
+    repo: projectdiscovery/uncover
+    url: "https://github.com/projectdiscovery/uncover/releases/download/{tag}/uncover_{version}_linux_amd64.zip"
+    archive: zip
+    member: uncover
 
 # --- Sniffnet: графический TUI-анализатор сетевого трафика -----------------
 # Ставится официальным .deb из GitHub-релиза (артефакт без версии в имени).

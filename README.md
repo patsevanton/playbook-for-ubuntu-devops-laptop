@@ -118,7 +118,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   helmsman, kexp, gefyra, reckoner, copper,
 │   │                           #   alterant, crashd, kubescout, k8s-insider,
 │   │                           #   patchloom, klustr (.deb), kubectl-fields,
-│   │                           #   kosko (npm), headlamp, radar,
+│   │                           #   kosko (npm), headlamp, radar, sextant,
 │   │                           #   k8sgpt, kubescape, popeye, vcluster,
 │   │                           #   skaffold, kubeshark, helm-diff (плагин helm),
 │   │                           #   kubectl-ai, k3d, telepresence, tilt, mirrord,
@@ -157,7 +157,7 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   JetBrainsMono Nerd Font, mcommander, ghostty,
 │   │                           #   конфиг shell
 │   ├── network/                # nmap, netcat, tcpdump, httpie, dnsutils, telnet,
-│   │                           #   gai, dnsglobe, bandwhich, q, xh, hurl, trippy,
+│   │                           #   gai, dnsglobe, bandwhich, uncover, q, xh, hurl, trippy,
 │   │                           #   tcping, doggo, gotty, sshx, txeh, assh,
 │   │                           #   k6, gping,
 │   │                           #   rkn-block-checker (pipx), ssh-audit и httptap (pipx),
@@ -168,7 +168,8 @@ ansible-lint                                   # проверка стиля (pr
 │   │                           #   pktstat-bpf, tracee
 │   ├── opencode/               # opencode (из npm-реестра) + глобальный AGENTS.md
 │   ├── ai_tools/               # herdr, rtk (инструменты для AI-агентов),
-│   │                           #   T3 Code (.deb: пульт к агентам)
+│   │                           #   T3 Code (.deb: пульт к агентам),
+│   │                           #   Ouroboros (.deb: AI-агент с десктопом и CLI)
 │   ├── skills/                 # глобальные skills для opencode (CLI `skills`)
 │   ├── audio/                  # HushMic (шумоподавление микрофона, .deb)
 │   ├── hardware/               # LACT (настройка и мониторинг GPU, .deb + lactd)
@@ -413,7 +414,9 @@ ansible-lint                                   # проверка стиля (pr
 13. Ставит сетевую диагностику: `gai` (инспектор getaddrinfo), `dnsglobe`
     (проверка распространения DNS), `bandwhich` (трафик по процессам),
     `q` (DNS-клиент с DoH/DoT/DoQ), `doggo` (DNS-клиент с человекочитаемым
-    цветным выводом), `xh` (HTTP-клиент), `hurl` (HTTP-запросы
+    цветным выводом), `xh` (HTTP-клиент), `uncover` (поиск хостов через
+    Shodan, Censys, FOFA, Quake и другие движки — результат готов для пайпа
+    в `httpx`/`naabu`/`nuclei`), `hurl` (HTTP-запросы
     из plain-text `.hurl`-файлов), `trippy` (TUI traceroute со статистикой),
     `tcping` (`ping` поверх TCP-портов), `gotty` (терминал как веб-приложение),
     `sshx` (совместный терминал в браузере), `txeh` (управление `/etc/hosts`),
@@ -476,8 +479,10 @@ ansible-lint                                   # проверка стиля (pr
 
 Пакетами `.deb` (вне роли `binaries`) ставятся `mcommander` (роль `shell`),
 `HushMic` (роль `audio`), `LACT` (роль `hardware`), `atmos` (роль `iac`),
-`headlamp`, `radar`, `monokle`, `rubick` и `klustr` (роль `kubernetes`),
-`T3 Code` (роль `ai_tools`, приложение в `/opt`, ярлык `/usr/bin/t3code`).
+`headlamp`, `radar`, `monokle`, `rubick`, `klustr` и `sextant`
+(роль `kubernetes`), `T3 Code` (роль `ai_tools`, приложение в `/opt`, ярлык
+`/usr/bin/t3code`), `Ouroboros` (роль `ai_tools`, приложение в `/opt`,
+команда `ouroboros`).
 
 ### Скачиваемые бинарники в `/usr/local/bin`
 
@@ -534,6 +539,7 @@ ansible-lint                                   # проверка стиля (pr
 | gai | github.com/casablanque-code/gai |
 | dnsglobe | github.com/514-labs/dnsglobe |
 | bandwhich | github.com/imsnif/bandwhich |
+| uncover | github.com/projectdiscovery/uncover |
 | q | github.com/natesales/q |
 | xh | github.com/ducaale/xh |
 | hurl | github.com/Orange-OpenSource/hurl |
@@ -796,8 +802,9 @@ zip-архива в `/opt/dependency-check` с обёрткой в `/usr/local/b
 `~/.local/share/helm/plugins`, роль `kubernetes`),
 `atmos` — из `.deb`-пакета GitHub-релиза (роль `iac`; .deb втрое меньше
 одиночного бинарника),
-`headlamp`, `radar`, `monokle`, `rubick` и `klustr` — из
-`.deb`-пакетов GitHub-релиза (роль `kubernetes`, desktop UI), `HushMic` — из
+`headlamp`, `radar`, `monokle`, `rubick`, `klustr` и `sextant` — из
+`.deb`-пакетов GitHub-релиза (роль `kubernetes`, desktop UI), `T3 Code` и
+`Ouroboros` — из `.deb`-пакетов GitHub-релиза (роль `ai_tools`), `HushMic` — из
 `.deb`-пакета (роль `audio`), `mcommander` — из `.deb`-пакетов (роль `shell`),
 `sniffnet` — из `.deb`-пакета GitHub-релиза (роль `network`), `cheat` — из
 gzip-сжатого одиночного бинарника релиза (роль `shell`), `osquery` — из
@@ -1532,11 +1539,12 @@ Helm-чарты (grafana, prometheus, gitea, Jenkins и т.п.), которые 
 
 ---
 
-## herdr, rtk и T3 Code — инструменты для AI-агентов
+## herdr, rtk, T3 Code и Ouroboros — инструменты для AI-агентов
 
 Роль `ai_tools` ставит два CLI, усиливающих coding-агентов (opencode и др.),
-и приложение T3 Code. Бинарники кладутся в `/usr/local/bin/` через роль
-`binaries` (версия — актуальная на момент запуска).
+и два приложения — T3 Code и Ouroboros. Бинарники кладутся в
+`/usr/local/bin/` через роль `binaries` (версия — актуальная на момент
+запуска).
 
 - **herdr** (`herdrdev/herdr`) — TUI-оболочка поверх терминала: управляет
   сессиями/панелями/вкладками coding-агентов, показывает их состояние
@@ -1580,6 +1588,34 @@ t3code --version
   в `~/.local/bin`). Плейбук его не ставит: на ноутбуке хватает приложения.
 - **Данные и проекты** T3 Code хранит у себя (`~/.t3` у CLI, каталог приложения
   у `.deb`); удаление пакета их не трогает.
+
+### Ouroboros — AI-агент с десктопом, CLI и web-интерфейсом
+
+`razzant/ouroboros` — general-purpose агент, который держит идентичность,
+память и историю между задачами и перезапусками, ведёт рой суб-агентов,
+работает с внешними проектами и умеет переписывать собственный код.
+Управляется десктопным приложением или headless-CLI; модели — свои API-ключи
+или локальная GGUF; телеметрии по умолчанию нет, сервер слушает только
+`127.0.0.1:8765`.
+
+Ставится официальным `.deb` (`ouroboros_{version}_amd64.deb`): приложение
+распаковывается в `/opt/ouroboros`, команда `ouroboros` появляется на `PATH`,
+добавляется ярлык в меню приложений. systemd user unit пакет создаёт, но не
+включает.
+
+```bash
+ouroboros status
+ouroboros run --start "2+2?"
+```
+
+- **Размер:** `.deb` ~900 МБ — внутрь вложены CPython, SQLite и
+  Chromium/WebKit. Если агент не нужен, `ouroboros_install: false` в
+  `roles/ai_tools/defaults/main.yml` выключает установку целиком.
+- **Первый запуск** — мастер настройки: доступ к моделям, политика ревью,
+  бюджет. Без ключа или локальной модели задачи не выполняются.
+- **Данные** — `~/Ouroboros/data`. Удаление пакета их не трогает, чистить
+  вручную.
+- **Идемпотентность:** есть `/usr/bin/ouroboros` — роль ничего не качает.
 
 ### Конфиги
 

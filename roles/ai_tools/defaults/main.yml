@@ -68,3 +68,18 @@ t3code_repo: pingdotgg/t3code
 t3code_deb_arch: amd64
 t3code_bin: /usr/bin/t3code
 t3code_deb_dir: "{{ tmp_dir }}/t3code"
+
+# --- Ouroboros: AI-агент с десктопом, CLI и web-интерфейсом (.deb) -----------
+# Самомодифицирующийся general-purpose агент: помнит контекст между задачами и
+# перезапусками, ведёт рой суб-агентов, работает с внешними проектами, отдаёт
+# те же задачи через CLI (`ouroboros run`, `tasks`, `schedule`) и web-интерфейс
+# на 127.0.0.1:8765. Модели — свои API-ключи или локальная GGUF.
+#
+# Пакет крупный (~900 МБ), поэтому включён флагом: если агент не нужен,
+# поставить `ouroboros_install: false`. Имя артефакта
+# ouroboros_{version}_amd64.deb (версия без префикса v). Версия берётся из
+# редиректа releases/latest (см. tasks/ouroboros.yml). Ставится в /opt,
+# ярлык /usr/bin/ouroboros; systemd user unit пакет создаёт, но не включает.
+ouroboros_install: true
+ouroboros_repo: razzant/ouroboros
+ouroboros_deb_dir: "{{ tmp_dir }}/ouroboros"
