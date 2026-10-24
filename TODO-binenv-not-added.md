@@ -8,7 +8,7 @@
 `TODO*.md`, ни в `roles/**` (defaults, tasks, templates). То есть утилита не
 ставится и нигде в проекте не обсуждалась как кандидат.
 
-Из 183 отсутствующих записей сюда попали **103** — активные и не дублирующие
+Из 183 отсутствующих записей сюда попали **99** — активные и не дублирующие
 уже установленное. Остальные разложены по своим трекерам, чтобы не дублировать
 один кандидат в нескольких файлах:
 
@@ -17,7 +17,7 @@
 - **11 серверных и кластерных компонентов** (Loki, Promtail, Traefik, Velero,
   Consul, Nomad, Rancher, Athens, Parca, Logcli, Pomerium) —
   [`TODO-server-apps.md`](TODO-server-apps.md);
-- **21 позиция — дубли, варианты уже имеющегося и отказы** (например, `rg` = `ripgrep`,
+- **25 позиций — дубли, варианты уже имеющегося и отказы** (например, `rg` = `ripgrep`,
   `kubectl-krew` = `krew`, `kubeseal` при SOPS/bank-vaults) —
   [`not-install.md`](not-install.md).
 
@@ -55,11 +55,7 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 | Утилита | Что это |
 | --- | --- |
 | [exo](https://github.com/exoscale/cli/) | CLI для всего в Exoscale: вычисления, хранилище, DNS |
-| [hcloud](https://github.com/hetznercloud/cli/) | управление ресурсами Hetzner Cloud |
 | [helm-docs](https://github.com/norwoodj/helm-docs/) | генерация документации для Helm-чартов (в апстриме описание ошибочно скопировано с hcloud) |
-| [iamlive](https://github.com/iann0036/iamlive/) | генерация IAM-политики из вызовов AWS через client-side monitoring (CSM) или встроенный прокси |
-| [saml2aws](https://github.com/Versent/saml2aws/) | вход и получение временных учётных данных AWS через SAML IdP |
-| [ssosync](https://github.com/awslabs/ssosync/) | наполнение AWS SSO пользователями и группами G Suite через CLI или AWS Lambda |
 | [terraform-inventory](https://github.com/adammck/terraform-inventory/) | создание ansible-инвентаря из terraform |
 | [tofu](https://github.com/opentofu/opentofu) | декларативное управление облачной инфраструктурой |
 
