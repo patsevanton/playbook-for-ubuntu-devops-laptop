@@ -58,6 +58,18 @@ monitoring_binaries:
     repo: flanksource/canary-checker
     url: "https://github.com/flanksource/canary-checker/releases/download/{tag}/canary-checker_linux_amd64"
     archive: none
+  # kula — лёгкий мониторинг Linux с web-UI и TUI: CPU, память, диски, сеть,
+  # температура и GPU; хранит историю локально и отдаёт панель на порту 27960
+  # (по умолчанию слушает все интерфейсы — для локального доступа задайте
+  # web.listen: "127.0.0.1" в config.yaml). Релиз — kula-{version}-amd64.tar.gz,
+  # бинарник лежит в каталоге kula/ архива. Дополняет btop (тот показывает
+  # только текущий момент, kula — историю без Prometheus).
+  - name: kula
+    source: github
+    repo: c0m4r/kula
+    url: "https://github.com/c0m4r/kula/releases/download/{tag}/kula-{version}-amd64.tar.gz"
+    archive: tar
+    member: kula/kula
 # --- krr: рекомендации requests/limits для Kubernetes -------------------------
 # krr (Robusta KRR) собирает фактическое потребление подов (Prometheus или
 # metrics-server) и предлагает requests/limits с запасом — дополняет

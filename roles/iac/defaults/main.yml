@@ -216,6 +216,22 @@ iac_binaries:
     archive: tar
     member: tfsort
 
+# --- RackPeek: инвентаризация инфраструктуры (одиночный бинарник) -----------
+# RackPeek документирует железо, сервисы и связи хоумлаба и отдаёт это в
+# CLI (`rpk`), web-UI и генераторы Ansible/SSH/hosts. В релизе артефакт
+# называется rackpeek_<ver>_linux-x64, где версия записана через подчёркивания
+# (rackpeek_2_1_0_linux-x64), поэтому файл собирается в tasks/rackpeek.yml, а
+# не ролью binaries.
+#
+# Состояние RackPeek (config.yaml) хранится в RPK_YAML_DIR; по умолчанию это
+# ./config рядом с бинарником, то есть /usr/local/bin/config — не годится.
+# В devops-shell.sh задан ~/.config/rackpeek, каталог создаётся ниже.
+rackpeek_install: true
+rackpeek_repo: Timmoth/RackPeek
+rackpeek_bin: "{{ bin_dir }}/rpk"
+rackpeek_config_dir: "{{ home_dir }}/.config/rackpeek"
+rackpeek_tmp_dir: "{{ tmp_dir }}/rackpeek"
+
 # --- atmos: оркестратор Terraform-окружений (.deb из GitHub-релиза) ---------
 # DRY-конфиги стеков поверх Terragrunt, импорт/план/apply по компонентам и
 # окружениям, вендоринг и политики. Ставится .deb: одиночный релизный

@@ -289,6 +289,27 @@ network_binaries:
     url: "https://github.com/Adembc/lazyssh/releases/download/{tag}/lazyssh_Linux_x86_64.tar.gz"
     archive: tar
     member: lazyssh
+  # omny — TUI SSH-менеджер: хосты, вкладки, живые метрики, SFTP, проброс
+  # портов, ключи и сниппеты. Релиз — omny-x86_64-unknown-linux-gnu.tar.gz,
+  # бинарник omny в корне. Дополняет lazyssh (тот работает по ~/.ssh/config)
+  # и assh (генерирует конфиг из YAML). GUI-версия OmnySSH ставится отдельным
+  # .deb (tasks/omnyssh.yml).
+  - name: omny
+    source: github
+    repo: timhartmann7/omnyssh
+    url: "https://github.com/timhartmann7/omnyssh/releases/download/{tag}/omny-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: omny
+
+# --- OmnySSH: графический SSH-менеджер (.deb из GitHub-релиза) --------------
+# GUI-версия того же движка, что и TUI omny: подключения, вкладки, метрики,
+# SFTP и проброс портов в одном окне. Артефакт релиза называется без версии —
+# OmnySSH-x86_64.deb, поэтому тег последнего релиза берётся из редиректа
+# releases/latest (см. tasks/omnyssh.yml).
+omnyssh_install: true
+omnyssh_repo: timhartmann7/omnyssh
+omnyssh_deb_name: OmnySSH-x86_64.deb
+omnyssh_deb_dir: "{{ tmp_dir }}/omnyssh"
 
 # --- Sniffnet: графический TUI-анализатор сетевого трафика -----------------
 # Ставится официальным .deb из GitHub-релиза (артефакт без версии в имени).

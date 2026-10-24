@@ -73,3 +73,8 @@
   ansible.builtin.include_tasks:
     file: sniffnet.yml
   when: sniffnet_install
+
+- name: Установить OmnySSH (GUI-менеджер SSH-подключений)
+  ansible.builtin.include_tasks:
+    file: omnyssh.yml
+  when: omnyssh_install

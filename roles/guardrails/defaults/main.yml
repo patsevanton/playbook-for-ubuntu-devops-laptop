@@ -48,6 +48,36 @@ guardrails_disabled_rules:
   - ip-addrs.ipv4-public
   - ip-addrs.ipv4-private
 
+# --- Бинарники guardrails ---------------------------------------------------
+# tirith — защита терминала: проверяет команду до выполнения на homograph-URL,
+# `curl | bash`, ANSI-инъекции, обфусцированные команды и подозрительные
+# skills/конфиги. Хук подключается в devops-shell.sh через
+# `eval "$(tirith init --shell bash)"`.
+# dcg — Destructive Command Guard: блокирует `rm -rf`, `git reset --hard`,
+# `push --force` и подобное до выполнения агентом; правила — готовые packs,
+# свои дополнения через allowlist. В OpenCode подключается плагином
+# (dcg install --opencode).
+guardrails_binaries:
+  - name: tirith
+    source: github
+    repo: sheeki03/tirith
+    url: "https://github.com/sheeki03/tirith/releases/download/{tag}/tirith-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: tirith
+  - name: dcg
+    source: github
+    repo: Dicklesworthstone/destructive_command_guard
+    url: "https://github.com/Dicklesworthstone/destructive_command_guard/releases/download/{tag}/dcg-x86_64-unknown-linux-musl.tar.xz"
+    archive: tarxz
+    member: dcg
+
+# Плагин OpenCode для dcg: перехватывает tool.execute.before и прогоняет
+# каждую bash-команду через dcg. Файл генерирует сам dcg и запоминает
+# абсолютный путь к бинарнику, поэтому при переносе dcg плагин нужно
+# перегенерировать (удалить файл и запустить плейбук снова).
+guardrails_dcg_install_opencode: true
+guardrails_dcg_opencode_plugin: "{{ home_dir }}/.config/opencode/plugins/dcg-guard.js"
+
 # Скрипт применения политики правил (запускается из ExecStartPost).
 guardrails_policy_script: /usr/local/sbin/guardrails-apply-policy
 

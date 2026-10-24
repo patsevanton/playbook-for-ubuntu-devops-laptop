@@ -1,6 +1,7 @@
 ---
 # ============================================================================
-# Роль postgres: pgCenter — админка и мониторинг PostgreSQL.
+# Роль postgres: клиенты к PostgreSQL (pgCenter, pgcli, rainfrog) и dbx —
+# GUI-клиент к 100+ СУБД.
 # ============================================================================
 
 - name: Установить клиентскую библиотеку PostgreSQL (libpq)
@@ -8,6 +9,11 @@
   ansible.builtin.apt:
     name: "{{ postgres_packages }}"
     state: present
+
+- name: Установить dbx (GUI-клиент к базам данных)
+  ansible.builtin.include_tasks:
+    file: dbx.yml
+  when: dbx_install
 
 - name: Установить pgCenter (актуальная версия)
   ansible.builtin.include_role:

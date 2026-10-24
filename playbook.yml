@@ -395,6 +395,11 @@
         - "{{ pipx_bin_dir }}/ansible-creator --version"
         - "{{ pipx_bin_dir }}/ansible-doctor --version"
         - "{{ pipx_bin_dir }}/ara --help"
+        - "{{ bin_dir }}/omny --version"
+        - "{{ bin_dir }}/rpk --version"
+        - "{{ bin_dir }}/kula --version"
+        - "{{ bin_dir }}/tirith --version"
+        - "{{ bin_dir }}/dcg --version"
       loop_control:
         label: "{{ item }}"
 
@@ -424,6 +429,8 @@
         - "{{ bin_dir }}/kopilot"
         - "{{ pipx_bin_dir }}/kptop"
         - /usr/bin/klustr
+        - /usr/bin/dbx
+        - /usr/bin/OmnySSH
       loop_control:
         label: "{{ item }}"
 

@@ -109,6 +109,11 @@ Ubuntu: `btop` (1.4.6) и `ncdu` (1.22), оба ролью `shell` через ap
 `zizmor`, `landrun`, `lazyssh`. `bluetui` не ставится — причина в
 [`not-install.md`](not-install.md).
 
+Добавлены 2026-10-24 по запросу: `dbx` (роль `postgres`), `omnyssh` — TUI
+`omny` и GUI `OmnySSH` (роль `network`), `RackPeek` — команда `rpk` (роль
+`iac`), `kula` (роль `monitoring`), `tirith` и `dcg` (роль `guardrails`,
+dcg дополнительно подключён к OpenCode плагином).
+
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см.
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) и

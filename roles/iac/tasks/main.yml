@@ -1,7 +1,7 @@
 ---
 # ============================================================================
 # Роль iac: tflint, terraform-docs, terraform-ls, packer, inframap, rover, graphviz
-# + менеджеры версий tfenv/tgenv.
+# + менеджеры версий tfenv/tgenv, RackPeek (`rpk`).
 # ============================================================================
 
 - name: Установить системные пакеты IaC (graphviz для рендера графов)
@@ -26,6 +26,11 @@
   ansible.builtin.include_tasks:
     file: atmos.yml
   when: atmos_install
+
+- name: Установить RackPeek (инвентаризация инфраструктуры)
+  ansible.builtin.include_tasks:
+    file: rackpeek.yml
+  when: rackpeek_install
 
 # tfenv/tgenv ставятся в домашний каталог пользователя, поэтому без become.
 # Идемпотентность по наличию файла: нет бинарника — клонируем репозиторий.

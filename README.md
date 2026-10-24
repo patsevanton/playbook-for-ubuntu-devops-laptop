@@ -320,11 +320,13 @@ ansible-lint                                   # проверка стиля (pr
 - [tftui](https://github.com/idoavrah/terraform-tui) — TUI для работы с Terraform-стейтом.
 - [checkov](https://github.com/bridgecrewio/checkov) — SAST для IaC: мисконфиги в Terraform, Kubernetes, Dockerfile, Helm.
 - [atmos](https://github.com/cloudposse/atmos) — оркестрация Terraform-окружений поверх Terragrunt.
+- [RackPeek](https://github.com/Timmoth/RackPeek) — инвентаризация железа, сервисов и сетей хоумлаба (CLI `rpk`, web-UI, генераторы Ansible/SSH/hosts).
 - [tfenv](https://github.com/tfutils/tfenv) — менеджер версий Terraform.
 - [tgenv](https://github.com/tgenv/tgenv) — менеджер версий Terragrunt.
 
 ### postgres
 
+- [dbx](https://github.com/t8y2/dbx) — GUI-клиент к 100+ СУБД (PostgreSQL, MySQL, SQLite, Redis, MongoDB, DuckDB) с CLI и MCP-сервером.
 - [pgCenter](https://github.com/lesovsky/pgcenter) — консольная админка и мониторинг PostgreSQL.
 - [pgcli](https://github.com/dbcli/pgcli) — psql с автодополнением и подсветкой синтаксиса.
 - [libpq5](https://www.postgresql.org/) — клиентская библиотека PostgreSQL для psycopg и pgcli.
@@ -477,6 +479,7 @@ ansible-lint                                   # проверка стиля (pr
 - [ptcpdump](https://github.com/mozillazg/ptcpdump) — tcpdump на eBPF, который показывает процесс и контейнер для каждого пакета.
 - [posting](https://github.com/darrenburns/posting) — HTTP-клиент в терминале: коллекции, окружения, история, `.http`-файлы.
 - [lazyssh](https://github.com/Adembc/lazyssh) — SSH-менеджер в стиле lazydocker/k9s: хосты из `~/.ssh/config`, подключение, ключи.
+- [omnyssh](https://github.com/timhartmann7/omnyssh) — SSH-менеджер: TUI `omny` и GUI `OmnySSH` с вкладками, метриками, SFTP и пробросом портов.
 
 ### ebpf
 
@@ -493,6 +496,7 @@ ansible-lint                                   # проверка стиля (pr
 - [cloudprober](https://github.com/cloudprober/cloudprober) — активные пробы HTTP/PING/TCP/DNS.
 - [canary-checker](https://github.com/flanksource/canary-checker) — health-check платформа с проверками из YAML.
 - [krr](https://github.com/robusta-dev/krr) — рекомендации requests/limits по фактическому потреблению.
+- [kula](https://github.com/c0m4r/kula) — лёгкий мониторинг Linux с web-UI и TUI: история метрик без Prometheus.
 
 ### ai_tools
 
@@ -519,6 +523,8 @@ ansible-lint                                   # проверка стиля (pr
 ### guardrails
 
 - [guardrails-llm-filter](https://github.com/cloud-ru-tech/guardrails-llm-filter) — прокси, который маскирует PII и секреты на пути к LLM (systemd-юнит поверх Docker).
+- [tirith](https://github.com/sheeki03/tirith) — проверка команд терминала: homograph-URL, `curl | bash`, ANSI-инъекции, обфусцированные команды. Хук подключается в `devops-shell.sh`.
+- [dcg (Destructive Command Guard)](https://github.com/Dicklesworthstone/destructive_command_guard) — блокировка `rm -rf`, `git reset --hard`, `push --force` до выполнения агентом. Плагин OpenCode ставится через `dcg install --opencode`.
 
 ### nora
 

@@ -78,12 +78,6 @@
 
 ### Общего назначения
 
-- [ ] **dbx** — клиент к 100+ БД (PostgreSQL, MySQL, SQLite, Redis, Mongo,
-      DuckDB) с CLI, desktop-приложением и MCP-сервером. *(27.6k ⭐,
-      `.deb`/AppImage)* — [t8y2/dbx](https://github.com/t8y2/dbx)
-      — не добавлен: GUI к базам на ноутбуке пока не нужен, а CLI-часть
-      закрывают `pgcli`, `harlequin`, `lazysql` и `duckdb`. Пересматривать,
-      если понадобится один клиент на все базы сразу, в том числе с MCP.
 - [ ] **xerj** — локальный поисковик и MCP-сервер: код, логи, CSV/JSONL,
       PDF, BM25 и вектор, Elasticsearch-совместимый API. *(13.3k ⭐,
       `tar.gz`/`.deb`)* — [xerj-org/xerj](https://github.com/xerj-org/xerj)
@@ -107,18 +101,6 @@
       top-N пассажей; логи и метрики уже закрыты VictoriaLogs и
       Elasticsearch. Пересматривать после стабильного 1.0 и при появлении
       корпуса на 1–5 ГБ текста, по которому `rg` не даёт ответа.
-- [ ] **omnyssh** — SSH-менеджер: GUI и TUI, живые метрики, вкладки, SFTP,
-      проброс портов, ключи и сниппеты. *(1.2k ⭐, `.deb`/`tar.gz`/AppImage)*
-      — [timhartmann7/omnyssh](https://github.com/timhartmann7/omnyssh)
-      — не добавлен: `assh` управляет конфигом, `sshx` — совместной сессией,
-      а GUI-менеджер подключений пока не требуется. Пересматривать, если
-      станет много хостов и понадобится SFTP/форвардинг из одного окна.
-- [ ] **RackPeek** — инвентаризация и документация инфраструктуры и
-      хоумлаба из CLI, одиночный бинарник. *(1.8k ⭐, `linux-x64`)* —
-      [Timmoth/RackPeek](https://github.com/Timmoth/RackPeek)
-      — не добавлен: своей инфраструктуры для документирования на ноутбуке
-      нет. Пересматривать при появлении домашней лаборатории или если нужно
-      вести инвентарь без NetBox.
 - [ ] **Filee** — офлайн-конвертер 255 форматов: изображения, PDF, Office,
       видео, аудио, архивы. *(10.8k ⭐, `linux-x64.tar.gz`)* —
       [KnifeLemon/Filee](https://github.com/KnifeLemon/Filee)
@@ -139,29 +121,6 @@
       [googleworkspace/cli](https://github.com/googleworkspace/cli)
       — не добавлен: завязан на Google Workspace, которого в сценарии
       ноутбука нет. Пересматривать, если появится рабочий аккаунт Google.
-- [ ] **kula** — лёгкий мониторинг Linux с web-UI, один бинарник.
-      *(1.3k ⭐, `.deb`/`tar.gz`)* — [c0m4r/kula](https://github.com/c0m4r/kula)
-      — не добавлен: интерактивный мониторинг закрывает `btop`, а долгий сбор
-      метрик на ноутбуке не нужен. Пересматривать, если понадобится
-      веб-панель с историей без Prometheus.
-
-### Безопасность и guardrails
-
-- [ ] **tirith** — защита терминала: homograph-URL, `curl | bash`,
-      ANSI-инъекции, обфусцированные команды, вредоносные skills и конфиги.
-      *(2.8k ⭐, `.deb`/`linux-gnu.tar.gz`, AGPL-3.0)* —
-      [sheeki03/tirith](https://github.com/sheeki03/tirith)
-      — не добавлен: лицензия AGPL-3.0, а польза зависит от того, насколько
-      часто в терминал попадают чужие install-скрипты. Пересматривать, если
-      агенты начнут выполнять команды из внешних источников.
-- [ ] **dcg (Destructive Command Guard)** — хук, который блокирует
-      `rm -rf`, `git reset --hard`, `push --force` и подобное до выполнения
-      агентом. *(6.2k ⭐, `linux-musl.tar.xz`, кастомная лицензия)* —
-      [Dicklesworthstone/destructive_command_guard](https://github.com/Dicklesworthstone/destructive_command_guard)
-      — не добавлен: лицензию нужно проверить, а правила — согласовать с
-      `AGENTS.md`. Сильная сторона: нативная интеграция с OpenCode
-      (`dcg install --opencode`). Пересматривать в первую очередь, если
-      понадобится техническая страховка от destructive-команд агента.
 
 ### Для AI-агентов
 
@@ -554,9 +513,9 @@ coding-агентов, плюс старые репозитории, котор�
 - [ ] **Netcatty**, **Voltius**, **RustConn**, **uniterm**, **navop**,
       **nyaterm**, **KKTerm**, **oxideterm**, **sshdesk** — SSH-клиенты и
       «рабочие пространства» с SFTP, RDP, VNC и вкладками (6.8k, 783, 632,
-      906 ⭐ и т. д.) — ⛔ класс уже закрыт `assh` для конфигов и `sshx` для
-      совместных сессий; GUI-менеджер подключений осознанно отклонён
-      (`omnyssh` в этом же файле). Пересматривать не нужно.
+      906 ⭐ и т. д.) — ⛔ класс уже закрыт `assh` для конфигов, `sshx` для
+      совместных сессий и `omnyssh` (TUI `omny` + GUI `OmnySSH`) для
+      подключений из одного окна. Пересматривать не нужно.
 - [ ] **rune** — GPU-ускоренный IDE-мультиплексор. *(1.3k ⭐,
       `rune-linux-amd64.tar.gz`, GPL-3.0)* —
       [unstablebuild/rune](https://github.com/unstablebuild/rune)

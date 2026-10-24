@@ -1,6 +1,6 @@
 ---
 # ============================================================================
-# Роль guardrails: unit-файл systemd, который поднимает контейнер
+# Роль guardrails: локальные guardrails для терминала и systemd-юнит
 # guardrails-llm-filter (маскировка PII/секретов на пути к LLM).
 #
 # Идемпотентность: unit-файл кладётся из шаблона; при изменении выполняется
@@ -9,6 +9,27 @@
 # Политика правил (guardrails_disabled_rules) синхронизируется при каждом
 # прогоне: хранилище guardrails in_memory не переживает рестарт контейнера.
 # ============================================================================
+
+- name: Установить бинарники guardrails (tirith, dcg)
+  ansible.builtin.include_role:
+    name: binaries
+  vars:
+    binaries_to_install: "{{ guardrails_binaries }}"
+
+# Плагин dcg генерируется один раз: при наличии файла шаг пропускается,
+# чтобы не затирать локальные правки и не выполнять запись на каждом прогоне.
+- name: Создать каталог плагинов OpenCode
+  ansible.builtin.file:
+    path: "{{ guardrails_dcg_opencode_plugin | dirname }}"
+    state: directory
+    mode: "0755"
+  when: guardrails_dcg_install_opencode
+
+- name: Подключить dcg к OpenCode (плагин tool.execute.before)
+  ansible.builtin.command:
+    cmd: "{{ bin_dir }}/dcg install --opencode"
+    creates: "{{ guardrails_dcg_opencode_plugin }}"
+  when: guardrails_dcg_install_opencode
 
 - name: Убедиться, что Docker установлен
   ansible.builtin.stat:

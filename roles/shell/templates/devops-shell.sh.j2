@@ -63,6 +63,11 @@ if [ -f "$HOME/.config/ripgrep/config" ]; then
   export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
 fi
 
+# --- RackPeek: состояние в ~/.config/rackpeek ------------------------------
+# Без RPK_YAML_DIR rpk создаёт ./config рядом с бинарником, то есть
+# /usr/local/bin/config. Каталог создаёт роль iac.
+export RPK_YAML_DIR="${RPK_YAML_DIR:-$HOME/.config/rackpeek}"
+
 # --- kubectl / helm / kubectx: completion и алиасы -------------------------
 if command -v kubectl >/dev/null 2>&1; then
   alias k='kubectl'
@@ -90,4 +95,12 @@ export PIPX_BIN_DIR="${PIPX_BIN_DIR:-$HOME/.local/bin}"
 # у mcfly нет.
 if command -v mcfly >/dev/null 2>&1; then
   eval "$(mcfly init bash)"
+fi
+
+# --- tirith: проверка команд терминала перед выполнением -------------------
+# Перехватывает ввод и предупреждает о homograph-URL, `curl | bash`,
+# ANSI-инъекциях и обфусцированных командах. Хук ставится в PROMPT_COMMAND /
+# DEBUG trap, поэтому подключаем последним: остальные хуки уже на месте.
+if command -v tirith >/dev/null 2>&1; then
+  eval "$(tirith init --shell bash)"
 fi

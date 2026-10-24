@@ -30,6 +30,15 @@ postgres_binaries:
     archive: tar
     member: rainfrog
 
+# --- dbx: GUI-клиент к 100+ СУБД (.deb из GitHub-релиза) ---------------------
+# dbx — desktop-клиент к PostgreSQL, MySQL, SQLite, Redis, MongoDB, DuckDB и
+# другим базам: дерево схем, SQL-редактор, таблицы, CLI и MCP-сервер. Ставится
+# официальным .deb из GitHub-релиза. Имя артефакта — DBX_{version}_amd64.deb
+# (версия без ведущего v), тег берётся из редиректа releases/latest.
+dbx_install: true
+dbx_repo: t8y2/dbx
+dbx_deb_dir: "{{ tmp_dir }}/dbx"
+
 # Python-приложения для работы с PostgreSQL (нет релизных бинарников — pipx).
 postgres_pipx_apps:
   # pgcli — psql с автодополнением (таблицы, колонки, ключевые слова) и
