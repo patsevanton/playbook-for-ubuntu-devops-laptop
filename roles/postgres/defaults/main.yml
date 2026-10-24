@@ -29,6 +29,17 @@ postgres_binaries:
     url: "https://github.com/achristmascarl/rainfrog/releases/download/{tag}/rainfrog-v{version}-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: rainfrog
+  # pg_datanymizer (datanymizer) — дамп PostgreSQL с анонимизацией данных по
+  # правилам: Faker, замена значений, фильтры по таблицам и колонкам. Нужен,
+  # чтобы отдать дамп в тест или разработку без PII. Подключается к живой БД
+  # и пишет SQL-дамп; ставится одной командой `pg_datanymizer`. Релиз —
+  # pg_datanymizer-linux-x86_64.tar.gz, бинарник в корне архива.
+  - name: pg_datanymizer
+    source: github
+    repo: datanymizer/datanymizer
+    url: "https://github.com/datanymizer/datanymizer/releases/download/{tag}/pg_datanymizer-linux-x86_64.tar.gz"
+    archive: tar
+    member: pg_datanymizer
 
 # --- dbx: GUI-клиент к 100+ СУБД (.deb из GitHub-релиза) ---------------------
 # dbx — desktop-клиент к PostgreSQL, MySQL, SQLite, Redis, MongoDB, DuckDB и

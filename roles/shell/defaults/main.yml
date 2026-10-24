@@ -51,6 +51,10 @@ shell_packages:
   # ioping — замер отзывчивости дисковой подсистемы: латентность I/O, а не
   # объём. Дополняет duf/gdu/ncdu, которые показывают занятое место.
   - ioping
+  # fatrace — трассировка доступа к файлам через fanotify: показывает, какой
+  # процесс читает/пишет/удаляет файлы, без strace по конкретному PID и без
+  # eBPF. Запускается от root: `sudo fatrace -c`.
+  - fatrace
 
 shell_binaries:
   - name: starship

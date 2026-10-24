@@ -149,6 +149,10 @@
 - [ ] **logcli** — CLI-клиент Loki. *(`бинарник`)* —
       [grafana/loki](https://github.com/grafana/loki) — без сервера Loki
       клиент бесполезен.
+- [ ] **goaccess** — анализ access-логов nginx: TUI в реальном времени и
+      HTML-отчёт. *(`бинарник`)* — нужен на сервере рядом с логами nginx:
+      на ноутбуке разбирать нечего —
+      [allinurl/goaccess](https://github.com/allinurl/goaccess)
 - [ ] **parca** — continuous profiling: сервер профилей и агент. *(`helm` /
       `бинарник`)* — [parca-dev/parca](https://github.com/parca-dev/parca) —
       сервер с хранилищем профилей, агент — DaemonSet на нодах.

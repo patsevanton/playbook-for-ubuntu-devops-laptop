@@ -333,6 +333,7 @@ ansible-lint                                   # проверка стиля (pr
 - [pgcli](https://github.com/dbcli/pgcli) — psql с автодополнением и подсветкой синтаксиса.
 - [libpq5](https://www.postgresql.org/) — клиентская библиотека PostgreSQL для psycopg и pgcli.
 - [rainfrog](https://github.com/achristmascarl/rainfrog) — TUI-клиент к PostgreSQL, MySQL и SQLite: таблицы, запросы, история.
+- [datanymizer](https://github.com/datanymizer/datanymizer) — дамп PostgreSQL с анонимизацией данных по правилам (Faker, замена, фильтры).
 
 ### runtimes
 
@@ -445,6 +446,7 @@ ansible-lint                                   # проверка стиля (pr
 - [GNU parallel](https://www.gnu.org/software/parallel/) — параллельное выполнение команд вместо циклов и `xargs`.
 - [lnav](https://github.com/tstack/lnav) — просмотрщик логов с SQL-запросами, таймлайном и автодетектом формата.
 - [ioping](https://github.com/koct9i/ioping) — латентность дисковой подсистемы: отзывчивость I/O, а не объём.
+- [fatrace](https://github.com/martinpitt/fatrace) — трассировка доступа к файлам: какой процесс читает, пишет или удаляет.
 - [devops-shell.sh](https://github.com/patsevanton/playbook-for-ubuntu-devops-laptop/blob/main/roles/shell/templates/devops-shell.sh.j2) — конфиг shell: `~/.config/devops-shell.sh` плюс одна строка `source` в `~/.bashrc`.
 
 ### network

@@ -13,12 +13,12 @@
 
 | Статус | Сколько | Где описано |
 | --- | --- | --- |
-| уже ставится или упоминается в проекте | 58 | `README.md`, `not-install.md`, `roles/**` |
-| отсутствует — живой кандидат | 24 | этот файл |
+| уже ставится или упоминается в проекте | 60 | `README.md`, `not-install.md`, `roles/**` |
+| отсутствует — живой кандидат | 21 | этот файл |
 | отсутствует — заброшено | 34 | [`TODO-abandoned.md`](TODO-abandoned.md) |
 | отсутствует — нет linux-бинарника | 4 | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
 | отсутствует — сознательный отказ | 12 | [`not-install.md`](not-install.md) |
-| отсутствует — сервис, не на ноутбук | 1 | [`TODO-server-apps.md`](TODO-server-apps.md) |
+| отсутствует — сервис, не на ноутбук | 2 | [`TODO-server-apps.md`](TODO-server-apps.md) |
 
 Дедупликация: каждый кандидат описан ровно в одном файле-трекере, как принято в
 [`TODO.md`](TODO.md). Заброшенные проекты из статьи (архив GitHub или последний
@@ -61,7 +61,6 @@ Ubuntu не значит, что плейбук его ставит — это �
 | [red](https://github.com/antonmedv/red) | статистика по JSON-логам из пайпа | GitHub: `red_*_Linux_x86_64.tar.gz` |
 | [jql](https://github.com/cube2222/jql) | альтернатива jq с более простым синтаксисом | GitHub: `jql_*_linux_amd64.tar.gz` |
 | [topngx](https://github.com/gsquire/topngx) | `top` по access-логам nginx (замена ngxtop) | GitHub: `topngx-*_x86_64-unknown-linux-musl.tar.gz` |
-| [GoAccess](https://goaccess.io/) | анализатор веб-логов, TUI и HTML-отчёты | пакет Ubuntu `goaccess` (1.9.4) |
 
 ## Система, файлы, диагностика
 
@@ -70,12 +69,10 @@ Ubuntu не значит, что плейбук его ставит — это �
 | [watchman](https://github.com/facebook/watchman) | следит за файлами и триггерит действия при изменениях | пакет Ubuntu `watchman` (4.9.0) |
 | [tlog](https://github.com/Scribery/tlog) | запись и воспроизведение терминальных сессий | пакет Ubuntu `tlog` (14) |
 | [whatfiles](https://github.com/spieglt/whatfiles) | какие файлы открыл процесс (упрощённый strace) | GitHub: `whatfiles-v*_linux-x86_64` |
-| [fatrace](https://github.com/martinpitt/fatrace) | file access trace без strace/blktrace | пакет Ubuntu `fatrace` (0.19) |
 | [sysdig](https://github.com/draios/sysdig) | трассировка системных вызовов с фильтрами | пакет Ubuntu `sysdig` (0.40) |
 | [sosreport](https://github.com/sosreport/sos) | сбор диагностики системы одним архивом | пакет Ubuntu `sosreport` (4.11) |
 | [hstr](https://github.com/dvorka/hstr) | TUI-поиск по истории команд | пакет Ubuntu `hstr` (3.1) |
 | [pastebinit](https://github.com/pastebinit/pastebinit) | отправка текста на pastebin из CLI | пакет Ubuntu `pastebinit` (1.8) |
-| [datanymizer](https://github.com/datanymizer/datanymizer) | анонимизация дампа БД по правилам | GitHub: `pg_datanymizer-linux-x86_64.tar.gz` |
 
 ## Безопасность и TLS
 
@@ -109,19 +106,23 @@ Ubuntu не значит, что плейбук его ставит — это �
   teleconsole, SSHHeatmap, fpaste, mkchain, domain-check-2,
   linux-exploit-suggester, Prochunter, DNSBL-скрипт — в
   [`not-install.md`](not-install.md).
-- **Сервис, не на ноутбук** (1): https-portal — в
+- **Сервис, не на ноутбук** (2): https-portal, GoAccess — в
   [`TODO-server-apps.md`](TODO-server-apps.md).
 
 ## Что из статьи в проекте уже есть
 
-Ставится или обсуждается (58): binenv, bat, exa, fd, procs, sd, dust, starship,
+Ставится или обсуждается (60): binenv, bat, exa, fd, procs, sd, dust, starship,
 ripgrep, ripgrep-all, grex, fzf, jq, peco, HTTPie, xh, shell2http, reachable,
 lazydocker, gotty, ngrok, lazygit, bottom, bandwhich, delta, gdu, dog, gitleaks,
 fx, dive, termshark, sysinfo, dry, gh, assh, txeh, asn, choose, jl, wondershaper,
 mkcert, netutils-linux, ctop, ShellCheck, kubectx, kubens, fselect, k3d, arkade,
 helmfile, 3mux, localstack, mosh, iprange, testssl.sh, moreutils (sponge, ts,
-vidir, ifne, chronic), GNU parallel, lnav, ioping.
+vidir, ifne, chronic), GNU parallel, lnav, ioping, fatrace, datanymizer
+(pg_datanymizer).
 
 Добавлены в плейбук 2026-10-24: mosh и iprange, testssl.sh — в
-`network_packages` (роль `network`); moreutils, GNU parallel, lnav, ioping — в
-`shell_packages` (роль `shell`).
+`network_packages` (роль `network`); moreutils, GNU parallel, lnav, ioping,
+fatrace — в `shell_packages` (роль `shell`); datanymizer — в
+`postgres_binaries` (роль `postgres`). GoAccess оставлен серверным
+инструментом: на ноутбуке нет access-логов nginx, ему место рядом с логами
+на сервере — `TODO-server-apps.md`.
