@@ -1,7 +1,16 @@
 ---
 # ============================================================================
-# Роль hardware: LACT (GUI + демон lactd) из .deb-пакета.
+# Роль hardware: диагностика железа (SMART, NVMe, датчики) и LACT
+# (GUI + демон lactd) из .deb-пакета.
 # ============================================================================
+
+- name: Установить пакеты диагностики железа
+  become: true
+  ansible.builtin.apt:
+    name: "{{ hardware_packages }}"
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
 
 - name: Проверить, установлен ли LACT
   ansible.builtin.stat:

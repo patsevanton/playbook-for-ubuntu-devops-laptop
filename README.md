@@ -537,6 +537,9 @@ ansible-lint                                   # проверка стиля (pr
 
 ### hardware
 
+- [smartmontools](https://www.smartmontools.org/) — `smartctl`/`smartd`: атрибуты SMART, self-test и лог ошибок накопителя.
+- [nvme-cli](https://github.com/linux-nvme/nvme-cli) — телеметрия NVMe: износ, температура, число записанных байт, ошибки.
+- [lm-sensors](https://github.com/lm-sensors/lm-sensors) — `sensors`: температуры, напряжения и обороты вентиляторов.
 - [LACT](https://github.com/ilya-zlobintsev/LACT) — GUI и демон `lactd` для настройки и мониторинга GPU (AMD/Intel/NVIDIA).
 
 ### guardrails
