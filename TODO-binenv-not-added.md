@@ -8,7 +8,7 @@
 `TODO*.md`, ни в `roles/**` (defaults, tasks, templates). То есть утилита не
 ставится и нигде в проекте не обсуждалась как кандидат.
 
-Из 185 отсутствующих записей сюда попали **113** — активные и не дублирующие
+Из 183 отсутствующих записей сюда попали **111** — активные и не дублирующие
 уже установленное. Остальные разложены по своим трекерам, чтобы не дублировать
 один кандидат в нескольких файлах:
 
@@ -50,7 +50,6 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 | [kubeswitch](https://github.com/danielfoehrKn/kubeswitch/) | The kubectx for operators |
 | [ksd](https://github.com/mfuentesg/ksd/) | Kubernetes secret decoder |
 | [kyverno](https://github.com/kyverno/kyverno/) | Kyverno (Greek for “govern”) is a policy engine designed specifically for Kubernetes |
-| [operator-sdk](https://github.com/operator-framework/operator-sdk/) | SDK for building Kubernetes applications. Provides high level APIs, useful abstractions, and project scaffolding |
 | [sloop](https://github.com/salesforce/sloop/) | Kubernetes History Visualization |
 | [sonobuoy](https://github.com/vmware-tanzu/sonobuoy) | Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by running a set of Kubernetes conformance tests and other plugins in an accessible and non-destructive manner |
 
@@ -171,7 +170,6 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 
 | Утилита | Что это |
 | --- | --- |
-| [buildx](https://github.com/docker/buildx/) | Docker CLI plugin for extended build capabilities with BuildKit |
 | [crabz](https://github.com/sstadick/crabz) | Like pigz, but rust |
 | [docker-slim](https://github.com/docker-slim/docker-slim/) | DockerSlim (docker-slim): Don't change anything in your Docker\ncontainer image and minify it by up to 30x (and for compiled languages even\nmore) making it secure too! (free and open source) |
 | [dockle](https://github.com/goodwithtech/dockle/) | Container Image Linter for Security, Helping build the Best-Practice Docker Image, Easy to start |
