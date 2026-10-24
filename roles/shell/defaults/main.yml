@@ -63,6 +63,11 @@ shell_packages:
   # интервалам), iostat, mpstat и pidstat (нагрузка по процессам). btop/btm
   # показывают только текущий момент, sysstat отвечает на «что было в 14:30».
   - sysstat
+  # pv — прогресс и скорость потока в пайпе: `pv dump.sql | gzip`,
+  # `tar cf - dir | pv | ssh host tar xf -`. Дополняет spacer (метки времени
+  # между шагами) и ts из moreutils: тем видно, когда что началось, pv —
+  # сколько уже прошло и с какой скоростью.
+  - pv
 
 shell_binaries:
   - name: starship

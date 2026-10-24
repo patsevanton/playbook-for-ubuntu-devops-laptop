@@ -68,6 +68,8 @@ ansible-lint                                   # проверка стиля (pr
 
 - [rsync](https://rsync.samba.org/) — инкрементальное копирование локально и по SSH, `--dry-run` перед изменениями.
 - [lsof](https://github.com/lsof-org/lsof) — кто держит файл, каталог или сокет: `lsof -i :8080`, `lsof +D /path`.
+- [strace](https://strace.io/) — системные вызовы процесса: на чём висит, какой файл не открылся, откуда `permission denied`.
+- [etckeeper](https://etckeeper.branchable.com/) — `/etc` под git: apt-хук и таймер коммитят правки, `git -C /etc diff HEAD` и откат одного файла.
 - [yq](https://github.com/mikefarah/yq) — YAML/JSON/XML-процессор с jq-подобным синтаксисом.
 - [eget](https://github.com/zyedidia/eget) — установка готовых бинарников прямо из GitHub-релизов одной командой.
 - [dra](https://github.com/devmatteini/dra) — скачивание отдельных ассетов GitHub-релиза по имени репозитория.
@@ -452,6 +454,7 @@ ansible-lint                                   # проверка стиля (pr
 - [fatrace](https://github.com/martinpitt/fatrace) — трассировка доступа к файлам: какой процесс читает, пишет или удаляет.
 - [shfmt](https://github.com/mvdan/sh) — форматтер shell-скриптов, дополняет `shellcheck`.
 - [sysstat](https://github.com/sysstat/sysstat) — история производительности: `sar`, `iostat`, `mpstat`, `pidstat`.
+- [pv](https://github.com/ivarch/pv) — прогресс и скорость потока в пайпе: `pv dump.sql | gzip`.
 - [devops-shell.sh](https://github.com/patsevanton/playbook-for-ubuntu-devops-laptop/blob/main/roles/shell/templates/devops-shell.sh.j2) — конфиг shell: `~/.config/devops-shell.sh` плюс одна строка `source` в `~/.bashrc`.
 
 ### network
@@ -468,6 +471,8 @@ ansible-lint                                   # проверка стиля (pr
 - [iprange](https://github.com/firehol/iprange) — арифметика подсетей и IP-диапазонов для фаервола и ipset.
 - [testssl.sh](https://github.com/drwetter/testssl.sh) — полный аудит TLS: протоколы, шифры, цепочка, известные уязвимости.
 - [socat](http://www.dest-unreach.org/socat/) — relay между TCP/UDP и Unix-сокетами, TLS-обёртка, PTY и exec-адреса.
+- [sshfs](https://github.com/libfuse/sshfs) — монтирование каталога удалённого хоста через SFTP.
+- [rclone](https://github.com/rclone/rclone) — синхронизация и монтирование S3, WebDAV, SFTP, Google Drive, OneDrive.
 - [iperf3](https://github.com/esnet/iperf) — пропускная способность и джиттер между ноутбуком и сервером.
 - [ethtool](https://mirrors.edge.kernel.org/pub/software/network/ethtool/) — скорость, duplex, драйвер, ring buffers и ошибки физического линка.
 - [rkn-block-checker](https://pypi.org/project/rkn-block-checker/) — диагностика блокировок: DNS-подмена, TCP reset, DPI по SNI.
