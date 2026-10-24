@@ -6,6 +6,11 @@ docker_packages:
   - docker-ce-cli
   - containerd.io
   - docker-compose-plugin
+  # docker-buildx-plugin — сборка через BuildKit: multi-arch (`--platform`),
+  # кеш между сборками, секреты и SBOM. Без него `docker buildx` недоступен,
+  # а `docker build` уходит в legacy-билдер. В репозитории Docker это
+  # отдельный пакет, не часть docker-ce-cli.
+  - docker-buildx-plugin
 
 # Утилиты работы с образами из репозитория Ubuntu (ставятся отдельно от
 # docker_packages, которые приходят из официального репозитория Docker).

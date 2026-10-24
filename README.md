@@ -126,6 +126,7 @@ ansible-lint                                   # проверка стиля (pr
 
 - [Docker Engine](https://github.com/moby/moby) — движок контейнеров из официального репозитория Docker.
 - [Compose V2](https://github.com/docker/compose) — плагин `docker compose`.
+- [Buildx](https://github.com/docker/buildx) — плагин `docker buildx`: multi-arch сборки, кеш BuildKit, секреты и SBOM.
 - [dive](https://github.com/wagoodman/dive) — анализ слоёв образа: размер, мусор, эффективность.
 - [lazydocker](https://github.com/jesseduffield/lazydocker) — TUI-менеджер контейнеров, образов и томов.
 - [ctop](https://github.com/bcicen/ctop) — `top` по метрикам контейнеров (CPU, память, сеть).
@@ -340,6 +341,7 @@ ansible-lint                                   # проверка стиля (pr
 - [pgCenter](https://github.com/lesovsky/pgcenter) — консольная админка и мониторинг PostgreSQL.
 - [pgcli](https://github.com/dbcli/pgcli) — psql с автодополнением и подсветкой синтаксиса.
 - [libpq5](https://www.postgresql.org/) — клиентская библиотека PostgreSQL для psycopg и pgcli.
+- [postgresql-client](https://www.postgresql.org/) — штатный CLI: `psql`, `pg_dump`, `pg_restore`, `pg_isready`.
 - [rainfrog](https://github.com/achristmascarl/rainfrog) — TUI-клиент к PostgreSQL, MySQL и SQLite: таблицы, запросы, история.
 - [datanymizer](https://github.com/datanymizer/datanymizer) — дамп PostgreSQL с анонимизацией данных по правилам (Faker, замена, фильтры).
 
@@ -457,6 +459,7 @@ ansible-lint                                   # проверка стиля (pr
 - [fatrace](https://github.com/martinpitt/fatrace) — трассировка доступа к файлам: какой процесс читает, пишет или удаляет.
 - [shfmt](https://github.com/mvdan/sh) — форматтер shell-скриптов, дополняет `shellcheck`.
 - [sysstat](https://github.com/sysstat/sysstat) — история производительности: `sar`, `iostat`, `mpstat`, `pidstat`.
+- [perf](https://perf.wiki.kernel.org/) — сэмплирующий профайлер: `perf top`, `perf record` и flame graph (пакет `linux-tools-generic`).
 - [pv](https://github.com/ivarch/pv) — прогресс и скорость потока в пайпе: `pv dump.sql | gzip`.
 - [devops-shell.sh](https://github.com/patsevanton/playbook-for-ubuntu-devops-laptop/blob/main/roles/shell/templates/devops-shell.sh.j2) — конфиг shell: `~/.config/devops-shell.sh` плюс одна строка `source` в `~/.bashrc`.
 
@@ -557,6 +560,9 @@ ansible-lint                                   # проверка стиля (pr
 - [smartmontools](https://www.smartmontools.org/) — `smartctl`/`smartd`: атрибуты SMART, self-test и лог ошибок накопителя.
 - [nvme-cli](https://github.com/linux-nvme/nvme-cli) — телеметрия NVMe: износ, температура, число записанных байт, ошибки.
 - [lm-sensors](https://github.com/lm-sensors/lm-sensors) — `sensors`: температуры, напряжения и обороты вентиляторов.
+- [pciutils](https://mj.ucw.cz/sw/pciutils/) — `lspci`: устройства на шине PCI и их драйверы (`lspci -k`).
+- [usbutils](http://www.linux-usb.org/) — `lsusb`: устройства USB и их VID:PID.
+- [dmidecode](https://github.com/mirror/dmidecode) — инвентаризация из BIOS/SMBIOS: версия BIOS, слоты и тип памяти, серийные номера.
 - [LACT](https://github.com/ilya-zlobintsev/LACT) — GUI и демон `lactd` для настройки и мониторинга GPU (AMD/Intel/NVIDIA).
 
 ### guardrails

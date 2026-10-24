@@ -6,8 +6,12 @@
 # libpq5 — клиентская библиотека PostgreSQL (libpq.so): нужна psycopg, на
 # котором работает pgcli. Без неё pipx-окружение ставится, но pgcli падает при
 # старте с «no pq wrapper available».
+# postgresql-client — штатный CLI: psql, pg_dump, pg_restore, pg_isready.
+# pgcli и pgCenter его не заменяют: pg_dump нужен для выгрузки дампа (в том
+# числе перед pg_datanymizer), pg_restore — для загрузки.
 postgres_packages:
   - libpq5
+  - postgresql-client
 
 postgres_binaries:
   # pgcenter — консольная админка и мониторинг PostgreSQL: активность, запросы,

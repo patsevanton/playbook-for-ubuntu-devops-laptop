@@ -63,6 +63,10 @@ shell_packages:
   # интервалам), iostat, mpstat и pidstat (нагрузка по процессам). btop/btm
   # показывают только текущий момент, sysstat отвечает на «что было в 14:30».
   - sysstat
+  # linux-tools-generic — пакет с `perf` под текущее generic-ядро: `perf top`,
+  # `perf record`/`report` и flame graph. Дополняет bpftrace: тот трассирует
+  # события, perf сэмплирует стек и показывает, где именно горит CPU.
+  - linux-tools-generic
   # pv — прогресс и скорость потока в пайпе: `pv dump.sql | gzip`,
   # `tar cf - dir | pv | ssh host tar xf -`. Дополняет spacer (метки времени
   # между шагами) и ts из moreutils: тем видно, когда что началось, pv —

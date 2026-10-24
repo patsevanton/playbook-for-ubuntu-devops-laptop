@@ -145,6 +145,7 @@ GitHub): `rsync` (роль `base`), `bpftrace` (роль `ebpf`), `socat` и `ip
 операций с пакетами, systemd-таймер добавляет ручные правки; удалённого
 репозитория нет, потому что в `/etc` попадаются секреты. `rclone` дополняет
 `s5cmd`: тот быстрее на S3, rclone работает с WebDAV/SFTP/Drive/OneDrive.
+
 `smartmontools`, `nvme-cli` и `lm-sensors` из этой же партии уже добавлены
 ранее в роль `hardware`.
 
@@ -152,6 +153,14 @@ GitHub): `rsync` (роль `base`), `bpftrace` (роль `ebpf`), `socat` и `ip
 набор не вошли: в репозитории Ubuntu 26.04 их нет, а с GitHub пришлось бы
 брать два бинарника плюс systemd-юнит (`pueue`/`pueued`) или проверять
 Wayland-интеграцию. Пакеты apt дают ту же пользу без этой цены.
+
+Добавлены 2026-10-24 по запросу, четвёртая партия: `postgresql-client` (роль
+`postgres`, даёт `psql`/`pg_dump`/`pg_restore`), `docker-buildx-plugin` (роль
+`docker`), `pciutils`, `usbutils` и `dmidecode` (роль `hardware`), `perf`
+через `linux-tools-generic` (роль `shell`). `postgresql-client`, как `rsync`
+и `skopeo` раньше, уже подразумевался в README («pgcli дополняет psql»), но
+ничего его не ставило; `docker-buildx-plugin` не входил в `docker-ce-cli`,
+поэтому `docker buildx` на чистой машине не работал.
 
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см.
