@@ -140,6 +140,7 @@ ansible-lint                                   # проверка стиля (pr
 - [flux](https://github.com/fluxcd/flux2) — CLI Flux CD: bootstrap, reconcile, GitOps.
 - [flux9s](https://github.com/dgunzy/flux9s) — TUI для Flux-ресурсов.
 - [stern](https://github.com/stern/stern) — логи нескольких подов с фильтрами по регэкспу.
+- [khi](https://github.com/GoogleCloudPlatform/khi) — таймлайн событий и логов кластера для разбора инцидента.
 - [flate](https://github.com/home-operations/flate) — офлайн-рендер Flux GitOps-репозитория без кластера.
 - [flux-tools](https://github.com/alexandervidyaev/flux-tools) — независимая реализация офлайн-рендера и диффа Flux.
 - [kubectx](https://github.com/ahmetb/kubectx) — быстрое переключение контекстов и namespace.
@@ -386,12 +387,14 @@ ansible-lint                                   # проверка стиля (pr
 - [dasel](https://github.com/TomWright/dasel) — запросы и правка JSON/YAML/TOML/XML/CSV/HCL.
 - [jc](https://github.com/kellyjonbrazil/jc) — конвертация вывода CLI-утилит в JSON.
 - [sd](https://github.com/chmln/sd) — интуитивная замена `sed` для поиска и замены.
+- [serpl](https://github.com/yassinebridi/serpl) — TUI поиска и замены с превью результата до применения.
 - [shellcheck](https://github.com/koalaman/shellcheck) — статический анализ shell-скриптов.
 - [duf](https://github.com/muesli/duf) — `df` «для людей»: таблица дисков и точек монтирования.
 - [btop](https://github.com/aristocratos/btop) — монитор ресурсов с графиками.
 - [ncdu](https://github.com/rofl0r/ncdu) — интерактивный анализ занятого места.
 - [tv (television)](https://github.com/alexpasmantier/television) — fuzzy-finder с готовыми каналами поиска.
 - [witr](https://github.com/pranshuparmar/witr) — трассировка «почему процесс запущен и кто держит порт».
+- [sonar](https://github.com/raskrebs/sonar) — TUI-менеджер сервисов на localhost-портах: кто слушает, kill, перезапуск.
 - [zellij](https://github.com/zellij-org/zellij) — терминальный мультиплексор.
 - [navi](https://github.com/denisidoro/navi) — шпаргалки команд поверх fzf.
 - [fx](https://github.com/antonmedv/fx) — интерактивный просмотр JSON.
@@ -447,6 +450,7 @@ ansible-lint                                   # проверка стиля (pr
 ### network
 
 - [nmap](https://github.com/nmap/nmap) — сканер портов и сервисов.
+- [whosthere](https://github.com/ramonvermeulen/whosthere) — TUI-обнаружение устройств в локальной сети: mDNS, SSDP, ARP.
 - [netcat](https://nc110.sourceforge.io/) — «швейцарский нож» TCP/UDP.
 - [tcpdump](https://github.com/the-tcpdump-group/tcpdump) — захват и разбор пакетов.
 - [httpie](https://github.com/httpie/cli) — человекочитаемый HTTP-клиент.

@@ -68,11 +68,6 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
       `procs` и `btop` уже показывают процессы, а `kill` есть всегда.
       Пересматривать, если понадобится часто убивать зависшие процессы без
       поиска PID.
-- [ ] **sonar** — инспектор и менеджер сервисов на localhost-портах: кто
-      слушает, дерево процессов, быстрый `kill`. *(1.1k ⭐, MIT, `tar.gz`)* —
-      [raskrebs/sonar](https://github.com/raskrebs/sonar) — не добавлен:
-      `ss -tulpn` и `lsof -i` решают ту же задачу. Пересматривать, если
-      придётся часто искать, кто занял порт, и хочется это делать в TUI.
 - [ ] **systemd-manager-tui** — управление юнитами systemd: статус, запуск,
       остановка, логи. *(1.6k ⭐, MIT, `.deb`)* —
       [matheus-git/systemd-manager-tui](https://github.com/matheus-git/systemd-manager-tui)
@@ -169,11 +164,6 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
       [ynqa/sig](https://github.com/ynqa/sig) — не добавлен: `ripgrep` и
       `fzf` закрывают поиск, но не поток. Пересматривать при разборе
       `tail -f` и логов в реальном времени.
-- [ ] **serpl** — TUI для поиска и замены с превью, в духе VS Code.
-      *(862 ⭐, MIT, `tar.gz`)* —
-      [yassinebridi/serpl](https://github.com/yassinebridi/serpl) — не
-      добавлен: `sd` делает замену, но без превью. Пересматривать, если
-      понадобится массовая замена с визуальной проверкой.
 - [ ] **otree** — просмотр JSON/YAML/TOML/XML в виде интерактивного дерева.
       *(523 ⭐, MIT, `tar.gz`)* —
       [fioncat/otree](https://github.com/fioncat/otree) — не добавлен: `jq`,
@@ -200,11 +190,6 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
 
 ## Сеть
 
-- [ ] **whosthere** — обнаружение устройств в локальной сети в TUI: ARP,
-      mDNS, SSDP, порты и имена. *(2.5k ⭐, Apache-2.0, `tar.gz`)* —
-      [ramonvermeulen/whosthere](https://github.com/ramonvermeulen/whosthere)
-      — не добавлен: `nmap` есть, но для быстрой инвентаризации сети TUI
-      удобнее. Пересматривать при настройке домашней сети.
 - [ ] **xfr** — альтернатива `iperf3` с живым TUI, мультиклиентским сервером
       и QUIC. *(568 ⭐, Apache-2.0, `tar.gz`)* —
       [lance0/xfr](https://github.com/lance0/xfr) — не добавлен: `iperf3` в
@@ -223,11 +208,6 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
 
 ## Kubernetes и контейнеры
 
-- [ ] **khi** — просмотр логов и событий Kubernetes с таймлайном и связью
-      ресурсов при разборе инцидента. *(2.1k ⭐, Apache-2.0, бинарник)* —
-      [GoogleCloudPlatform/khi](https://github.com/GoogleCloudPlatform/khi)
-      — не добавлен: `k9s` и `stern` закрывают ежедневный просмотр. Добавлять
-      для постмортемов, когда нужно собрать картину по всему кластеру.
 - [ ] **unregistry** — отправка Docker-образов на удалённый сервер напрямую,
       без внешнего registry. *(4.9k ⭐, Apache-2.0, `tar.gz`)* —
       [psviderski/unregistry](https://github.com/psviderski/unregistry) — не

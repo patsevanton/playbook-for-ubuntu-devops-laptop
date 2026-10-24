@@ -181,6 +181,17 @@ shell_binaries:
     url: "https://github.com/chmln/sd/releases/download/{tag}/sd-v{version}-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: sd-v{version}-x86_64-unknown-linux-gnu/sd
+  # serpl — TUI поиска и замены в духе VS Code: набираешь шаблон и сразу видишь,
+  # что изменится, до применения. Дополняет sd (замена без превью) и ripgrep
+  # (только поиск): обход файлов внутри тоже делает ripgrep, он уже стоит.
+  # Релиз — serpl-{tag}-linux-x86_64.tar.gz (тег без префикса v), бинарник
+  # serpl в корне.
+  - name: serpl
+    source: github
+    repo: yassinebridi/serpl
+    url: "https://github.com/yassinebridi/serpl/releases/download/{tag}/serpl-{tag}-linux-x86_64.tar.gz"
+    archive: tar
+    member: serpl
   # lf — терминальный файловый менеджер с vim-подобными клавишами.
   # Тег релиза без префикса v (r42), поэтому {tag} и {version} одинаковы.
   # Артефакт — lf-linux-amd64.tar.gz, бинарник lf в корне архива.
@@ -458,6 +469,17 @@ shell_binaries:
     repo: pranshuparmar/witr
     url: "https://github.com/pranshuparmar/witr/releases/download/{tag}/witr-linux-amd64"
     archive: none
+  # sonar — менеджер сервисов на localhost-портах: кто слушает, дерево
+  # процессов, быстрый kill и перезапуск, плюс MCP-сервер для AI-агентов.
+  # Частично дублирует witr, но witr отвечает разово, а sonar держит живой
+  # TUI-дашборд портов — взят сознательно как второй инструмент.
+  # Релиз — sonar_linux_amd64.tar.gz (тег с префиксом v), бинарник в корне.
+  - name: sonar
+    source: github
+    repo: raskrebs/sonar
+    url: "https://github.com/raskrebs/sonar/releases/download/{tag}/sonar_linux_amd64.tar.gz"
+    archive: tar
+    member: sonar
   # vhs — запись терминальных GIF/MP4/WebM из сценария на .tape: набирает
   # команды, ждёт, снимает кадры, а ffmpeg (пакет apt выше) собирает видео.
   # Удобно для демо и документации вместо ручной записи экрана. Бинарник vhs

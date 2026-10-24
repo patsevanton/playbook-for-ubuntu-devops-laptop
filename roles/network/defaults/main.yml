@@ -319,6 +319,18 @@ network_binaries:
     url: "https://github.com/timhartmann7/omnyssh/releases/download/{tag}/omny-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: omny
+  # whosthere — инвентаризация локальной сети в TUI: mDNS, SSDP, обход подсети
+  # TCP/UDP-подключениями и чтение ARP-кеша, имена устройств и производители
+  # по OUI. В отличие от nmap показывает живой список, а не текстовый отчёт;
+  # работает без root и capabilities.
+  # Релиз — whosthere_{version}_linux_amd64.tar.gz (goreleaser), бинарник
+  # whosthere в корне.
+  - name: whosthere
+    source: github
+    repo: ramonvermeulen/whosthere
+    url: "https://github.com/ramonvermeulen/whosthere/releases/download/{tag}/whosthere_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: whosthere
 
 # --- OmnySSH: графический SSH-менеджер (.deb из GitHub-релиза) --------------
 # GUI-версия того же движка, что и TUI omny: подключения, вкладки, метрики,

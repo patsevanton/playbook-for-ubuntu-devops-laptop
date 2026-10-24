@@ -1184,6 +1184,16 @@ kubernetes_binaries:
     url: "https://github.com/FairwindsOps/nova/releases/download/{tag}/nova_{version}_linux_amd64.tar.gz"
     archive: tar
     member: nova
+  # khi (Kubernetes History Inspector) — разбор инцидента постфактум: собирает
+  # события и логи кластера в общий таймлайн и показывает связи ресурсов.
+  # Дополняет k9s и stern, которые видят только текущее состояние: khi
+  # запускается локально и открывает UI в браузере.
+  # Релиз — одиночный бинарник khi-linux-amd64 без версии в имени.
+  - name: khi
+    source: github
+    repo: GoogleCloudPlatform/khi
+    url: "https://github.com/GoogleCloudPlatform/khi/releases/download/{tag}/khi-linux-amd64"
+    archive: none
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и

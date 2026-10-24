@@ -114,6 +114,15 @@ Ubuntu: `btop` (1.4.6) и `ncdu` (1.22), оба ролью `shell` через ap
 `iac`), `kula` (роль `monitoring`), `tirith` и `dcg` (роль `guardrails`,
 dcg дополнительно подключён к OpenCode плагином).
 
+Добавлены 2026-10-24 из трендов GitHub за последние 3 года по запросу:
+`serpl` (роль `shell`), `whosthere` (роль `network`), `khi` (роль
+`kubernetes`), `sonar` (роль `shell`). Все — одиночные бинарники из
+GitHub-релизов, без root и setcap. `sonar` частично дублирует уже
+поставленный `witr` (тот же вопрос «кто держит порт»), но добавлен
+сознательно: `witr` даёт разовый ответ в CLI/JSON, `sonar` — живой
+TUI-дашборд портов с kill и перезапуском, плюс MCP-сервер для
+AI-агентов.
+
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см.
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) и
@@ -144,6 +153,24 @@ dcg дополнительно подключён к OpenCode плагином).
 шагом в UI, а не задачей плейбука. Если добавлять — только ролью: `git clone`
 в `~/opt` + systemd-юнит `--user` (`sp.sh autostart on`), с флагом
 `slightly_parallel_install: false` по умолчанию.
+
+`vibeforge` ([`mmm-byte/vibeforge`](https://github.com/mmm-byte/vibeforge))
+— **в будущие установки**, решение отложено (2026-10-24). CLI-конвейер для
+AI-разработки приложений: семь стадий (`clarify` → `architect` → `scaffold` →
+`build` → `harden` → `document` → `ship`), между ними quality gate; семь типов
+проектов (webapp, api, cli_tool, bot, extension, data_pipeline, mobile);
+LLM-провайдеры — Ollama по умолчанию (офлайн), OpenAI и Anthropic. Лицензия
+MIT, Python ≥ 3.9, точка входа — `vibeforge`.
+
+Как ставить: пакет питоновский, поэтому ролью `pipx_apps` из git —
+`pipx install git+https://github.com/mmm-byte/vibeforge`. `pip install
+vibeforge` из README сейчас не работает: на PyPI пакета нет (404), релизов и
+тегов на GitHub тоже нет, последний коммит — 2026-04-09. Отсюда и пауза:
+установка из плавающего `main` не пинится и не обновляется, а сам конвейер
+генерирует и запускает код в чужих проектах (сборка Docker, тесты,
+self-healing), то есть это рабочий инструмент под задачу, а не утилита на
+один бинарник. Пересматривать, когда появится релиз на PyPI или хотя бы тег:
+тогда ставим `pipx_apps` с зафиксированной версией.
 
 Кандидаты, которые дублируют этот список и потому не берутся: `ktail`
 (≈ `stern`), `kube-switch` (≈ `kubectx`), `dyff` (≈ `diffyml`).
