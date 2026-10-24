@@ -67,6 +67,9 @@ ansible-lint                                   # проверка стиля (pr
 ### base
 
 - [rsync](https://rsync.samba.org/) — инкрементальное копирование локально и по SSH, `--dry-run` перед изменениями.
+- [sqlite3](https://sqlite.org/cli.html) — консольный клиент SQLite: `.schema`, `.dump`, `VACUUM`, SQL по локальным базам.
+- [earlyoom](https://github.com/rfjakob/earlyoom) — убивает самый жадный процесс при исчерпании памяти, пока система ещё отвечает.
+- [needrestart](https://github.com/liske/needrestart) — после apt-обновлений показывает сервисы на старых библиотеках и необходимость ребута.
 - [lsof](https://github.com/lsof-org/lsof) — кто держит файл, каталог или сокет: `lsof -i :8080`, `lsof +D /path`.
 - [strace](https://strace.io/) — системные вызовы процесса: на чём висит, какой файл не открылся, откуда `permission denied`.
 - [etckeeper](https://etckeeper.branchable.com/) — `/etc` под git: apt-хук и таймер коммитят правки, `git -C /etc diff HEAD` и откат одного файла.
