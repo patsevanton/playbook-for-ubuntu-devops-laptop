@@ -68,6 +68,9 @@
       register: verify_result
       changed_when: false
       failed_when: false
+      # Проверка версий безопасна и должна работать в --check: иначе dry-run
+      # не покажет, что реально установлено.
+      check_mode: false
       loop:
         - "{{ bin_dir }}/yq --version"
         - "{{ bin_dir }}/gh --version"
@@ -408,7 +411,11 @@
       ansible.builtin.stat:
         path: "{{ item }}"
       register: extra_binaries_check
-      failed_when: not extra_binaries_check.stat.exists
+      # В обычном прогоне отсутствие файла — ошибка. В --check на чистой
+      # машине почти всё отсутствует, поэтому там только фиксируем факт.
+      failed_when: not extra_binaries_check.stat.exists and not ansible_check_mode
+      # stat только читает ФС — в --check он тоже должен отработать.
+      check_mode: false
       loop:
         - "{{ bin_dir }}/kubectx"
         - "{{ bin_dir }}/kube-prompt"
@@ -540,3 +547,73 @@
       loop: "{{ verify_result.results }}"
       loop_control:
         label: "{{ item.item }}"
+
+    # --- Отчёт о версиях ---------------------------------------------------
+    # report.json — машиночитаемый снимок версий (его удобно диффить между
+    # ноутбуками). Лежит в ~/.local/state/devops-playbook и не попадает в
+    # репозиторий.
+
+    # git-модуль Ansible умеет только clone/checkout, а нужен rev-parse.
+    - name: Узнать commit плейбука для отчёта  # noqa: command-instead-of-module
+      ansible.builtin.command:
+        cmd: "git -C {{ playbook_dir }} rev-parse --short HEAD"
+      register: playbook_commit
+      changed_when: false
+      failed_when: false
+      check_mode: false
+
+    - name: Создать каталог состояния
+      ansible.builtin.file:
+        path: "{{ devops_state_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Собрать отчёт по утилитам с флагом версии
+      ansible.builtin.set_fact:
+        devops_report_tools: >-
+          {{ (devops_report_tools | default([])) + [ {
+            'command': item.item,
+            'ok': (item.rc | default(1)) == 0,
+            'output': (item.stdout_lines | default([]) | first | default(''))
+                      or (item.stderr_lines | default([]) | first | default(''))
+          } ] }}
+      loop: "{{ verify_result.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+      check_mode: false
+
+    - name: Собрать отчёт по файлам без флага версии
+      ansible.builtin.set_fact:
+        devops_report_files: >-
+          {{ (devops_report_files | default([])) + [ {
+            'path': item.item,
+            'ok': item.stat.exists
+          } ] }}
+      loop: "{{ extra_binaries_check.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+      check_mode: false
+
+    # ansible_run_tags — не обычный list, поэтому full_run сравниваем через join.
+    - name: Записать отчёт о версиях
+      ansible.builtin.copy:
+        dest: "{{ report_file }}"
+        mode: "0644"
+        content: >-
+          {{ {
+            'generated_at': ansible_facts['date_time']['iso8601'],
+            'host': ansible_facts['hostname'],
+            'distribution': ansible_facts['distribution'] ~ ' '
+                            ~ ansible_facts['distribution_version'] ~ ' ('
+                            ~ ansible_facts['distribution_release'] ~ ')',
+            'kernel': ansible_facts['kernel'],
+            'user': ansible_facts['user_id'],
+            'playbook_commit': playbook_commit.stdout | default('unknown', true) | trim,
+            'full_run': ((ansible_run_tags | default(['all'], true) | join(',')) == 'all')
+                        and ((ansible_skip_tags | default([], true) | join(',')) == ''),
+            'run_tags': ansible_run_tags | default(['all'], true),
+            'skip_tags': ansible_skip_tags | default([], true),
+            'tools': devops_report_tools | default([]),
+            'files': devops_report_files | default([])
+          } | to_nice_json }}
+      changed_when: false

@@ -28,6 +28,11 @@ starship_config_file: "{{ home_dir }}/.config/starship.toml"
 # Конфиг ripgrep с глобальными --glob-исключениями; на него указывает
 # RIPGREP_CONFIG_PATH из devops-shell.sh.
 ripgrep_config_file: "{{ home_dir }}/.config/ripgrep/config"
+# Состояние плейбука: отчёт о версиях. Лежит вне репозитория, в XDG-каталоге
+# состояния пользователя, поэтому переживает повторные клоны и не попадает
+# в git.
+devops_state_dir: "{{ home_dir }}/.local/state/devops-playbook"
+report_file: "{{ devops_state_dir }}/report.json"
 
 # --- Поведение --------------------------------------------------------------
 # User-Agent для запросов к GitHub / npm / HashiCorp.

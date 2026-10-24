@@ -52,10 +52,20 @@ source ~/.config/devops-shell.sh
 
 ```bash
 ansible-playbook --syntax-check playbook.yml   # проверка синтаксиса
-ansible-playbook -K playbook.yml --check       # dry-run
+ansible-playbook -K playbook.yml --check       # dry-run (с оговорками, см. ниже)
 ansible-playbook -K playbook.yml --tags shell  # только роль shell (base — всегда)
 ansible-lint                                   # проверка стиля (profile: production)
+pre-commit run --all-files                     # те же проверки перед коммитом
 ```
+
+`--check` честно показывает только то, что умеют проверять модули: `apt`,
+`file`, `get_url`, `unarchive` и `stat`. Задачи `command`/`shell` в check mode
+по умолчанию не выполняются, поэтому установка бинарников, pipx-окружений и
+`docker` в dry-run не проверяется — они попадут в отчёт как отсутствующие.
+Проверка версий и наличия файлов в `post_tasks` помечена `check_mode: false`,
+поэтому `--check` всё равно печатает, что реально установлено, а отсутствие
+бинарников на чистой машине не считается ошибкой. Файл `report.json` в check
+mode не пишется: `copy` в dry-run ничего не меняет.
 
 ---
 
@@ -605,7 +615,31 @@ ansible-lint                    # профиль production, конфиг .ansib
 репозитория. Единственное исключение — `var-naming[no-role-prefix]`: роль
 `binaries` вызывается другими ролями через `include_role` и принимает входную
 переменную `binaries_to_install`, которая по правилу должна была бы нести
-префикс вызывающей роли.
+префикс вызывающей роли. Конфиг `.yamllint` в корне отключает длину строк (в
+описаниях утилит она не помогает), но остаётся совместимым с требованиями
+ansible-lint.
+
+---
+
+## CI и pre-commit
+
+В `.github/workflows/lint.yml` одно задание:
+
+- **lint** — `ansible-playbook --syntax-check playbook.yml`,
+  `ansible-playbook --list-tasks` (роли и теги должны разбираться),
+  `ansible-lint` и `yamllint`.
+
+Полный плейбук в CI не запускается: он ставит GUI-приложения и systemd-юниты,
+которым нужен настоящий ноутбук.
+
+Те же проверки локально запускает `.pre-commit-config.yaml`. Хуки локальные
+(`language: system`), потому что `ansible-lint`, `yamllint` и `ansible-core`
+уже ставит роль `base` — версии не дублируются в pre-commit:
+
+```bash
+pre-commit install
+pre-commit run --all-files
+```
 
 ---
 
@@ -645,6 +679,21 @@ molecule idempotence            # второй прогон — ничего н�
 ## Обновление и идемпотентность
 
 Идемпотентность везде простая: **нет файла — ставим, есть файл — не трогаем.**
+
+### Отчёт о версиях
+
+В конце каждого прогона плейбук пишет `report.json` в
+`~/.local/state/devops-playbook/` (каталог не в репозитории и не в git):
+
+- версии всех проверенных утилит и наличие бинарников без флага версии;
+- хост, дистрибутив, ядро, commit плейбука, теги запуска и признак `full_run`.
+
+```bash
+jq -r '.tools[] | select(.ok == false) | .command' ~/.local/state/devops-playbook/report.json
+```
+
+При частичном прогоне `full_run` равен `false`, а отсутствующие утилиты
+попадут в отчёт с `"ok": false`.
 
 ---
 
