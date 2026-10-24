@@ -1199,6 +1199,7 @@ headlamp_install: true
 sextant_install: true
 k9s_install: true
 helmwave_install: true
+lfk_install: true
 
 kubernetes_github_debs:
   - pkg: headlamp
@@ -1214,6 +1215,12 @@ kubernetes_github_debs:
     repo: derailed/k9s
     asset: "k9s_linux_amd64.deb"
     install: "{{ k9s_install }}"
+  # lfk — Kubernetes-TUI в стиле yazi: три колонки, иерархия владельцев, логи,
+  # shell, helm и trivy. Официальный .deb, asset lfk_{version}_linux_amd64.deb.
+  - pkg: lfk
+    repo: janosmiko/lfk
+    asset: "lfk_{version}_linux_amd64.deb"
+    install: "{{ lfk_install }}"
   # Sextant: Rust/Tauri-клиент, все контексты из kubeconfig сразу, Helm/Flux/
   # Argo CD, RBAC, встроенный MCP-сервер. Имя ассета с заглавной S.
   - pkg: sextant

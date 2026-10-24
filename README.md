@@ -113,6 +113,7 @@ ansible-lint                                   # проверка стиля (pr
 - [jj (jujutsu)](https://github.com/jj-vcs/jj) — VCS поверх обычного git-репозитория.
 - [gitui](https://github.com/extrawurst/gitui) — быстрый TUI для git на Rust.
 - [gitlabform](https://github.com/gitlabform/gitlabform) — GitLab как код: группы, проекты и настройки из YAML.
+- [zizmor](https://github.com/zizmorcore/zizmor) — статический анализ workflow GitHub Actions: опасные выражения, права, pinning экшенов.
 
 ### docker
 
@@ -289,6 +290,7 @@ ansible-lint                                   # проверка стиля (pr
 - [rubick](https://github.com/Dudude-bit/rubick) — лёгкий desktop-клиент Kubernetes.
 - [klustr](https://github.com/SametKUM/klustr) — desktop-клиент, работающий по kubeconfig.
 - [sextant](https://github.com/FriendsOfKubernetes/sextant) — desktop-клиент Kubernetes (альтернатива Lens) с MCP-сервером.
+- [lfk](https://github.com/janosmiko/lfk) — Kubernetes-TUI в стиле yazi: иерархия владельцев, логи, shell, helm.
 
 ### iac
 
@@ -326,6 +328,7 @@ ansible-lint                                   # проверка стиля (pr
 - [pgCenter](https://github.com/lesovsky/pgcenter) — консольная админка и мониторинг PostgreSQL.
 - [pgcli](https://github.com/dbcli/pgcli) — psql с автодополнением и подсветкой синтаксиса.
 - [libpq5](https://www.postgresql.org/) — клиентская библиотека PostgreSQL для psycopg и pgcli.
+- [rainfrog](https://github.com/achristmascarl/rainfrog) — TUI-клиент к PostgreSQL, MySQL и SQLite: таблицы, запросы, история.
 
 ### runtimes
 
@@ -360,6 +363,7 @@ ansible-lint                                   # проверка стиля (pr
 - [cosign](https://github.com/sigstore/cosign) — подпись и проверка артефактов sigstore.
 - [entropy](https://github.com/EwenQuim/entropy) — поиск строк с высокой энтропией: ключей и токенов по признаку случайности.
 - [ochrona](https://pypi.org/project/ochrona/) — SCA для Python-зависимостей: сверка версий с базой OSV.
+- [landrun](https://github.com/Zouuup/landrun) — sandbox для команды на Landlock: файловая система и сеть без root.
 
 ### shell
 
@@ -416,6 +420,8 @@ ansible-lint                                   # проверка стиля (pr
 - [vhs](https://github.com/charmbracelet/vhs) — запись терминальных GIF/видео из сценария.
 - [harlequin](https://github.com/tconbeer/harlequin) — SQL-IDE в терминале.
 - [lazysql](https://github.com/jorgerojas26/lazysql) — TUI-клиент к MySQL, PostgreSQL, MSSQL и SQLite.
+- [toolong](https://github.com/Textualize/toolong) — просмотр, хвост и слияние логов и JSONL на общем таймлайне.
+- [spf (superfile)](https://github.com/yorukot/superfile) — двухпанельный TUI-файлменеджер: превью, корзина, массовое переименование.
 - [shellclear](https://github.com/rusty-ferris-club/shellclear) — поиск секретов и опасных команд в истории shell.
 - [nxs-backup](https://github.com/nixys/nxs-backup) — бэкапы по YAML-описанию.
 - [cheat](https://github.com/cheat/cheat) — собственные шпаргалки команд.
@@ -468,6 +474,9 @@ ansible-lint                                   # проверка стиля (pr
 - [rustnet](https://github.com/domcyrus/rustnet) — TUI-мониторинг сети по процессам с разбором пакетов.
 - [sniffnet](https://github.com/GyulyVGC/sniffnet) — графический TUI-мониторинг трафика.
 - [uncover](https://github.com/projectdiscovery/uncover) — поиск хостов через Shodan, Censys, FOFA, Quake и другие движки.
+- [ptcpdump](https://github.com/mozillazg/ptcpdump) — tcpdump на eBPF, который показывает процесс и контейнер для каждого пакета.
+- [posting](https://github.com/darrenburns/posting) — HTTP-клиент в терминале: коллекции, окружения, история, `.http`-файлы.
+- [lazyssh](https://github.com/Adembc/lazyssh) — SSH-менеджер в стиле lazydocker/k9s: хосты из `~/.ssh/config`, подключение, ключи.
 
 ### ebpf
 

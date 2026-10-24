@@ -15,6 +15,8 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
 
 Как читать: `- [ ]` — не добавлен. В заметке — что даёт утилита, чем
 отличается от уже установленного и при каком условии к ней стоит вернуться.
+Утилиты, которые уже добавлены из этой партии, перечислены в
+[`TODO.md`](TODO.md), `bluetui` — в [`not-install.md`](not-install.md).
 
 Кандидаты, которые не подошли, не удалены: они разнесены по профильным
 трекерам — [`not-install.md`](not-install.md),
@@ -29,28 +31,8 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
 кандидаты без готового бинарника; [`TODO-server-apps.md`](TODO-server-apps.md)
 — серверные приложения.
 
-## Топ-10, с которых стоит начать
-
-1. **toolong** — просмотр и склейка логов в терминале.
-2. **ptcpdump** — `tcpdump`, который показывает процесс.
-3. **bluetui** — Bluetooth из терминала, работает с BlueZ.
-4. **superfile** — готовый двухпанельный TUI-файлменеджер.
-5. **rainfrog** — TUI-клиент к PostgreSQL/MySQL/SQLite.
-6. **posting** — HTTP-клиент в терминале с коллекциями.
-7. **lfk** — Kubernetes в стиле yazi, с иерархией владельцев.
-8. **zizmor** — статический анализ GitHub Actions.
-9. **landrun** — sandbox для процесса на Landlock без root.
-10. **lazyssh** — SSH-менеджер в стиле lazydocker/k9s.
-
----
-
 ## Файлы и навигация
 
-- [ ] **superfile** — двухпанельный TUI-файлменеджер: превью файлов, корзина,
-      массовое переименование, несколько панелей и плагины. *(23.9k ⭐, MIT,
-      `tar.gz`)* — [yorukot/superfile](https://github.com/yorukot/superfile)
-      — не добавлен: пересекается с `yazi` и `mcommander`. Пересматривать, если
-      нужен файлменеджер, который работает из коробки без настройки `yazi`.
 - [ ] **lstr** — минималистичный просмотр дерева каталогов на Rust, с
       `--icons` и подсветкой. *(1.5k ⭐, MIT, `tar.xz`)* —
       [bgreenwell/lstr](https://github.com/bgreenwell/lstr) — не добавлен:
@@ -75,12 +57,6 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
       [gnomeria/usbtree](https://github.com/gnomeria/usbtree) — не добавлен:
       для редкой диагностики хватает `dmesg` и `/sys/bus/usb`. Пересматривать
       при проблемах с док-станцией, хабом или внешними дисками.
-- [ ] **bluetui** — TUI для Bluetooth через BlueZ: поиск, спаривание,
-      подключение, заряд устройств. *(3.1k ⭐, GPL-3.0, бинарник
-      `x86_64-linux-musl`)* — [pythops/bluetui](https://github.com/pythops/bluetui)
-      — не добавлен: `bluetoothctl` есть в системе, а гарнитура подключается
-      редко. Пересматривать, если Bluetooth-устройств станет несколько и
-      понадобится наглядное управление.
 - [ ] **jolt** — TUI-монитор батареи и энергопотребления для Linux и macOS:
       заряд, расход, температура. *(573 ⭐, MIT, `tar.gz`)* —
       [jordond/jolt](https://github.com/jordond/jolt) — не добавлен:
@@ -112,13 +88,6 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
 
 ## Терминал, логи и SSH
 
-- [ ] **toolong** — просмотр, хвост, слияние и поиск по логам и JSONL в
-      терминале, с таймлайном. *(4.0k ⭐, MIT, `pipx`)* —
-      [Textualize/toolong](https://github.com/Textualize/toolong) — не
-      добавлен: `jlv` и `journalctl` закрывают часть сценариев, но не
-      слияние нескольких файлов. Последний релиз — 2024 год, но утилита
-      законченная. Пересматривать, если понадобится разбирать пачку логов
-      локально, без `lnav`.
 - [ ] **nerdlog** — multi-host TUI-просмотр логов по SSH с гистограммой
       времени, без центрального сервера. *(1.6k ⭐, BSD-2-Clause, `tar.gz`)* —
       [dimonomid/nerdlog](https://github.com/dimonomid/nerdlog) — не добавлен:
@@ -129,17 +98,11 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
       [joshmedeski/sesh](https://github.com/joshmedeski/sesh) — не добавлен:
       в плейбуке `zellij`, а `sesh` работает только с tmux. Пересматривать
       только вместе с решением поставить tmux.
-- [ ] **lazyssh** — SSH-менеджер в стиле lazydocker/k9s: разбирает
-      `~/.ssh/config`, даёт подключение, редактирование хостов и работу с
-      ключами. *(4.0k ⭐, Apache-2.0, `tar.gz`)* —
-      [Adembc/lazyssh](https://github.com/Adembc/lazyssh) — не добавлен:
-      `assh` управляет конфигом, а `sshx` — совместными сессиями. Добавлять,
-      если хостов станет много и понадобится TUI вместо правки конфига.
 - [ ] **ggh** — поиск по истории SSH-сессий и `~/.ssh/config`, быстрый повтор
       подключения. *(959 ⭐, Apache-2.0, бинарник)* —
       [byawitz/ggh](https://github.com/byawitz/ggh) — не добавлен: частично
-      дублирует `zoxide` + `fzf`. Пересматривать вместе с `lazyssh`, если
-      понадобится именно история подключений.
+      дублирует `zoxide` + `fzf`. Пересматривать, если понадобится именно
+      история подключений (хосты уже закрывает установленный `lazyssh`).
 - [ ] **edit** — современный терминальный текстовый редактор от Microsoft:
       мышь, меню, подсветка, без обучения vim. *(14.7k ⭐, MIT, `tar.gz`)* —
       [microsoft/edit](https://github.com/microsoft/edit) — не добавлен:
@@ -179,11 +142,6 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
       [j178/prek](https://github.com/j178/prek) — не добавлен: `pre-commit`
       уже стоит и работает. Пересматривать как замену, если прогон хуков
       станет заметно медленным.
-- [ ] **zizmor** — статический анализ workflow GitHub Actions: опасные
-      выражения, избыточные права, pinning экшенов. *(6.8k ⭐, MIT, `tar.gz`)*
-      — [zizmorcore/zizmor](https://github.com/zizmorcore/zizmor) — не
-      добавлен: пока нет своих GitHub Actions, которые надо аудировать.
-      Добавлять вместе с первым CI-workflow в этом репозитории.
 - [ ] **gh-stack** — расширение `gh` для stacked pull request'ов: цепочки
       зависимых PR и их синхронизация. *(1.7k ⭐, MIT, расширение `gh`)* —
       [github/gh-stack](https://github.com/github/gh-stack) — не добавлен:
@@ -229,16 +187,6 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
 
 ## API, базы и LDAP
 
-- [ ] **posting** — HTTP-клиент в терминале: коллекции, окружения, история,
-      `.http`-файлы. *(12.5k ⭐, Apache-2.0, `pipx`)* —
-      [darrenburns/posting](https://github.com/darrenburns/posting) — не
-      добавлен: `httpie` и `xh` закрывают разовые запросы. Добавлять, если
-      понадобятся коллекции запросов и повторяемые сценарии без Postman.
-- [ ] **rainfrog** — TUI-клиент к PostgreSQL, MySQL и SQLite: таблицы,
-      запросы, история, экспорт. *(5.4k ⭐, MIT, `tar.gz`)* —
-      [achristmascarl/rainfrog](https://github.com/achristmascarl/rainfrog) —
-      не добавлен: `pgcli`, `harlequin` и `lazysql` уже стоят. Пересматривать,
-      если понадобится один TUI на несколько разных СУБД.
 - [ ] **godap** — полноценный LDAP-клиент в терминале: дерево, поиск,
       редактирование атрибутов. *(989 ⭐, MIT, `tar.gz`)* —
       [Macmod/godap](https://github.com/Macmod/godap) — не добавлен: LDAP
@@ -252,11 +200,6 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
 
 ## Сеть
 
-- [ ] **ptcpdump** — `tcpdump` на eBPF, который показывает процесс и
-      контейнер для каждого пакета. *(1.3k ⭐, MIT, `tar.gz`)* —
-      [mozillazg/ptcpdump](https://github.com/mozillazg/ptcpdump) — не
-      добавлен: `tcpdump` и `wireshark` уже есть. Добавлять, когда нужно
-      понять, какой процесс генерирует трафик, без перебора PID.
 - [ ] **whosthere** — обнаружение устройств в локальной сети в TUI: ARP,
       mDNS, SSDP, порты и имена. *(2.5k ⭐, Apache-2.0, `tar.gz`)* —
       [ramonvermeulen/whosthere](https://github.com/ramonvermeulen/whosthere)
@@ -280,11 +223,6 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
 
 ## Kubernetes и контейнеры
 
-- [ ] **lfk** — Kubernetes-TUI в стиле yazi: три колонки, иерархия
-      владельцев, логи, shell, helm, trivy. *(918 ⭐, Apache-2.0,
-      `.deb`/`tar.gz`)* — [janosmiko/lfk](https://github.com/janosmiko/lfk) —
-      не добавлен: `k9s` уже стоит. Пересматривать, если понадобится
-      навигация по owner-цепочкам и другой, более наглядный UX.
 - [ ] **khi** — просмотр логов и событий Kubernetes с таймлайном и связью
       ресурсов при разборе инцидента. *(2.1k ⭐, Apache-2.0, бинарник)* —
       [GoogleCloudPlatform/khi](https://github.com/GoogleCloudPlatform/khi)
@@ -303,12 +241,6 @@ Search API (`created:>2023-10-24`, сортировка по звёздам) п�
 
 ## Безопасность и доступ
 
-- [ ] **landrun** — sandbox для любой команды на Landlock: файловая система
-      и сеть, без root, контейнеров и AppArmor. *(2.3k ⭐, MIT, бинарник)* —
-      [Zouuup/landrun](https://github.com/Zouuup/landrun) — не добавлен:
-      `firejail` в плейбуке нет, а потребность в изоляции пока разовая.
-      Добавлять как замену `firejail`, когда понадобится запускать
-      недоверенные бинарники.
 - [ ] **opkssh** — SSH-доступ по OpenID Connect вместо статических ключей,
       с короткоживущими сертификатами. *(2.1k ⭐, Apache-2.0, бинарник)* —
       [openpubkey/opkssh](https://github.com/openpubkey/opkssh) — не добавлен:

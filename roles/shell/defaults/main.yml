@@ -430,6 +430,16 @@ shell_binaries:
     url: "https://github.com/jorgerojas26/lazysql/releases/download/{tag}/lazysql_Linux_x86_64.tar.gz"
     archive: tar
     member: lazysql
+  # spf (superfile) — двухпанельный TUI-файлменеджер: превью файлов, корзина,
+  # массовое переименование, несколько панелей и плагины. Работает из коробки,
+  # без настройки yazi. В тарболле superfile-linux-v{version}-amd64 бинарник
+  # spf лежит в каталоге dist/superfile-linux-v{version}-amd64/.
+  - name: spf
+    source: github
+    repo: yorukot/superfile
+    url: "https://github.com/yorukot/superfile/releases/download/{tag}/superfile-linux-v{version}-amd64.tar.gz"
+    archive: tar
+    member: dist/superfile-linux-v{version}-amd64/spf
 
 # Python-приложения роли shell — ставятся через pipx в изолированное окружение.
 shell_pipx_apps:
@@ -444,6 +454,12 @@ shell_pipx_apps:
   # extras-пакетами (`pipx inject harlequin psycopg[binary]` и т. п.).
   - name: harlequin
     creates: harlequin
+  # toolong — просмотр больших логов и JSONL в терминале: хвост в реальном
+  # времени, слияние нескольких файлов на общем таймлайне, поиск и переход по
+  # времени. Дополняет jlv (JSON-логи) и lazyjournal (journald). Ставится из
+  # PyPI в изолированное окружение pipx.
+  - name: toolong
+    creates: toolong
 
 # --- cheat — собственные шпаргалки команд ------------------------------------
 # Релиз cheat — gzip-сжатый одиночный бинарник cheat-linux-amd64.gz (НЕ тарболл),

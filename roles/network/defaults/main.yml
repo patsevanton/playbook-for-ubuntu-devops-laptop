@@ -46,6 +46,12 @@ network_pipx_apps:
   # в PATH появляются сами команды, marker — network-top.
   - name: netutils-linux
     creates: network-top
+  # posting — HTTP-клиент в терминале: коллекции запросов, окружения и
+  # переменные, история и `.http`-файлы в одном TUI. Дополняет httpie и xh:
+  # те закрывают разовые запросы, posting — повторяемые сценарии. Ставится
+  # из PyPI в изолированное окружение pipx.
+  - name: posting
+    creates: posting
 
 # Go-приложения без релизных бинарников — собираются ролью go_apps.
 network_go_apps:
@@ -263,6 +269,26 @@ network_binaries:
     url: "https://github.com/projectdiscovery/uncover/releases/download/{tag}/uncover_{version}_linux_amd64.zip"
     archive: zip
     member: uncover
+  # ptcpdump — tcpdump на eBPF: к каждому пакету показывает процесс,
+  # контейнер и cgroup, поэтому не нужно искать PID по порту. Дополняет
+  # tcpdump и tshark. Релиз — ptcpdump_{version}_linux_amd64.tar.gz, бинарник
+  # ptcpdump в корне.
+  - name: ptcpdump
+    source: github
+    repo: mozillazg/ptcpdump
+    url: "https://github.com/mozillazg/ptcpdump/releases/download/{tag}/ptcpdump_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: ptcpdump
+  # lazyssh — SSH-менеджер в стиле lazydocker/k9s: разбирает ~/.ssh/config,
+  # подключает к хостам, правит записи и работает с ключами. Дополняет assh
+  # (тот генерирует конфиг из YAML). Релиз — lazyssh_Linux_x86_64.tar.gz,
+  # бинарник lazyssh в корне.
+  - name: lazyssh
+    source: github
+    repo: Adembc/lazyssh
+    url: "https://github.com/Adembc/lazyssh/releases/download/{tag}/lazyssh_Linux_x86_64.tar.gz"
+    archive: tar
+    member: lazyssh
 
 # --- Sniffnet: графический TUI-анализатор сетевого трафика -----------------
 # Ставится официальным .deb из GitHub-релиза (артефакт без версии в имени).

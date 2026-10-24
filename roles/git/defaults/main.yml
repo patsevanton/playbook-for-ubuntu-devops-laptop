@@ -172,6 +172,16 @@ git_binaries:
     url: "https://github.com/extrawurst/gitui/releases/download/{tag}/gitui-linux-x86_64.tar.gz"
     archive: tar
     member: gitui
+  # zizmor — статический анализ workflow GitHub Actions: опасные выражения,
+  # избыточные права, непиненные экшены. Дополняет act (локальный запуск
+  # workflow). Релиз — zizmor-x86_64-unknown-linux-gnu.tar.gz, бинарник zizmor
+  # в корне.
+  - name: zizmor
+    source: github
+    repo: zizmorcore/zizmor
+    url: "https://github.com/zizmorcore/zizmor/releases/download/{tag}/zizmor-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: zizmor
 
 # Python-приложения для работы с GitLab (нет релизных бинарников — PyPI/pipx).
 git_pipx_apps:

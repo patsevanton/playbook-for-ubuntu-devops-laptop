@@ -97,11 +97,12 @@
 | `kubeval` | валидация Kubernetes-манифестов | не нужен: апстрим объявил проект deprecated, замена — `kubeconform` (стоит в роли `kubernetes`) | — |
 | `mizu` | анализатор API-трафика Kubernetes | не нужен: заменён `kubeshark`, который стоит в роли `kubernetes` | — |
 | impala | TUI для управления Wi-Fi | не нужен: работает только через `iwd` и требует отключить NetworkManager, а на Ubuntu NetworkManager — штатный путь | — |
+| bluetui | TUI для Bluetooth через BlueZ: поиск, спаривание, подключение, заряд устройств | не нужен: `bluetoothctl` уже есть в системе, а Bluetooth-устройства подключаются редко | — |
 | term.everything | запуск GUI-приложений внутри терминала | не нужен: только beta-релизы без стабильной версии, сценарий нишевый | — |
 | gitu | TUI-клиент git в духе Magit | не нужен: дублирует `gitui` из роли `git` | — |
 | vfox | менеджер версий Java, Node.js, Go, Python и других SDK | не нужен: дублирует `mise` из роли `shell`; версии в плейбуке не фиксируются | — |
-| sshpilot | GUI-менеджер SSH-подключений и SFTP | не нужен: конфигом управляет `assh`, а TUI-вариант — кандидат `lazyssh`; GUI тянет GTK-зависимости | — |
-| ATAC | TUI-клиент HTTP в духе Postman | не нужен: разовые запросы закрывают `httpie` и `xh`, а коллекции — кандидат `posting` | — |
+| sshpilot | GUI-менеджер SSH-подключений и SFTP | не нужен: конфигом управляет `assh`, а TUI-вариант — уже установленный `lazyssh`; GUI тянет GTK-зависимости | — |
+| ATAC | TUI-клиент HTTP в духе Postman | не нужен: разовые запросы закрывают `httpie` и `xh`, а коллекции — уже установленный `posting` | — |
 | freelens | desktop-IDE для Kubernetes (форк Lens) | не нужен: то же место занимают `headlamp` и `k9s` из роли `kubernetes` | — |
 | neohtop | GUI-монитор системы на Tauri | не нужен: мониторинг закрывают `btop` и `bottom` из роли `shell` | — |
 

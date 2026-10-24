@@ -19,6 +19,16 @@ postgres_binaries:
     url: "https://github.com/lesovsky/pgcenter/releases/download/{tag}/pgcenter_{version}_linux_amd64.tar.gz"
     archive: tar
     member: pgcenter
+  # rainfrog — TUI-клиент к PostgreSQL, MySQL и SQLite: таблицы, SQL-редактор,
+  # история запросов и экспорт результата. Дополняет pgcli (тот только про
+  # PostgreSQL). Релиз — rainfrog-v{version}-x86_64-unknown-linux-gnu.tar.gz,
+  # бинарник rainfrog в корне.
+  - name: rainfrog
+    source: github
+    repo: achristmascarl/rainfrog
+    url: "https://github.com/achristmascarl/rainfrog/releases/download/{tag}/rainfrog-v{version}-x86_64-unknown-linux-gnu.tar.gz"
+    archive: tar
+    member: rainfrog
 
 # Python-приложения для работы с PostgreSQL (нет релизных бинарников — pipx).
 postgres_pipx_apps:

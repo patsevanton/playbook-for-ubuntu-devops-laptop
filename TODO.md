@@ -104,6 +104,11 @@ Ubuntu: `btop` (1.4.6) и `ncdu` (1.22), оба ролью `shell` через ap
 [`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md). Заброшенные
 из этой волны — в [`TODO-abandoned.md`](TODO-abandoned.md).
 
+Добавлены 2026-10-24 из трендов GitHub за последние 3 года: `toolong`,
+`ptcpdump`, `superfile` (бинарник `spf`), `rainfrog`, `posting`, `lfk`,
+`zizmor`, `landrun`, `lazyssh`. `bluetui` не ставится — причина в
+[`not-install.md`](not-install.md).
+
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см.
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) и
