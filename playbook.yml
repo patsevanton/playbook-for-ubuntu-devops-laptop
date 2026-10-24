@@ -211,7 +211,9 @@
         - "{{ bin_dir }}/logdy --version"
         - "{{ bin_dir }}/spacer --version"
         - "{{ bin_dir }}/ghgrab --version"
-        - "{{ pipx_bin_dir }}/gitlabform --version"
+        # --skip-version-check обязателен: без него gitlabform лезет на PyPI
+        # за последней версией без таймаута и виснет, если PyPI недоступен.
+        - "{{ pipx_bin_dir }}/gitlabform --version --skip-version-check"
         - "{{ bin_dir }}/cloudprober --version"
         - "{{ bin_dir }}/krr --help"
         - "{{ bin_dir }}/dra --version"

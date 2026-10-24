@@ -13,8 +13,8 @@
 
 | Статус | Сколько | Где описано |
 | --- | --- | --- |
-| уже ставится или упоминается в проекте | 51 | `README.md`, `not-install.md`, `roles/**` |
-| отсутствует — живой кандидат | 31 | этот файл |
+| уже ставится или упоминается в проекте | 58 | `README.md`, `not-install.md`, `roles/**` |
+| отсутствует — живой кандидат | 24 | этот файл |
 | отсутствует — заброшено | 34 | [`TODO-abandoned.md`](TODO-abandoned.md) |
 | отсутствует — нет linux-бинарника | 4 | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
 | отсутствует — сознательный отказ | 12 | [`not-install.md`](not-install.md) |
@@ -43,14 +43,12 @@ Ubuntu не значит, что плейбук его ставит — это �
 | [mtr](https://github.com/traviscross/mtr) | traceroute + ping в одном, живая статистика по хопам | пакет Ubuntu `mtr` (0.95) |
 | [dnspeep](https://github.com/jvns/dnspeep) | смотрит DNS-запросы процессов (Rust, нужен libpcap) | GitHub: `dnspeep-linux.tar.gz` |
 | [pingtop](https://github.com/laixintao/pingtop) | TUI, пингует несколько хостов одновременно | PyPI → роль `pipx_apps`, релизов на GitHub нет |
-| [iprange](https://github.com/firehol/iprange) | арифметика подсетей и IP-диапазонов (для ipset/фаервола) | пакет Ubuntu `iprange`; есть и GitHub-релиз |
 | [frp](https://github.com/fatedier/frp) | обратный прокси: доступ к локальному серверу за NAT | GitHub: `frp_*_linux_amd64.tar.gz` |
 
 ## SSH и удалённые сессии
 
 | Утилита | Что это | Как ставится и что проверить |
 | --- | --- | --- |
-| [mosh](https://mosh.org/) | мобильный shell: устойчив к обрывам и смене IP | пакет Ubuntu `mosh` (1.4.0) |
 | [tmate](https://tmate.io/) | мгновенный доступ к терминалу через tmux-сервер | пакет Ubuntu `tmate` (2.4.0) |
 
 ## HTTP, JSON и анализ логов
@@ -64,19 +62,16 @@ Ubuntu не значит, что плейбук его ставит — это �
 | [jql](https://github.com/cube2222/jql) | альтернатива jq с более простым синтаксисом | GitHub: `jql_*_linux_amd64.tar.gz` |
 | [topngx](https://github.com/gsquire/topngx) | `top` по access-логам nginx (замена ngxtop) | GitHub: `topngx-*_x86_64-unknown-linux-musl.tar.gz` |
 | [GoAccess](https://goaccess.io/) | анализатор веб-логов, TUI и HTML-отчёты | пакет Ubuntu `goaccess` (1.9.4) |
-| [lnav](https://github.com/tstack/lnav) | продвинутый просмотрщик логов с SQL по ним | пакет Ubuntu `lnav` (0.13.2) |
 
 ## Система, файлы, диагностика
 
 | Утилита | Что это | Как ставится и что проверить |
 | --- | --- | --- |
-| [sponge](https://joeyh.name/code/moreutils/) | «губка» для stdin: читает всё, потом пишет в файл | пакет Ubuntu `moreutils` |
 | [watchman](https://github.com/facebook/watchman) | следит за файлами и триггерит действия при изменениях | пакет Ubuntu `watchman` (4.9.0) |
 | [tlog](https://github.com/Scribery/tlog) | запись и воспроизведение терминальных сессий | пакет Ubuntu `tlog` (14) |
 | [whatfiles](https://github.com/spieglt/whatfiles) | какие файлы открыл процесс (упрощённый strace) | GitHub: `whatfiles-v*_linux-x86_64` |
 | [fatrace](https://github.com/martinpitt/fatrace) | file access trace без strace/blktrace | пакет Ubuntu `fatrace` (0.19) |
 | [sysdig](https://github.com/draios/sysdig) | трассировка системных вызовов с фильтрами | пакет Ubuntu `sysdig` (0.40) |
-| [ioping](https://github.com/koct9i/ioping) | проверка отзывчивости дисковой подсистемы | пакет Ubuntu `ioping` (1.3) |
 | [sosreport](https://github.com/sosreport/sos) | сбор диагностики системы одним архивом | пакет Ubuntu `sosreport` (4.11) |
 | [hstr](https://github.com/dvorka/hstr) | TUI-поиск по истории команд | пакет Ubuntu `hstr` (3.1) |
 | [pastebinit](https://github.com/pastebinit/pastebinit) | отправка текста на pastebin из CLI | пакет Ubuntu `pastebinit` (1.8) |
@@ -86,7 +81,6 @@ Ubuntu не значит, что плейбук его ставит — это �
 
 | Утилита | Что это | Как ставится и что проверить |
 | --- | --- | --- |
-| [testssl.sh](https://github.com/drwetter/testssl.sh) | проверка TLS/SSL сервиса по всем параметрам | пакет Ubuntu `testssl.sh`; есть GitHub-релиз |
 | [ssl-cert-check](https://github.com/Matty9191/ssl-cert-check) | проверка срока действия сертификатов + письмо | пакет Ubuntu `ssl-cert-check` (4.14) |
 
 ## Разработка, shell, шпаргалки
@@ -94,7 +88,6 @@ Ubuntu не значит, что плейбук его ставит — это �
 | Утилита | Что это | Как ставится и что проверить |
 | --- | --- | --- |
 | [clog-cli](https://github.com/clog-tool/clog-cli) | CHANGELOG из истории git-коммитов | GitHub: `clog-*_x86_64-unknown-linux-gnu.tar.gz` |
-| [GNU parallel](https://www.gnu.org/software/parallel/) | параллельное выполнение команд вместо `xargs`/циклов | пакет Ubuntu `parallel` (20240222) |
 | [cheat.sh](https://github.com/chubin/cheat.sh) | шпаргалки по командам из терминала | пакет Ubuntu `cht.sh` или установочный скрипт с cheat.sh |
 
 ---
@@ -121,9 +114,14 @@ Ubuntu не значит, что плейбук его ставит — это �
 
 ## Что из статьи в проекте уже есть
 
-Ставится или обсуждается (51): binenv, bat, exa, fd, procs, sd, dust, starship,
+Ставится или обсуждается (58): binenv, bat, exa, fd, procs, sd, dust, starship,
 ripgrep, ripgrep-all, grex, fzf, jq, peco, HTTPie, xh, shell2http, reachable,
 lazydocker, gotty, ngrok, lazygit, bottom, bandwhich, delta, gdu, dog, gitleaks,
 fx, dive, termshark, sysinfo, dry, gh, assh, txeh, asn, choose, jl, wondershaper,
 mkcert, netutils-linux, ctop, ShellCheck, kubectx, kubens, fselect, k3d, arkade,
-helmfile, 3mux, localstack.
+helmfile, 3mux, localstack, mosh, iprange, testssl.sh, moreutils (sponge, ts,
+vidir, ifne, chronic), GNU parallel, lnav, ioping.
+
+Добавлены в плейбук 2026-10-24: mosh и iprange, testssl.sh — в
+`network_packages` (роль `network`); moreutils, GNU parallel, lnav, ioping — в
+`shell_packages` (роль `shell`).
