@@ -59,6 +59,10 @@ shell_packages:
   # в CI через `shfmt -d`. Дополняет shellcheck: тот ищет ошибки, shfmt
   # приводит код к единому виду.
   - shfmt
+  # sysstat — история производительности: sar (CPU/память/сеть/диск по
+  # интервалам), iostat, mpstat и pidstat (нагрузка по процессам). btop/btm
+  # показывают только текущий момент, sysstat отвечает на «что было в 14:30».
+  - sysstat
 
 shell_binaries:
   - name: starship

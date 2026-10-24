@@ -267,3 +267,14 @@ tfenv_repo: https://github.com/tfutils/tfenv.git
 tfenv_dir: "{{ home_dir }}/.tfenv"
 tgenv_repo: https://github.com/tgenv/tgenv.git
 tgenv_dir: "{{ home_dir }}/.tgenv"
+
+# --- yc: Yandex Cloud CLI ---------------------------------------------------
+# Управление облаком из терминала: compute, VPC, managed-сервисы, Kubernetes,
+# IAM и S3. В GitHub-релизах бинарников нет: апстрим публикует их на своём
+# storage, а текущая версия лежит в файле release/stable (URL без версии).
+# Поэтому ставим отдельной задачей tasks/yc.yml, а не ролью binaries.
+yc_install: true
+yc_bin: "{{ bin_dir }}/yc"
+yc_stable_url: https://storage.yandexcloud.net/yandexcloud-yc/release/stable
+yc_base_url: https://storage.yandexcloud.net/yandexcloud-yc/release
+yc_tmp_dir: "{{ tmp_dir }}/yc"

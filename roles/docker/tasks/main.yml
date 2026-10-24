@@ -56,6 +56,12 @@
     name: "{{ docker_packages }}"
     state: present
 
+- name: Установить утилиты работы с образами из репозитория Ubuntu (skopeo)
+  become: true
+  ansible.builtin.apt:
+    name: "{{ docker_utils_packages }}"
+    state: present
+
 - name: Установить утилиты для работы с контейнерами (dive, lazydocker)
   ansible.builtin.include_role:
     name: binaries

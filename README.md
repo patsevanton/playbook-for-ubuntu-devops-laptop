@@ -67,6 +67,7 @@ ansible-lint                                   # проверка стиля (pr
 ### base
 
 - [rsync](https://rsync.samba.org/) — инкрементальное копирование локально и по SSH, `--dry-run` перед изменениями.
+- [lsof](https://github.com/lsof-org/lsof) — кто держит файл, каталог или сокет: `lsof -i :8080`, `lsof +D /path`.
 - [yq](https://github.com/mikefarah/yq) — YAML/JSON/XML-процессор с jq-подобным синтаксисом.
 - [eget](https://github.com/zyedidia/eget) — установка готовых бинарников прямо из GitHub-релизов одной командой.
 - [dra](https://github.com/devmatteini/dra) — скачивание отдельных ассетов GitHub-релиза по имени репозитория.
@@ -124,6 +125,7 @@ ansible-lint                                   # проверка стиля (pr
 - [lazydocker](https://github.com/jesseduffield/lazydocker) — TUI-менеджер контейнеров, образов и томов.
 - [ctop](https://github.com/bcicen/ctop) — `top` по метрикам контейнеров (CPU, память, сеть).
 - [oras](https://github.com/oras-project/oras) — клиент OCI-реестров для произвольных артефактов.
+- [skopeo](https://github.com/containers/skopeo) — inspect/copy/sync образов между реестрами без Docker-демона и root.
 - [dry](https://github.com/moncho/dry) — терминальный менеджер Docker с несколькими хостами.
 - [decompose](https://github.com/s0rg/decompose) — карта образов, сетей, томов и зависимостей docker-окружения.
 - [copa (copacetic)](https://github.com/project-copacetic/copacetic) — патчинг CVE прямо в образе по отчёту grype/trivy.
@@ -298,6 +300,7 @@ ansible-lint                                   # проверка стиля (pr
 ### iac
 
 - [graphviz](https://gitlab.com/graphviz/graphviz) — `dot` для рендера графов Terraform/Terragrunt.
+- [yc](https://cloud.yandex.ru/docs/cli/) — Yandex Cloud CLI: compute, VPC, managed-сервисы, Kubernetes, IAM и S3.
 - [tflint](https://github.com/terraform-linters/tflint) — линтер Terraform/OpenTofu.
 - [terraform-docs](https://github.com/terraform-docs/terraform-docs) — документация модулей из HCL.
 - [terraform-ls](https://github.com/hashicorp/terraform-ls) — LSP-сервер для HCL: автодополнение, диагностика, форматирование.
@@ -449,6 +452,7 @@ ansible-lint                                   # проверка стиля (pr
 - [ioping](https://github.com/koct9i/ioping) — латентность дисковой подсистемы: отзывчивость I/O, а не объём.
 - [fatrace](https://github.com/martinpitt/fatrace) — трассировка доступа к файлам: какой процесс читает, пишет или удаляет.
 - [shfmt](https://github.com/mvdan/sh) — форматтер shell-скриптов, дополняет `shellcheck`.
+- [sysstat](https://github.com/sysstat/sysstat) — история производительности: `sar`, `iostat`, `mpstat`, `pidstat`.
 - [devops-shell.sh](https://github.com/patsevanton/playbook-for-ubuntu-devops-laptop/blob/main/roles/shell/templates/devops-shell.sh.j2) — конфиг shell: `~/.config/devops-shell.sh` плюс одна строка `source` в `~/.bashrc`.
 
 ### network
@@ -466,6 +470,7 @@ ansible-lint                                   # проверка стиля (pr
 - [testssl.sh](https://github.com/drwetter/testssl.sh) — полный аудит TLS: протоколы, шифры, цепочка, известные уязвимости.
 - [socat](http://www.dest-unreach.org/socat/) — relay между TCP/UDP и Unix-сокетами, TLS-обёртка, PTY и exec-адреса.
 - [iperf3](https://github.com/esnet/iperf) — пропускная способность и джиттер между ноутбуком и сервером.
+- [ethtool](https://mirrors.edge.kernel.org/pub/software/network/ethtool/) — скорость, duplex, драйвер, ring buffers и ошибки физического линка.
 - [rkn-block-checker](https://pypi.org/project/rkn-block-checker/) — диагностика блокировок: DNS-подмена, TCP reset, DPI по SNI.
 - [showcert](https://github.com/yaroslaff/showcert) — человекочитаемый разбор X.509-сертификатов.
 - [ssh-audit](https://github.com/jtesta/ssh-audit) — аудит конфигурации SSH-серверов и клиентов.

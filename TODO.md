@@ -129,6 +129,14 @@ GitHub): `rsync` (роль `base`), `bpftrace` (роль `ebpf`), `socat` и `ip
 потому что `TODO-trend-*` собираются по звёздам GitHub и не учитывают
 обычные пакеты Ubuntu.
 
+Добавлены 2026-10-24 по запросу, вторая партия: `lsof` (роль `base`),
+`sysstat` (роль `shell`), `ethtool` (роль `network`), `skopeo` (роль
+`docker`), `yc` (роль `iac`). `yc` ставится отдельной задачей
+`roles/iac/tasks/yc.yml`: апстрим публикует бинарники на своём storage, а не
+в GitHub-релизах, поэтому роль `binaries` не подходит. `skopeo`, как и
+`rsync` из первой партии, уже упоминался в README как существующий, хотя
+ничего его не ставило.
+
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см.
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) и

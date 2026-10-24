@@ -1,7 +1,7 @@
 ---
 # ============================================================================
-# Роль iac: tflint, terraform-docs, terraform-ls, packer, inframap, rover, graphviz
-# + менеджеры версий tfenv/tgenv, RackPeek (`rpk`).
+# Роль iac: tflint, terraform-docs, terraform-ls, packer, inframap, rover,
+# graphviz + менеджеры версий tfenv/tgenv, yc (Yandex Cloud CLI), RackPeek (`rpk`).
 # ============================================================================
 
 - name: Установить системные пакеты IaC (graphviz для рендера графов)
@@ -21,6 +21,11 @@
     name: pipx_apps
   vars:
     pipx_apps: "{{ iac_pipx_apps }}"
+
+- name: Установить yc (Yandex Cloud CLI)
+  ansible.builtin.include_tasks:
+    file: yc.yml
+  when: yc_install
 
 - name: Установить atmos (оркестратор Terraform-окружений)
   ansible.builtin.include_tasks:

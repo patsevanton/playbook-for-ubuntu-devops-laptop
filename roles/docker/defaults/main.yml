@@ -7,6 +7,14 @@ docker_packages:
   - containerd.io
   - docker-compose-plugin
 
+# Утилиты работы с образами из репозитория Ubuntu (ставятся отдельно от
+# docker_packages, которые приходят из официального репозитория Docker).
+docker_utils_packages:
+  # skopeo — inspect/copy/sync образов между реестрами без Docker-демона и
+  # root: посмотреть манифест и слои, скопировать образ в другой registry,
+  # удалить теги. Уже подразумевается в README (перенос PVC через skopeo).
+  - skopeo
+
 # Пакеты Docker из репозитория Ubuntu удаляются до установки официальных:
 # они занимают те же файлы, и dpkg отказывается перезаписывать их
 # (docker-compose-v2 и docker-compose-plugin делят
