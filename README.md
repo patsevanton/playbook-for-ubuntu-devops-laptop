@@ -66,6 +66,7 @@ ansible-lint                                   # проверка стиля (pr
 
 ### base
 
+- [rsync](https://rsync.samba.org/) — инкрементальное копирование локально и по SSH, `--dry-run` перед изменениями.
 - [yq](https://github.com/mikefarah/yq) — YAML/JSON/XML-процессор с jq-подобным синтаксисом.
 - [eget](https://github.com/zyedidia/eget) — установка готовых бинарников прямо из GitHub-релизов одной командой.
 - [dra](https://github.com/devmatteini/dra) — скачивание отдельных ассетов GitHub-релиза по имени репозитория.
@@ -447,6 +448,7 @@ ansible-lint                                   # проверка стиля (pr
 - [lnav](https://github.com/tstack/lnav) — просмотрщик логов с SQL-запросами, таймлайном и автодетектом формата.
 - [ioping](https://github.com/koct9i/ioping) — латентность дисковой подсистемы: отзывчивость I/O, а не объём.
 - [fatrace](https://github.com/martinpitt/fatrace) — трассировка доступа к файлам: какой процесс читает, пишет или удаляет.
+- [shfmt](https://github.com/mvdan/sh) — форматтер shell-скриптов, дополняет `shellcheck`.
 - [devops-shell.sh](https://github.com/patsevanton/playbook-for-ubuntu-devops-laptop/blob/main/roles/shell/templates/devops-shell.sh.j2) — конфиг shell: `~/.config/devops-shell.sh` плюс одна строка `source` в `~/.bashrc`.
 
 ### network
@@ -462,6 +464,8 @@ ansible-lint                                   # проверка стиля (pr
 - [mosh](https://mosh.org/) — мобильный shell: сессия переживает обрыв связи и смену IP.
 - [iprange](https://github.com/firehol/iprange) — арифметика подсетей и IP-диапазонов для фаервола и ipset.
 - [testssl.sh](https://github.com/drwetter/testssl.sh) — полный аудит TLS: протоколы, шифры, цепочка, известные уязвимости.
+- [socat](http://www.dest-unreach.org/socat/) — relay между TCP/UDP и Unix-сокетами, TLS-обёртка, PTY и exec-адреса.
+- [iperf3](https://github.com/esnet/iperf) — пропускная способность и джиттер между ноутбуком и сервером.
 - [rkn-block-checker](https://pypi.org/project/rkn-block-checker/) — диагностика блокировок: DNS-подмена, TCP reset, DPI по SNI.
 - [showcert](https://github.com/yaroslaff/showcert) — человекочитаемый разбор X.509-сертификатов.
 - [ssh-audit](https://github.com/jtesta/ssh-audit) — аудит конфигурации SSH-серверов и клиентов.
@@ -501,6 +505,7 @@ ansible-lint                                   # проверка стиля (pr
 
 ### ebpf
 
+- [bpftrace](https://github.com/bpftrace/bpftrace) — однострочники и скрипты для ad-hoc трассировки ядра на eBPF.
 - [pwru](https://github.com/cilium/pwru) — eBPF-отладчик сетевого стека: где потерялся пакет.
 - [bpftop](https://github.com/jfernandez/bpftop) — обзор запущенных eBPF-программ и их CPU.
 - [oryx](https://github.com/pythops/oryx) — TUI-сниффер трафика на eBPF.

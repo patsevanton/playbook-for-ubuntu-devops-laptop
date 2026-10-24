@@ -123,6 +123,12 @@ GitHub-релизов, без root и setcap. `sonar` частично дубл�
 TUI-дашборд портов с kill и перезапуском, плюс MCP-сервер для
 AI-агентов.
 
+Добавлены 2026-10-24 по запросу из классических apt-пакетов (не из трендов
+GitHub): `rsync` (роль `base`), `bpftrace` (роль `ebpf`), `socat` и `iperf3`
+(роль `network`), `shfmt` (роль `shell`). Эти пробелы не были в трекерах,
+потому что `TODO-trend-*` собираются по звёздам GitHub и не учитывают
+обычные пакеты Ubuntu.
+
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см.
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) и

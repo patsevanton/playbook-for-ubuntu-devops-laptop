@@ -55,6 +55,10 @@ shell_packages:
   # процесс читает/пишет/удаляет файлы, без strace по конкретному PID и без
   # eBPF. Запускается от root: `sudo fatrace -c`.
   - fatrace
+  # shfmt — форматтер shell-скриптов (отступы, пробелы, переносы) с проверкой
+  # в CI через `shfmt -d`. Дополняет shellcheck: тот ищет ошибки, shfmt
+  # приводит код к единому виду.
+  - shfmt
 
 shell_binaries:
   - name: starship
