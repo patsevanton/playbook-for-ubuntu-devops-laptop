@@ -21,8 +21,8 @@
   `kubectl-krew` = `krew`, `kubeseal` при SOPS/bank-vaults) —
   [`not-install.md`](not-install.md).
 
-Описания в таблицах — цитаты из апстрим-списка binenv (на английском, чтобы не
-терять формулировки), ссылки — оттуда же.
+Описания в таблицах — перевод апстрим-описаний из списка binenv на русский;
+ссылки — оттуда же.
 
 Ограничение сверки: наличие в binenv не гарантирует актуальный linux-amd64
 бинарник — часть записей старая. Перед добавлением в плейбук проверять ассеты
@@ -37,155 +37,154 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 
 | Утилита | Что это |
 | --- | --- |
-| [cmctl](https://cert-manager.io/docs/usage/cmctl/) | CLI tool that can help you to manage cert-manager resources inside your cluster |
-| [eksctl](https://github.com/weaveworks/eksctl/) | eksctl is a simple CLI tool for creating clusters on AWS EKS |
-| [havener](https://github.com/homeport/havener/) | Think of it as a swiss army knife for Kubernetes tasks |
-| [k8stail](https://github.com/dtan4/k8stail/) | tail -f experience for Kubernetes Pods |
-| [kconnect](https://github.com/fidelity/kconnect) | A CLI for managing Kubernetes cluster connections |
-| [kdigger](https://github.com/quarkslab/kdigger/) | kdigger is a context discovery tool for Kubernetes penetration testing |
-| [kube-beacon](https://github.com/chen-keinan/kube-beacon/) | Open Source runtime scanner for k8s cluster and perform security audit checks based on CIS Kubernetes Benchmark specification |
-| [kubeeye](https://github.com/kubesphere/kubeeye/) | KubeEye aims to find various problems on Kubernetes, such as application misconfiguration, unhealthy cluster components and node problems |
-| [kubens](https://github.com/ahmetb/kubectx/) | Faster way to switch between namespaces in kubectl |
-| [kubestr](https://github.com/kastenhq/kubestr/) | A tool to discover, validate and evaluate Kubernetes storage options |
-| [kubeswitch](https://github.com/danielfoehrKn/kubeswitch/) | The kubectx for operators |
-| [ksd](https://github.com/mfuentesg/ksd/) | Kubernetes secret decoder |
-| [kyverno](https://github.com/kyverno/kyverno/) | Kyverno (Greek for “govern”) is a policy engine designed specifically for Kubernetes |
-| [sloop](https://github.com/salesforce/sloop/) | Kubernetes History Visualization |
-| [sonobuoy](https://github.com/vmware-tanzu/sonobuoy) | Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by running a set of Kubernetes conformance tests and other plugins in an accessible and non-destructive manner |
+| [cmctl](https://cert-manager.io/docs/usage/cmctl/) | CLI для управления ресурсами cert-manager в кластере |
+| [eksctl](https://github.com/weaveworks/eksctl/) | простой CLI для создания кластеров в AWS EKS |
+| [havener](https://github.com/homeport/havener/) | швейцарский нож для задач Kubernetes |
+| [k8stail](https://github.com/dtan4/k8stail/) | «tail -f» для подов Kubernetes |
+| [kconnect](https://github.com/fidelity/kconnect) | CLI для управления подключениями к кластерам Kubernetes |
+| [kdigger](https://github.com/quarkslab/kdigger/) | инструмент разведки контекста для пентеста Kubernetes |
+| [kube-beacon](https://github.com/chen-keinan/kube-beacon/) | runtime-сканер кластера k8s с проверками безопасности по CIS Kubernetes Benchmark |
+| [kubeeye](https://github.com/kubesphere/kubeeye/) | ищет проблемы в Kubernetes: ошибки конфигурации приложений, нездоровые компоненты кластера, проблемы нод |
+| [kubens](https://github.com/ahmetb/kubectx/) | быстрое переключение между namespace в kubectl |
+| [kubestr](https://github.com/kastenhq/kubestr/) | обнаружение, проверка и оценка вариантов хранения в Kubernetes |
+| [kubeswitch](https://github.com/danielfoehrKn/kubeswitch/) | «kubectx для операторов» |
+| [ksd](https://github.com/mfuentesg/ksd/) | декодер секретов Kubernetes |
+| [kyverno](https://github.com/kyverno/kyverno/) | policy-движок, созданный специально для Kubernetes |
+| [sloop](https://github.com/salesforce/sloop/) | визуализация истории изменений Kubernetes |
+| [sonobuoy](https://github.com/vmware-tanzu/sonobuoy) | диагностика состояния кластера: прогон тестов на соответствие Kubernetes и плагинов, без разрушительных действий |
 
 ### IaC и облачные CLI
 
 | Утилита | Что это |
 | --- | --- |
-| [aws-iam-authenticator](https://github.com/kubernetes-sigs/) | A tool to use AWS IAM credentials to authenticate to a Kubernetes cluster |
-| [aws-vault](https://github.com/99designs/aws-vault/) | A vault for securely storing and accessing AWS credentials in development environments |
-| [awstaghelper](https://github.com/mpostument/awstaghelper/) | AWS bulk tagging tool |
-| [cli53](https://github.com/barnybug/cli53/) | Command line tool for Amazon Route 53 |
-| [doctl](https://github.com/digitalocean/doctl/) | The official digital ocean command line interface |
-| [exo](https://github.com/exoscale/cli/) | Command-line tool for everything at Exoscale: compute, storage, dns |
-| [hcloud](https://github.com/hetznercloud/cli/) | a tool for controlling hetzner cloud resources |
-| [helm-docs](https://github.com/norwoodj/helm-docs/) | a tool for controlling hetzner cloud resources |
-| [iamlive](https://github.com/iann0036/iamlive/) | Generate an IAM policy from AWS calls using client-side monitoring (CSM) or embedded proxy |
-| [saml2aws](https://github.com/Versent/saml2aws/) | CLI tool which enables you to login and retrieve AWS temporary credentials using a SAML IDP |
-| [ssosync](https://github.com/awslabs/ssosync/) | Populate AWS SSO directly with your G Suite users and groups using either a CLI or AWS Lambda |
-| [terraform-inventory](https://github.com/adammck/terraform-inventory/) | terraform-inventory creates an ansible inventory from terraform |
-| [tofu](https://github.com/opentofu/opentofu) | OpenTofu lets you declaratively manage your cloud infrastructure |
+| [aws-iam-authenticator](https://github.com/kubernetes-sigs/) | аутентификация в кластере Kubernetes по учётным данным AWS IAM |
+| [aws-vault](https://github.com/99designs/aws-vault/) | хранилище для безопасного хранения и использования учётных данных AWS в разработке |
+| [awstaghelper](https://github.com/mpostument/awstaghelper/) | массовая простановка тегов в AWS |
+| [cli53](https://github.com/barnybug/cli53/) | работа с Amazon Route 53 из командной строки |
+| [doctl](https://github.com/digitalocean/doctl/) | официальный CLI DigitalOcean |
+| [exo](https://github.com/exoscale/cli/) | CLI для всего в Exoscale: вычисления, хранилище, DNS |
+| [hcloud](https://github.com/hetznercloud/cli/) | управление ресурсами Hetzner Cloud |
+| [helm-docs](https://github.com/norwoodj/helm-docs/) | генерация документации для Helm-чартов (в апстриме описание ошибочно скопировано с hcloud) |
+| [iamlive](https://github.com/iann0036/iamlive/) | генерация IAM-политики из вызовов AWS через client-side monitoring (CSM) или встроенный прокси |
+| [saml2aws](https://github.com/Versent/saml2aws/) | вход и получение временных учётных данных AWS через SAML IdP |
+| [ssosync](https://github.com/awslabs/ssosync/) | наполнение AWS SSO пользователями и группами G Suite через CLI или AWS Lambda |
+| [terraform-inventory](https://github.com/adammck/terraform-inventory/) | создание ansible-инвентаря из terraform |
+| [tofu](https://github.com/opentofu/opentofu) | декларативное управление облачной инфраструктурой |
 
 ### Разработка (Go, JS, сборка)
 
 | Утилита | Что это |
 | --- | --- |
-| [air](https://github.com/cosmtrek/air/) | ☁️ Live reload for Go apps |
-| [asciigraph](https://github.com/guptarohit/asciigraph/) | Go package to make lightweight ASCII line graph ╭┈╯ in command line apps with no other dependencies |
-| [comet](https://github.com/liamg/comet/) | Command line tool to help you use conventional commit messages |
-| [gocloc](https://github.com/hhatto/gocloc/) | A little fast cloc(Count Lines Of Code) |
-| [golangci-lint](https://github.com/golangci/golangci-lint/) | Fast linters Runner for Go |
-| [goreleaser](https://github.com/goreleaser/goreleaser/) | Deliver Go binaries as fast and easily as possible |
-| [gosec](https://github.com/securego/gosec/) | Golang security checker |
-| [gowrap](https://github.com/hexdigest/gowrap/) | GoWrap is a command line tool for generating decorators for Go interfaces |
-| [mage](https://github.com/magefile/mage/) | a Make/rake-like dev tool using Go |
-| [pnpm](https://github.com/pnpm/pnpm) | Fast, disk space efficient package manager for nodejs |
-| [swag](https://github.com/swaggo/swag/) | Automatically generate RESTful API documentation with Swagger 2.0 for Go |
-| [swagger](https://github.com/go-swagger/go-swagger/) | Swagger 2.0 implementation for go |
-| [tailwindcss](https://github.com/tailwindlabs/tailwindcss/) | A utility-first CSS framework for rapid UI development |
-| [task](https://github.com/go-task/task/) | A task runner / simpler Make alternative written in Go |
-| [taskctl](https://github.com/taskctl/taskctl/) | simple modern alternative to GNU Make |
-| [templ](https://github.com/a-h/templ/) | A language for writing HTML user interfaces in Go |
+| [air](https://github.com/cosmtrek/air/) | live reload для Go-приложений |
+| [asciigraph](https://github.com/guptarohit/asciigraph/) | Go-пакет для лёгких ASCII-графиков в консольных приложениях без зависимостей |
+| [comet](https://github.com/liamg/comet/) | CLI для сообщений в стиле conventional commit |
+| [gocloc](https://github.com/hhatto/gocloc/) | быстрый подсчёт строк кода (cloc) |
+| [golangci-lint](https://github.com/golangci/golangci-lint/) | быстрый раннер линтеров для Go |
+| [goreleaser](https://github.com/goreleaser/goreleaser/) | быстрая и простая доставка Go-бинарников |
+| [gosec](https://github.com/securego/gosec/) | проверка безопасности Go-кода |
+| [gowrap](https://github.com/hexdigest/gowrap/) | генерация декораторов для Go-интерфейсов |
+| [mage](https://github.com/magefile/mage/) | dev-инструмент в духе Make/rake на Go |
+| [pnpm](https://github.com/pnpm/pnpm) | быстрый и экономный по месту пакетный менеджер для nodejs |
+| [swag](https://github.com/swaggo/swag/) | автоматическая генерация документации RESTful API по Swagger 2.0 для Go |
+| [swagger](https://github.com/go-swagger/go-swagger/) | реализация Swagger 2.0 для Go |
+| [tailwindcss](https://github.com/tailwindlabs/tailwindcss/) | utility-first CSS-фреймворк для быстрой разработки интерфейсов |
+| [task](https://github.com/go-task/task/) | раннер задач, более простой аналог Make на Go |
+| [taskctl](https://github.com/taskctl/taskctl/) | простая современная альтернатива GNU Make |
+| [templ](https://github.com/a-h/templ/) | язык для написания HTML-интерфейсов на Go |
 
 ### Безопасность
 
 | Утилита | Что это |
 | --- | --- |
-| [gitjacker](https://github.com/liamg/gitjacker/) | Leak git repositories from misconfigured websites |
-| [hetty](https://hetty.xyz/) | Hetty is an HTTP toolkit for security research |
-| [lego](https://github.com/go-acme/lego/) | Let's Encrypt/ACME client and library written in Go |
-| [osv-scanner](https://github.com/google/osv-scanner) | Vulnerability scanner written in Go which uses the data provided by https://osv.dev |
-| [subfinder](https://github.com/projectdiscovery/subfinder/) | Subfinder is a subdomain discovery tool that discovers valid subdomains for websites. Designed as a passive framework to be useful for bug bounties and safe for penetration testing |
-| [sx](https://github.com/v-byte-cpu/sx/) | Fast, modern, easy-to-use network scanner |
-| [tfsec](https://github.com/tfsec/tfsec/) | TFsec uses static analysis of your terraform templates to spot potential security issues |
-| [tlsexp](https://gitlab.com/devopsworks/tools/tlsexp/) | TLS certificate expiration checker |
+| [gitjacker](https://github.com/liamg/gitjacker/) | выгрузка git-репозиториев с неправильно настроенных сайтов |
+| [hetty](https://hetty.xyz/) | HTTP-инструментарий для security-исследований |
+| [lego](https://github.com/go-acme/lego/) | клиент и библиотека Let's Encrypt/ACME на Go |
+| [osv-scanner](https://github.com/google/osv-scanner) | сканер уязвимостей на Go, использующий данные https://osv.dev |
+| [subfinder](https://github.com/projectdiscovery/subfinder/) | поиск поддоменов; пассивный фреймворк для bug bounty и безопасного пентеста |
+| [sx](https://github.com/v-byte-cpu/sx/) | быстрый современный сетевой сканер |
+| [tfsec](https://github.com/tfsec/tfsec/) | статический анализ terraform-шаблонов на потенциальные проблемы безопасности |
+| [tlsexp](https://gitlab.com/devopsworks/tools/tlsexp/) | проверка срока действия TLS-сертификата |
 
 ### Сеть, туннели и нагрузка
 
 | Утилита | Что это |
 | --- | --- |
-| [ali](https://github.com/nakabonne/ali/) | Generate HTTP load and plot the results in real-time |
-| [checkip](https://github.com/jreisinger/checkip/) | Check an IP address using various public services |
-| [chisel](https://github.com/jpillora/chisel/) | A fast TCP/UDP tunnel over HTTP |
-| [ddosify](https://github.com/ddosify/ddosify) | High-performance load testing tool, written in Golang |
-| [plow](https://github.com/six-ddc/plow/) | A high-performance HTTP benchmarking tool with real-time web UI and terminal displaying |
-| [pomerium-cli](https://github.com/pomerium/cli/) | Pomerium is an identity-aware access proxy (cli) |
-| [shell2http](https://github.com/msoap/shell2http/) | Executing shell commands via HTTP server |
-| [sshproxy](https://github.com/cea-hpc/sshproxy/) | Proxy SSH connections on a gateway |
-| [yeshttp](https://gitlab.com/devopsworks/tools/yeshttp/) | A HTTP server that always says yes |
+| [ali](https://github.com/nakabonne/ali/) | генерация HTTP-нагрузки с построением результатов в реальном времени |
+| [checkip](https://github.com/jreisinger/checkip/) | проверка IP-адреса через разные публичные сервисы |
+| [chisel](https://github.com/jpillora/chisel/) | быстрый TCP/UDP-туннель поверх HTTP |
+| [ddosify](https://github.com/ddosify/ddosify) | высокопроизводительный инструмент нагрузочного тестирования на Go |
+| [plow](https://github.com/six-ddc/plow/) | высокопроизводительный HTTP-бенчмарк с веб-UI и выводом в терминал в реальном времени |
+| [pomerium-cli](https://github.com/pomerium/cli/) | CLI identity-aware прокси Pomerium |
+| [shell2http](https://github.com/msoap/shell2http/) | выполнение shell-команд через HTTP-сервер |
+| [sshproxy](https://github.com/cea-hpc/sshproxy/) | проксирование SSH-соединений на шлюзе |
+| [yeshttp](https://gitlab.com/devopsworks/tools/yeshttp/) | HTTP-сервер, который всегда отвечает «да» |
 
 ### Мониторинг, логи, метрики
 
 | Утилита | Что это |
 | --- | --- |
-| [egress-auditor](https://github.com/devops-works/egress-auditor) | Audit your egress connections and finally populate this OUTPUT chain ! |
-| [grafana-kiosk](https://github.com/grafana/grafana-kiosk/) | Kiosk utility for Grafana |
-| [influxevent](https://gitlab.com/devopsworks/tools/influxevent/) | Influxevent wraps commands and sends command result, timing & performance samples to an influxDB server |
-| [pint](https://github.com/cloudflare/pint/) | Prometheus rule linter |
-| [scan-exporter](https://github.com/devops-works/) | Scans targets and exposes results to Prometheus |
+| [egress-auditor](https://github.com/devops-works/egress-auditor) | аудит исходящих соединений и заполнение цепочки OUTPUT |
+| [grafana-kiosk](https://github.com/grafana/grafana-kiosk/) | kiosk-режим для Grafana |
+| [influxevent](https://gitlab.com/devopsworks/tools/influxevent/) | обёртка команд с отправкой результата, таймингов и метрик производительности в InfluxDB |
+| [pint](https://github.com/cloudflare/pint/) | линтер правил Prometheus |
+| [scan-exporter](https://github.com/devops-works/) | сканирование целей с выдачей результатов в Prometheus |
 
 ### Базы данных и Kafka
 
 | Утилита | Что это |
 | --- | --- |
-| [kaf](https://github.com/birdayz/kaf) | Modern CLI for Apache Kafka, written in Go |
-| [kafkactl](https://github.com/deviceinsight/kafkactl/) | Command Line Tool for managing Apache Kafka |
-| [pgmetrics](https://pgmetrics.io/) | Collect and display information and stats from a running PostgreSQL server |
-| [pscale](https://github.com/planetscale/cli/) | The CLI for PlanetScale Database |
-| [table-trends](https://gitlab.kheops.ch/infrastructure/tools/table-trends) | This tool let's you check database table data size trends from influxdb metrics |
+| [kaf](https://github.com/birdayz/kaf) | современный CLI для Apache Kafka на Go |
+| [kafkactl](https://github.com/deviceinsight/kafkactl/) | CLI для управления Apache Kafka |
+| [pgmetrics](https://pgmetrics.io/) | сбор и показ информации и статистики работающего PostgreSQL |
+| [pscale](https://github.com/planetscale/cli/) | CLI для базы PlanetScale |
+| [table-trends](https://gitlab.kheops.ch/infrastructure/tools/table-trends) | тренды размера данных таблиц БД по метрикам InfluxDB |
 
 ### Shell, TUI и работа с текстом
 
 | Утилита | Что это |
 | --- | --- |
-| [broot](https://github.com/Canop/broot/) | A new way to see and navigate directory trees |
-| [chezmoi](https://github.com/twpayne/chezmoi/) | Dotfile management tool |
-| [choose](https://github.com/theryangeary/choose/) | A human-friendly and fast alternative to cut and (sometimes) awk |
-| [curlie](https://github.com/rs/curlie/) | The power of curl, the ease of use of httpie |
-| [dstask](https://github.com/naggie/dstask/) | Single binary terminal-based todo manager with git-based sync + markdown notes per task |
-| [fselect](https://github.com/jhspetersson/fselect/) | Find files with SQL-like queries |
-| [gotop](https://github.com/xxxserxxx/gotop/) | Just another terminal based graphical activity monitor |
-| [gron](https://github.com/tomnomnom/gron/) | Make JSON greppable! |
-| [himalaya](https://github.com/soywod/himalaya/) | 📫 CLI email client |
-| [jless](https://github.com/PaulJuliusMartinez/jless) | A command-line pager for JSON data |
-| [lsd](https://github.com/Peltoche/lsd/) | The next gen ls command |
-| [micro](https://github.com/zyedidia/micro/) | A modern and intuitive terminal-based text editor |
-| [miller](https://github.com/johnkerl/miller/) | Miller is like awk, sed, cut, join, and sort for name-indexed data such as CSV, TSV |
-| [onefetch](https://github.com/o2sh/onefetch/) | Git repository summary on your terminal |
-| [pandoc-plot](https://laurentrdc.github.io/pandoc-plot/) | Render and include figures in Pandoc documents using your plotting toolkit of choice |
-| [peco](https://github.com/peco/peco/) | Simplistic interactive filtering tool |
-| [pet](https://github.com/knqyf263/pet) | Simple command-line snippet manager, written in Go |
-| [rga](https://github.com/phiresky/ripgrep-all/) | ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz |
-| [shdotenv](https://github.com/ko1nksm/shdotenv/) | dotenv support for shell and POSIX-compliant .env syntax specification |
-| [slides](https://maaslalani.com/slides/) | Terminal based presentation tool |
-| [wtf](https://github.com/wtfutil/wtf/) | The personal information dashboard for your terminal |
-| [wuzz](https://github.com/asciimoo/wuzz/) | Interactive cli tool for HTTP inspection |
+| [broot](https://github.com/Canop/broot/) | новый способ смотреть и перемещаться по дереву каталогов |
+| [chezmoi](https://github.com/twpayne/chezmoi/) | управление dotfiles |
+| [choose](https://github.com/theryangeary/choose/) | дружелюбная и быстрая замена cut (иногда awk) |
+| [curlie](https://github.com/rs/curlie/) | сила curl с удобством httpie |
+| [dstask](https://github.com/naggie/dstask/) | одномашинный терминальный todo-менеджер с синхронизацией через git и markdown-заметками к задачам |
+| [fselect](https://github.com/jhspetersson/fselect/) | поиск файлов SQL-подобными запросами |
+| [gotop](https://github.com/xxxserxxx/gotop/) | ещё один графический монитор активности в терминале |
+| [gron](https://github.com/tomnomnom/gron/) | делает JSON удобным для grep |
+| [himalaya](https://github.com/soywod/himalaya/) | CLI-клиент электронной почты |
+| [jless](https://github.com/PaulJuliusMartinez/jless) | пейджер для JSON в командной строке |
+| [lsd](https://github.com/Peltoche/lsd/) | ls нового поколения |
+| [micro](https://github.com/zyedidia/micro/) | современный и интуитивный текстовый редактор для терминала |
+| [miller](https://github.com/johnkerl/miller/) | awk, sed, cut, join и sort для данных с именованными полями вроде CSV и TSV |
+| [onefetch](https://github.com/o2sh/onefetch/) | сводка по git-репозиторию в терминале |
+| [pandoc-plot](https://laurentrdc.github.io/pandoc-plot/) | рендер графиков и вставка рисунков в документы Pandoc |
+| [peco](https://github.com/peco/peco/) | простой интерактивный фильтр |
+| [pet](https://github.com/knqyf263/pet) | простой менеджер сниппетов командной строки на Go |
+| [rga](https://github.com/phiresky/ripgrep-all/) | ripgrep с поиском внутри PDF, электронных книг, документов Office, zip и tar.gz |
+| [shdotenv](https://github.com/ko1nksm/shdotenv/) | поддержка dotenv для shell и POSIX-спецификации .env |
+| [slides](https://maaslalani.com/slides/) | презентации в терминале |
+| [wtf](https://github.com/wtfutil/wtf/) | персональный информационный дашборд в терминале |
+| [wuzz](https://github.com/asciimoo/wuzz/) | интерактивный CLI для инспекции HTTP |
 
 ### Файлы, хранилища и Docker
 
 | Утилита | Что это |
 | --- | --- |
-| [crabz](https://github.com/sstadick/crabz) | Like pigz, but rust |
-| [docker-slim](https://github.com/docker-slim/docker-slim/) | DockerSlim (docker-slim): Don't change anything in your Docker\ncontainer image and minify it by up to 30x (and for compiled languages even\nmore) making it secure too! (free and open source) |
-| [dockle](https://github.com/goodwithtech/dockle/) | Container Image Linter for Security, Helping build the Best-Practice Docker Image, Easy to start |
-| [ffsend](https://github.com/timvisee/ffsend/) | Easily and securely share files from the command line. A fully featured Firefox Send client |
-| [geesefs](https://github.com/yandex-cloud/) | Finally, a good FUSE FS implementation over S3 |
-| [git-bug](https://github.com/MichaelMure/git-bug/) | Distributed, offline-first bug tracker embedded in git, with bridges |
-| [gorss](https://github.com/Lallassu/gorss/) | Go Terminal Feed Reader |
-| [hugo](https://github.com/gohugoio/hugo/) | The world’s fastest framework for building websites |
-| [imgpkg](https://github.com/vmware-tanzu/carvel-imgpkg/) | Allows you to store and distribute sets of files (e.g. application configuration) as images in Docker (OCI) registries |
-| [jira-cli](https://github.com/ankitpokhrel/jira-cli) | 🔥 Feature-rich interactive Jira command line |
-| [juicefs](https://github.com/juicedata/juicefs/) | JuiceFS is a distributed POSIX file system built on top of Redis and S3 |
-| [kopia](https://github.com/kopia/kopia/) | Cross-platform backup tool for Windows, macOS & Linux with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication. CLI and GUI included |
-| [lux](https://github.com/iawia002/lux/) | Fast, simple and clean video downloader |
-| [toji](https://github.com/leucos/toji/) | Toji is a Toggle ➡ Jira bridge: sync your Toggl entries directly into Jira issues worklog |
-| [upx](https://github.com/upx/upx/) | UPX - the Ultimate Packer for eXecutables |
-| [yj](https://github.com/sclevine/yj/) | Convert between YAML, TOML, JSON, and HCL |
-| [yor](https://github.com/bridgecrewio/yor/) | Extensible auto-tagger for your IaC files. The ultimate way to link entities in the cloud back to the codified resource which created it |
-| [clx](https://github.com/bensadeh/circumflex) | 🌿 It's Hacker News in your terminal (circumflex) |
-
+| [crabz](https://github.com/sstadick/crabz) | аналог pigz на Rust |
+| [docker-slim](https://github.com/docker-slim/docker-slim/) | уменьшает образ Docker до 30 раз без изменения содержимого (для компилируемых языков — сильнее), попутно повышая безопасность |
+| [dockle](https://github.com/goodwithtech/dockle/) | линтер образов контейнеров по безопасности и best practices |
+| [ffsend](https://github.com/timvisee/ffsend/) | безопасный обмен файлами из командной строки, полноценный клиент Firefox Send |
+| [geesefs](https://github.com/yandex-cloud/) | реализация FUSE-ФС поверх S3 |
+| [git-bug](https://github.com/MichaelMure/git-bug/) | распределённый офлайн-баг-трекер внутри git с мостами к внешним системам |
+| [gorss](https://github.com/Lallassu/gorss/) | RSS-ридер для терминала на Go |
+| [hugo](https://github.com/gohugoio/hugo/) | самый быстрый фреймворк для сборки сайтов |
+| [imgpkg](https://github.com/vmware-tanzu/carvel-imgpkg/) | хранение и распространение наборов файлов (например, конфигурации приложения) как образов в Docker (OCI) registry |
+| [jira-cli](https://github.com/ankitpokhrel/jira-cli) | функциональный интерактивный CLI для Jira |
+| [juicefs](https://github.com/juicedata/juicefs/) | распределённая POSIX-ФС поверх Redis и S3 |
+| [kopia](https://github.com/kopia/kopia/) | кроссплатформенный инструмент бэкапа: быстрые инкрементальные копии, клиентское E2E-шифрование, сжатие и дедупликация; CLI и GUI |
+| [lux](https://github.com/iawia002/lux/) | быстрый, простой и аккуратный загрузчик видео |
+| [toji](https://github.com/leucos/toji/) | мост Toggle → Jira: синхронизация записей Toggl в worklog задач Jira |
+| [upx](https://github.com/upx/upx/) | упаковщик исполняемых файлов |
+| [yj](https://github.com/sclevine/yj/) | конвертация между YAML, TOML, JSON и HCL |
+| [yor](https://github.com/bridgecrewio/yor/) | расширяемый автотеггер IaC-файлов для связи сущностей в облаке с создавшим их кодом |
+| [clx](https://github.com/bensadeh/circumflex) | Hacker News в терминале (circumflex) |
