@@ -79,6 +79,7 @@
 | cli53 | работа с Amazon Route 53 из командной строки | не нужен: Amazon Route 53 не используется | — |
 | doctl | официальный CLI DigitalOcean | не нужен: DigitalOcean не используется | — |
 | hcloud | управление ресурсами Hetzner Cloud | не нужен: Hetzner Cloud не используется | — |
+| cloudflare-speed-cli | замер скорости канала через Cloudflare в TUI: загрузка/отгрузка, latency под нагрузкой, джиттер и потери UDP, сравнение IPv4/IPv6, тайминги DNS и TLS, экспорт в JSON/CSV | не нужен: Cloudflare не используется, а отдельной задачи «померить канал» на ноутбуке нет | — |
 | iamlive | генерация IAM-политики из вызовов AWS через client-side monitoring (CSM) или встроенный прокси | не нужен: AWS не используется, IAM-политики не генерируются | — |
 | saml2aws | вход и получение временных учётных данных AWS через SAML IdP | не нужен: AWS и вход через SAML IdP не используются | — |
 | ssosync | наполнение AWS SSO пользователями и группами G Suite через CLI или AWS Lambda | не нужен: AWS SSO и G Suite не используются | — |

@@ -61,6 +61,22 @@
     dest: "{{ starship_config_file }}"
     mode: "0644"
 
+# RIPGREP_CONFIG_PATH в devops-shell.sh указывает на этот файл. Нужен потому,
+# что привычный поиск с -uu отключает и .gitignore, и пропуск скрытых
+# каталогов: без явных исключений в выдачу попадают .terragrunt-cache,
+# .terraform, .venv, __pycache__ и прочий сгенерированный мусор.
+- name: Создать каталог ~/.config/ripgrep
+  ansible.builtin.file:
+    path: "{{ ripgrep_config_file | dirname }}"
+    state: directory
+    mode: "0755"
+
+- name: Положить конфиг ripgrep (глобальные исключения)
+  ansible.builtin.copy:
+    src: ripgrep-config
+    dest: "{{ ripgrep_config_file }}"
+    mode: "0644"
+
 - name: Установить cheat (собственные шпаргалки команд)
   ansible.builtin.include_tasks:
     file: cheat.yml

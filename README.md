@@ -1594,6 +1594,8 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 - алиасы `ls`/`ll`/`la`/`lt` на `eza`;
 - алиас `catbat` и тема для `bat`;
 - алиас `fd` → `fdfind` (в Ubuntu бинарь `fd-find` называется `fdfind`);
+- `RIPGREP_CONFIG_PATH` → `~/.config/ripgrep/config` (глобальные исключения
+  для `rg`);
 - completion для `kubectl`, `helm`, `kubectx`, алиас `k = kubectl`;
 - `PIPX_HOME` / `PIPX_BIN_DIR`;
 - `mcfly init bash` (умная история по Ctrl-R, см. раздел «mcfly — история команд»).
@@ -1609,6 +1611,24 @@ echo 0.93.0 > .terragrunt-version    # tgenv переключит автомат
 в `~/.config/starship.toml` перезапишутся при следующем запуске. Меняйте
 `roles/shell/files/starship.toml` в репозитории; путь назначения задаётся
 переменной `starship_config_file` в `group_vars/all.yml`.
+
+### Конфиг ripgrep
+
+`roles/shell/files/ripgrep-config` копируется в `~/.config/ripgrep/config`, а
+`devops-shell.sh` выставляет `RIPGREP_CONFIG_PATH` на этот файл. Внутри —
+глобальные `--glob=!...` исключения, рассчитанные на привычный поиск с `-uu`:
+этот флаг отключает и `.gitignore`, и пропуск скрытых каталогов, поэтому
+`.terragrunt-cache`, `.terraform`, `.git`, `.venv`, `venv`, `__pycache__`,
+`.tox`, `node_modules` и кэши инструментов исключаются явно.
+
+`vendor/`, `build/`, `dist/`, `target/`, `coverage/` намеренно не исключены:
+в них бывает настоящий исходный код (Go-модули в `vendor`, сгенерированный
+код в `build`). Для отдельного дерева их можно отсечь в самой команде:
+`rg -g '!vendor' ...`.
+
+Обойти конфиг для одного запуска (например, чтобы найти что-то внутри
+скрытого каталога): `rg --no-config -uu ...`. Путь назначения задаётся
+переменной `ripgrep_config_file` в `group_vars/all.yml`.
 
 ### mcfly — история команд
 

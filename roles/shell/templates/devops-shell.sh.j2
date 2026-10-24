@@ -54,6 +54,15 @@ if command -v fdfind >/dev/null 2>&1; then
   alias fd='fdfind'
 fi
 
+# --- ripgrep: глобальные исключения ----------------------------------------
+# -uu (--no-ignore --hidden) отключает .gitignore и пропуск скрытых
+# каталогов, поэтому сгенерированный мусор (.terragrunt-cache, .terraform,
+# .venv, __pycache__, node_modules) исключается через конфиг, а не в каждой
+# команде. Обойти конфиг для одного запуска: rg --no-config -uu ...
+if [ -f "$HOME/.config/ripgrep/config" ]; then
+  export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
+fi
+
 # --- kubectl / helm / kubectx: completion и алиасы -------------------------
 if command -v kubectl >/dev/null 2>&1; then
   alias k='kubectl'
