@@ -82,6 +82,10 @@
 # сначала уводит на новый owner, и только затем — на /releases/tag/<tag>.
 # Поэтому идём по всей цепочке и берём тег из итогового url, а не из
 # первого location (иначе вместо тега можно получить "latest").
+#
+# Сеть до github.com периодически рвётся («Remote end closed connection
+# without response»), поэтому каждый запрос повторяем: в цикле retries
+# применяются к каждому элементу отдельно, а не ко всему списку.
 - name: Узнать теги последних релизов GitHub (по итоговому url после редиректов)
   ansible.builtin.uri:
     url: "https://github.com/{{ item.repo }}/releases/latest"
@@ -95,6 +99,9 @@
   loop_control:
     label: "{{ item.name }}"
   register: binaries_github_result
+  retries: 3
+  delay: 5
+  until: binaries_github_result is succeeded
   changed_when: false
 
 - name: Узнать теги последних релизов GitLab (по итоговому url после редиректов)
@@ -110,6 +117,9 @@
   loop_control:
     label: "{{ item.name }}"
   register: binaries_gitlab_result
+  retries: 3
+  delay: 5
+  until: binaries_gitlab_result is succeeded
   changed_when: false
 
 - name: Узнать версии из текстовых endpoint'ов
@@ -124,6 +134,9 @@
   loop_control:
     label: "{{ item.name }}"
   register: binaries_text_result
+  retries: 3
+  delay: 5
+  until: binaries_text_result is succeeded
   changed_when: false
 
 - name: Собрать словарь тегов релизов (GitHub и GitLab)
@@ -209,6 +222,10 @@
   loop: "{{ binaries_resolved | selectattr('archive', 'equalto', 'none') | list }}"
   loop_control:
     label: "{{ item.name }} {{ item.version }}"
+  register: binaries_download_single
+  retries: 3
+  delay: 5
+  until: binaries_download_single is succeeded
 
 - name: Скачать архивы во временный каталог
   become: true
@@ -220,6 +237,10 @@
   loop: "{{ binaries_resolved | rejectattr('archive', 'equalto', 'none') | list }}"
   loop_control:
     label: "{{ item.name }} {{ item.version }}"
+  register: binaries_download_archive
+  retries: 3
+  delay: 5
+  until: binaries_download_archive is succeeded
 
 - name: Удалить старые каталоги распаковки
   become: true

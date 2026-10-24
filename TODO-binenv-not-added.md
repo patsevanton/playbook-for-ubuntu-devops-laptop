@@ -8,7 +8,7 @@
 `TODO*.md`, ни в `roles/**` (defaults, tasks, templates). То есть утилита не
 ставится и нигде в проекте не обсуждалась как кандидат.
 
-Из 177 отсутствующих записей сюда попали **93** — активные и не дублирующие
+Из 177 отсутствующих записей сюда попали **89** — активные и не дублирующие
 уже установленное. Остальные разложены по своим трекерам, чтобы не дублировать
 один кандидат в нескольких файлах:
 
@@ -19,7 +19,10 @@
   [`TODO-server-apps.md`](TODO-server-apps.md);
 - **25 позиций — дубли, варианты уже имеющегося и отказы** (например, `rg` = `ripgrep`,
   `kubectl-krew` = `krew`, `kubeseal` при SOPS/bank-vaults) —
-  [`not-install.md`](not-install.md).
+  [`not-install.md`](not-install.md);
+- **4 добавлены в плейбук 2026-10-24** — `cmctl`, `kubestr`, `imgpkg` (роль
+  `kubernetes`) и `pgmetrics` (роль `postgres`), см.
+  [`TODO.md`](TODO.md).
 
 Описания в таблицах — перевод апстрим-описаний из списка binenv на русский;
 ссылки — оттуда же.
@@ -37,14 +40,12 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 
 | Утилита | Что это |
 | --- | --- |
-| [cmctl](https://cert-manager.io/docs/usage/cmctl/) | CLI для управления ресурсами cert-manager в кластере |
 | [havener](https://github.com/homeport/havener/) | швейцарский нож для задач Kubernetes |
 | [k8stail](https://github.com/dtan4/k8stail/) | «tail -f» для подов Kubernetes |
 | [kconnect](https://github.com/fidelity/kconnect) | CLI для управления подключениями к кластерам Kubernetes |
 | [kdigger](https://github.com/quarkslab/kdigger/) | инструмент разведки контекста для пентеста Kubernetes |
 | [kube-beacon](https://github.com/chen-keinan/kube-beacon/) | runtime-сканер кластера k8s с проверками безопасности по CIS Kubernetes Benchmark |
 | [kubeeye](https://github.com/kubesphere/kubeeye/) | ищет проблемы в Kubernetes: ошибки конфигурации приложений, нездоровые компоненты кластера, проблемы нод |
-| [kubestr](https://github.com/kastenhq/kubestr/) | обнаружение, проверка и оценка вариантов хранения в Kubernetes |
 | [kubeswitch](https://github.com/danielfoehrKn/kubeswitch/) | «kubectx для операторов» |
 | [ksd](https://github.com/mfuentesg/ksd/) | декодер секретов Kubernetes |
 | [sloop](https://github.com/salesforce/sloop/) | визуализация истории изменений Kubernetes |
@@ -119,7 +120,6 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 | --- | --- |
 | [kaf](https://github.com/birdayz/kaf) | современный CLI для Apache Kafka на Go |
 | [kafkactl](https://github.com/deviceinsight/kafkactl/) | CLI для управления Apache Kafka |
-| [pgmetrics](https://pgmetrics.io/) | сбор и показ информации и статистики работающего PostgreSQL |
 | [pscale](https://github.com/planetscale/cli/) | CLI для базы PlanetScale |
 | [table-trends](https://gitlab.kheops.ch/infrastructure/tools/table-trends) | тренды размера данных таблиц БД по метрикам InfluxDB |
 
@@ -161,7 +161,6 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 | [git-bug](https://github.com/MichaelMure/git-bug/) | распределённый офлайн-баг-трекер внутри git с мостами к внешним системам |
 | [gorss](https://github.com/Lallassu/gorss/) | RSS-ридер для терминала на Go |
 | [hugo](https://github.com/gohugoio/hugo/) | самый быстрый фреймворк для сборки сайтов |
-| [imgpkg](https://github.com/vmware-tanzu/carvel-imgpkg/) | хранение и распространение наборов файлов (например, конфигурации приложения) как образов в Docker (OCI) registry |
 | [jira-cli](https://github.com/ankitpokhrel/jira-cli) | функциональный интерактивный CLI для Jira |
 | [juicefs](https://github.com/juicedata/juicefs/) | распределённая POSIX-ФС поверх Redis и S3 |
 | [lux](https://github.com/iawia002/lux/) | быстрый, простой и аккуратный загрузчик видео |

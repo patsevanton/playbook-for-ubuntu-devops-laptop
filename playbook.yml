@@ -411,6 +411,12 @@
         - "{{ bin_dir }}/kula --version"
         - "{{ bin_dir }}/tirith --version"
         - "{{ bin_dir }}/dcg --version"
+        - "mtr --version"
+        - "sos --help"
+        - "{{ bin_dir }}/kubestr --help"
+        - "{{ bin_dir }}/imgpkg --version"
+        - "{{ bin_dir }}/cmctl --help"
+        - "{{ bin_dir }}/pgmetrics --help"
       loop_control:
         label: "{{ item }}"
 

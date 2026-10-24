@@ -84,6 +84,7 @@ mode не пишется: `copy` в dry-run ничего не меняет.
 - [lsof](https://github.com/lsof-org/lsof) — кто держит файл, каталог или сокет: `lsof -i :8080`, `lsof +D /path`.
 - [strace](https://strace.io/) — системные вызовы процесса: на чём висит, какой файл не открылся, откуда `permission denied`.
 - [etckeeper](https://etckeeper.branchable.com/) — `/etc` под git: apt-хук и таймер коммитят правки, `git -C /etc diff HEAD` и откат одного файла.
+- [sos](https://github.com/sosreport/sos) — сбор диагностики системы в один архив (`sudo sos report`) для тикета или вендора.
 - [yq](https://github.com/mikefarah/yq) — YAML/JSON/XML-процессор с jq-подобным синтаксисом.
 - [eget](https://github.com/zyedidia/eget) — установка готовых бинарников прямо из GitHub-релизов одной командой.
 - [dra](https://github.com/devmatteini/dra) — скачивание отдельных ассетов GitHub-релиза по имени репозитория.
@@ -171,6 +172,7 @@ mode не пишется: `copy` в dry-run ничего не меняет.
 - [kubespy](https://github.com/pulumi/kubespy) — наблюдение за изменениями ресурсов в реальном времени.
 - [kubecolor](https://github.com/kubecolor/kubecolor) — цветной, читаемый вывод kubectl.
 - [kube-capacity](https://github.com/robscott/kube-capacity) — requests/limits и потребление по нодам и подам.
+- [kubestr](https://github.com/kastenhq/kubestr) — проверка хранилища кластера: StorageClass, CSI и реальные IOPS.
 - [ktop](https://github.com/vladimirvivien/ktop) — top-подобный TUI-монитор метрик нод и подов.
 - [kubefetch](https://github.com/jkulzer/kubefetch) — сводка о кластере в стиле neofetch.
 - [krew](https://github.com/kubernetes-sigs/krew) — менеджер kubectl-плагинов.
@@ -184,6 +186,7 @@ mode не пишется: `copy` в dry-run ничего не меняет.
 - [ct (chart-testing)](https://github.com/helm/chart-testing) — линтинг и тестирование Helm-чартов.
 - [ytt](https://github.com/carvel-dev/ytt) — шаблонизатор YAML по структуре документа, а не по тексту.
 - [kbld](https://github.com/carvel-dev/kbld) — фиксация образов по digest в манифестах.
+- [imgpkg](https://github.com/carvel-dev/imgpkg) — наборы файлов как OCI-образы: `imgpkg push/pull` без docker.
 - [chartsnap](https://github.com/jlandowner/helm-chartsnap) — snapshot-тесты Helm-чартов.
 - [helm-docs](https://github.com/norwoodj/helm-docs) — генерация README Helm-чарта из `Chart.yaml` и `values.yaml`.
 - [kubewall](https://github.com/kubewall/kubewall) — веб-дашборд на несколько кластеров одним бинарником.
@@ -210,6 +213,7 @@ mode не пишется: `copy` в dry-run ничего не меняет.
 - [kube-bench](https://github.com/aquasecurity/kube-bench) — проверка кластера по CIS Kubernetes Benchmark.
 - [kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) — MCP-сервер Kubernetes/OpenShift для AI-агентов.
 - [kubecm](https://github.com/sunny0826/kubecm) — управление kubeconfig: слияние, переименование, переключение.
+- [cmctl](https://github.com/cert-manager/cmctl) — CLI cert-manager: статус и продление сертификатов, инспекция Secret.
 - [kubectl-slice](https://github.com/patrickdappollonio/kubectl-slice) — разбиение multi-document YAML на отдельные файлы.
 - [kubectl-fields](https://github.com/rewanthtammana/kubectl-fields) — иерархия полей ресурса.
 - [helmify](https://github.com/arttor/helmify) — генерация Helm-чарта из манифестов.
@@ -351,6 +355,7 @@ mode не пишется: `copy` в dry-run ничего не меняет.
 
 - [dbx](https://github.com/t8y2/dbx) — GUI-клиент к 100+ СУБД (PostgreSQL, MySQL, SQLite, Redis, MongoDB, DuckDB) с CLI и MCP-сервером.
 - [pgCenter](https://github.com/lesovsky/pgcenter) — консольная админка и мониторинг PostgreSQL.
+- [pgmetrics](https://github.com/rapidloop/pgmetrics) — снимок состояния PostgreSQL в текст или JSON для разбора инцидента.
 - [pgcli](https://github.com/dbcli/pgcli) — psql с автодополнением и подсветкой синтаксиса.
 - [libpq5](https://www.postgresql.org/) — клиентская библиотека PostgreSQL для psycopg и pgcli.
 - [postgresql-client](https://www.postgresql.org/) — штатный CLI: `psql`, `pg_dump`, `pg_restore`, `pg_isready`.
@@ -510,6 +515,7 @@ mode не пишется: `copy` в dry-run ничего не меняет.
 - [kyanos](https://github.com/hengyoush/kyanos) — анализ сетевых запросов через eBPF.
 - [hurl](https://github.com/Orange-OpenSource/hurl) — HTTP-запросы и тесты из plain-text `.hurl`-файлов.
 - [trippy](https://github.com/fujiapple852/trippy) — TUI traceroute со статистикой по хопам.
+- [mtr](https://github.com/traviscross/mtr) — traceroute и ping в одном: потери и задержки по каждому хопу, отчёт `--report` для тикета.
 - [ecapture](https://github.com/gojue/ecapture) — захват TLS-трафика приложений без CA-сертификатов.
 - [termshark](https://github.com/gcla/termshark) — TUI к Wireshark/tshark.
 - [websocat](https://github.com/vi/websocat) — netcat для WebSocket.

@@ -1185,6 +1185,39 @@ kubernetes_binaries:
     repo: GoogleCloudPlatform/khi
     url: "https://github.com/GoogleCloudPlatform/khi/releases/download/{tag}/khi-linux-amd64"
     archive: none
+  # kubestr — проверка хранилища кластера: какие StorageClass и CSI-драйверы
+  # есть, поддерживают ли они снапшоты и клонирование, и реальные цифры
+  # IOPS/пропускной способности (`kubestr fio -s <storageclass>`). Остальные
+  # утилиты роли смотрят манифесты, RBAC и сеть; про диск они не говорят
+  # ничего. Релиз — kubestr_{version}_Linux_amd64.tar.gz с бинарником в корне
+  # (в имени ассета Linux с большой буквы).
+  - name: kubestr
+    source: github
+    repo: kastenhq/kubestr
+    url: "https://github.com/kastenhq/kubestr/releases/download/{tag}/kubestr_{version}_Linux_amd64.tar.gz"
+    archive: tar
+    member: kubestr
+  # imgpkg — третий инструмент Carvel рядом с ytt и kbld: упаковывает набор
+  # файлов (манифесты, конфиги) в OCI-образ, публикует его в registry и
+  # распаковывает на другой машине (`imgpkg pull -b repo/bundle:tag -o dir`)
+  # без docker и без доступа к исходному репозиторию. Одиночный бинарник
+  # imgpkg-linux-amd64 без версии в имени.
+  - name: imgpkg
+    source: github
+    repo: carvel-dev/imgpkg
+    url: "https://github.com/carvel-dev/imgpkg/releases/download/{tag}/imgpkg-linux-amd64"
+    archive: none
+  # cmctl — CLI cert-manager: `cmctl status certificate`, `cmctl renew`,
+  # `cmctl inspect secret` и `cmctl create` для CSR. Заменяет длинные
+  # `kubectl get/describe/patch` по объектам cert-manager, но нужен только
+  # там, где cert-manager стоит в кластере.
+  # Релиз — cmctl_linux_amd64.tar.gz, бинарник cmctl в корне.
+  - name: cmctl
+    source: github
+    repo: cert-manager/cmctl
+    url: "https://github.com/cert-manager/cmctl/releases/download/{tag}/cmctl_linux_amd64.tar.gz"
+    archive: tar
+    member: cmctl
 
 # --- Radar: Kubernetes UI со встроенным MCP-сервером (.deb из GitHub-релиза) --
 # Desktop-приложение (Tauri): обзор кластера, ресурсы, YAML, события, логи и

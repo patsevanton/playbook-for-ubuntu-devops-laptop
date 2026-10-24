@@ -177,6 +177,19 @@ VPN-клиенты (`wireguard-tools`, `openvpn`, плагины NetworkManager,
 ничего его не ставило; `docker-buildx-plugin` не входил в `docker-ce-cli`,
 поэтому `docker buildx` на чистой машине не работал.
 
+Добавлены 2026-10-24 по разбору трекеров, где кандидаты были перечислены, но
+решение по ним не принято ([`TODO-habr-553000-not-added.md`](TODO-habr-553000-not-added.md),
+[`TODO-binenv-not-added.md`](TODO-binenv-not-added.md)): `mtr` (роль
+`network`) и `sos` (роль `base`) — пакеты apt; `kubestr`, `imgpkg` и `cmctl`
+(роль `kubernetes`), `pgmetrics` (роль `postgres`) — бинарники из
+GitHub-релизов. `mtr` — единственный инструмент с текстовым отчётом по всем
+хопам (у `trippy` и `gping` только TUI/график); `sos` собирает диагностику
+одним архивом для тикета; `kubestr` проверяет хранилище кластера (StorageClass,
+CSI, реальные IOPS), чего не делает ни одна из утилит роли; `imgpkg`
+завершает набор Carvel рядом с `ytt` и `kbld`; `cmctl` заменяет
+`kubectl`-простыни по объектам cert-manager; `pgmetrics` снимает состояние
+PostgreSQL в текст/JSON, тогда как `pgcenter` — интерактивный монитор.
+
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см.
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) и

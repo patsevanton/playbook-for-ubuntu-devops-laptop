@@ -23,6 +23,18 @@ postgres_binaries:
     url: "https://github.com/lesovsky/pgcenter/releases/download/{tag}/pgcenter_{version}_linux_amd64.tar.gz"
     archive: tar
     member: pgcenter
+  # pgmetrics — снимок состояния PostgreSQL одной командой: версия, настройки,
+  # репликация, активность, размеры таблиц и индексов, статистика по запросам.
+  # Вывод в текст или JSON без интерактивного интерфейса — удобно приложить к
+  # разбору инцидента или сравнить два состояния. Дополняет pgcenter:
+  # тот интерактивный монитор, pgmetrics — отчёт «снять и сохранить».
+  # Релиз — pgmetrics_{version}_linux_amd64.tar.gz, бинарник в каталоге архива.
+  - name: pgmetrics
+    source: github
+    repo: rapidloop/pgmetrics
+    url: "https://github.com/rapidloop/pgmetrics/releases/download/{tag}/pgmetrics_{version}_linux_amd64.tar.gz"
+    archive: tar
+    member: pgmetrics_{version}_linux_amd64/pgmetrics
   # rainfrog — TUI-клиент к PostgreSQL, MySQL и SQLite: таблицы, SQL-редактор,
   # история запросов и экспорт результата. Дополняет pgcli (тот только про
   # PostgreSQL). Релиз — rainfrog-v{version}-x86_64-unknown-linux-gnu.tar.gz,

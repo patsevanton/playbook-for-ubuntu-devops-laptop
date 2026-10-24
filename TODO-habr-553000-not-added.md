@@ -13,8 +13,8 @@
 
 | Статус | Сколько | Где описано |
 | --- | --- | --- |
-| уже ставится или упоминается в проекте | 60 | `README.md`, `not-install.md`, `roles/**` |
-| отсутствует — живой кандидат | 21 | этот файл |
+| уже ставится или упоминается в проекте | 62 | `README.md`, `not-install.md`, `roles/**` |
+| отсутствует — живой кандидат | 19 | этот файл |
 | отсутствует — заброшено | 34 | [`TODO-abandoned.md`](TODO-abandoned.md) |
 | отсутствует — нет linux-бинарника | 4 | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
 | отсутствует — сознательный отказ | 12 | [`not-install.md`](not-install.md) |
@@ -40,7 +40,6 @@ Ubuntu не значит, что плейбук его ставит — это �
 
 | Утилита | Что это | Как ставится и что проверить |
 | --- | --- | --- |
-| [mtr](https://github.com/traviscross/mtr) | traceroute + ping в одном, живая статистика по хопам | пакет Ubuntu `mtr` (0.95) |
 | [dnspeep](https://github.com/jvns/dnspeep) | смотрит DNS-запросы процессов (Rust, нужен libpcap) | GitHub: `dnspeep-linux.tar.gz` |
 | [pingtop](https://github.com/laixintao/pingtop) | TUI, пингует несколько хостов одновременно | PyPI → роль `pipx_apps`, релизов на GitHub нет |
 | [frp](https://github.com/fatedier/frp) | обратный прокси: доступ к локальному серверу за NAT | GitHub: `frp_*_linux_amd64.tar.gz` |
@@ -70,7 +69,6 @@ Ubuntu не значит, что плейбук его ставит — это �
 | [tlog](https://github.com/Scribery/tlog) | запись и воспроизведение терминальных сессий | пакет Ubuntu `tlog` (14) |
 | [whatfiles](https://github.com/spieglt/whatfiles) | какие файлы открыл процесс (упрощённый strace) | GitHub: `whatfiles-v*_linux-x86_64` |
 | [sysdig](https://github.com/draios/sysdig) | трассировка системных вызовов с фильтрами | пакет Ubuntu `sysdig` (0.40) |
-| [sosreport](https://github.com/sosreport/sos) | сбор диагностики системы одним архивом | пакет Ubuntu `sosreport` (4.11) |
 | [hstr](https://github.com/dvorka/hstr) | TUI-поиск по истории команд | пакет Ubuntu `hstr` (3.1) |
 | [pastebinit](https://github.com/pastebinit/pastebinit) | отправка текста на pastebin из CLI | пакет Ubuntu `pastebinit` (1.8) |
 
@@ -111,18 +109,19 @@ Ubuntu не значит, что плейбук его ставит — это �
 
 ## Что из статьи в проекте уже есть
 
-Ставится или обсуждается (60): binenv, bat, exa, fd, procs, sd, dust, starship,
+Ставится или обсуждается (62): binenv, bat, exa, fd, procs, sd, dust, starship,
 ripgrep, ripgrep-all, grex, fzf, jq, peco, HTTPie, xh, shell2http, reachable,
 lazydocker, gotty, ngrok, lazygit, bottom, bandwhich, delta, gdu, dog, gitleaks,
 fx, dive, termshark, sysinfo, dry, gh, assh, txeh, asn, choose, jl, wondershaper,
 mkcert, netutils-linux, ctop, ShellCheck, kubectx, kubens, fselect, k3d, arkade,
 helmfile, 3mux, localstack, mosh, iprange, testssl.sh, moreutils (sponge, ts,
 vidir, ifne, chronic), GNU parallel, lnav, ioping, fatrace, datanymizer
-(pg_datanymizer).
+(pg_datanymizer), mtr, sos.
 
 Добавлены в плейбук 2026-10-24: mosh и iprange, testssl.sh — в
 `network_packages` (роль `network`); moreutils, GNU parallel, lnav, ioping,
 fatrace — в `shell_packages` (роль `shell`); datanymizer — в
-`postgres_binaries` (роль `postgres`). GoAccess оставлен серверным
-инструментом: на ноутбуке нет access-логов nginx, ему место рядом с логами
-на сервере — `TODO-server-apps.md`.
+`postgres_binaries` (роль `postgres`). `mtr` добавлен в те же
+`network_packages`, `sos` — в `base_packages` (роль `base`). GoAccess
+оставлен серверным инструментом: на ноутбуке нет access-логов nginx, ему
+место рядом с логами на сервере — `TODO-server-apps.md`.
