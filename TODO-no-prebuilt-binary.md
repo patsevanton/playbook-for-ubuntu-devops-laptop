@@ -36,7 +36,6 @@
 | --- | --- | --- | --- |
 | Диагностика и железо | [linnix](https://github.com/linnix-os/linnix) | eBPF-наблюдаемость с AI-детекцией инцидентов | Исходники и docker-образ; amd64 `.deb` был только в v0.1.0 (`cognitod_0.1.0_amd64.deb`), в v0.1.1 и v0.2.0 ассетов нет. Запрошено в [#124](https://github.com/linnix-os/linnix/issues/124) |
 | Безопасность | [flawz](https://github.com/orhun/flawz) | TUI-браузер CVE/уязвимостей | В релизе v0.4.1 только macOS/Windows и `flawz-installer.sh`; готового Linux-бинарника нет (`cargo build`). Запрошено в [#113](https://github.com/orhun/flawz/issues/113) |
-| Разработка | [httpstat](https://github.com/reorx/httpstat) | тайминги HTTP-запроса по этапам: DNS, connect, TLS, передача | Релизов нет вообще, только `go install` |
 | Разработка | [desed](https://github.com/SoptikHa2/desed) | пошаговый отладчик sed-скриптов | В релизе v1.2.2 нет linux-ассетов, только `cargo install desed` |
 | Диагностика и железо | [bashdb](https://bashdb.sourceforge.net/) | отладчик bash-скриптов | В Ubuntu пакета нет; апстрим на SourceForge отдаёт только tarball с исходниками и `make install` |
 | Удалённый доступ | [Eternal Terminal](https://github.com/MisterTea/EternalTerminal) | ssh-сессия, которая сама переподключается | В релизе `et-v7.0.0` только `arm64.deb` и `orig.tar.gz`; для amd64 нужна сборка из исходников |
@@ -145,3 +144,10 @@
   [gitlab-container-registry-cleaner](https://github.com/gitlab-container-registry-cleaner/gitlab-container-registry-cleaner)
   (npm). Разовые операции — через `glab api`. См.
   [`not-install.md`](not-install.md).
+
+## Убрано после проверки 2026-10-24
+
+- **httpstat** — добавлен в роль `network` (`network_pipx_apps`). Апстрим
+  `reorx/httpstat` переписан на Python: один файл без зависимостей,
+  публикуется на PyPI, команда `httpstat`. Прежняя причина («релизов нет,
+  только `go install`») больше не действует.

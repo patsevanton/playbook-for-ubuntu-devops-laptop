@@ -140,6 +140,16 @@ docker_binaries:
     repo: hadolint/hadolint
     url: "https://github.com/hadolint/hadolint/releases/download/{tag}/hadolint-linux-x86_64"
     archive: none
+  # regctl — работа с реестром образов без Docker-демона и root: теги с
+  # фильтрами, манифесты и digest, referrers, blob get/put, копирование между
+  # реестрами. Дополняет skopeo: тот копирует и инспектирует целиком, regctl
+  # разбирает манифест и умеет править теги точечно. Одиночный статический
+  # бинарник regctl-linux-amd64 без архива.
+  - name: regctl
+    source: github
+    repo: regclient/regclient
+    url: "https://github.com/regclient/regclient/releases/download/{tag}/regctl-linux-amd64"
+    archive: none
 
 # --- docker-image-layer-explorer: слои docker-образа -------------------------
 # Список слоёв образа с содержимым каждого и распаковка выбранного слоя

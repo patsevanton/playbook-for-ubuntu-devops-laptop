@@ -14,9 +14,9 @@
 | Статус | Сколько | Где описано |
 | --- | --- | --- |
 | уже ставится или упоминается в проекте | 62 | `README.md`, `not-install.md`, `roles/**` |
-| отсутствует — живой кандидат | 19 | этот файл |
+| отсутствует — живой кандидат | 18 | этот файл |
 | отсутствует — заброшено | 34 | [`TODO-abandoned.md`](TODO-abandoned.md) |
-| отсутствует — нет linux-бинарника | 4 | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
+| отсутствует — нет linux-бинарника | 3 | [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md) |
 | отсутствует — сознательный отказ | 12 | [`not-install.md`](not-install.md) |
 | отсутствует — сервис, не на ноутбук | 2 | [`TODO-server-apps.md`](TODO-server-apps.md) |
 
@@ -40,7 +40,6 @@ Ubuntu не значит, что плейбук его ставит — это �
 
 | Утилита | Что это | Как ставится и что проверить |
 | --- | --- | --- |
-| [dnspeep](https://github.com/jvns/dnspeep) | смотрит DNS-запросы процессов (Rust, нужен libpcap) | GitHub: `dnspeep-linux.tar.gz` |
 | [pingtop](https://github.com/laixintao/pingtop) | TUI, пингует несколько хостов одновременно | PyPI → роль `pipx_apps`, релизов на GitHub нет |
 | [frp](https://github.com/fatedier/frp) | обратный прокси: доступ к локальному серверу за NAT | GitHub: `frp_*_linux_amd64.tar.gz` |
 
@@ -97,8 +96,8 @@ Ubuntu не значит, что плейбук его ставит — это �
   since, ssl-expiry-date, until-error / until-success, when-down / when-up,
   mysql-slave-check, which-shell) — в
   [`TODO-abandoned.md`](TODO-abandoned.md).
-- **Нет готового linux-бинарника** (4): Eternal Terminal (в 7.0.0 только
-  `arm64.deb`), httpstat, desed, bashdb — в
+- **Нет готового linux-бинарника** (3): Eternal Terminal (в 7.0.0 только
+  `arm64.deb`), desed, bashdb — в
   [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md).
 - **Сознательный отказ** (12): `watch`, `timeout`, `gitlab`, graphpath,
   teleconsole, SSHHeatmap, fpaste, mkchain, domain-check-2,
@@ -125,3 +124,9 @@ fatrace — в `shell_packages` (роль `shell`); datanymizer — в
 `network_packages`, `sos` — в `base_packages` (роль `base`). GoAccess
 оставлен серверным инструментом: на ноутбуке нет access-логов nginx, ему
 место рядом с логами на сервере — `TODO-server-apps.md`.
+
+Добавлены в плейбук 2026-10-24 из этой же статьи: `dnspeep` — в
+`network_binaries` (роль `network`), `httpstat` — в `network_pipx_apps` (с
+версии 1.3 `reorx/httpstat` — Python-файл без зависимостей, поэтому «нет
+linux-бинарника» больше не причина, см.
+[`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md)).

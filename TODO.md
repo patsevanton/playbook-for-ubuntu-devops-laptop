@@ -190,6 +190,21 @@ CSI, реальные IOPS), чего не делает ни одна из ут�
 `kubectl`-простыни по объектам cert-manager; `pgmetrics` снимает состояние
 PostgreSQL в текст/JSON, тогда как `pgcenter` — интерактивный монитор.
 
+Добавлены 2026-10-24 по запросу, пятая партия — сеть и реестры:
+`wireguard-tools` (роль `network`, apt), `httpstat` (роль `network`, pipx),
+`dnspeep` и `regctl` (бинарники из GitHub-релизов, роли `network` и `docker`).
+`wireguard-tools` закрывает единственный отсутствующий VPN-примитив: NetBird
+работает поверх WireGuard, но своего просмотра пиров и хендшейков не даёт.
+`httpstat` дополняет `httptap`: тот вскрывает запросы произвольного процесса,
+`httpstat` меряет заданный URL и отдаёт JSON с порогами SLO. С версии 1.3
+апстрим `reorx/httpstat` — Python-файл без зависимостей, поэтому ставится
+pipx, а не `go install`, и кандидат ушёл из
+[`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md). `dnspeep`
+отвечает на вопрос «какой процесс ходит в DNS»: `gai`, `dnsglobe` и `doggo`
+показывают резолв, но не источник запросов. `regctl` доводит до правды запись
+в [`not-install.md`](not-install.md) про замену `registry-cli` и добавляет к
+`skopeo` работу с тегами, манифестами и referrers.
+
 `HolmesGPT` не ставится: последний релиз требует Python `<3.14`, а в Ubuntu
 26.04 системный Python 3.14 — см.
 [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) и

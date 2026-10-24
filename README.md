@@ -145,6 +145,7 @@ mode не пишется: `copy` в dry-run ничего не меняет.
 - [ctop](https://github.com/bcicen/ctop) — `top` по метрикам контейнеров (CPU, память, сеть).
 - [oras](https://github.com/oras-project/oras) — клиент OCI-реестров для произвольных артефактов.
 - [skopeo](https://github.com/containers/skopeo) — inspect/copy/sync образов между реестрами без Docker-демона и root.
+- [regctl](https://github.com/regclient/regclient) — работа с реестром без демона: теги с фильтрами, манифесты и digest, referrers, blob get/put.
 - [dry](https://github.com/moncho/dry) — терминальный менеджер Docker с несколькими хостами.
 - [decompose](https://github.com/s0rg/decompose) — карта образов, сетей, томов и зависимостей docker-окружения.
 - [copa (copacetic)](https://github.com/project-copacetic/copacetic) — патчинг CVE прямо в образе по отчёту grype/trivy.
@@ -504,11 +505,13 @@ mode не пишется: `copy` в dry-run ничего не меняет.
 - [showcert](https://github.com/yaroslaff/showcert) — человекочитаемый разбор X.509-сертификатов.
 - [ssh-audit](https://github.com/jtesta/ssh-audit) — аудит конфигурации SSH-серверов и клиентов.
 - [httptap](https://github.com/monasticacademy/httptap) — разбор HTTP-запроса по слоям: DNS, connect, TLS, TTFB.
+- [httpstat](https://github.com/reorx/httpstat) — тайминги запроса по этапам с долями, JSON-выводом и порогами SLO.
 - [lexicon](https://github.com/AnalogJ/lexicon) — управление DNS-записями у разных провайдеров.
 - [netutils-linux](https://github.com/strizhechenko/netutils-linux) — утилиты диагностики и тюнинга сетевого стека.
 - [reachable](https://github.com/italolelis/reachable) — проверка доступности домена по резолверам и HTTP.
 - [gai](https://github.com/casablanque-code/gai) — инспектор `getaddrinfo`: реальный путь разрешения имени.
 - [dnsglobe](https://github.com/514-labs/dnsglobe) — TUI-проверка распространения DNS-записи по публичным резолверам.
+- [dnspeep](https://github.com/jvns/dnspeep) — какие процессы шлют DNS-запросы: имя, тип, сервер, задержка и ответ.
 - [bandwhich](https://github.com/imsnif/bandwhich) — трафик по процессам и соединениям.
 - [q](https://github.com/natesales/q) — DNS-клиент с DoH/DoT/DoQ/ODoH.
 - [xh](https://github.com/ducaale/xh) — быстрый HTTP-клиент, замена httpie.
@@ -541,6 +544,7 @@ mode не пишется: `copy` в dry-run ничего не меняет.
 - [omnyssh](https://github.com/timhartmann7/omnyssh) — SSH-менеджер: TUI `omny` и GUI `OmnySSH` с вкладками, метриками, SFTP и пробросом портов.
 - [NetBird](https://github.com/netbirdio/netbird) — mesh VPN на WireGuard: peer-to-peer, SSO и ACL; CLI и демон `netbird` из официального apt-репозитория.
 - [netbird-ui](https://github.com/netbirdio/netbird) — графический клиент NetBird на GTK4/WebKit: подключение, статус и настройки без CLI.
+- [wireguard-tools](https://git.zx2c4.com/wireguard-tools/) — `wg` и `wg-quick`: пиры, хендшейки и простой туннель; нужен и для диагностики NetBird.
 
 ### ebpf
 

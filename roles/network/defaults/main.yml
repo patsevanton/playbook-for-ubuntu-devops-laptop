@@ -48,6 +48,11 @@ network_packages:
   # (график до одного хоста): mtr — единственный из трёх, кто показывает
   # статистику по всем хопам сразу в текстовом виде.
   - mtr
+  # wireguard-tools — wg и wg-quick: пиры, хендшейки, поднятие простого
+  # туннеля до сервера. Нужен и для диагностики NetBird: он работает поверх
+  # WireGuard, но своего просмотра туннеля не даёт. Пакет ставит только
+  # утилиты, сервис не включается.
+  - wireguard-tools
 
 # rkn-block-checker — Python-CLI: разбирает, каким способом провайдер режет
 # доступ (DNS-подмена, TCP reset, TLS DPI по SNI, заглушка провайдера).
@@ -70,6 +75,13 @@ network_pipx_apps:
   # запрос тормозит. Ставится из PyPI в изолированное окружение pipx.
   - name: httptap
     creates: httptap
+  # httpstat — тайминги одного запроса по этапам (DNS, connect, TLS, TTFB,
+  # передача) с долями от общего времени, JSON-выводом и порогами SLO.
+  # Дополняет httptap: тот вскрывает запросы произвольного процесса, httpstat
+  # меряет заданный URL и годится для скриптов. Ставится из PyPI (с версии
+  # 1.3 апстрим — один Python-файл без зависимостей) через pipx.
+  - name: httpstat
+    creates: httpstat
   # dns-lexicon (команда lexicon) — единый способ управлять DNS-записями у
   # разных провайдеров (Cloudflare, Route53, DigitalOcean, Yandex и десятков
   # других): list/create/update/delete из CLI и из Ansible. Пакет на PyPI
@@ -127,6 +139,17 @@ network_binaries:
     url: "https://github.com/514-labs/dnsglobe/releases/download/{tag}/dnsglobe-x86_64-unknown-linux-gnu.tar.xz"
     archive: tarxz
     member: dnsglobe-x86_64-unknown-linux-gnu/dnsglobe
+  # dnspeep — какие процессы шлют DNS-запросы, куда и с какой задержкой:
+  # читает трафик через libpcap и печатает имя, тип, сервер и ответ. gai
+  # показывает путь резолва, dnsglobe — распространение записи, doggo — ответ
+  # сервера; dnspeep отвечает на вопрос «кто именно ходит в DNS». Релиз —
+  # dnspeep-linux.tar.gz, бинарник dnspeep в корне. Для захвата нужен root.
+  - name: dnspeep
+    source: github
+    repo: jvns/dnspeep
+    url: "https://github.com/jvns/dnspeep/releases/download/{tag}/dnspeep-linux.tar.gz"
+    archive: tar
+    member: dnspeep
   # bandwhich — TUI текущей полосы трафика по процессам и соединениям. Для
   # чтения трафика требует CAP_NET_RAW — ниже на бинарник вешается setcap.
   - name: bandwhich
