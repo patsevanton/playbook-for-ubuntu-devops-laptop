@@ -1,4 +1,0 @@
-{"msg":"Neither old nor new backend is available. No events will be sent to the Garden Cloud API.","section":"","timestamp":"2026-10-24T07:46:08.142Z","level":"debug"}
-{"msg":"garden version: 0.14.20","section":"","timestamp":"2026-10-24T07:46:08.145Z","level":"info"}
-{"msg":"Watcher: Initializing","section":"","timestamp":"2026-10-24T07:46:08.197Z","level":"debug"}
-{"msg":"Watcher: Starting FSWatcher","section":"","timestamp":"2026-10-24T07:46:08.198Z","level":"debug"}

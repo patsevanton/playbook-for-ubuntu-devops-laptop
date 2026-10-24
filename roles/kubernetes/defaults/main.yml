@@ -904,15 +904,6 @@ kubernetes_binaries:
     repo: okteto/okteto
     url: "https://github.com/okteto/okteto/releases/download/{tag}/okteto-Linux-x86_64"
     archive: none
-  # garden — оркестратор разработки для Kubernetes и контейнеров: сборка,
-  # деплой, тесты, логи и зависимости в одном CLI (локально и в кластере).
-  # В архиве бинарник лежит в каталоге linux-amd64.
-  - name: garden
-    source: github
-    repo: garden-io/garden
-    url: "https://github.com/garden-io/garden/releases/download/{tag}/garden-{version}-linux-amd64.tar.gz"
-    archive: tar
-    member: linux-amd64/garden
   # ig (Inspektor Gadget) — набор eBPF-гаджетов для отладки контейнеров и
   # Kubernetes. Локально запускается с sudo (ig run ...), в кластере — через
   # kubectl-gadget. Релиз — ig-linux-amd64-v{version}.tar.gz.

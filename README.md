@@ -249,7 +249,6 @@ ansible-lint                                   # проверка стиля (pr
 - [kubectl-outagedeck](https://github.com/outagedeck/kubectl-outagedeck) — статус облачных провайдеров.
 - [keploy](https://github.com/keploy/keploy) — тест-кейсы из реального трафика приложения.
 - [okteto](https://github.com/okteto/okteto) — разработка прямо в кластере.
-- [garden](https://github.com/garden-io/garden) — оркестратор разработки для Kubernetes.
 - [ig (Inspektor Gadget)](https://github.com/inspektor-gadget/inspektor-gadget) — eBPF-гаджеты для отладки контейнеров.
 - [peirates](https://github.com/inguardians/peirates) — пентест изнутри кластера.
 - [helmsman](https://github.com/mkubaczyk/helmsman) — Helm-релизы как код в TOML.
