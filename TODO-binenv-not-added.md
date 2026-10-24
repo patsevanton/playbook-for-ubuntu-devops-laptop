@@ -8,7 +8,7 @@
 `TODO*.md`, ни в `roles/**` (defaults, tasks, templates). То есть утилита не
 ставится и нигде в проекте не обсуждалась как кандидат.
 
-Из 183 отсутствующих записей сюда попали **111** — активные и не дублирующие
+Из 183 отсутствующих записей сюда попали **103** — активные и не дублирующие
 уже установленное. Остальные разложены по своим трекерам, чтобы не дублировать
 один кандидат в нескольких файлах:
 
@@ -17,7 +17,7 @@
 - **11 серверных и кластерных компонентов** (Loki, Promtail, Traefik, Velero,
   Consul, Nomad, Rancher, Athens, Parca, Logcli, Pomerium) —
   [`TODO-server-apps.md`](TODO-server-apps.md);
-- **13 дублей и вариантов уже имеющегося** (например, `rg` = `ripgrep`,
+- **21 позиция — дубли, варианты уже имеющегося и отказы** (например, `rg` = `ripgrep`,
   `kubectl-krew` = `krew`, `kubeseal` при SOPS/bank-vaults) —
   [`not-install.md`](not-install.md).
 
@@ -38,18 +38,15 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 | Утилита | Что это |
 | --- | --- |
 | [cmctl](https://cert-manager.io/docs/usage/cmctl/) | CLI для управления ресурсами cert-manager в кластере |
-| [eksctl](https://github.com/weaveworks/eksctl/) | простой CLI для создания кластеров в AWS EKS |
 | [havener](https://github.com/homeport/havener/) | швейцарский нож для задач Kubernetes |
 | [k8stail](https://github.com/dtan4/k8stail/) | «tail -f» для подов Kubernetes |
 | [kconnect](https://github.com/fidelity/kconnect) | CLI для управления подключениями к кластерам Kubernetes |
 | [kdigger](https://github.com/quarkslab/kdigger/) | инструмент разведки контекста для пентеста Kubernetes |
 | [kube-beacon](https://github.com/chen-keinan/kube-beacon/) | runtime-сканер кластера k8s с проверками безопасности по CIS Kubernetes Benchmark |
 | [kubeeye](https://github.com/kubesphere/kubeeye/) | ищет проблемы в Kubernetes: ошибки конфигурации приложений, нездоровые компоненты кластера, проблемы нод |
-| [kubens](https://github.com/ahmetb/kubectx/) | быстрое переключение между namespace в kubectl |
 | [kubestr](https://github.com/kastenhq/kubestr/) | обнаружение, проверка и оценка вариантов хранения в Kubernetes |
 | [kubeswitch](https://github.com/danielfoehrKn/kubeswitch/) | «kubectx для операторов» |
 | [ksd](https://github.com/mfuentesg/ksd/) | декодер секретов Kubernetes |
-| [kyverno](https://github.com/kyverno/kyverno/) | policy-движок, созданный специально для Kubernetes |
 | [sloop](https://github.com/salesforce/sloop/) | визуализация истории изменений Kubernetes |
 | [sonobuoy](https://github.com/vmware-tanzu/sonobuoy) | диагностика состояния кластера: прогон тестов на соответствие Kubernetes и плагинов, без разрушительных действий |
 
@@ -57,11 +54,6 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 
 | Утилита | Что это |
 | --- | --- |
-| [aws-iam-authenticator](https://github.com/kubernetes-sigs/) | аутентификация в кластере Kubernetes по учётным данным AWS IAM |
-| [aws-vault](https://github.com/99designs/aws-vault/) | хранилище для безопасного хранения и использования учётных данных AWS в разработке |
-| [awstaghelper](https://github.com/mpostument/awstaghelper/) | массовая простановка тегов в AWS |
-| [cli53](https://github.com/barnybug/cli53/) | работа с Amazon Route 53 из командной строки |
-| [doctl](https://github.com/digitalocean/doctl/) | официальный CLI DigitalOcean |
 | [exo](https://github.com/exoscale/cli/) | CLI для всего в Exoscale: вычисления, хранилище, DNS |
 | [hcloud](https://github.com/hetznercloud/cli/) | управление ресурсами Hetzner Cloud |
 | [helm-docs](https://github.com/norwoodj/helm-docs/) | генерация документации для Helm-чартов (в апстриме описание ошибочно скопировано с hcloud) |
