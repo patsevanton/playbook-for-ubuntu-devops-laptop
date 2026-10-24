@@ -35,6 +35,25 @@
     - "{{ bin_dir }}"
     - "{{ tmp_dir }}"
 
+# Лимиты inotify: kind, k9s, IDE и file watchers. Файл в /etc/sysctl.d,
+# применяется только при изменении — sysctl -p не дёргаем каждый прогон.
+- name: Положить настройки лимитов inotify
+  become: true
+  ansible.builtin.template:
+    src: 99-devops-inotify.conf.j2
+    dest: "{{ base_sysctl_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  register: base_sysctl_result
+
+- name: Применить настройки inotify  # noqa: command-instead-of-module
+  become: true
+  ansible.builtin.command:
+    cmd: "sysctl -p {{ base_sysctl_file }}"
+  when: base_sysctl_result.changed and not ansible_check_mode
+  changed_when: true
+
 - name: Обновить кэш apt
   become: true
   ansible.builtin.apt:

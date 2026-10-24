@@ -56,6 +56,10 @@
     name: "{{ docker_packages }}"
     state: present
 
+- name: Настроить Docker daemon (daemon.json)
+  ansible.builtin.include_tasks:
+    file: daemon.yml
+
 - name: Установить утилиты работы с образами из репозитория Ubuntu (skopeo)
   become: true
   ansible.builtin.apt:

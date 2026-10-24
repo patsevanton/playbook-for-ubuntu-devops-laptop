@@ -78,3 +78,8 @@
   ansible.builtin.include_tasks:
     file: omnyssh.yml
   when: omnyssh_install
+
+- name: Установить NetBird (mesh VPN)
+  ansible.builtin.include_tasks:
+    file: netbird.yml
+  when: netbird_install

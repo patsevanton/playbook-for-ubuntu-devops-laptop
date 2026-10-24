@@ -16,7 +16,8 @@
 #   6. Прописывает домен в /etc/hosts на 127.0.0.1.
 #   7. Настраивает клиентов:
 #      - Terraform: ~/.terraformrc с network_mirror (https).
-#      - Docker: /etc/docker/daemon.json с registry-mirrors (http).
+#      - Docker: выставляет docker_registry_mirrors; daemon.json рендерит
+#        роль docker (один владелец файла).
 #
 # Серты и ключи в репозиторий не кладём и не коммитим (генерируются на месте,
 # живут в /etc/nora/tls/ и /root/.local/share/mkcert/).
@@ -108,5 +109,5 @@ nora_caddy_autosave: /var/lib/caddy/.config/caddy/autosave.json
 # Terraform CLI config: network_mirror указывает на NORA через HTTPS (Caddy).
 nora_terraformrc_file: "{{ home_dir }}/.terraformrc"
 nora_terraformrc_backup: "{{ home_dir }}/.terraformrc.backup"
-# Docker daemon: registry-mirrors уводят все docker pull через NORA по http.
-nora_docker_daemon_file: /etc/docker/daemon.json
+# Docker daemon: роль nora только выставляет docker_registry_mirrors, а
+# /etc/docker/daemon.json рендерит роль docker (один владелец файла).

@@ -133,3 +133,14 @@ base_pipx_apps:
     creates: ansible-doctor
   - name: ara
     creates: ara
+
+# --- Лимиты inotify ---------------------------------------------------------
+# kind создаёт десятки контейнеров, k9s и IDE держат watchers на файлы,
+# линтеры и file watchers в проектах добавляют ещё. Дефолт Ubuntu —
+# 65536 watches / 128 instances / 16384 queued events: этого мало, и в логах
+# появляется «No space left on device» или watcher'ы молча перестают работать.
+base_sysctl_file: /etc/sysctl.d/99-devops-inotify.conf
+base_sysctl_settings:
+  fs.inotify.max_user_watches: 524288
+  fs.inotify.max_user_instances: 512
+  fs.inotify.max_queued_events: 32768

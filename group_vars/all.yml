@@ -33,6 +33,11 @@ ripgrep_config_file: "{{ home_dir }}/.config/ripgrep/config"
 # в git.
 devops_state_dir: "{{ home_dir }}/.local/state/devops-playbook"
 report_file: "{{ devops_state_dir }}/report.json"
+# State бинарников: name -> tag релиза, который реально поставили. Нужен
+# только в режиме обновления (binaries_update=true), чтобы не скачивать
+# заново то, что уже стоит на последней версии. В report.json попадает
+# копией, секцией binaries.
+binaries_state_file: "{{ devops_state_dir }}/binaries.json"
 
 # --- Поведение --------------------------------------------------------------
 # User-Agent для запросов к GitHub / npm / HashiCorp.

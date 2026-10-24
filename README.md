@@ -54,6 +54,7 @@ source ~/.config/devops-shell.sh
 ansible-playbook --syntax-check playbook.yml   # проверка синтаксиса
 ansible-playbook -K playbook.yml --check       # dry-run (с оговорками, см. ниже)
 ansible-playbook -K playbook.yml --tags shell  # только роль shell (base — всегда)
+ansible-playbook -K playbook.yml -e binaries_update=true  # обновить бинарники
 ansible-lint                                   # проверка стиля (profile: production)
 pre-commit run --all-files                     # те же проверки перед коммитом
 ```
@@ -532,6 +533,8 @@ mode не пишется: `copy` в dry-run ничего не меняет.
 - [posting](https://github.com/darrenburns/posting) — HTTP-клиент в терминале: коллекции, окружения, история, `.http`-файлы.
 - [lazyssh](https://github.com/Adembc/lazyssh) — SSH-менеджер в стиле lazydocker/k9s: хосты из `~/.ssh/config`, подключение, ключи.
 - [omnyssh](https://github.com/timhartmann7/omnyssh) — SSH-менеджер: TUI `omny` и GUI `OmnySSH` с вкладками, метриками, SFTP и пробросом портов.
+- [NetBird](https://github.com/netbirdio/netbird) — mesh VPN на WireGuard: peer-to-peer, SSO и ACL; CLI и демон `netbird` из официального apt-репозитория.
+- [netbird-ui](https://github.com/netbirdio/netbird) — графический клиент NetBird на GTK4/WebKit: подключение, статус и настройки без CLI.
 
 ### ebpf
 
@@ -678,7 +681,8 @@ molecule idempotence            # второй прогон — ничего н�
 
 ## Обновление и идемпотентность
 
-Идемпотентность везде простая: **нет файла — ставим, есть файл — не трогаем.**
+Идемпотентность по умолчанию простая: **нет файла — ставим, есть файл — не трогаем.**
+Обновление бинарников — отдельный явный режим, см. ниже.
 
 ### Отчёт о версиях
 
@@ -686,6 +690,7 @@ molecule idempotence            # второй прогон — ничего н�
 `~/.local/state/devops-playbook/` (каталог не в репозитории и не в git):
 
 - версии всех проверенных утилит и наличие бинарников без флага версии;
+- state бинарников `name → tag` (секция `binaries`);
 - хост, дистрибутив, ядро, commit плейбука, теги запуска и признак `full_run`.
 
 ```bash
@@ -694,6 +699,37 @@ jq -r '.tools[] | select(.ok == false) | .command' ~/.local/state/devops-playboo
 
 При частичном прогоне `full_run` равен `false`, а отсутствующие утилиты
 попадут в отчёт с `"ok": false`.
+
+### Обновление бинарников
+
+Обычный прогон ничего не обновляет: если файл уже есть, роль `binaries` его
+не трогает. Явный режим обновления:
+
+```bash
+ansible-playbook -K playbook.yml -e binaries_update=true
+```
+
+В этом режиме роль проверяет весь список (а не только отсутствующие файлы),
+берёт актуальный тег из `releases/latest` и переустанавливает бинарник только
+если тег отличается от записанного в state.
+
+State лежит в `~/.local/state/devops-playbook/binaries.json` в виде
+`name → tag` и пишется сразу после установки. В `report.json` он попадает
+копией, секцией `binaries`:
+
+```json
+{
+  "yq": "v4.45.1",
+  "kubectl": "v1.34.1",
+  "helm": "v3.19.0"
+}
+```
+
+Первый запуск с `binaries_update=true` после появления state-файла
+переустановит всё: роль ещё не знает, какие теги стоят на диске. Дальше
+скачиваются только отличия. Проверка идёт через HTTP-редиректы
+`github.com/<repo>/releases/latest`, а не через GitHub API, поэтому лимит
+60 запросов в час не расходуется.
 
 ---
 
@@ -733,6 +769,76 @@ services:
 ```bash
 dry                         # интерактивный TUI текущего Docker-хоста
 dry -H ssh://user@host      # подключиться к удалённому Docker
+```
+
+### daemon.json
+
+Роль `docker` — единственный владелец `/etc/docker/daemon.json` (роль `nora`
+только выставляет `docker_registry_mirrors`, а файл рендерит `docker`). Что
+в нём лежит:
+
+- `log-driver: json-file` с `max-size: 20m` и `max-file: 3` — логи контейнеров
+  не растут бесконечно. Без этих опций Docker не ротирует `json-file` вообще,
+  и `/var/lib/docker/containers` однажды занимает весь диск.
+- `live-restore: true` — при перезапуске демона (обновление пакета, правка
+  конфига) контейнеры продолжают работать.
+- `registry-mirrors` — если роль `nora` отработала, все `docker pull` идут
+  через её pull-through cache.
+
+Пулы адресов (`default-address-pools`) по умолчанию не задаются: стандартный
+`172.17.0.0/16` обычно никому не мешает. Если он конфликтует с VPN или
+подсетями кластеров, задайте `docker_address_pools` в
+`roles/docker/defaults/main.yml` или `group_vars`. Не используйте
+`100.64.0.0/10` — этот диапазон занимает NetBird.
+
+Проверка и применение:
+
+```bash
+docker info --format '{{.LoggingDriver}}'
+docker inspect <container> --format '{{.HostConfig.LogConfig}}'
+sudo systemctl restart docker
+```
+
+---
+
+## Лимиты inotify
+
+Роль `base` кладёт `/etc/sysctl.d/99-devops-inotify.conf`:
+
+```ini
+fs.inotify.max_user_watches = 524288
+fs.inotify.max_user_instances = 512
+fs.inotify.max_queued_events = 32768
+```
+
+Дефолт Ubuntu — 65536 watches, 128 instances и 16384 queued events. Для
+kind, k9s, IDE и file watchers в проектах этого мало: watcher'ы начинают
+молча отваливаться, а в логах появляется «No space left on device» (место на
+диске при этом есть). Файл применяется через `sysctl -p` только при
+изменении, в `--check` не применяется.
+
+```bash
+sysctl fs.inotify.max_user_watches fs.inotify.max_user_instances
+```
+
+---
+
+## NetBird
+
+Роль `network` подключает официальный apt-репозиторий
+`https://pkgs.netbird.io/debian` и ставит `netbird` (CLI + демон) и
+`netbird-ui` (GUI на GTK4/WebKit). Это не PPA: у NetBird своего PPA нет,
+апстрим публикует ключ и пакеты в собственном репозитории. Ключ лежит как
+ASCII-armored `.asc`, поэтому `gnupg` не нужен.
+
+Демон включается и запускается, но регистрация остаётся ручной: SSO
+открывается в браузере, а setup-key — секрет, которому не место в плейбуке.
+
+```bash
+netbird status                  # состояние демона и подключения
+netbird up                      # вход через SSO в браузере
+netbird up --setup-key <KEY>    # регистрация без браузера
+netbird-ui                      # графический клиент
 ```
 
 ---

@@ -40,6 +40,35 @@ docker_key_path: "{{ docker_keyring_dir }}/docker.asc"
 docker_key_url: https://download.docker.com/linux/ubuntu/gpg
 docker_repo_base: https://download.docker.com/linux/ubuntu
 
+# --- /etc/docker/daemon.json ------------------------------------------------
+# Единственный владелец файла — эта роль. Роль nora не пишет daemon.json
+# сама: она только выставляет docker_registry_mirrors, а docker рендерит
+# конфиг один раз (иначе два writer'а перезаписывали бы друг друга и Docker
+# перезапускался бы дважды за прогон).
+docker_daemon_file: /etc/docker/daemon.json
+docker_daemon_config:
+  # Docker по умолчанию не ротирует логи контейнеров вообще: json-file растёт,
+  # пока не кончится место. 20 МБ × 3 файла на контейнер — потолок для ноутбука.
+  log-driver: json-file
+  log-opts:
+    max-size: "20m"
+    max-file: "3"
+  # При перезапуске демона (обновление пакета, правка конфига) контейнеры
+  # продолжают работать, а не останавливаются вместе с Docker.
+  live-restore: true
+
+# registry-mirrors. В полном прогоне роль nora выставляет этот факт до docker
+# и подставляет адрес своего pull-through cache. Пустой список — без зеркала.
+docker_registry_mirrors: []
+
+# Пулы адресов Docker. Пусто — оставить 172.17.0.0/16 по умолчанию.
+# Если он конфликтует с VPN или подсетями кластеров, задайте, например:
+#   - base: 10.213.0.0/16
+#     size: 24
+# Не берите 100.64.0.0/10 — его использует NetBird, и Docker начнёт
+# пересекаться с адресами mesh-сети.
+docker_address_pools: []
+
 # Утилиты для повседневной работы с контейнерами (ставятся через роль binaries).
 docker_binaries:
   # dive — анализ слоёв docker-образа: размер, мусор, оценка эффективности.

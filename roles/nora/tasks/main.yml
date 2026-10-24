@@ -8,12 +8,14 @@
 #      (включаем Terraform- и Docker-прокси).
 #   2. Ставим mkcert, генерируем локальный CA и выписываем серт.
 #   3. Ставим Caddy как TLS-терминатор и прописываем домен в /etc/hosts.
-#   4. Настраиваем клиентов: Terraform (~/.terraformrc) и Docker
-#      (/etc/docker/daemon.json registry-mirrors).
+#   4. Настраиваем клиентов: Terraform (~/.terraformrc) и Docker. Для Docker
+#      роль только выставляет docker_registry_mirrors — сам /etc/docker/daemon.json
+#      пишет роль docker (см. roles/docker/tasks/daemon.yml), чтобы у файла был
+#      один владелец.
 #
 # Идемпотентность: .deb/apt сверяют версии; серт — только при отсутствии
-# nora.crt (или при смене SAN); /etc/hosts, terraformrc и daemon.json — по
-# содержимому/маркеру.
+# nora.crt (или при смене SAN); /etc/hosts и terraformrc — по содержимому/
+# маркеру; daemon.json рендерит docker роль.
 # ============================================================================
 
 # --- 1. NORA ----------------------------------------------------------------
@@ -258,15 +260,27 @@
     mode: "0644"
     backup: true
 
-- name: Настроить Docker daemon (registry-mirrors на NORA)
-  become: true
-  ansible.builtin.template:
-    src: daemon.json.j2
-    dest: "{{ nora_docker_daemon_file }}"
-    owner: root
-    group: root
-    mode: "0644"
-  notify: Перезапустить Docker
+# Роль docker идёт после nora и читает этот факт при рендере daemon.json.
+# set_fact перекрывает docker_registry_mirrors из defaults роли docker.
+- name: Передать роли docker адрес registry-mirrors (pull-through cache NORA)
+  ansible.builtin.set_fact:
+    docker_registry_mirrors:
+      - "http://{{ nora_hostname }}:{{ nora_port }}"
+
+# При полном прогоне daemon.json отрендерит роль docker. Но при
+# `--tags nora` (например, после смены nora_hostname) роль docker пропущена,
+# поэтому применяем зеркало сразу, если Docker уже стоит. На чистой машине
+# бинарника ещё нет — тогда конфиг запишет сама роль docker.
+- name: Проверить, установлен ли Docker (для --tags nora)
+  ansible.builtin.stat:
+    path: /usr/bin/docker
+  register: nora_docker_stat
+
+- name: Применить registry-mirrors к уже установленному Docker
+  ansible.builtin.include_role:
+    name: docker
+    tasks_from: daemon
+  when: nora_docker_stat.stat.exists
 
 - name: Smoke-проверка NORA через HTTPS (без -k — серт должен быть доверенным)
   ansible.builtin.uri:

@@ -164,6 +164,8 @@ Wayland-интеграцию. Пакеты apt дают ту же пользу �
 дополняет `smartctl`/`sensors` общей картиной железа. `git-lfs` нужен,
 чтобы `git clone` репозиториев с ассетами не оставлял pointer-заглушки.
 
+NetBird (`netbird` + `netbird-ui`) добавлен 2026-10-24 в роль `network` из
+официального apt-репозитория `pkgs.netbird.io` (PPA у проекта нет). Остальные
 VPN-клиенты (`wireguard-tools`, `openvpn`, плагины NetworkManager,
 `sshuttle`) в плейбук пока не добавлены — решение отложено.
 

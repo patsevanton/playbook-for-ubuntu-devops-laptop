@@ -6,6 +6,7 @@
 #
 # Запуск (пароль sudo вводит сам пользователь):
 #   ansible-playbook -K playbook.yml
+#   ansible-playbook -K playbook.yml -e binaries_update=true  # обновить бинарники
 #
 # Структура — стандартная для Ansible-проекта:
 #   ansible.cfg        — настройки (инвентарь, путь к ролям)
@@ -27,6 +28,11 @@
       tags: [base, always]
     - role: git
       tags: [git]
+    # nora идёт до docker: она только выставляет docker_registry_mirrors,
+    # а роль docker рендерит /etc/docker/daemon.json уже с зеркалом. Так
+    # у файла один владелец и Docker не перезапускается дважды за прогон.
+    - role: nora
+      tags: [nora]
     - role: docker
       tags: [docker]
     - role: kubernetes
@@ -57,8 +63,6 @@
       tags: [hardware]
     - role: guardrails
       tags: [guardrails]
-    - role: nora
-      tags: [nora]
     - role: monitoring
       tags: [monitoring]
 
@@ -121,6 +125,7 @@
         - "{{ bin_dir }}/gai --version"
         - "{{ bin_dir }}/dnsglobe --version"
         - "{{ bin_dir }}/bandwhich --version"
+        - "netbird version"
         - "{{ bin_dir }}/uncover -version"
         - "{{ bin_dir }}/q --version"
         - "{{ bin_dir }}/xh --version"
@@ -594,6 +599,13 @@
         label: "{{ item.item }}"
       check_mode: false
 
+    - name: Прочитать state бинарников для отчёта
+      ansible.builtin.slurp:
+        src: "{{ binaries_state_file }}"
+      register: binaries_state_report
+      failed_when: false
+      check_mode: false
+
     # ansible_run_tags — не обычный list, поэтому full_run сравниваем через join.
     - name: Записать отчёт о версиях
       ansible.builtin.copy:
@@ -614,6 +626,8 @@
             'run_tags': ansible_run_tags | default(['all'], true),
             'skip_tags': ansible_skip_tags | default([], true),
             'tools': devops_report_tools | default([]),
-            'files': devops_report_files | default([])
+            'files': devops_report_files | default([]),
+            'binaries': (binaries_state_report.content | b64decode | from_json)
+                        if binaries_state_report.content is defined else {}
           } | to_nice_json }}
       changed_when: false

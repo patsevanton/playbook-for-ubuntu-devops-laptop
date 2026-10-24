@@ -3,9 +3,13 @@
 # Роль binaries: актуальные версии + установка в bin_dir.
 # Вызывается через include_role с переменной binaries_to_install.
 #
-# Идемпотентность простая: если файла в bin_dir нет — ставим,
-# если есть — не трогаем (ничего не скачиваем и не проверяем версии).
-# Обновить инструмент = удалить файл и запустить плейбук снова.
+# Идемпотентность: если файла в bin_dir нет — ставим, если есть — не трогаем
+# (ничего не скачиваем и не проверяем версии). Обновить инструмент вручную =
+# удалить файл и запустить плейбук снова.
+#
+# Массовое обновление: -e binaries_update=true. Тогда проверяются все
+# бинарники из списка, актуальный тег сравнивается с binaries_state_file
+# (name -> tag), и скачиваются только отличия.
 # ============================================================================
 
 - name: Проверить, что список бинарников не пуст
@@ -15,10 +19,36 @@
       - binaries_to_install | length > 0
     fail_msg: "Роль binaries вызвана без переменной binaries_to_install"
 
+# --- 0. State: name -> tag релиза, который уже поставили --------------------
+# Файл читаем один раз за прогон: роль вызывается из разных ролей, а state
+# должен накапливаться, а не перезаписываться последним вызовом.
+- name: Проверить наличие state-файла бинарников
+  ansible.builtin.stat:
+    path: "{{ binaries_state_file }}"
+  register: binaries_state_stat
+  when: not (binaries_state_loaded | default(false))
+
+- name: Прочитать state-файл бинарников
+  ansible.builtin.slurp:
+    src: "{{ binaries_state_file }}"
+  register: binaries_state_slurp
+  when:
+    - not (binaries_state_loaded | default(false))
+    - binaries_state_stat.stat.exists | default(false)
+
+- name: Загрузить state бинарников в память
+  ansible.builtin.set_fact:
+    binaries_state: >-
+      {{ (binaries_state_slurp.content | b64decode | from_json)
+         if (binaries_state_slurp.content is defined) else {} }}
+    binaries_state_loaded: true
+  when: not (binaries_state_loaded | default(false))
+
 - name: Сбросить результаты предыдущих вызовов роли
   ansible.builtin.set_fact:
     binaries_resolved: []
-    binaries_missing: []
+    binaries_candidates: []
+    binaries_exists: {}
     binaries_github_tags: {}
     binaries_text_versions: {}
 
@@ -31,12 +61,23 @@
     label: "{{ item.name }}"
   register: binaries_stat
 
-- name: Определить отсутствующие бинарники
+- name: Собрать карту наличия бинарников
   ansible.builtin.set_fact:
-    binaries_missing: >-
-      {{ binaries_stat.results | rejectattr('stat.exists') | map(attribute='item') | list }}
+    binaries_exists: "{{ binaries_exists | combine({item.item.name: item.stat.exists}) }}"
+  loop: "{{ binaries_stat.results }}"
+  loop_control:
+    label: "{{ item.item.name }}"
 
-# --- 2. Актуальные версии — только для отсутствующих -----------------------
+# В обычном прогоне проверяем только отсутствующие. В режиме обновления —
+# весь список: тег из state сравним с releases/latest и скачаем отличия.
+- name: Определить бинарники-кандидаты
+  ansible.builtin.set_fact:
+    binaries_candidates: >-
+      {{ (binaries_stat.results | map(attribute='item') | list)
+         if (binaries_update | bool)
+         else (binaries_stat.results | rejectattr('stat.exists') | map(attribute='item') | list) }}
+
+# --- 2. Актуальные версии — для кандидатов ---------------------------------
 # Редиректов может быть несколько: переименованный репозиторий
 # сначала уводит на новый owner, и только затем — на /releases/tag/<tag>.
 # Поэтому идём по всей цепочке и берём тег из итогового url, а не из
@@ -49,7 +90,7 @@
     headers:
       User-Agent: "{{ http_user_agent }}"
   loop: >-
-    {{ binaries_missing | selectattr('source', 'equalto', 'github')
+    {{ binaries_candidates | selectattr('source', 'equalto', 'github')
        | rejectattr('version', 'defined') | list }}
   loop_control:
     label: "{{ item.name }}"
@@ -64,7 +105,7 @@
     headers:
       User-Agent: "{{ http_user_agent }}"
   loop: >-
-    {{ binaries_missing | selectattr('source', 'equalto', 'gitlab')
+    {{ binaries_candidates | selectattr('source', 'equalto', 'gitlab')
        | rejectattr('version', 'defined') | list }}
   loop_control:
     label: "{{ item.name }}"
@@ -78,7 +119,7 @@
     headers:
       User-Agent: "{{ http_user_agent }}"
   loop: >-
-    {{ binaries_missing | selectattr('source', 'equalto', 'text')
+    {{ binaries_candidates | selectattr('source', 'equalto', 'text')
        | rejectattr('version', 'defined') | list }}
   loop_control:
     label: "{{ item.name }}"
@@ -110,9 +151,12 @@
 - name: Определить версии и ссылки на файлы
   ansible.builtin.set_fact:
     binaries_resolved: "{{ binaries_resolved + [_item] }}"
-  loop: "{{ binaries_missing }}"
+  loop: "{{ binaries_candidates }}"
   loop_control:
     label: "{{ item.name }}"
+  # В обычном прогоне кандидаты и так отсутствуют. В режиме обновления
+  # оставляем только те, чей тег в state не совпал с актуальным.
+  when: _needs_install
   vars:
     # Если версия задана явно — берём её вместо результата запроса релизов.
     _tag: >-
@@ -123,6 +167,10 @@
          | default(binaries_text_versions[item.name] | default(_tag))
          | regex_replace(item.version_strip | default('^v'), '') }}
     _ver: "{{ _version | trim }}"
+    _state_tag: "{{ binaries_state[item.name] | default('') }}"
+    _needs_install: >-
+      {{ (not (binaries_exists[item.name] | default(false) | bool))
+         or (not (binaries_update | bool)) or (_state_tag != _tag) }}
     _item: >-
       {{ item | combine({
            'tag': _tag,
@@ -214,3 +262,31 @@
   loop: "{{ binaries_resolved | rejectattr('archive', 'equalto', 'none') | list }}"
   loop_control:
     label: "{{ item.name }} {{ item.version }}"
+
+# --- 4. State: что реально поставили ---------------------------------------
+# name -> tag. В report.json эта же секция попадает копией.
+- name: Записать теги установленных бинарников в state
+  ansible.builtin.set_fact:
+    binaries_state: "{{ binaries_state | combine({item.name: item.tag}) }}"
+  loop: "{{ binaries_resolved }}"
+  loop_control:
+    label: "{{ item.name }} {{ item.tag }}"
+  when: not ansible_check_mode
+
+- name: Создать каталог состояния
+  ansible.builtin.file:
+    path: "{{ devops_state_dir }}"
+    state: directory
+    mode: "0755"
+  when:
+    - binaries_resolved | length > 0
+    - not ansible_check_mode
+
+- name: Сохранить state бинарников
+  ansible.builtin.copy:
+    dest: "{{ binaries_state_file }}"
+    mode: "0644"
+    content: "{{ binaries_state | to_nice_json }}\n"
+  when:
+    - binaries_resolved | length > 0
+    - not ansible_check_mode

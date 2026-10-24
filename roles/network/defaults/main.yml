@@ -406,3 +406,28 @@ network_bandwhich_setcap: true
 # нужны CAP_NET_RAW, CAP_BPF и CAP_PERFMON. setcap позволяет запускать TUI
 # без sudo (иначе — `sudo rustnet`). False = не навешивать.
 network_rustnet_setcap: true
+
+# --- NetBird: mesh VPN на WireGuard ----------------------------------------
+# Официальный apt-репозиторий (https://pkgs.netbird.io), не PPA: апстрим
+# публикует ключ и пакеты `netbird` (CLI + демон) и `netbird-ui` (GUI на
+# GTK4/WebKit). PPA у проекта нет.
+#
+# Ключ кладём как ASCII-armored .asc и подключаем через signed-by — как у
+# Docker, поэтому gnupg не нужен. Пакет netbird-ui требует GTK 4.14+ и
+# WebKitGTK 6.0; в Ubuntu 26.04 они есть, зависимости подтянет apt.
+#
+# Файл sources`netbird_repo_file`.list плейбук перезаписывает целиком: apt
+# падает с «Conflicting values set for option Signed-By», если в нём осталась
+# запись с другим ключом (например, от ручной установки по инструкции NetBird
+# с ключом netbird-archive-keyring.gpg).
+netbird_install: true
+netbird_repo_url: https://pkgs.netbird.io/debian
+netbird_repo_suite: stable
+netbird_repo_component: main
+netbird_repo_file: netbird
+netbird_key_url: https://pkgs.netbird.io/debian/public.key
+netbird_key_path: /usr/share/keyrings/netbird-archive-keyring.asc
+netbird_packages:
+  - netbird
+  - netbird-ui
+netbird_service: netbird.service
