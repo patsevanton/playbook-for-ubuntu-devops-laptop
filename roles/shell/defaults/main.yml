@@ -72,6 +72,14 @@ shell_packages:
   # между шагами) и ts из moreutils: тем видно, когда что началось, pv —
   # сколько уже прошло и с какой скоростью.
   - pv
+  # redis-tools — redis-cli: проверка соединения и latency (`--latency`),
+  # просмотр ключей и TTL, MONITOR и SLOWLOG. Дополняет dbx (GUI к разным
+  # СУБД): в скриптах и на серверах нужен именно redis-cli.
+  - redis-tools
+  # kcat (бывший kafkacat) — клиент Kafka: список топиков и групп,
+  # чтение/запись сообщений с фильтром по партиции и offset, метаданные
+  # брокеров. Дополняет web-UI кластера, когда нужно посмотреть поток из CLI.
+  - kcat
 
 shell_binaries:
   - name: starship

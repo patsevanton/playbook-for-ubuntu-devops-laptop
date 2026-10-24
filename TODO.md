@@ -154,6 +154,19 @@ GitHub): `rsync` (роль `base`), `bpftrace` (роль `ebpf`), `socat` и `ip
 брать два бинарника плюс systemd-юнит (`pueue`/`pueued`) или проверять
 Wayland-интеграцию. Пакеты apt дают ту же пользу без этой цены.
 
+Добавлены 2026-10-24 по запросу, четвёртая партия — данные, API и
+репозитории с большими файлами: `redis-tools` и `kcat` (роль `shell`),
+`grpcurl` и `buf` (роль `network`), `inxi` (роль `hardware`), `git-lfs`
+(роль `base`). `redis-cli` и `kcat` — единственные клиенты Redis и Kafka в
+плейбуке: `dbx` даёт GUI, но в скриптах и на серверах нужны именно CLI.
+`grpcurl` — первый gRPC-клиент (до этого gRPC был только как приёмник OTLP
+у `otel-tui`); `buf` идёт в паре с ним для работы с `.proto`. `inxi`
+дополняет `smartctl`/`sensors` общей картиной железа. `git-lfs` нужен,
+чтобы `git clone` репозиториев с ассетами не оставлял pointer-заглушки.
+
+VPN-клиенты (`wireguard-tools`, `openvpn`, плагины NetworkManager,
+`sshuttle`) в плейбук пока не добавлены — решение отложено.
+
 Добавлены 2026-10-24 по запросу, четвёртая партия: `postgresql-client` (роль
 `postgres`, даёт `psql`/`pg_dump`/`pg_restore`), `docker-buildx-plugin` (роль
 `docker`), `pciutils`, `usbutils` и `dmidecode` (роль `hardware`), `perf`

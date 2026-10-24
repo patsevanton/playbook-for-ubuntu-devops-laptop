@@ -199,6 +199,27 @@ network_binaries:
     repo: vi/websocat
     url: "https://github.com/vi/websocat/releases/download/{tag}/websocat.x86_64-unknown-linux-musl"
     archive: none
+  # grpcurl — curl для gRPC: list сервисов и методов через reflection, describe
+  # по proto, вызов метода с JSON-payload. Единственный инструмент в плейбуке,
+  # который говорит по gRPC как клиент (otel-tui только принимает OTLP).
+  # Релиз — grpcurl_{version}_linux_x86_64.tar.gz (в имени x86_64, а не amd64),
+  # бинарник grpcurl в корне.
+  - name: grpcurl
+    source: github
+    repo: fullstorydev/grpcurl
+    url: "https://github.com/fullstorydev/grpcurl/releases/download/{tag}/grpcurl_{version}_linux_x86_64.tar.gz"
+    archive: tar
+    member: grpcurl
+  # buf — работа с protobuf: линт и форматирование .proto (`buf lint`,
+  # `buf format`), детект ломающих изменений API (`buf breaking`) и генерация
+  # кода. Идёт в паре с grpcurl: тот проверяет живой сервис, buf — контракт.
+  # Релиз — buf-Linux-x86_64.tar.gz, бинарник лежит в каталоге buf/bin.
+  - name: buf
+    source: github
+    repo: bufbuild/buf
+    url: "https://github.com/bufbuild/buf/releases/download/{tag}/buf-Linux-x86_64.tar.gz"
+    archive: tar
+    member: buf/bin/buf
   # tcping — `ping` поверх TCP-порта: проверяет доступность хоста:порта по
   # установлению соединения (когда ICMP закрыт). Статический тарболл
   # tcping-linux-amd64-static.tar.gz, бинарник tcping в корне.

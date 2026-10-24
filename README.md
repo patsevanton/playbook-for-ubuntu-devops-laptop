@@ -88,6 +88,7 @@ ansible-lint                                   # проверка стиля (pr
 - [curl](https://github.com/curl/curl) — передача данных по URL.
 - [wget](https://savannah.gnu.org/projects/wget) — скачивание файлов из CLI.
 - [git](https://github.com/git/git) — система контроля версий.
+- [git-lfs](https://git-lfs.com/) — Large File Storage: большие ассеты в репозитории вместо pointer-заглушек.
 - [jq](https://github.com/jqlang/jq) — обработка JSON из CLI.
 - [ca-certificates](https://salsa.debian.org/debian/ca-certificates) — корневые сертификаты.
 - [unzip](https://infozip.sourceforge.net/UnZip.html) — распаковка zip-архивов.
@@ -461,6 +462,8 @@ ansible-lint                                   # проверка стиля (pr
 - [sysstat](https://github.com/sysstat/sysstat) — история производительности: `sar`, `iostat`, `mpstat`, `pidstat`.
 - [perf](https://perf.wiki.kernel.org/) — сэмплирующий профайлер: `perf top`, `perf record` и flame graph (пакет `linux-tools-generic`).
 - [pv](https://github.com/ivarch/pv) — прогресс и скорость потока в пайпе: `pv dump.sql | gzip`.
+- [redis-tools](https://github.com/redis/redis) — `redis-cli`: latency, TTL, MONITOR, SLOWLOG.
+- [kcat](https://github.com/edenhill/kcat) — клиент Kafka: топики, группы, чтение и запись сообщений из CLI.
 - [devops-shell.sh](https://github.com/patsevanton/playbook-for-ubuntu-devops-laptop/blob/main/roles/shell/templates/devops-shell.sh.j2) — конфиг shell: `~/.config/devops-shell.sh` плюс одна строка `source` в `~/.bashrc`.
 
 ### network
@@ -499,6 +502,8 @@ ansible-lint                                   # проверка стиля (pr
 - [ecapture](https://github.com/gojue/ecapture) — захват TLS-трафика приложений без CA-сертификатов.
 - [termshark](https://github.com/gcla/termshark) — TUI к Wireshark/tshark.
 - [websocat](https://github.com/vi/websocat) — netcat для WebSocket.
+- [grpcurl](https://github.com/fullstorydev/grpcurl) — `curl` для gRPC: reflection, describe и вызов методов с JSON.
+- [buf](https://github.com/bufbuild/buf) — линт и форматирование `.proto`, детект ломающих изменений API.
 - [tcping](https://github.com/pouriyajamshidi/tcping) — `ping` поверх TCP-порта.
 - [doggo](https://github.com/mr-karan/doggo) — DNS-клиент с человекочитаемым цветным выводом.
 - [gotty](https://github.com/yudai/gotty) — терминал как веб-приложение.
@@ -560,6 +565,7 @@ ansible-lint                                   # проверка стиля (pr
 - [smartmontools](https://www.smartmontools.org/) — `smartctl`/`smartd`: атрибуты SMART, self-test и лог ошибок накопителя.
 - [nvme-cli](https://github.com/linux-nvme/nvme-cli) — телеметрия NVMe: износ, температура, число записанных байт, ошибки.
 - [lm-sensors](https://github.com/lm-sensors/lm-sensors) — `sensors`: температуры, напряжения и обороты вентиляторов.
+- [inxi](https://smxi.org/docs/inxi.htm) — сводка о железе и системе (`inxi -Fz`) для багрепортов и сравнения машин.
 - [pciutils](https://mj.ucw.cz/sw/pciutils/) — `lspci`: устройства на шине PCI и их драйверы (`lspci -k`).
 - [usbutils](http://www.linux-usb.org/) — `lsusb`: устройства USB и их VID:PID.
 - [dmidecode](https://github.com/mirror/dmidecode) — инвентаризация из BIOS/SMBIOS: версия BIOS, слоты и тип памяти, серийные номера.
