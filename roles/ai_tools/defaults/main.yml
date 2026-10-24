@@ -83,3 +83,63 @@ t3code_deb_dir: "{{ tmp_dir }}/t3code"
 ouroboros_install: true
 ouroboros_repo: razzant/ouroboros
 ouroboros_deb_dir: "{{ tmp_dir }}/ouroboros"
+
+# --- Google Chrome: браузер для stealth-browser-mcp (deb) -------------------
+# В Ubuntu 26.04 Chromium ставится только снапом: chromium-browser —
+# переходник на snap, deb-пакета chromium в архиве нет. К тому же confinement
+# снапа ограничивает доступ к профилю и DevToolsActivePort, поэтому
+# CDP-подключение из nodriver там не гарантировано. Поэтому ставим Chrome
+# официальным .deb с dl.google.com.
+#
+# Пакет сам подключает свой apt-репозиторий (google-chrome.sources + ключ
+# /usr/share/keyrings/google-chrome.gpg): обновления Chrome дальше приходят
+# обычным `apt upgrade`. Свои source-файлы плейбук не пишет — postinst Google
+# удаляет legacy google-chrome.list, а две записи одного источника
+# конфликтовали бы по Signed-By.
+#
+# .deb ~150 МБ; скачивается, только если /usr/bin/google-chrome ещё нет.
+# Идемпотентность: есть бинарник — роль ничего не качает.
+#
+# Бинарник /usr/bin/google-chrome: stealth-browser-mcp ищет его первым
+# (google-chrome, google-chrome-stable, chromium, …), поэтому
+# STEALTH_BROWSER_EXECUTABLE для него не нужен.
+#
+# Не нужен браузер — google_chrome_install: false.
+google_chrome_install: true
+google_chrome_bin: /usr/bin/google-chrome
+google_chrome_deb_url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+google_chrome_deb_dir: "{{ tmp_dir }}/google-chrome"
+
+# --- stealth-browser-mcp: MCP-сервер браузера (pipx) ------------------------
+# Браузерная автоматизация для AI-клиентов (opencode, Claude, Cursor):
+# навигация, извлечение DOM, перехват сети, CDP-команды. Работает через
+# nodriver — запускает настоящий Chrome/Chromium/Edge с профилем пользователя,
+# поэтому проходит часть анти-бот-проверок, где палится Playwright.
+#
+# PyPI-пакет называется browserstealthmcp: имя stealth-browser-mcp на PyPI
+# занято другим проектом и ставит не то. Шим в {{ pipx_bin_dir }} —
+# stealth-browser-mcp. Ставится через pipx (роль pipx_apps), sudo не нужен.
+# Идемпотентность: есть шим — не трогаем; обновление —
+# `pipx upgrade browserstealthmcp`.
+#
+# Браузер ставит эта же роль (google_chrome_install выше); если нужен другой
+# Chromium (например, Yandex), он задаётся переменной окружения
+# STEALTH_BROWSER_EXECUTABLE в конфиге MCP-клиента:
+#   "env": {"STEALTH_BROWSER_EXECUTABLE": "/usr/bin/yandex-browser"}
+#
+# В конфиг opencode (~/.config/opencode/opencode.json) сервер прописывается
+# вручную, как kubectl-mcp-server из роли kubernetes:
+#   "mcp": {
+#     "stealth-browser": {
+#       "type": "local",
+#       "command": ["{{ stealth_browser_mcp_bin }}"],
+#       "enabled": true
+#     }
+#   }
+#
+# Полный набор — 101 инструмент, флаг --minimal оставляет 21. HTTP-транспорт
+# без STEALTH_BROWSER_MCP_AUTH_TOKEN наружу не выставлять: сервер даёт доступ
+# к cookies, локальным файлам и CDP.
+stealth_browser_mcp_install: true
+stealth_browser_mcp_package: browserstealthmcp
+stealth_browser_mcp_bin: "{{ pipx_bin_dir }}/stealth-browser-mcp"

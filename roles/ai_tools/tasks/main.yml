@@ -1,8 +1,8 @@
 ---
 # ============================================================================
-# Роль ai_tools: herdr, rtk, T3 Code и Ouroboros (усиление AI-агентов).
-# Ставит бинарники, конфиги, приложения T3 Code и Ouroboros, интеграции
-# с opencode.
+# Роль ai_tools: herdr, rtk, stealth-browser-mcp, T3 Code и Ouroboros
+# (усиление AI-агентов). Ставит бинарники, pipx-пакеты, конфиги, приложения
+# T3 Code и Ouroboros, интеграции с opencode.
 # ============================================================================
 
 - name: Установить herdr и rtk (актуальные версии)
@@ -10,6 +10,20 @@
     name: binaries
   vars:
     binaries_to_install: "{{ ai_tools_binaries }}"
+
+- name: Установить Google Chrome (браузер для stealth-browser-mcp, deb)
+  ansible.builtin.include_tasks:
+    file: google-chrome.yml
+  when: google_chrome_install
+
+- name: Установить stealth-browser-mcp (MCP-сервер браузера, pipx)
+  ansible.builtin.include_role:
+    name: pipx_apps
+  vars:
+    pipx_apps:
+      - name: "{{ stealth_browser_mcp_package }}"
+        creates: stealth-browser-mcp
+  when: stealth_browser_mcp_install
 
 - name: Установить T3 Code (десктопный пульт к агентам, .deb)
   ansible.builtin.include_tasks:

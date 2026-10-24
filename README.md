@@ -559,6 +559,8 @@ mode не пишется: `copy` в dry-run ничего не меняет.
 
 - [herdr](https://github.com/herdrdev/herdr) — TUI-оболочка для сессий и панелей coding-агентов.
 - [rtk](https://github.com/rtk-ai/rtk) — прокси, который сжимает и фильтрует вывод перед отправкой в контекст LLM.
+- [stealth-browser-mcp](https://github.com/vibheksoni/stealth-browser-mcp) — MCP-сервер браузера для AI-агентов: навигация, DOM и перехват сети через CDP.
+- [Google Chrome](https://www.google.com/chrome/) — официальный .deb-пакет (нужен stealth-browser-mcp).
 - [T3 Code](https://github.com/pingdotgg/t3code) — графический пульт к coding-агентам (desktop, web, мобильные клиенты).
 - [Ouroboros](https://github.com/razzant/ouroboros) — AI-агент с десктопным приложением, CLI и web-интерфейсом.
 
@@ -1455,12 +1457,12 @@ playbook'ов (почему и как поставить в конкретном
 
 ---
 
-## herdr, rtk, T3 Code и Ouroboros — инструменты для AI-агентов
+## herdr, rtk, stealth-browser-mcp, T3 Code и Ouroboros — инструменты для AI-агентов
 
 Роль `ai_tools` ставит два CLI, усиливающих coding-агентов (opencode и др.),
-и два приложения — T3 Code и Ouroboros. Бинарники кладутся в
-`/usr/local/bin/` через роль `binaries` (версия — актуальная на момент
-запуска).
+MCP-сервер браузера с Google Chrome и два приложения — T3 Code и Ouroboros.
+Бинарники кладутся в `/usr/local/bin/` через роль `binaries` (версия —
+актуальная на момент запуска), pipx-пакет — в изолированное окружение.
 
 - **herdr** (`herdrdev/herdr`) — TUI-оболочка поверх терминала: управляет
   сессиями/панелями/вкладками coding-агентов, показывает их состояние
@@ -1532,6 +1534,62 @@ ouroboros run --start "2+2?"
 - **Данные** — `~/Ouroboros/data`. Удаление пакета их не трогает, чистить
   вручную.
 - **Идемпотентность:** есть `/usr/bin/ouroboros` — роль ничего не качает.
+
+### stealth-browser-mcp — MCP-сервер браузера
+
+`vibheksoni/stealth-browser-mcp` — MCP-сервер для AI-клиентов (opencode,
+Claude, Cursor): навигация, извлечение DOM и CSS, перехват запросов и ответов,
+cookie/storage, CDP-команды и хуки на сеть. Работает через `nodriver` и
+запускает настоящий Chrome/Chromium/Edge, поэтому проходит часть проверок
+Cloudflare/Queue-It, где палится Playwright (результат зависит от сайта,
+региона и версии браузера).
+
+Ставится из PyPI через pipx (роль `pipx_apps`): изолированный venv, шим
+`stealth-browser-mcp` в `~/.local/bin`, sudo не нужен. PyPI-пакет называется
+`browserstealthmcp` — имя `stealth-browser-mcp` на PyPI занято другим,
+не относящимся к проекту пакетом.
+
+```bash
+stealth-browser-mcp --list-sections
+stealth-browser-mcp --minimal   # 21 инструмент вместо 101
+```
+
+- **Браузер:** роль ставит Google Chrome официальным `.deb`
+  (`google-chrome-stable_current_amd64.deb`, ~150 МБ; качается только если
+  `/usr/bin/google-chrome` ещё нет). Пакет сам подключает свой
+  apt-репозиторий (`/etc/apt/sources.list.d/google-chrome.sources` и ключ
+  `/usr/share/keyrings/google-chrome.gpg`), поэтому обновления дальше
+  приходят обычным `apt upgrade`; своих source-файлов плейбук не пишет.
+  В Ubuntu Chromium есть только как snap, а confinement ограничивает доступ
+  к профилю и `DevToolsActivePort` (он остаётся в приватном `/tmp` снапа),
+  поэтому CDP-подключение из nodriver там не гарантировано. Сервер находит
+  `/usr/bin/google-chrome` сам; другой Chromium (например, Yandex) задаётся
+  переменной `STEALTH_BROWSER_EXECUTABLE` в конфиге MCP-клиента:
+  `"env": {"STEALTH_BROWSER_EXECUTABLE": "/usr/bin/yandex-browser"}`.
+- **Выключить браузер:** `google_chrome_install: false` в
+  `roles/ai_tools/defaults/main.yml`.
+- **Подключение** — вручную в `~/.config/opencode/opencode.json` (плейбук
+  конфиг MCP-клиента не пишет, как и для `kubectl-mcp-server`):
+
+  ```json
+  "mcp": {
+    "stealth-browser": {
+      "type": "local",
+      "command": ["/home/<user>/.local/bin/stealth-browser-mcp"],
+      "enabled": true
+    }
+  }
+  ```
+
+  Claude/Cursor (`mcpServers`): `{"command": "stealth-browser-mcp", "args": []}`.
+- **Идемпотентность:** есть шим — роль не трогает пакет. Обновление —
+  `pipx upgrade browserstealthmcp`.
+- **Безопасность:** сервер даёт доступ к cookies, локальным файлам и CDP,
+  поэтому запускать его только по stdio с доверенным клиентом. HTTP-транспорт
+  (`--transport http`) без `STEALTH_BROWSER_MCP_AUTH_TOKEN` наружу не
+  выставлять.
+- **Выключить MCP-сервер:** `stealth_browser_mcp_install: false` в
+  `roles/ai_tools/defaults/main.yml`.
 
 ### Конфиги
 
