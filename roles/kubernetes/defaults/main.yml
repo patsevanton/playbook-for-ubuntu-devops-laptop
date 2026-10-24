@@ -220,6 +220,17 @@ kubernetes_binaries:
     url: "https://github.com/jlandowner/helm-chartsnap/releases/download/{tag}/chartsnap_v{version}_linux_amd64.tar.gz"
     archive: tar
     member: chartsnap
+  # helm-docs — генерация README.md для Helm-чарта из Chart.yaml, values.yaml
+  # и комментариев `# -- ...` в values: таблица параметров с типами и
+  # дефолтами обновляется одной командой, а не руками. Пара к terraform-docs
+  # (роль iac) для чартов. Релиз — helm-docs_{version}_Linux_x86_64.tar.gz,
+  # бинарник helm-docs в корне архива.
+  - name: helm-docs
+    source: github
+    repo: norwoodj/helm-docs
+    url: "https://github.com/norwoodj/helm-docs/releases/download/{tag}/helm-docs_{version}_Linux_x86_64.tar.gz"
+    archive: tar
+    member: helm-docs
   # kubewall — Kubernetes-дашборд одним бинарником: один UI на несколько
   # кластеров (kubeconfig-файлы), просмотр и правка ресурсов, логи, exec,
   # события — без установки чего-либо в сам кластер. Релиз —

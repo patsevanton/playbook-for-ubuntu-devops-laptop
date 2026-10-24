@@ -8,7 +8,7 @@
 `TODO*.md`, ни в `roles/**` (defaults, tasks, templates). То есть утилита не
 ставится и нигде в проекте не обсуждалась как кандидат.
 
-Из 183 отсутствующих записей сюда попали **99** — активные и не дублирующие
+Из 177 отсутствующих записей сюда попали **93** — активные и не дублирующие
 уже установленное. Остальные разложены по своим трекерам, чтобы не дублировать
 один кандидат в нескольких файлах:
 
@@ -55,7 +55,6 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 | Утилита | Что это |
 | --- | --- |
 | [exo](https://github.com/exoscale/cli/) | CLI для всего в Exoscale: вычисления, хранилище, DNS |
-| [helm-docs](https://github.com/norwoodj/helm-docs/) | генерация документации для Helm-чартов (в апстриме описание ошибочно скопировано с hcloud) |
 | [terraform-inventory](https://github.com/adammck/terraform-inventory/) | создание ansible-инвентаря из terraform |
 | [tofu](https://github.com/opentofu/opentofu) | декларативное управление облачной инфраструктурой |
 
@@ -67,7 +66,6 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 | [asciigraph](https://github.com/guptarohit/asciigraph/) | Go-пакет для лёгких ASCII-графиков в консольных приложениях без зависимостей |
 | [comet](https://github.com/liamg/comet/) | CLI для сообщений в стиле conventional commit |
 | [gocloc](https://github.com/hhatto/gocloc/) | быстрый подсчёт строк кода (cloc) |
-| [golangci-lint](https://github.com/golangci/golangci-lint/) | быстрый раннер линтеров для Go |
 | [goreleaser](https://github.com/goreleaser/goreleaser/) | быстрая и простая доставка Go-бинарников |
 | [gosec](https://github.com/securego/gosec/) | проверка безопасности Go-кода |
 | [gowrap](https://github.com/hexdigest/gowrap/) | генерация декораторов для Go-интерфейсов |
@@ -99,7 +97,6 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 | --- | --- |
 | [ali](https://github.com/nakabonne/ali/) | генерация HTTP-нагрузки с построением результатов в реальном времени |
 | [checkip](https://github.com/jreisinger/checkip/) | проверка IP-адреса через разные публичные сервисы |
-| [chisel](https://github.com/jpillora/chisel/) | быстрый TCP/UDP-туннель поверх HTTP |
 | [ddosify](https://github.com/ddosify/ddosify) | высокопроизводительный инструмент нагрузочного тестирования на Go |
 | [plow](https://github.com/six-ddc/plow/) | высокопроизводительный HTTP-бенчмарк с веб-UI и выводом в терминал в реальном времени |
 | [pomerium-cli](https://github.com/pomerium/cli/) | CLI identity-aware прокси Pomerium |
@@ -114,7 +111,6 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 | [egress-auditor](https://github.com/devops-works/egress-auditor) | аудит исходящих соединений и заполнение цепочки OUTPUT |
 | [grafana-kiosk](https://github.com/grafana/grafana-kiosk/) | kiosk-режим для Grafana |
 | [influxevent](https://gitlab.com/devopsworks/tools/influxevent/) | обёртка команд с отправкой результата, таймингов и метрик производительности в InfluxDB |
-| [pint](https://github.com/cloudflare/pint/) | линтер правил Prometheus |
 | [scan-exporter](https://github.com/devops-works/) | сканирование целей с выдачей результатов в Prometheus |
 
 ### Базы данных и Kafka
@@ -148,7 +144,6 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 | [pandoc-plot](https://laurentrdc.github.io/pandoc-plot/) | рендер графиков и вставка рисунков в документы Pandoc |
 | [peco](https://github.com/peco/peco/) | простой интерактивный фильтр |
 | [pet](https://github.com/knqyf263/pet) | простой менеджер сниппетов командной строки на Go |
-| [rga](https://github.com/phiresky/ripgrep-all/) | ripgrep с поиском внутри PDF, электронных книг, документов Office, zip и tar.gz |
 | [shdotenv](https://github.com/ko1nksm/shdotenv/) | поддержка dotenv для shell и POSIX-спецификации .env |
 | [slides](https://maaslalani.com/slides/) | презентации в терминале |
 | [wtf](https://github.com/wtfutil/wtf/) | персональный информационный дашборд в терминале |
@@ -169,7 +164,6 @@ Ubuntu 26.04. Живость апстрима здесь уже проверен
 | [imgpkg](https://github.com/vmware-tanzu/carvel-imgpkg/) | хранение и распространение наборов файлов (например, конфигурации приложения) как образов в Docker (OCI) registry |
 | [jira-cli](https://github.com/ankitpokhrel/jira-cli) | функциональный интерактивный CLI для Jira |
 | [juicefs](https://github.com/juicedata/juicefs/) | распределённая POSIX-ФС поверх Redis и S3 |
-| [kopia](https://github.com/kopia/kopia/) | кроссплатформенный инструмент бэкапа: быстрые инкрементальные копии, клиентское E2E-шифрование, сжатие и дедупликация; CLI и GUI |
 | [lux](https://github.com/iawia002/lux/) | быстрый, простой и аккуратный загрузчик видео |
 | [toji](https://github.com/leucos/toji/) | мост Toggle → Jira: синхронизация записей Toggl в worklog задач Jira |
 | [upx](https://github.com/upx/upx/) | упаковщик исполняемых файлов |

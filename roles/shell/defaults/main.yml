@@ -9,6 +9,8 @@ shell_packages:
   - fzf
   - ripgrep
   - fd-find
+  # poppler-utils даёт pdftotext/pdfinfo — через них rga ищет текст внутри PDF.
+  - poppler-utils
   # fontconfig даёт fc-cache — им обновляется кэш шрифтов (Nerd Font ниже).
   - fontconfig
   # shellcheck — статический анализ shell-скриптов на ошибки и баги.
@@ -63,6 +65,24 @@ shell_binaries:
     url: "https://github.com/sharkdp/bat/releases/download/{tag}/bat-v{version}-x86_64-unknown-linux-gnu.tar.gz"
     archive: tar
     member: bat-v{version}-x86_64-unknown-linux-gnu/bat
+  # rga (ripgrep-all) — ripgrep, который ищет внутри PDF, EPUB, docx и других
+  # Office-документов, архивов (zip, tar.gz) и баз SQLite: адаптеры вытаскивают
+  # текст и отдают его тому же ripgrep, поэтому синтаксис и флаги привычные.
+  # PDF разбирает pdftotext из poppler-utils (пакетом выше), видео — ffmpeg,
+  # остальное — встроенными адаптерами. rga запускает вспомогательный
+  # rga-preproc, поэтому ставим оба бинарника из одного тарболла.
+  - name: rga
+    source: github
+    repo: phiresky/ripgrep-all
+    url: "https://github.com/phiresky/ripgrep-all/releases/download/{tag}/ripgrep_all-v{version}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: ripgrep_all-v{version}-x86_64-unknown-linux-musl/rga
+  - name: rga-preproc
+    source: github
+    repo: phiresky/ripgrep-all
+    url: "https://github.com/phiresky/ripgrep-all/releases/download/{tag}/ripgrep_all-v{version}-x86_64-unknown-linux-musl.tar.gz"
+    archive: tar
+    member: ripgrep_all-v{version}-x86_64-unknown-linux-musl/rga-preproc
   # difftastic — структурный diff: понимает синтаксис языка (а не строки).
   # Релиз — тарболл с одиночным бинарником difft.
   - name: difftastic
@@ -319,6 +339,18 @@ shell_binaries:
     url: "https://github.com/nixys/nxs-backup/releases/download/{tag}/nxs-backup-amd64.tar.gz"
     archive: tar
     member: nxs-backup
+  # kopia — инкрементальные бэкапы файлов с дедупликацией и клиентским
+  # шифрованием: репозиторий локально, на SFTP, S3 или WebDAV, снапшоты по
+  # расписанию, восстановление отдельных файлов и монтирование снапшота как
+  # ФС. nxs-backup закрывает серверные бэкапы по YAML (БД, каталоги), kopia —
+  # рабочую станцию и личные файлы. Релиз — kopia-{version}-linux-x64.tar.gz,
+  # бинарник лежит в каталоге kopia-{version}-linux-x64/.
+  - name: kopia
+    source: github
+    repo: kopia/kopia
+    url: "https://github.com/kopia/kopia/releases/download/{tag}/kopia-{version}-linux-x64.tar.gz"
+    archive: tar
+    member: kopia-{version}-linux-x64/kopia
   # jlv (json-log-viewer) — интерактивный просмотр JSON-логов: строки
   # раскладываются в таблицу, фильтры по полям, переход к ошибкам. Дополняет
   # hl (универсальный пейджер): jlv заточен под навигацию по JSON-потоку.

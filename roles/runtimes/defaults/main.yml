@@ -32,6 +32,18 @@ runtimes_binaries:
     url: "https://github.com/dagger/dagger/releases/download/{tag}/dagger_v{version}_linux_amd64.tar.gz"
     archive: tar
     member: dagger
+  # golangci-lint — раннер линтеров Go: staticcheck, govet, errcheck, revive,
+  # gocritic и десятки других одним прогоном по конфигу .golangci.yml.
+  # Кэширует результаты и умеет отдавать отчёты в форматы CI. Дополняет
+  # остальные линтеры плейбука (shellcheck, hadolint, yamllint) — Go-код
+  # они не проверяют. Релиз — golangci-lint-{version}-linux-amd64.tar.gz,
+  # бинарник лежит в каталоге golangci-lint-{version}-linux-amd64/.
+  - name: golangci-lint
+    source: github
+    repo: golangci/golangci-lint
+    url: "https://github.com/golangci/golangci-lint/releases/download/{tag}/golangci-lint-{version}-linux-amd64.tar.gz"
+    archive: tar
+    member: golangci-lint-{version}-linux-amd64/golangci-lint
 
 # --- Lima: Linux-VM поверх Linux ---------------------------------------------
 # Запускает изолированные Linux-VM (containerd, Docker, k3s внутри) без

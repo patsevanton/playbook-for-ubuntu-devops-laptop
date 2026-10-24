@@ -73,6 +73,13 @@ network_go_apps:
   # поэтому ставим `go install`.
   - name: reachable
     package: github.com/italolelis/reachable
+  # chisel — TCP/UDP-туннель поверх HTTP: `chisel server` на внешней машине и
+  # `chisel client` локально пробрасывают порты через один 443-порт с TLS и
+  # аутентификацией. Нужен там, где SSH наружу закрыт, а HTTPS проходит;
+  # дополняет ssh -L/-D и assh. В релизах только .gz с одиночным бинарником,
+  # роль binaries такой формат не распаковывает, поэтому ставим `go install`.
+  - name: chisel
+    package: github.com/jpillora/chisel
 
 # Скачиваемые бинарники сетевой диагностики.
 network_binaries:

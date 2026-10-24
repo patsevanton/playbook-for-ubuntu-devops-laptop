@@ -163,6 +163,7 @@ ansible-lint                                   # проверка стиля (pr
 - [ytt](https://github.com/carvel-dev/ytt) — шаблонизатор YAML по структуре документа, а не по тексту.
 - [kbld](https://github.com/carvel-dev/kbld) — фиксация образов по digest в манифестах.
 - [chartsnap](https://github.com/jlandowner/helm-chartsnap) — snapshot-тесты Helm-чартов.
+- [helm-docs](https://github.com/norwoodj/helm-docs) — генерация README Helm-чарта из `Chart.yaml` и `values.yaml`.
 - [kubewall](https://github.com/kubewall/kubewall) — веб-дашборд на несколько кластеров одним бинарником.
 - [kubevpn](https://github.com/kubenetworks/kubevpn) — VPN в кластер: поды видны как соседи в локальной сети.
 - [netfetch](https://github.com/deggja/netfetch) — поиск ворклоадов, не покрытых NetworkPolicy.
@@ -341,6 +342,7 @@ ansible-lint                                   # проверка стиля (pr
 - [Java 21 (OpenJDK)](https://openjdk.org/) — JDK из apt.
 - [QEMU](https://github.com/qemu/qemu) — виртуалка для Lima (`qemu-system-x86_64`, `qemu-img`).
 - [dagger](https://github.com/dagger/dagger) — CI-пайплайны как код: шаги на Go/Python/TypeScript в контейнерах.
+- [golangci-lint](https://github.com/golangci/golangci-lint) — раннер линтеров Go: staticcheck, govet, errcheck, revive одним прогоном.
 - [Lima](https://github.com/lima-vm/lima) — Linux-VM поверх Linux (`limactl`, `lima`): containerd, Docker и k3s внутри.
 
 ### secrets
@@ -373,6 +375,7 @@ ansible-lint                                   # проверка стиля (pr
 - [zoxide](https://github.com/ajeetdsouza/zoxide) — быстрый переход по каталогам (`z`).
 - [fzf](https://github.com/junegunn/fzf) — интерактивный fuzzy-поиск.
 - [ripgrep](https://github.com/BurntSushi/ripgrep) — быстрый рекурсивный grep.
+- [rga (ripgrep-all)](https://github.com/phiresky/ripgrep-all) — ripgrep с поиском внутри PDF, EPUB, Office-документов и архивов.
 - [fd-find](https://github.com/sharkdp/fd) — простая и быстрая замена `find`.
 - [starship](https://github.com/starship/starship) — prompt с информацией о репозитории и окружении.
 - [bat](https://github.com/sharkdp/bat) — `cat` с подсветкой синтаксиса и номерами строк.
@@ -426,6 +429,7 @@ ansible-lint                                   # проверка стиля (pr
 - [spf (superfile)](https://github.com/yorukot/superfile) — двухпанельный TUI-файлменеджер: превью, корзина, массовое переименование.
 - [shellclear](https://github.com/rusty-ferris-club/shellclear) — поиск секретов и опасных команд в истории shell.
 - [nxs-backup](https://github.com/nixys/nxs-backup) — бэкапы по YAML-описанию.
+- [kopia](https://github.com/kopia/kopia) — инкрементальные бэкапы файлов с дедупликацией и клиентским шифрованием.
 - [cheat](https://github.com/cheat/cheat) — собственные шпаргалки команд.
 - [tldr](https://github.com/tldr-pages/tldr) — краткие примеры команд.
 - [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts) — шрифт с иконками для prompt и `eza --icons`.
@@ -476,6 +480,7 @@ ansible-lint                                   # проверка стиля (pr
 - [sshx](https://github.com/ekzhang/sshx) — совместный терминал в браузере.
 - [txeh](https://github.com/txn2/txeh) — управление `/etc/hosts` из CLI.
 - [assh](https://github.com/moul/assh) — генерация SSH-конфигов, jump-хосты и прокси.
+- [chisel](https://github.com/jpillora/chisel) — TCP/UDP-туннель поверх HTTP: проброс портов через один 443 с TLS.
 - [gossl](https://github.com/vvrnv/gossl) — проверка SSL-сертификата: цепочка, срок, протоколы.
 - [crip (certificate-ripper)](https://github.com/Hakky54/certificate-ripper) — извлечение цепочки сертификатов с хоста.
 - [k6](https://github.com/grafana/k6) — нагрузочное тестирование сценариями на JS.
@@ -500,6 +505,7 @@ ansible-lint                                   # проверка стиля (pr
 
 - [vmalert-tool](https://github.com/VictoriaMetrics/VictoriaMetrics) — офлайн-проверка и unit-тесты алерт-правил.
 - [sloth](https://github.com/slok/sloth) — генерация SLO и алертов из короткого описания.
+- [pint](https://github.com/cloudflare/pint) — линтер правил Prometheus: PromQL, ссылки на метрики, дубли, контроль изменений в CI.
 - [cloudprober](https://github.com/cloudprober/cloudprober) — активные пробы HTTP/PING/TCP/DNS.
 - [canary-checker](https://github.com/flanksource/canary-checker) — health-check платформа с проверками из YAML.
 - [krr](https://github.com/robusta-dev/krr) — рекомендации requests/limits по фактическому потреблению.

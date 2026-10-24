@@ -38,6 +38,19 @@ monitoring_binaries:
     repo: slok/sloth
     url: "https://github.com/slok/sloth/releases/download/{tag}/sloth-linux-amd64"
     archive: none
+  # pint — линтер правил Prometheus: синтаксис YAML и PromQL, ссылки на
+  # метрики и алерты, дубли и «мёртвые» выражения, проверка ограничений
+  # (`pint lint`). В режиме `pint ci` сравнивает правила с базовой веткой и
+  # валит сборку на новых проблемах. vmalert-tool проверяет уже загруженный
+  # конфиг, sloth генерирует правила — pint ревьюит сами файлы в репозитории.
+  # Релиз — pint-{version}-linux-amd64.tar.gz, бинарник pint-linux-amd64
+  # в корне архива.
+  - name: pint
+    source: github
+    repo: cloudflare/pint
+    url: "https://github.com/cloudflare/pint/releases/download/{tag}/pint-{version}-linux-amd64.tar.gz"
+    archive: tar
+    member: pint-linux-amd64
   # cloudprober — активный мониторинг: сам шлёт HTTP/PING/TCP/DNS/UDP-пробы по
   # расписанию и строит метрики (Prometheus-совместимые) — видит проблему до
   # того, как её заметят пользователи (в отличие от мониторинга по трафику).
