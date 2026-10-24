@@ -26,7 +26,7 @@
 [`TODO-server-apps.md`](TODO-server-apps.md). Заброшенные проекты (архив GitHub,
 годы без обновлений) описаны только в [`TODO-abandoned.md`](TODO-abandoned.md).
 
-Способ установки сверен 2026-10-22: для GitHub-проектов — ассеты последнего
+Способ установки сверен 2026-10-24: для GitHub-проектов — ассеты последнего
 релиза, для остальных — PyPI/apt. Перенесённые и отброшенные кандидаты — в
 конце файла.
 
@@ -36,6 +36,12 @@
 | --- | --- | --- | --- |
 | Диагностика и железо | [linnix](https://github.com/linnix-os/linnix) | eBPF-наблюдаемость с AI-детекцией инцидентов | Исходники и docker-образ; amd64 `.deb` был только в v0.1.0 (`cognitod_0.1.0_amd64.deb`), в v0.1.1 и v0.2.0 ассетов нет. Запрошено в [#124](https://github.com/linnix-os/linnix/issues/124) |
 | Безопасность | [flawz](https://github.com/orhun/flawz) | TUI-браузер CVE/уязвимостей | В релизе v0.4.1 только macOS/Windows и `flawz-installer.sh`; готового Linux-бинарника нет (`cargo build`). Запрошено в [#113](https://github.com/orhun/flawz/issues/113) |
+| Разработка | [httpstat](https://github.com/reorx/httpstat) | тайминги HTTP-запроса по этапам: DNS, connect, TLS, передача | Релизов нет вообще, только `go install` |
+| Разработка | [desed](https://github.com/SoptikHa2/desed) | пошаговый отладчик sed-скриптов | В релизе v1.2.2 нет linux-ассетов, только `cargo install desed` |
+| Диагностика и железо | [bashdb](https://bashdb.sourceforge.net/) | отладчик bash-скриптов | В Ubuntu пакета нет; апстрим на SourceForge отдаёт только tarball с исходниками и `make install` |
+| Удалённый доступ | [Eternal Terminal](https://github.com/MisterTea/EternalTerminal) | ssh-сессия, которая сама переподключается | В релизе `et-v7.0.0` только `arm64.deb` и `orig.tar.gz`; для amd64 нужна сборка из исходников |
+| Буфер обмена | [EcoPaste](https://github.com/EcoPasteHub/EcoPaste) | кроссплатформенный менеджер буфера обмена с историей | В релизе `v1.1.0` только macOS и Windows (`.dmg`, `.exe`), Linux-сборки нет |
+| Устройства | [librepods](https://github.com/librepods-org/librepods) | управление AirPods из Linux: шумоподавление, жесты, батарея | В релизе `v1.0.4` только Android APK; Linux-сборки нет |
 
 ---
 

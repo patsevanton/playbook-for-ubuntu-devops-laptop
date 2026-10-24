@@ -14,7 +14,9 @@
 - [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) —
   бинарник или пакет не запускается на Ubuntu 26.04;
 - [`TODO-server-apps.md`](TODO-server-apps.md) — серверные приложения,
-  сервисы, Helm-чарты и агенты на нодах Kubernetes (не на ноутбук).
+  сервисы, Helm-чарты и агенты на нодах Kubernetes (не на ноутбук);
+- [`TODO-binenv-not-added.md`](TODO-binenv-not-added.md) — активные кандидаты
+  из списка binenv, которых в плейбуке пока нет.
 
 Заброшенные проекты (архив GitHub, годы без обновлений) сюда не входят: они
 описаны только в [`TODO-abandoned.md`](TODO-abandoned.md).
@@ -69,6 +71,39 @@
 | kubectl-mcp-server | MCP-сервер Kubernetes для AI-инструментов | не нужен: дублирует `kubernetes-mcp-server` | — |
 | Hardeneks, MKAT, eksdemo | проверки, аудит и демо для Amazon EKS | не нужны: заточены под EKS, работа идёт с другими облаками | — |
 | mcp-for-argocd, Argazer | MCP-сервер и мониторинг чартов для Argo CD | Argo CD не используется | — |
+| watch | запуск команды каждые N секунд, реалтайм-мониторинг в консоли | не нужен: штатная утилита из `procps`, отдельная установка ничего не добавляет | — |
+| timeout | запуск команды с ограничением по времени | не нужен: штатная утилита из `coreutils` | — |
+| gitlab (NARKOZ/gitlab) | неофициальный Ruby CLI для GitLab: MR, issues, проекты | не нужен: функционально закрыт `glab` из роли `git` (официальный CLI) | — |
+| graphpath | ASCII-схема сети по таблице маршрутизации | не нужен: распространяется только Perl-скриптом, релизных артефактов нет | — |
+| teleconsole | шаринг терминала через сторонний сервис | не нужен: только установочный скрипт с сайта, релизов нет; сервис внешний | — |
+| SSHHeatmap | тепловая карта IP с неудачными SSH-входами | не нужен: только Python-скрипт из репозитория, релизов нет; частично закрыт `lastb` | — |
+| fpaste | отправка текста на pastebin (Fedora/RHEL) | не нужен: пакет есть только в Fedora/RHEL, в Ubuntu нет; для Ubuntu — `pastebinit` (кандидат) | — |
+| mkchain | цепочка сертификатов из файлов CA | не нужен: распространяется только shell-скриптом, релизов нет | — |
+| domain-check-2 | срок истечения доменов из списка | не нужен: только shell-скрипт, релиз без ассетов | — |
+| linux-exploit-suggester | подбор эксплойтов под локальное ядро | не ставим: распространяется только shell-скриптом, релизных артефактов нет | — |
+| Prochunter | поиск скрытых процессов в системе | не нужен: только Python-скрипт из GitLab, релизов нет | — |
+| DNSBL-скрипт | проверка IP по DNSBL-спискам | не нужен: gist-скрипт, ни релиза, ни пакета | — |
+| `rg` (ripgrep) | утилита из списка binenv | не нужен: это `ripgrep`, уже стоит в роли `shell` под своим именем | — |
+| `kubectl-krew` | установщик плагинов kubectl из списка binenv | не нужен: это `krew`, уже стоит в роли `kubernetes` | — |
+| `age-keygen` | генератор ключей из списка binenv | не нужен: часть проекта `age`, который стоит в роли `secrets`; отдельный бинарник ставится вместе с ним | — |
+| `ansible-operator` | оператор Ansible из списка binenv | не нужен: часть `operator-sdk`; операторы не пишутся (как `kubebuilder`) | — |
+| `helm-operator` | Helm-оператор из списка binenv | не нужен: часть `operator-sdk`; операторы не пишутся | — |
+| `dstask-import` | импорт задач из списка binenv | не нужен: вспомогательная утилита `dstask`; сам `dstask` — кандидат в `TODO-binenv-not-added.md` | — |
+| `httpx-win` | Windows-сборка httpx из списка binenv | не нужен: linux-версия `httpx` стоит в роли `network` | — |
+| `hugo-extended` | расширенная сборка Hugo из списка binenv | не нужен: нужен только для Sass/WebP; базовый `hugo` — кандидат в `TODO-binenv-not-added.md` | — |
+| `subfinder-win` | Windows-сборка subfinder из списка binenv | не нужен: linux-версия `subfinder` — кандидат в `TODO-binenv-not-added.md` | — |
+| `binenv` | менеджер бинарников из GitHub-релизов | не нужен: плейбук ставит программы напрямую, слой менеджера только мешает | — |
+| `kubeseal` | шифрование секретов Sealed Secrets | не нужен: Sealed Secrets-контроллер не разворачивается, секреты закрывают `sops` и `bank-vaults` | — |
+| `kubeval` | валидация Kubernetes-манифестов | не нужен: апстрим объявил проект deprecated, замена — `kubeconform` (стоит в роли `kubernetes`) | — |
+| `mizu` | анализатор API-трафика Kubernetes | не нужен: заменён `kubeshark`, который стоит в роли `kubernetes` | — |
+| impala | TUI для управления Wi-Fi | не нужен: работает только через `iwd` и требует отключить NetworkManager, а на Ubuntu NetworkManager — штатный путь | — |
+| term.everything | запуск GUI-приложений внутри терминала | не нужен: только beta-релизы без стабильной версии, сценарий нишевый | — |
+| gitu | TUI-клиент git в духе Magit | не нужен: дублирует `gitui` из роли `git` | — |
+| vfox | менеджер версий Java, Node.js, Go, Python и других SDK | не нужен: дублирует `mise` из роли `shell`; версии в плейбуке не фиксируются | — |
+| sshpilot | GUI-менеджер SSH-подключений и SFTP | не нужен: конфигом управляет `assh`, а TUI-вариант — кандидат `lazyssh`; GUI тянет GTK-зависимости | — |
+| ATAC | TUI-клиент HTTP в духе Postman | не нужен: разовые запросы закрывают `httpie` и `xh`, а коллекции — кандидат `posting` | — |
+| freelens | desktop-IDE для Kubernetes (форк Lens) | не нужен: то же место занимают `headlamp` и `k9s` из роли `kubernetes` | — |
+| neohtop | GUI-монитор системы на Tauri | не нужен: мониторинг закрывают `btop` и `bottom` из роли `shell` | — |
 
 ---
 

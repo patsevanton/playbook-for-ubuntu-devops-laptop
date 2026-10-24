@@ -2,6 +2,9 @@
 
 Кандидаты из трендов GitHub, которые осознанно не попали в плейбук, — в
 [`TODO-trend-github-not-added.md`](TODO-trend-github-not-added.md),
+новая партия утилит для ноутбука из трендов за последние 3 года (срезка
+2026-10-24) — в
+[`TODO-trend-github-last-3-years.md`](TODO-trend-github-last-3-years.md),
 opencode 2 (один агент
 раздаёт задачи другим, включая pitwall и herdr) — в
 [`TODO-opencode-orchestration.md`](TODO-opencode-orchestration.md), утилиты,
@@ -15,8 +18,14 @@ GitHub — в [`TODO-no-prebuilt-binary.md`](TODO-no-prebuilt-binary.md),
 [`TODO-server-apps.md`](TODO-server-apps.md), всё из Ansible Galaxy (роли,
 коллекции, готовые playbook'и), которое плейбук не ставит, — в
 [`TODO-ansible-galaxy-not-install.md`](TODO-ansible-galaxy-not-install.md),
+кандидаты из списка binenv (готовые релизные бинарники), которых в плейбуке
+пока нет, — в [`TODO-binenv-not-added.md`](TODO-binenv-not-added.md),
 заброшенные проекты (архив GitHub или годы без обновлений) — в
-[`TODO-abandoned.md`](TODO-abandoned.md).
+[`TODO-abandoned.md`](TODO-abandoned.md), живые кандидаты из статьи Habr
+«Полезные консольные Linux утилиты» (habr.com/ru/articles/553000) — в
+[`TODO-habr-553000-not-added.md`](TODO-habr-553000-not-added.md); остальные
+утилиты оттуда разложены по своим трекерам — `TODO-abandoned.md`,
+`TODO-no-prebuilt-binary.md`, `TODO-server-apps.md`, `not-install.md`.
 Не кандидат, а план работ — генератор архитектурных схем из
 Terraform/Terragrunt: [`TODO-diagrams.md`](TODO-diagrams.md).
 

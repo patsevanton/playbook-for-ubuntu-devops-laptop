@@ -56,6 +56,7 @@
 # k9s раньше ставился бинарником в bin_dir: /usr/local/bin/k9s перекрывает
 # /usr/bin/k9s из .deb (bin_dir в PATH раньше), поэтому старый файл убираем.
 - name: Удалить k9s, установленный ранее как бинарник (переход на .deb)
+  become: true
   ansible.builtin.file:
     path: "{{ bin_dir }}/k9s"
     state: absent

@@ -31,7 +31,9 @@
   linux-amd64 бинарника;
 - [`TODO-incompatible-ubuntu-2604.md`](TODO-incompatible-ubuntu-2604.md) —
   бинарник не запускается на Ubuntu 26.04;
-- [`not-install.md`](not-install.md) — осознанный отказ из-за бага/issue.
+- [`not-install.md`](not-install.md) — осознанный отказ из-за бага/issue;
+- [`TODO-binenv-not-added.md`](TODO-binenv-not-added.md) — активные
+  CLI-кандидаты из списка binenv.
 
 ---
 
@@ -137,6 +139,25 @@
       метрики в Prometheus. На ноутбуке не нужен: хватает
       `power-profiles-daemon` и `amd-pstate`/`intel_pstate`.
 
+- [ ] **loki** — хранилище логов (стек PLG). *(`helm`)* — сервис с
+      хранилищем, ретеншеном и запросами —
+      [grafana/loki](https://github.com/grafana/loki) — локальный лог-стек
+      плейбук не собирает.
+- [ ] **promtail** — агент сбора логов для Loki. *(`бинарник`)* — DaemonSet
+      на нодах — [grafana/loki](https://github.com/grafana/loki) — без Loki и
+      кластера отправлять нечего, ставится на ноды.
+- [ ] **logcli** — CLI-клиент Loki. *(`бинарник`)* —
+      [grafana/loki](https://github.com/grafana/loki) — без сервера Loki
+      клиент бесполезен.
+- [ ] **parca** — continuous profiling: сервер профилей и агент. *(`helm` /
+      `бинарник`)* — [parca-dev/parca](https://github.com/parca-dev/parca) —
+      сервер с хранилищем профилей, агент — DaemonSet на нодах.
+- [ ] **gpu-hot** — веб-дашборд реального времени по NVIDIA GPU: загрузка,
+      память, температура и процессы. *(`образ`)* —
+      [psalias2006/gpu-hot](https://github.com/psalias2006/gpu-hot) —
+      запускается контейнером с `--gpus all` и слушает порт; на ноутбуке
+      достаточно `nvidia-smi` и `btop`.
+
 ## 2. Данные, БД, хранилище и реестры артефактов
 
 - [ ] **ClickHouse** — колоночная OLAP-СУБД. *(`сервис`)* —
@@ -147,6 +168,10 @@
       *(`сервис`)* — [supabase/supabase](https://github.com/supabase/supabase)
 - [ ] **bytebase** — UI для миграций и ревью схем БД. *(`сервис`)* —
       [bytebase/bytebase](https://github.com/bytebase/bytebase)
+- [ ] **ChartDB** — редактор и визуализация схем БД по SQL-дампу, веб-UI.
+      *(`сервис`)* — [chartdb/chartdb](https://github.com/chartdb/chartdb) —
+      self-hosted веб-приложение; локально схему смотрят через
+      `pgcli`/`harlequin`, а для разовой диаграммы отдельный сервис не нужен.
 - [ ] **immich** — self-hosted фото/видео с мобильными клиентами.
       *(`сервис`)* — [immich-app/immich](https://github.com/immich-app/immich)
 - [ ] **sentry** — сервер сбора ошибок приложений. *(`сервис`)* —
@@ -178,6 +203,14 @@
       DaemonSet. *(`образ`)* — DaemonSet на нодах —
       [che-incubator/kubernetes-image-puller](https://github.com/che-incubator/kubernetes-image-puller)
       — ставится манифестами/оператором в кластер.
+
+- [ ] **athens** — прокси и хранилище Go-модулей. *(`бинарник` / `helm`)* —
+      [gomods/athens](https://github.com/gomods/athens) — отдельный сервис с
+      БД и S3; локально хватает кэша Go.
+- [ ] **velero** — бэкап и восстановление кластера. *(`бинарник` / `helm`)* —
+      [vmware-tanzu/velero](https://github.com/vmware-tanzu/velero) — CLI
+      управляет сервером в кластере и объектным хранилищем; без кластера и S3
+      не работает.
 
 ## 3. CI/CD, GitOps и IaC
 
@@ -228,6 +261,10 @@
 
 ## 4. Сеть, VPN и API-шлюзы
 
+- [ ] **https-portal** — автоматический HTTPS на nginx + Let's Encrypt в
+      Docker. *(`образ`)* — [SteveLTN/https-portal](https://github.com/SteveLTN/https-portal)
+      — распространяется контейнерным образом, работает сервисом, не на
+      ноутбуке.
 - [ ] **wg-easy** — веб-UI для WireGuard. *(`сервис`)* —
       [wg-easy/wg-easy](https://github.com/wg-easy/wg-easy)
 - [ ] **headscale** — self-hosted control-plane для Tailscale-клиентов.
@@ -281,6 +318,22 @@
       *(`сервис`)* — [skupperproject/skupper](https://github.com/skupperproject/skupper):
       CLI `skupper init` разворачивает site router в кластере, локального
       сценария без него нет
+
+- [ ] **traefik** — обратный прокси и ingress-контроллер. *(`бинарник` /
+      `helm`)* — [traefik/traefik](https://github.com/traefik/traefik) —
+      сервис с портами 80/443 и TLS, на ноутбуке не нужен.
+- [ ] **consul** — service discovery и KV-хранилище. *(`бинарник`)* —
+      сервер/агент с кластером и портами —
+      [hashicorp/consul](https://github.com/hashicorp/consul) — клиентских
+      сценариев без кластера Consul у плейбука нет.
+- [ ] **nomad** — оркестратор ворклоадов (альтернатива Kubernetes).
+      *(`бинарник`)* — сервер/агент —
+      [hashicorp/nomad](https://github.com/hashicorp/nomad) — нужны отдельные
+      хосты с Nomad, которых в проекте нет.
+- [ ] **pomerium** — identity-aware прокси. *(`бинарник` / `helm`)* —
+      [pomerium/pomerium](https://github.com/pomerium/pomerium) — серверная
+      часть; клиент — `pomerium-cli` (кандидат в
+      [`TODO-binenv-not-added.md`](TODO-binenv-not-added.md)).
 
 ## 5. Безопасность
 
@@ -384,6 +437,10 @@
       *(`helm`)* — [linki/chaoskube](https://github.com/linki/chaoskube)
 - [ ] **kubeinvaders** — chaos-игра про поды кластера. *(`образ`)* —
       [lucky-sideburn/kubeinvaders](https://github.com/lucky-sideburn/kubeinvaders)
+
+- [ ] **rancher** — платформа управления кластерами с UI. *(`helm` /
+      `сервис`)* — [rancher/rancher](https://github.com/rancher/rancher) —
+      сервер с веб-интерфейсом; CLI нужен только для работы с ним.
 
 ## 7. Знания, совместная работа и удалённый доступ
 
